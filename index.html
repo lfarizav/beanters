@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beanters — Cloud-Native Cellular Networks for the Global South</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080d1a;
+      --bg2: #0e1628;
+      --bg3: #141e35;
+      --surface: #1a2440;
+      --border: rgba(255,255,255,0.07);
+      --teal: oklch(0.72 0.16 192);
+      --teal-dim: oklch(0.55 0.14 192);
+      --teal-glow: oklch(0.72 0.16 192 / 0.15);
+      --amber: oklch(0.78 0.15 65);
+      --amber-dim: oklch(0.60 0.13 65);
+      --text: #eef0f6;
+      --text-mid: #9aa4bc;
+      --text-dim: #5a6480;
+      --font-head: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--teal-glow); }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--surface); border-radius: 4px; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+
+// ─── TWEAK DEFAULTS ──────────────────────────────────────────────────────────
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "teal",
+  "heroStyle": "cli",
+  "showStats": true,
+  "animateCLI": true
+}/*EDITMODE-END*/;
+
+// ─── UTILS ───────────────────────────────────────────────────────────────────
+const useIntersection = (ref, options) => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, options);
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return visible;
+};
+
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+function Nav({ tweaks }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', h);
+    return () => window.removeEventListener('scroll', h);
+  }, []);
+  const links = ['Products','Solutions','Technology','About','Contact'];
+  return (
+    <nav style={{
+      position:'fixed', top:0, left:0, right:0, zIndex:100,
+      padding:'0 2rem',
+      display:'flex', alignItems:'center', justifyContent:'space-between',
+      height:'64px',
+      background: scrolled ? 'rgba(8,13,26,0.92)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(16px)' : 'none',
+      borderBottom: scrolled ? '1px solid var(--border)' : 'none',
+      transition:'all 0.3s ease',
+    }}>
+      <a href="#hero" style={{textDecoration:'none'}}>
+        <span style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize:'1.25rem', letterSpacing:'-0.02em'}}>
+          <span style={{color:'var(--teal)'}}>bean</span><span style={{color:'var(--text)'}}>ters</span>
+        </span>
+      </a>
+
+      {/* desktop links */}
+      <div style={{display:'flex', gap:'2rem', alignItems:'center'}}>
+        {links.map(l => (
+          <a key={l} href={`#${l.toLowerCase()}`} style={{
+            fontFamily:'var(--font-body)', fontSize:'0.875rem', fontWeight:500,
+            color:'var(--text-mid)', textDecoration:'none',
+            transition:'color 0.2s',
+          }}
+          onMouseEnter={e=>e.target.style.color='var(--text)'}
+          onMouseLeave={e=>e.target.style.color='var(--text-mid)'}
+          >{l}</a>
+        ))}
+        <a href="#contact" style={{
+          display:'inline-flex', alignItems:'center', gap:'0.5rem',
+          background:'var(--teal)', color:'#080d1a',
+          fontFamily:'var(--font-head)', fontWeight:600, fontSize:'0.875rem',
+          padding:'0.5rem 1.25rem', borderRadius:'6px',
+          textDecoration:'none', transition:'opacity 0.2s',
+        }}
+        onMouseEnter={e=>e.target.style.opacity='0.85'}
+        onMouseLeave={e=>e.target.style.opacity='1'}
+        >Book Demo</a>
+      </div>
+    </nav>
+  );
+}
+
+// ─── CLI ANIMATION ────────────────────────────────────────────────────────────
+const CLI_LINES = [
+  { type:'comment', text:'# Deploy a 5G SA private network with NB-IoT support' },
+  { type:'cmd',     text:'ngntelco network deploy \\' },
+  { type:'arg',     text:'  --standard 5g-sa \\' },
+  { type:'arg',     text:'  --add-on nb-iot,lte-m \\' },
+  { type:'arg',     text:'  --orchestrator helm \\' },
+  { type:'arg',     text:'  --namespace private-net \\' },
+  { type:'arg',     text:'  --gnb-count 3' },
+  { type:'blank',   text:'' },
+  { type:'out',     text:'✔ Validating 3GPP R17 conformance...' },
+  { type:'out',     text:'✔ Rendering Helm chart manifests...' },
+  { type:'out',     text:'✔ Deploying OAI-gNB × 3 to cluster...' },
+  { type:'out',     text:'✔ Attaching Open5GS core (AMF/SMF/UPF)...' },
+  { type:'out',     text:'✔ Configuring NB-IoT & LTE-M bearers...' },
+  { type:'out',     text:'✔ Enabling observability stack (Grafana/Prometheus)...' },
+  { type:'blank',   text:'' },
+  { type:'success', text:'🟢 Network ONLINE — 3 gNBs active │ 0 ms latency target' },
+];
+
+function CLIWindow({ animate }) {
+  const [shown, setShown] = useState(animate ? 0 : CLI_LINES.length);
+  useEffect(() => {
+    if (!animate) { setShown(CLI_LINES.length); return; }
+    setShown(0);
+    let i = 0;
+    const iv = setInterval(() => {
+      i++;
+      setShown(i);
+      if (i >= CLI_LINES.length) clearInterval(iv);
+    }, 140);
+    return () => clearInterval(iv);
+  }, [animate]);
+
+  const colorMap = {
+    comment: 'var(--text-dim)',
+    cmd: 'var(--teal)',
+    arg: '#7ec8e3',
+    out: 'var(--text-mid)',
+    blank: 'transparent',
+    success: 'var(--amber)',
+  };
+
+  return (
+    <div style={{
+      background:'#060b17', border:'1px solid var(--border)',
+      borderRadius:'12px', overflow:'hidden',
+      boxShadow:'0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(56,210,200,0.08)',
+      fontFamily:'var(--font-mono)', fontSize:'0.8rem', lineHeight:'1.7',
+    }}>
+      {/* titlebar */}
+      <div style={{
+        display:'flex', alignItems:'center', gap:'6px',
+        padding:'10px 16px', background:'#0a1020',
+        borderBottom:'1px solid var(--border)',
+      }}>
+        {['#ff5f57','#ffbd2e','#28c840'].map((c,i)=>(
+          <div key={i} style={{width:12,height:12,borderRadius:'50%',background:c}}/>
+        ))}
+        <span style={{marginLeft:'auto', color:'var(--text-dim)', fontSize:'0.7rem', fontFamily:'var(--font-mono)'}}>
+          ngntelco v2.4.1
+        </span>
+      </div>
+      {/* content */}
+      <div style={{padding:'1.25rem 1.5rem', minHeight:'280px'}}>
+        <div style={{color:'var(--text-dim)', marginBottom:'0.5rem', fontSize:'0.7rem'}}>
+          $ ~ beanters-ops
+        </div>
+        {CLI_LINES.slice(0, shown).map((l, i) => (
+          <div key={i} style={{color: colorMap[l.type], whiteSpace:'pre'}}>
+            {l.type === 'cmd' ? <><span style={{color:'var(--text-dim)'}}>❯ </span>{l.text}</> : l.text || '\u00a0'}
+          </div>
+        ))}
+        {shown < CLI_LINES.length && (
+          <span style={{
+            display:'inline-block', width:'8px', height:'14px',
+            background:'var(--teal)', animation:'blink 0.9s steps(1) infinite',
+            verticalAlign:'middle', marginTop:'2px',
+          }}/>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── HERO ─────────────────────────────────────────────────────────────────────
+function Hero({ tweaks }) {
+  const [started, setStarted] = useState(false);
+  useEffect(() => { setTimeout(() => setStarted(true), 400); }, []);
+
+  return (
+    <section id="hero" style={{
+      minHeight:'100vh', display:'flex', flexDirection:'column',
+      justifyContent:'center', padding:'100px 2rem 4rem',
+      position:'relative', overflow:'hidden',
+    }}>
+      {/* background glow */}
+      <div style={{
+        position:'absolute', top:'-10%', right:'-5%',
+        width:'700px', height:'700px', borderRadius:'50%',
+        background:'radial-gradient(circle, oklch(0.72 0.16 192 / 0.08) 0%, transparent 70%)',
+        pointerEvents:'none',
+      }}/>
+      <div style={{
+        position:'absolute', bottom:'-20%', left:'-10%',
+        width:'500px', height:'500px', borderRadius:'50%',
+        background:'radial-gradient(circle, oklch(0.78 0.15 65 / 0.05) 0%, transparent 70%)',
+        pointerEvents:'none',
+      }}/>
+
+      <div style={{maxWidth:'1200px', margin:'0 auto', width:'100%'}}>
+        {/* badge */}
+        <div style={{
+          display:'inline-flex', alignItems:'center', gap:'0.5rem',
+          background:'var(--teal-glow)', border:'1px solid oklch(0.72 0.16 192 / 0.3)',
+          borderRadius:'100px', padding:'0.3rem 1rem',
+          fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--teal)',
+          marginBottom:'2rem', letterSpacing:'0.05em',
+        }}>
+          <span style={{width:6,height:6,borderRadius:'50%',background:'var(--teal)',flexShrink:0,animation:'pulse 2s infinite'}}/>
+          3GPP COMPLIANT · CLOUD-NATIVE · OPEN-SOURCE
+        </div>
+
+        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'5rem', alignItems:'center'}}>
+          <div>
+            <h1 style={{
+              fontFamily:'var(--font-head)', fontSize:'clamp(2.5rem,4.5vw,4rem)',
+              fontWeight:700, lineHeight:1.08, letterSpacing:'-0.03em',
+              marginBottom:'1.5rem',
+            }}>
+              Deploy Any <span style={{color:'var(--teal)'}}>Cellular Network</span>{' '}
+              with a Single Command
+            </h1>
+            <p style={{
+              fontFamily:'var(--font-body)', fontSize:'1.125rem',
+              color:'var(--text-mid)', lineHeight:1.7, marginBottom:'2rem',
+              maxWidth:'480px',
+            }}>
+              <strong style={{color:'var(--text)'}}>ngntelco CLI</strong> orchestrates Docker Compose, Helm, Kustomize, and Flux lifecycles to deploy 3GPP-standardized 4G/5G private networks, 5G Broadcast, NB-IoT, LTE-M, NTN, MBS — and more — on commodity hardware.
+            </p>
+
+            <div style={{display:'flex', gap:'1rem', flexWrap:'wrap', marginBottom:'3rem'}}>
+              <a href="#contact" style={{
+                display:'inline-flex', alignItems:'center', gap:'0.5rem',
+                background:'var(--teal)', color:'#080d1a',
+                fontFamily:'var(--font-head)', fontWeight:700, fontSize:'1rem',
+                padding:'0.875rem 1.75rem', borderRadius:'8px',
+                textDecoration:'none', transition:'all 0.2s',
+              }}
+              onMouseEnter={e=>{ e.currentTarget.style.transform='translateY(-1px)'; e.currentTarget.style.boxShadow='0 8px 24px oklch(0.72 0.16 192 / 0.35)'; }}
+              onMouseLeave={e=>{ e.currentTarget.style.transform='none'; e.currentTarget.style.boxShadow='none'; }}
+              >Book a Demo →</a>
+              <a href="#products" style={{
+                display:'inline-flex', alignItems:'center', gap:'0.5rem',
+                background:'transparent', color:'var(--text)',
+                fontFamily:'var(--font-head)', fontWeight:600, fontSize:'1rem',
+                padding:'0.875rem 1.75rem', borderRadius:'8px',
+                textDecoration:'none', border:'1px solid var(--border)',
+                transition:'all 0.2s',
+              }}
+              onMouseEnter={e=>{ e.currentTarget.style.borderColor='var(--teal-dim)'; }}
+              onMouseLeave={e=>{ e.currentTarget.style.borderColor='var(--border)'; }}
+              >Explore Products</a>
+            </div>
+
+            {/* mini stats */}
+            {tweaks.showStats && (
+              <div style={{display:'flex', gap:'2.5rem'}}>
+                {[
+                  { n:'8+', label:'Network Standards' },
+                  { n:'4', label:'Orchestrators' },
+                  { n:'1-touch', label:'Deployment' },
+                ].map(s => (
+                  <div key={s.n}>
+                    <div style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize:'1.5rem', color:'var(--teal)'}}>{s.n}</div>
+                    <div style={{fontFamily:'var(--font-body)', fontSize:'0.8rem', color:'var(--text-dim)'}}>{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* CLI window */}
+          <div>
+            <CLIWindow animate={started && tweaks.animateCLI} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── NETWORKS RIBBON ─────────────────────────────────────────────────────────
+function NetworksRibbon() {
+  const nets = ['4G LTE','5G SA','5G NSA','5G Broadcast','NB-IoT','LTE-M','NTN','MBS','FWA','TVWS'];
+  return (
+    <div style={{
+      borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)',
+      background:'var(--bg2)', padding:'1rem 0', overflow:'hidden', position:'relative',
+    }}>
+      <div style={{
+        display:'flex', gap:'3rem', alignItems:'center',
+        animation:'slide 25s linear infinite', whiteSpace:'nowrap',
+        width:'max-content',
+      }}>
+        {[...nets, ...nets].map((n,i) => (
+          <span key={i} style={{
+            fontFamily:'var(--font-mono)', fontSize:'0.75rem', letterSpacing:'0.08em',
+            color:'var(--text-dim)', textTransform:'uppercase',
+            display:'flex', alignItems:'center', gap:'0.75rem',
+          }}>
+            <span style={{width:4,height:4,borderRadius:'50%',background:'var(--teal)',display:'inline-block'}}/>
+            {n}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── PRODUCTS ─────────────────────────────────────────────────────────────────
+function ProductCard({ icon, name, tagline, desc, tags, featured }) {
+  const ref = useRef();
+  const vis = useIntersection(ref, { threshold: 0.1 });
+  const [hover, setHover] = useState(false);
+  return (
+    <div ref={ref} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
+      style={{
+        background: featured ? 'linear-gradient(135deg, var(--bg3), var(--surface))' : 'var(--bg2)',
+        border: `1px solid ${hover ? 'var(--teal-dim)' : featured ? 'oklch(0.72 0.16 192 / 0.25)' : 'var(--border)'}`,
+        borderRadius:'12px', padding:'2rem',
+        transition:'all 0.3s ease',
+        opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(24px)',
+        boxShadow: hover && featured ? '0 0 40px oklch(0.72 0.16 192 / 0.12)' : 'none',
+        gridColumn: featured ? 'span 2' : 'span 1',
+        display:'flex', gap:'2rem', flexDirection: featured ? 'row' : 'column',
+        alignItems: featured ? 'flex-start' : 'flex-start',
+      }}>
+      <div style={{flexShrink:0}}>
+        <div style={{
+          width:48, height:48, borderRadius:'10px',
+          background: featured ? 'var(--teal-glow)' : 'var(--surface)',
+          border:`1px solid ${featured ? 'oklch(0.72 0.16 192 / 0.3)' : 'var(--border)'}`,
+          display:'flex', alignItems:'center', justifyContent:'center',
+          fontSize:'1.5rem', marginBottom: featured ? 0 : '1rem',
+        }}>{icon}</div>
+      </div>
+      <div style={{flex:1}}>
+        {featured && (
+          <span style={{
+            fontFamily:'var(--font-mono)', fontSize:'0.7rem', letterSpacing:'0.1em',
+            color:'var(--teal)', textTransform:'uppercase', display:'block', marginBottom:'0.5rem',
+          }}>Core Product</span>
+        )}
+        <h3 style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize: featured ? '1.5rem' : '1.1rem', marginBottom:'0.4rem'}}>{name}</h3>
+        <p style={{color:'var(--teal)', fontFamily:'var(--font-mono)', fontSize:'0.8rem', marginBottom:'0.75rem'}}>{tagline}</p>
+        <p style={{color:'var(--text-mid)', fontSize:'0.9rem', lineHeight:1.65, marginBottom:'1rem'}}>{desc}</p>
+        <div style={{display:'flex', flexWrap:'wrap', gap:'0.5rem'}}>
+          {tags.map(t => (
+            <span key={t} style={{
+              fontFamily:'var(--font-mono)', fontSize:'0.7rem',
+              background:'var(--surface)', border:'1px solid var(--border)',
+              borderRadius:'4px', padding:'0.2rem 0.6rem', color:'var(--text-dim)',
+            }}>{t}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Products() {
+  return (
+    <section id="products" style={{padding:'6rem 2rem', maxWidth:'1200px', margin:'0 auto'}}>
+      <div style={{marginBottom:'3.5rem'}}>
+        <p style={{fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--teal)', letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:'0.75rem'}}>Our Products</p>
+        <h2 style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize:'clamp(2rem,3.5vw,2.75rem)', letterSpacing:'-0.02em', maxWidth:'600px'}}>
+          One CLI. Every 3GPP Network Standard.
+        </h2>
+      </div>
+      <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1.5rem'}}>
+        <ProductCard
+          featured
+          icon="⚡"
+          name="ngntelco CLI"
+          tagline="$ ngntelco network deploy --standard 5g-sa"
+          desc="Our flagship orchestration engine. A single command deploys, upgrades, and monitors any 3GPP-standardized cellular network across Docker Compose, Helm, Kustomize, or Flux GitOps pipelines — no vendor lock-in, no proprietary hardware required. Run on general-purpose x86 servers, mini-PCs, or cloud VMs."
+          tags={['Docker Compose','Helm','Kustomize','FluxCD','GitOps','Kubernetes','Open5GS','OAI','srsRAN','Magma']}
+        />
+        <ProductCard
+          icon="📡"
+          name="5G SA / 4G LTE Private Networks"
+          tagline="Industrial-grade private cellular"
+          desc="Deploy standalone 5G or 4G LTE private networks for enterprise campuses, factories, mines, and universities. Full core (AMF/SMF/UPF) + RAN in a single workflow. Includes VoLTE, VoNR, SMS, Data, and IPTV."
+          tags={['5G SA','4G LTE','Open5GS','OAI gNB','USRP / SDR']}
+        />
+        <ProductCard
+          icon="📺"
+          name="5G Terrestrial Broadcast"
+          tagline="LTE-based broadcast for media & emergency"
+          desc="Enable point-to-multipoint 5G broadcast for TV delivery, emergency alerts, and firmware-over-the-air updates to millions of devices using standard 3GPP FeMBMS/5G MBS specs — no return channel required."
+          tags={['5G MBS','FeMBMS','LTE Broadcast','MBSFN','eMBMS']}
+        />
+        <ProductCard
+          icon="🌐"
+          name="NB-IoT & LTE-M"
+          tagline="Massive IoT connectivity at scale"
+          desc="Low-power wide-area IoT networks for smart agriculture, asset tracking, smart meters, and environmental monitoring. Deploy private NB-IoT and LTE-M in parallel with existing 4G/5G infrastructure using ngntelco add-on modules."
+          tags={['NB-IoT','LTE-M','Cat-M1','PSM','eDRX','Massive IoT']}
+        />
+        <ProductCard
+          icon="🛰️"
+          name="NTN — Non-Terrestrial Networks"
+          tagline="5G for satellite & UAV backhaul"
+          desc="Extend cellular connectivity to remote and underserved areas using Non-Terrestrial Network configurations per 3GPP R17. Ideal for rural broadband, disaster response, and maritime connectivity in the Global South."
+          tags={['NTN','3GPP R17','LEO Sat','UAV','Rural Broadband']}
+        />
+      </div>
+    </section>
+  );
+}
+
+// ─── SOLUTIONS ────────────────────────────────────────────────────────────────
+function SolutionTab({ id, label, active, onClick }) {
+  return (
+    <button onClick={() => onClick(id)} style={{
+      fontFamily:'var(--font-head)', fontWeight:600, fontSize:'0.9rem',
+      padding:'0.6rem 1.25rem', borderRadius:'6px',
+      background: active ? 'var(--teal)' : 'transparent',
+      color: active ? '#080d1a' : 'var(--text-mid)',
+      border: active ? 'none' : '1px solid var(--border)',
+      cursor:'pointer', transition:'all 0.2s',
+    }}>{label}</button>
+  );
+}
+
+const SOLUTIONS = {
+  university: {
+    title: 'Universities & R&D Labs',
+    subtitle: 'From classroom to cutting-edge research',
+    desc: 'Beanters enables academic institutions to build their own 4G/5G testbeds in hours, not months. Run experiments on private networks, teach cloud-native telco operations, and contribute to open-source 3GPP research without multi-million-dollar vendor contracts.',
+    usecases: [
+      'Private 5G testbed for student labs',
+      '5G Broadcast for campus-wide content delivery',
+      'NB-IoT IoT research & sensor deployments',
+      'OAI/srsRAN emulation environments',
+      'Multi-objective optimization research (RAN energy)',
+    ],
+    accent: 'var(--teal)',
+  },
+  enterprise: {
+    title: 'Enterprise & Industry 4.0',
+    subtitle: 'Private connectivity for operational technology',
+    desc: 'Deploy deterministic private 5G networks for factory floors, mining operations, port logistics, and agribusiness. Fully isolated from public networks, with QoS slicing for robotics, cameras, and IoT sensors — all managed through a single CLI.',
+    usecases: [
+      'Smart factory wireless connectivity',
+      'AGV & robotic arm deterministic control',
+      'Remote sensing & SCADA over LTE-M',
+      'HD video quality inspection over 5G',
+      'Port & logistics tracking over private 4G',
+    ],
+    accent: 'var(--amber)',
+  },
+  government: {
+    title: 'Government & Rural Connectivity',
+    subtitle: 'Connecting the unconnected in the Global South',
+    desc: 'Governments and NGOs in Latin America, Africa, and Southeast Asia can deploy sovereign, open-source cellular networks for rural broadband, emergency response, and broadcast — without dependency on foreign proprietary vendors.',
+    usecases: [
+      'Rural broadband via 5G NTN backhaul',
+      'Emergency alert broadcasting over 5G MBS',
+      'Smart agriculture via NB-IoT sensors',
+      'Digital public services over private 4G',
+      'Spectrum sovereignty & open-source RAN',
+    ],
+    accent: 'oklch(0.72 0.18 140)',
+  },
+  telco: {
+    title: 'MVNOs & Telecom Operators',
+    subtitle: 'Open-source your network stack',
+    desc: 'Build or modernize your telco infrastructure with cloud-native, GitOps-driven network automation. ngntelco CLI bridges legacy operations and modern Kubernetes-native orchestration, enabling zero-touch provisioning of any network slice.',
+    usecases: [
+      'Zero-touch 5G SA core deployment',
+      'GitOps-driven network lifecycle management',
+      'Network slicing for multiple tenants',
+      'FluxCD-based continuous delivery for RAN',
+      'Observability with Prometheus & Grafana',
+    ],
+    accent: 'oklch(0.72 0.16 270)',
+  },
+};
+
+function Solutions() {
+  const [active, setActive] = useState('university');
+  const s = SOLUTIONS[active];
+  return (
+    <section id="solutions" style={{padding:'6rem 2rem', background:'var(--bg2)', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
+      <div style={{maxWidth:'1200px', margin:'0 auto'}}>
+        <p style={{fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--teal)', letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:'0.75rem'}}>Solutions</p>
+        <h2 style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize:'clamp(2rem,3.5vw,2.75rem)', letterSpacing:'-0.02em', marginBottom:'2.5rem'}}>
+          Built for Every Operator
+        </h2>
+
+        <div style={{display:'flex', gap:'0.75rem', flexWrap:'wrap', marginBottom:'3rem'}}>
+          {Object.entries({university:'University & R&D', enterprise:'Enterprise', government:'Government & NGO', telco:'Telecom Operators'}).map(([id,label]) => (
+            <SolutionTab key={id} id={id} label={label} active={active===id} onClick={setActive}/>
+          ))}
+        </div>
+
+        <div style={{
+          display:'grid', gridTemplateColumns:'1fr 1fr', gap:'3rem', alignItems:'start',
+        }}>
+          <div>
+            <h3 style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize:'1.75rem', marginBottom:'0.5rem'}}>{s.title}</h3>
+            <p style={{color:s.accent, fontFamily:'var(--font-mono)', fontSize:'0.8rem', marginBottom:'1.25rem'}}>{s.subtitle}</p>
+            <p style={{color:'var(--text-mid)', lineHeight:1.75, fontSize:'0.95rem'}}>{s.desc}</p>
+          </div>
+          <div style={{background:'var(--bg3)', border:'1px solid var(--border)', borderRadius:'10px', padding:'1.75rem'}}>
+            <p style={{fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--text-dim)', textTransform:'uppercase', letterSpacing:'0.08em', marginBottom:'1.25rem'}}>Use Cases</p>
+            <ul style={{listStyle:'none', display:'flex', flexDirection:'column', gap:'0.85rem'}}>
+              {s.usecases.map((u,i) => (
+                <li key={i} style={{display:'flex', alignItems:'flex-start', gap:'0.75rem', color:'var(--text-mid)', fontSize:'0.9rem'}}>
+                  <span style={{color:s.accent, fontFamily:'var(--font-mono)', flexShrink:0, marginTop:'2px'}}>→</span>
+                  {u}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── TECHNOLOGY ───────────────────────────────────────────────────────────────
+function TechPillar({ icon, title, items }) {
+  const ref = useRef();
+  const vis = useIntersection(ref, { threshold: 0.15 });
+  return (
+    <div ref={ref} style={{
+      opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(20px)',
+      transition:'all 0.5s ease',
+    }}>
+      <div style={{
+        width:44, height:44, borderRadius:'8px', background:'var(--surface)',
+        border:'1px solid var(--border)', display:'flex', alignItems:'center',
+        justifyContent:'center', fontSize:'1.25rem', marginBottom:'1.25rem',
+      }}>{icon}</div>
+      <h4 style={{fontFamily:'var(--font-head)', fontWeight:600, fontSize:'1rem', marginBottom:'1rem'}}>{title}</h4>
+      <ul style={{listStyle:'none', display:'flex', flexDirection:'column', gap:'0.6rem'}}>
+        {items.map(it => (
+          <li key={it} style={{fontFamily:'var(--font-mono)', fontSize:'0.78rem', color:'var(--text-dim)'}}>
+            <span style={{color:'var(--teal)', marginRight:'0.5rem'}}>▸</span>{it}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Technology() {
+  return (
+    <section id="technology" style={{padding:'6rem 2rem', maxWidth:'1200px', margin:'0 auto'}}>
+      <p style={{fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--teal)', letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:'0.75rem'}}>Technology Stack</p>
+      <h2 style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize:'clamp(2rem,3.5vw,2.75rem)', letterSpacing:'-0.02em', marginBottom:'3.5rem', maxWidth:'700px'}}>
+        100% Open-Source. General-Purpose Hardware. Zero Vendor Lock-In.
+      </h2>
+      <div style={{display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'2.5rem'}}>
+        <TechPillar icon="📦" title="Orchestration" items={['Docker Compose','Helm Charts','Kustomize','FluxCD GitOps','Kubernetes (K3s/K8s)','Nephio (Next-Gen)']}/>
+        <TechPillar icon="📻" title="RAN Stack" items={['OpenAirInterface (OAI)','srsRAN Project','OAI-gNB / eNB','USRP / ADALM-PLUTO','General-Purpose HW','Cloud-Agnostic RAN']}/>
+        <TechPillar icon="🧠" title="Core Network" items={['Open5GS (5G SA/NSA)','Magma','Free5GC','OAI 5G Core','AMF / SMF / UPF','AUSF / UDM / PCF']}/>
+        <TechPillar icon="📊" title="Observability" items={['Prometheus + Grafana','Jaeger Tracing','Loki Logs','Kubernetes Dashboards','Real-time KPI monitoring','Alert Management']}/>
+      </div>
+    </section>
+  );
+}
+
+// ─── GLOBAL SOUTH ─────────────────────────────────────────────────────────────
+function GlobalSouth() {
+  const ref = useRef();
+  const vis = useIntersection(ref, { threshold: 0.1 });
+  return (
+    <section style={{padding:'6rem 2rem', background:'var(--bg2)', borderTop:'1px solid var(--border)'}}>
+      <div ref={ref} style={{
+        maxWidth:'1000px', margin:'0 auto', textAlign:'center',
+        opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(30px)',
+        transition:'all 0.6s ease',
+      }}>
+        <p style={{fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--amber)', letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:'1rem'}}>Our Mission</p>
+        <h2 style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize:'clamp(2rem,4vw,3rem)', letterSpacing:'-0.03em', marginBottom:'1.5rem', lineHeight:1.1}}>
+          Connecting the Unconnected<br/>
+          <span style={{color:'var(--amber)'}}>Across the Global South</span>
+        </h2>
+        <p style={{color:'var(--text-mid)', fontSize:'1.05rem', lineHeight:1.8, maxWidth:'720px', margin:'0 auto 3rem'}}>
+          Billions of people in Latin America, Africa, and Southeast Asia remain without reliable cellular connectivity.
+          Beanters was built on the belief that <strong style={{color:'var(--text)'}}>open-source software + commodity hardware</strong> can deliver world-class telecom infrastructure at a fraction of the cost — eliminating the need for expensive proprietary systems and foreign vendor dependencies.
+        </p>
+        <div style={{display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'1.5rem', textAlign:'left'}}>
+          {[
+            { icon:'🌎', title:'Latin America First', desc:'Born in Colombia. Rooted in the OpenInfra community. Designed for regulators, universities, and operators across LATAM.' },
+            { icon:'💡', title:'Sovereign Infrastructure', desc:'Open-source RAN and core means no black boxes. Governments own their network stack, spectrum, and data — fully.' },
+            { icon:'📚', title:'Research & Education', desc:'Academic pricing and open curricula for universities building the next generation of cloud-native telco engineers.' },
+          ].map(c => (
+            <div key={c.title} style={{
+              background:'var(--bg3)', border:'1px solid var(--border)',
+              borderRadius:'10px', padding:'1.5rem',
+            }}>
+              <div style={{fontSize:'1.75rem', marginBottom:'0.75rem'}}>{c.icon}</div>
+              <h4 style={{fontFamily:'var(--font-head)', fontWeight:600, marginBottom:'0.5rem'}}>{c.title}</h4>
+              <p style={{color:'var(--text-mid)', fontSize:'0.875rem', lineHeight:1.65}}>{c.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── ABOUT ────────────────────────────────────────────────────────────────────
+function About() {
+  return (
+    <section id="about" style={{padding:'6rem 2rem', maxWidth:'1200px', margin:'0 auto'}}>
+      <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'5rem', alignItems:'center'}}>
+        <div>
+          {/* avatar placeholder */}
+          <div style={{
+            width:'100%', maxWidth:'400px',
+            aspectRatio:'1/1', borderRadius:'16px',
+            background:'var(--surface)', border:'2px solid var(--border)',
+            display:'flex', flexDirection:'column',
+            alignItems:'center', justifyContent:'center', gap:'0.5rem',
+          }}>
+            <div style={{
+              width:100, height:100, borderRadius:'50%',
+              background:'var(--bg3)', border:'2px solid var(--teal-dim)',
+              display:'flex', alignItems:'center', justifyContent:'center',
+              fontFamily:'var(--font-head)', fontWeight:700, fontSize:'2rem', color:'var(--teal)',
+            }}>LF</div>
+            <p style={{fontFamily:'var(--font-mono)', fontSize:'0.7rem', color:'var(--text-dim)', textAlign:'center', padding:'0 2rem'}}>
+              — portrait photo —
+            </p>
+          </div>
+        </div>
+        <div>
+          <p style={{fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--teal)', letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:'0.75rem'}}>About the Founder</p>
+          <h2 style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize:'2rem', letterSpacing:'-0.02em', marginBottom:'0.5rem'}}>
+            Luis Felipe Ariza Vesga
+          </h2>
+          <p style={{color:'var(--teal)', fontFamily:'var(--font-mono)', fontSize:'0.8rem', marginBottom:'1.5rem'}}>
+            PhD Telecommunications · MSc RF Microelectronics · ❄️ Kubestronaut
+          </p>
+          <p style={{color:'var(--text-mid)', lineHeight:1.75, marginBottom:'1.25rem', fontSize:'0.95rem'}}>
+            Former researcher at <strong style={{color:'var(--text)'}}>EURECOM (France)</strong>, contributor to the <strong style={{color:'var(--text)'}}>OpenAirInterface Software Alliance</strong>, and principal researcher recognized by <strong style={{color:'var(--text)'}}>MinCiencias (Colombia)</strong>. Luis Felipe brings deep expertise in cloud-native RAN, 5G broadcast, and many-objective optimization for heterogeneous networks.
+          </p>
+          <p style={{color:'var(--text-mid)', lineHeight:1.75, marginBottom:'1.75rem', fontSize:'0.95rem'}}>
+            As organizer of the <strong style={{color:'var(--text)'}}>Colombia OpenInfra User Group</strong> and KCD Colombia 2025, he has built a thriving community of engineers advancing open-source telecom infrastructure across Latin America.
+          </p>
+          <div style={{display:'flex', flexWrap:'wrap', gap:'0.5rem'}}>
+            {['OpenAirInterface','srsRAN','Magma','Open5GS','Kubestronaut','OAI Contributor','EURECOM Alumni','MinCiencias Researcher'].map(t => (
+              <span key={t} style={{
+                fontFamily:'var(--font-mono)', fontSize:'0.7rem',
+                background:'var(--surface)', border:'1px solid var(--border)',
+                borderRadius:'4px', padding:'0.2rem 0.6rem', color:'var(--text-dim)',
+              }}>{t}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── CONTACT ──────────────────────────────────────────────────────────────────
+function Contact() {
+  const [form, setForm] = useState({ name:'', org:'', email:'', usecase:'', msg:'' });
+  const [sent, setSent] = useState(false);
+  const handle = e => { e.preventDefault(); setSent(true); };
+  return (
+    <section id="contact" style={{
+      padding:'6rem 2rem', background:'var(--bg2)',
+      borderTop:'1px solid var(--border)',
+    }}>
+      <div style={{maxWidth:'640px', margin:'0 auto'}}>
+        <p style={{fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--teal)', letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:'0.75rem'}}>Get Started</p>
+        <h2 style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize:'clamp(2rem,3vw,2.5rem)', letterSpacing:'-0.02em', marginBottom:'0.75rem'}}>
+          Book a Demo or Technical Consultation
+        </h2>
+        <p style={{color:'var(--text-mid)', marginBottom:'2.5rem', lineHeight:1.7}}>
+          Tell us about your use case — private network, broadcast, IoT, research lab — and we'll tailor a deployment plan for you.
+        </p>
+
+        {sent ? (
+          <div style={{
+            background:'var(--teal-glow)', border:'1px solid var(--teal-dim)',
+            borderRadius:'10px', padding:'2rem', textAlign:'center',
+          }}>
+            <div style={{fontSize:'2rem', marginBottom:'0.75rem'}}>✅</div>
+            <h3 style={{fontFamily:'var(--font-head)', fontWeight:600, marginBottom:'0.5rem'}}>Message received!</h3>
+            <p style={{color:'var(--text-mid)', fontSize:'0.9rem'}}>We'll get back to you within 24 hours.</p>
+          </div>
+        ) : (
+          <form onSubmit={handle} style={{display:'flex', flexDirection:'column', gap:'1rem'}}>
+            {[
+              { key:'name', label:'Full Name', placeholder:'Jane Smith', type:'text' },
+              { key:'org', label:'Organization', placeholder:'University / Company / Ministry', type:'text' },
+              { key:'email', label:'Email', placeholder:'jane@example.com', type:'email' },
+            ].map(f => (
+              <div key={f.key}>
+                <label style={{fontFamily:'var(--font-body)', fontSize:'0.85rem', color:'var(--text-mid)', display:'block', marginBottom:'0.4rem'}}>{f.label}</label>
+                <input type={f.type} placeholder={f.placeholder} required value={form[f.key]}
+                  onChange={e=>setForm({...form,[f.key]:e.target.value})}
+                  style={{
+                    width:'100%', padding:'0.75rem 1rem',
+                    background:'var(--bg3)', border:'1px solid var(--border)',
+                    borderRadius:'6px', color:'var(--text)',
+                    fontFamily:'var(--font-body)', fontSize:'0.9rem',
+                    outline:'none', transition:'border 0.2s',
+                  }}
+                  onFocus={e=>e.target.style.borderColor='var(--teal-dim)'}
+                  onBlur={e=>e.target.style.borderColor='var(--border)'}
+                />
+              </div>
+            ))}
+            <div>
+              <label style={{fontFamily:'var(--font-body)', fontSize:'0.85rem', color:'var(--text-mid)', display:'block', marginBottom:'0.4rem'}}>Primary Use Case</label>
+              <select value={form.usecase} onChange={e=>setForm({...form,usecase:e.target.value})} required style={{
+                width:'100%', padding:'0.75rem 1rem',
+                background:'var(--bg3)', border:'1px solid var(--border)',
+                borderRadius:'6px', color: form.usecase ? 'var(--text)' : 'var(--text-dim)',
+                fontFamily:'var(--font-body)', fontSize:'0.9rem', outline:'none',
+              }}>
+                <option value="" disabled>Select a use case...</option>
+                <option>4G/5G Private Network</option>
+                <option>5G Broadcast / MBS</option>
+                <option>NB-IoT / LTE-M Deployment</option>
+                <option>University / R&D Testbed</option>
+                <option>Government / Rural Connectivity</option>
+                <option>NTN / Satellite Integration</option>
+                <option>Technical Consulting</option>
+              </select>
+            </div>
+            <div>
+              <label style={{fontFamily:'var(--font-body)', fontSize:'0.85rem', color:'var(--text-mid)', display:'block', marginBottom:'0.4rem'}}>Tell us more (optional)</label>
+              <textarea rows={4} placeholder="Describe your network requirements, scale, timeline..." value={form.msg}
+                onChange={e=>setForm({...form,msg:e.target.value})}
+                style={{
+                  width:'100%', padding:'0.75rem 1rem',
+                  background:'var(--bg3)', border:'1px solid var(--border)',
+                  borderRadius:'6px', color:'var(--text)', resize:'vertical',
+                  fontFamily:'var(--font-body)', fontSize:'0.9rem', outline:'none',
+                }}
+                onFocus={e=>e.target.style.borderColor='var(--teal-dim)'}
+                onBlur={e=>e.target.style.borderColor='var(--border)'}
+              />
+            </div>
+            <button type="submit" style={{
+              background:'var(--teal)', color:'#080d1a',
+              fontFamily:'var(--font-head)', fontWeight:700, fontSize:'1rem',
+              padding:'0.9rem', borderRadius:'8px', border:'none',
+              cursor:'pointer', transition:'all 0.2s',
+            }}
+            onMouseEnter={e=>{ e.currentTarget.style.opacity='0.88'; e.currentTarget.style.transform='translateY(-1px)'; }}
+            onMouseLeave={e=>{ e.currentTarget.style.opacity='1'; e.currentTarget.style.transform='none'; }}
+            >Send Message →</button>
+          </form>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ─── FOOTER ───────────────────────────────────────────────────────────────────
+function Footer() {
+  return (
+    <footer style={{
+      padding:'2.5rem 2rem', borderTop:'1px solid var(--border)',
+      display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:'1rem',
+      maxWidth:'1200px', margin:'0 auto',
+    }}>
+      <div>
+        <span style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize:'1.1rem'}}>
+          <span style={{color:'var(--teal)'}}>bean</span><span style={{color:'var(--text)'}}>ters</span>
+        </span>
+        <span style={{fontFamily:'var(--font-mono)', fontSize:'0.7rem', color:'var(--text-dim)', marginLeft:'1rem'}}>
+          Cloud-Native Cellular Networks · Colombia 🇨🇴
+        </span>
+      </div>
+      <div style={{display:'flex', gap:'1.5rem', flexWrap:'wrap'}}>
+        {['GitHub','LinkedIn','YouTube','Contact'].map(l => (
+          <a key={l} href="#contact" style={{
+            fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--text-dim)',
+            textDecoration:'none', transition:'color 0.2s',
+          }}
+          onMouseEnter={e=>e.target.style.color='var(--teal)'}
+          onMouseLeave={e=>e.target.style.color='var(--text-dim)'}
+          >{l}</a>
+        ))}
+      </div>
+      <p style={{fontFamily:'var(--font-mono)', fontSize:'0.7rem', color:'var(--text-dim)'}}>
+        © 2026 Beanters Telecommunications
+      </p>
+    </footer>
+  );
+}
+
+// ─── TWEAKS PANEL ─────────────────────────────────────────────────────────────
+function TweaksPanel({ tweaks, setTweaks, visible }) {
+  const persist = (key, val) => {
+    const next = {...tweaks, [key]: val};
+    setTweaks(next);
+    window.parent.postMessage({ type:'__edit_mode_set_keys', edits: {[key]: val} }, '*');
+  };
+  return (
+    <div style={{
+      position:'fixed', bottom:'24px', right:'24px', zIndex:9999,
+      background:'var(--bg2)', border:'1px solid var(--border)',
+      borderRadius:'12px', padding:'1.25rem', width:'240px',
+      fontFamily:'var(--font-body)',
+      display: visible ? 'block' : 'none',
+      boxShadow:'0 16px 48px rgba(0,0,0,0.5)',
+    }}>
+      <p style={{fontFamily:'var(--font-head)', fontWeight:700, fontSize:'0.85rem', marginBottom:'1rem', color:'var(--teal)'}}>Tweaks</p>
+      
+      <label style={{fontSize:'0.8rem', color:'var(--text-mid)', display:'block', marginBottom:'0.4rem'}}>Accent Color</label>
+      <div style={{display:'flex', gap:'0.5rem', marginBottom:'1rem'}}>
+        {[['teal','var(--teal)'],['amber','var(--amber)'],['purple','oklch(0.72 0.16 270)']].map(([k,c]) => (
+          <div key={k} onClick={()=>persist('accentColor',k)} style={{
+            width:28, height:28, borderRadius:'50%', background:c,
+            cursor:'pointer', border: tweaks.accentColor===k ? '3px solid white' : '3px solid transparent',
+            transition:'border 0.2s',
+          }}/>
+        ))}
+      </div>
+
+      <label style={{fontSize:'0.8rem', color:'var(--text-mid)', display:'block', marginBottom:'0.4rem'}}>Show Stats</label>
+      <input type="checkbox" checked={tweaks.showStats} onChange={e=>persist('showStats', e.target.checked)} style={{marginBottom:'1rem'}}/>
+
+      <label style={{fontSize:'0.8rem', color:'var(--text-mid)', display:'block', marginBottom:'0.4rem'}}>Animate CLI</label>
+      <input type="checkbox" checked={tweaks.animateCLI} onChange={e=>persist('animateCLI', e.target.checked)} style={{marginBottom:'0.5rem'}}/>
+    </div>
+  );
+}
+
+// ─── APP ──────────────────────────────────────────────────────────────────────
+function App() {
+  const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
+  const [tweaksVisible, setTweaksVisible] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('message', e => {
+      if (e.data?.type === '__activate_edit_mode') setTweaksVisible(true);
+      if (e.data?.type === '__deactivate_edit_mode') setTweaksVisible(false);
+    });
+    window.parent.postMessage({ type:'__edit_mode_available' }, '*');
+  }, []);
+
+  return (
+    <>
+      <Nav tweaks={tweaks}/>
+      <Hero tweaks={tweaks}/>
+      <NetworksRibbon/>
+      <Products/>
+      <Solutions/>
+      <Technology/>
+      <GlobalSouth/>
+      <About/>
+      <Contact/>
+      <Footer/>
+      <TweaksPanel tweaks={tweaks} setTweaks={setTweaks} visible={tweaksVisible}/>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+
+<style>
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes slide { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
+</style>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="80" fill="#080d1a"/>
+  <text x="20" y="45" font-family="monospace" font-size="18" font-weight="bold" fill="#38d2c8">bean</text>
+  <text x="65" y="45" font-family="monospace" font-size="18" font-weight="bold" fill="#eef0f6">ters</text>
+</svg>
+</template>
+</body>
+</html>
