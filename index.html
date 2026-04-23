@@ -696,44 +696,34 @@ function Contact() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
-  const handle = async e => {
+  const handle = e => {
     e.preventDefault();
     setLoading(true);
-    setError('');
     
     try {
-      // Store submission locally
-      const submission = {
-        name: form.name,
-        organization: form.org,
-        email: form.email,
-        usecase: form.usecase,
-        message: form.msg,
-        timestamp: new Date().toISOString(),
-      };
+      // Build the WhatsApp message
+      const name = form.name || 'N/A';
+      const org = form.org || 'N/A';
+      const email = form.email || 'N/A';
+      const usecase = form.usecase || 'N/A';
+      const message = form.msg || '(no additional message)';
       
-      // Save to localStorage as backup
-      const submissions = JSON.parse(localStorage.getItem('beanters_submissions') || '[]');
-      submissions.push(submission);
-      localStorage.setItem('beanters_submissions', JSON.stringify(submissions));
+      const whatsappMessage = `New demo booking request:\n\nName: ${name}\nOrganization: ${org}\nEmail: ${email}\nUse Case: ${usecase}\nMessage: ${message}`;
       
-      // Mark as sent
+      // Clear form and show success
       setSent(true);
       setForm({ name:'', org:'', email:'', usecase:'', msg:'' });
       
-      // Open WhatsApp with detailed message
-      const whatsappMsg = `New demo booking request:\n\n📝 Name: ${form.name}\n🏢 Organization: ${form.org}\n📧 Email: ${form.email}\n🎯 Use Case: ${form.usecase}\n💬 Message: ${form.msg || '(no additional message)'}`;
+      // Open WhatsApp
       setTimeout(() => {
-        window.open(`https://wa.me/573113863080?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
-      }, 600);
+        window.open(`https://wa.me/573113863080?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+      }, 800);
     } catch (err) {
       console.error('Error:', err);
-      setError('Error processing submission. Opening WhatsApp...');
-      // Fallback to WhatsApp
-      const whatsappMsg = `New demo booking request:\n\n📝 Name: ${form.name}\n🏢 Organization: ${form.org}\n📧 Email: ${form.email}\n🎯 Use Case: ${form.usecase}`;
-      window.open(`https://wa.me/573113863080?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
+      // Still show success and open WhatsApp on error
       setSent(true);
-      setForm({ name:'', org:'', email:'', usecase:'', msg:'' });
+      const whatsappMessage = `New demo booking request:\n\nName: ${form.name}\nOrganization: ${form.org}\nEmail: ${form.email}\nUse Case: ${form.usecase}`;
+      window.open(`https://wa.me/573113863080?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
     }
     setLoading(false);
   };
