@@ -80,7 +80,7 @@ function Nav({ tweaks }) {
     window.addEventListener('scroll', h);
     return () => window.removeEventListener('scroll', h);
   }, []);
-  const links = ['Products','Solutions','Technology','About','Contact'];
+  const links = ['Products','Solutions','Technology','About','Speaking','Contact'];
   return (
     <nav style={{
       position:'fixed', top:0, left:0, right:0, zIndex:100,
@@ -689,6 +689,217 @@ function About() {
   );
 }
 
+// ─── SPEAKING ─────────────────────────────────────────────────────────────────
+const TALKS = [
+  {
+    featured: true,
+    event: 'KubeCon + CloudNativeCon Europe 2026',
+    location: 'Amsterdam, Netherlands',
+    date: 'April 2026',
+    flag: '🇳🇱',
+    badge: 'KUBECON SPEAKER',
+    icon: '☸️',
+    title: 'From Chaos to Control: A Prescription for Managing Apps on Private Cellular Networks',
+    desc: 'How cloud-native tooling — Helm, FluxCD, Kubernetes Operators — can tame the operational complexity of deploying and managing 5G/4G network functions in production environments on commodity clusters.',
+    tags: ['KubeCon','Kubernetes','5G SA','Helm','FluxCD','Private Networks','Cloud-Native'],
+    slidesUrl: 'https://github.com/lfarizav/techtalk-slides/blob/main/kubecon%202026/FromChaostoControlAPrescriptionforManagingAppsonPrivateCellularNetworksLuisArizaBeanters.pdf',
+    accent: '#38d2c8',
+  },
+  {
+    event: 'Kubernetes Community Days Colombia 2025',
+    location: 'Bogotá, Colombia',
+    date: '2025',
+    flag: '🇨🇴',
+    badge: 'ORGANIZER + SPEAKER',
+    icon: '🏔️',
+    title: 'Enhancing Stability and Enabling Cloud-Native Capabilities for Private Cellular Networks',
+    desc: 'Bringing cloud-native resilience patterns — health probes, rolling upgrades, GitOps reconciliation — to private 4G/5G networks running as containerized workloads on Kubernetes.',
+    tags: ['KCD','Kubernetes','Private Networks','Cloud-Native','Colombia'],
+    slidesUrl: 'https://github.com/lfarizav/techtalk-slides/blob/main/KCD%20Colombia%202025/EnhancingStabilityandEnabling%20CloudNativeCapabilitiesforPrivateCellularNetworks-KCDColombia2025.pdf',
+    accent: '#d4a535',
+  },
+  {
+    event: 'La Hora de Kubernetes — Virtual',
+    location: 'Online · LATAM Spanish Community',
+    date: 'Sep 11, 2025',
+    flag: '🌐',
+    badge: 'GUEST SPEAKER',
+    icon: '🔄',
+    title: 'Beneficios de usar FluxCD para reconciliar aplicaciones de redes celulares en Kubernetes',
+    desc: 'Practical GitOps: how FluxCD continuous reconciliation keeps Open5GS and OAI gNB workloads always converging to their desired state — automatically, without manual intervention.',
+    tags: ['FluxCD','GitOps','Open5GS','OAI gNB','Kubernetes','LTE/5G'],
+    slidesUrl: 'https://github.com/lfarizav/techtalk-slides/blob/main/lahoradekubernetes/Beneficios%20de%20usar%20FluxCD%20para%20reconciliar%20aplicaciones%20de%20redes%20celulares%20en%20kubernetes-Hora%20de%20Kubernetes-11092025.pdf',
+    accent: '#7c5ccb',
+  },
+  {
+    event: 'MLOps & AI Community Talk',
+    location: 'Online',
+    date: '2025',
+    flag: '🤖',
+    badge: 'SPEAKER',
+    icon: '🧬',
+    title: 'MLOps for Telecom: AI-Driven Optimization of Cloud-Native Cellular Networks',
+    desc: 'Applying MLOps practices — model registries, automated retraining, inference on Kubernetes — to optimize RAN performance, predict failures, and automate resource allocation in private cellular deployments.',
+    tags: ['MLOps','AI/ML','RAN Optimization','Kubeflow','Kubernetes','Open5GS'],
+    slidesUrl: 'https://github.com/lfarizav/techtalk-slides/blob/main/MLOPs/MLOps%20presentation.pdf',
+    accent: '#e07c3a',
+  },
+];
+
+function TalkCard({ talk }) {
+  const ref = useRef();
+  const vis = useIntersection(ref, { threshold: 0.07 });
+  const [hover, setHover] = useState(false);
+  const borderColor = hover ? talk.accent : (talk.featured ? `${talk.accent}55` : 'rgba(255,255,255,0.07)');
+  return (
+    <div ref={ref}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        background: talk.featured ? 'linear-gradient(135deg, var(--bg3), var(--surface))' : 'var(--bg2)',
+        border: `1px solid ${borderColor}`,
+        borderRadius: '14px',
+        padding: talk.featured ? '2rem 2.5rem' : '1.75rem',
+        transition: 'all 0.3s ease',
+        opacity: vis ? 1 : 0,
+        transform: vis ? 'translateY(0)' : 'translateY(24px)',
+        boxShadow: hover && talk.featured ? `0 0 48px ${talk.accent}33` : 'none',
+        display: 'flex',
+        flexDirection: talk.featured ? 'row' : 'column',
+        gap: '1.75rem',
+        alignItems: 'flex-start',
+      }}>
+      {talk.featured && (
+        <div style={{ flexShrink: 0, paddingTop: '0.25rem' }}>
+          <div style={{
+            width: 56, height: 56, borderRadius: '12px',
+            background: `${talk.accent}15`, border: `1px solid ${talk.accent}44`,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '1.75rem',
+          }}>{talk.icon}</div>
+        </div>
+      )}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <div>
+            {talk.featured && (
+              <span style={{
+                fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.1em',
+                color: talk.accent, textTransform: 'uppercase', display: 'block', marginBottom: '0.35rem',
+              }}>Featured Talk</span>
+            )}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '2px' }}>
+              {!talk.featured && <span style={{ fontSize: '1rem' }}>{talk.icon}</span>}
+              <span style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: '0.88rem', color: 'var(--text)' }}>
+                {talk.flag} {talk.event}
+              </span>
+            </div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)' }}>
+              {talk.location} · {talk.date}
+            </div>
+          </div>
+          <span style={{
+            fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.08em',
+            color: talk.accent, border: `1px solid ${talk.accent}55`,
+            borderRadius: '100px', padding: '0.2rem 0.65rem',
+            background: `${talk.accent}11`, whiteSpace: 'nowrap', flexShrink: 0,
+          }}>{talk.badge}</span>
+        </div>
+        <h3 style={{
+          fontFamily: 'var(--font-head)', fontWeight: 700,
+          fontSize: talk.featured ? '1.25rem' : '0.95rem',
+          lineHeight: 1.3, color: 'var(--text)',
+        }}>{talk.title}</h3>
+        <p style={{ color: 'var(--text-mid)', fontSize: '0.875rem', lineHeight: 1.7 }}>{talk.desc}</p>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', marginTop: 'auto' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+            {talk.tags.map(t => (
+              <span key={t} style={{
+                fontFamily: 'var(--font-mono)', fontSize: '0.67rem',
+                background: 'var(--surface)', border: '1px solid var(--border)',
+                borderRadius: '4px', padding: '0.15rem 0.5rem', color: 'var(--text-dim)',
+              }}>{t}</span>
+            ))}
+          </div>
+          <a href={talk.slidesUrl} target="_blank" rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+              fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: 600,
+              color: talk.accent, textDecoration: 'none',
+              border: `1px solid ${talk.accent}44`, borderRadius: '6px',
+              padding: '0.4rem 0.9rem', background: `${talk.accent}0d`,
+              transition: 'background 0.2s', whiteSpace: 'nowrap',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = `${talk.accent}22`; }}
+            onMouseLeave={e => { e.currentTarget.style.background = `${talk.accent}0d`; }}
+          >
+            📑 View Slides
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Speaking() {
+  return (
+    <section id="speaking" style={{
+      padding: '6rem 2rem', background: 'var(--bg2)',
+      borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)',
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ marginBottom: '3.5rem' }}>
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--teal)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>Public Talks & Events</p>
+          <h2 style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: 'clamp(2rem,3.5vw,2.75rem)', letterSpacing: '-0.02em', maxWidth: '700px', marginBottom: '1rem' }}>
+            Speaking at the World's Leading Cloud-Native Conferences
+          </h2>
+          <p style={{ color: 'var(--text-mid)', maxWidth: '600px', lineHeight: 1.7, fontSize: '0.95rem' }}>
+            Presenting research and production experience on cloud-native cellular networks, GitOps, and open-source telecom — from Bogotá to Amsterdam.
+          </p>
+        </div>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <TalkCard talk={TALKS[0]} />
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
+          {TALKS.slice(1).map((talk, i) => (
+            <TalkCard key={i} talk={talk} />
+          ))}
+        </div>
+        <div style={{
+          display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '2.5rem',
+          padding: '1.5rem 2rem', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: '12px',
+        }}>
+          {[
+            { n: '4+', label: 'Conference Talks' },
+            { n: '3+', label: 'Countries' },
+            { n: '2026', label: 'KubeCon Alumnus' },
+            { n: '🇨🇴', label: 'Born in Colombia' },
+          ].map(s => (
+            <div key={s.label}>
+              <div style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: '1.4rem', color: 'var(--teal)' }}>{s.n}</div>
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', color: 'var(--text-dim)' }}>{s.label}</div>
+            </div>
+          ))}
+          <div style={{ marginLeft: 'auto' }}>
+            <a href="https://github.com/lfarizav/techtalk-slides" target="_blank" rel="noopener noreferrer"
+              style={{
+                fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--text-mid)',
+                textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem',
+                border: '1px solid var(--border)', borderRadius: '6px', padding: '0.5rem 1rem',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--teal)'; e.currentTarget.style.borderColor = 'var(--teal-dim)'; }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-mid)'; e.currentTarget.style.borderColor = 'var(--border)'; }}
+            >
+              🐙 All Slides on GitHub &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── CONTACT ──────────────────────────────────────────────────────────────────
 function Contact() {
   const [form, setForm] = useState({ name:'', org:'', email:'', usecase:'', msg:'' });
@@ -934,6 +1145,7 @@ function App() {
       <Technology/>
       <GlobalSouth/>
       <About/>
+      <Speaking/>
       <Contact/>
       <Footer/>
       <TweaksPanel tweaks={tweaks} setTweaks={setTweaks} visible={tweaksVisible}/>
