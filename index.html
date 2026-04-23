@@ -10,6 +10,7 @@
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -51,6 +52,9 @@
 <div id="root"></div>
 <script type="text/babel">
 const { useState, useEffect, useRef, useCallback } = React;
+
+// ─── EMAILJS INITIALIZATION ────────────────────────────────────────────────────
+emailjs.init("lfarizav");
 
 // ─── TWEAK DEFAULTS ──────────────────────────────────────────────────────────
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -702,30 +706,28 @@ function Contact() {
     setError('');
     
     try {
-      // Send via Formspree
-      const response = await fetch('https://formspree.io/f/xnjlooqe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          org: form.org,
-          email: form.email,
-          usecase: form.usecase,
-          message: form.msg,
-        }),
+      // Send via EmailJS
+      const result = await emailjs.send('service_lfarizav', 'template_beanters_demo', {
+        from_name: form.name,
+        from_email: form.email,
+        from_org: form.org,
+        use_case: form.usecase,
+        message: form.msg,
+        to_email: 'lfarizav@gmail.com',
       });
       
-      if (response.ok) {
+      if (result.status === 200) {
         setSent(true);
         setForm({ name:'', org:'', email:'', usecase:'', msg:'' });
         // Also send WhatsApp message
-        const whatsappMsg = `Hi! I'd like to book a demo for ${form.usecase}. Name: ${form.name}, Org: ${form.org}`;
+        const whatsappMsg = `Hi! I'd like to book a demo for ${form.usecase}. Name: ${form.name}, Org: ${form.org}, Email: ${form.email}`;
         window.open(`https://wa.me/573113863080?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
       } else {
         setError('Failed to send message. Please try again.');
       }
     } catch (err) {
-      setError('Network error. Please try again.');
+      setError('Error sending message. Please try again or contact us on WhatsApp.');
+      console.error('EmailJS error:', err);
     }
     setLoading(false);
   };
