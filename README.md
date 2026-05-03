@@ -1,4 +1,4 @@
-# Beanters — Cloud-Native Cellular Networks for the Global South
+# Beanters — Cloud-Native Cellular Networks
 
 [![Deployed](https://img.shields.io/badge/deployed-live-teal?style=flat-square)](https://beanters.com) [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE) [![3GPP](https://img.shields.io/badge/3GPP-compliant-orange?style=flat-square)]() 
 
