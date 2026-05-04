@@ -49,16 +49,21 @@ Billions of people in Latin America, Africa, and Southeast Asia lack reliable ce
 ```
 lfarizav.github.io/
 ├── index.html              # Single-page React app (all components + styles)
-├── luisbonito.png         # Founder portrait (About section)
+├── luis.webp              # Founder portrait (About section, WebP)
+├── luis.jpg               # Founder portrait fallback (JPEG)
 ├── CNAME                  # Domain routing (beanters.com)
 ├── README.md              # This file
+├── SEO_IMPLEMENTATION_GUIDE.md  # SEO & structured data playbook
+├── sitemap.xml            # XML sitemap for search engines
+├── robots.txt             # Crawler directives
 └── .gitignore             # Git ignore rules
 ```
 
 ### File Sizes & Load Performance
-- **index.html**: ~35KB (includes React 18.3.1 via CDN + Babel standalone)
-- **luisbonito.png**: ~2.1MB (optimized portrait, 1:1 aspect ratio)
-- **Total load**: ~2.2MB (React + styles inline, minimal initial payload)
+- **index.html**: ~45KB (includes React 18.3.1 production builds + meta tags + JSON-LD)
+- **luis.webp**: ~35KB (optimized founder portrait, 800x800px)
+- **luis.jpg**: ~62KB (JPEG fallback for older browsers)
+- **Total load**: ~350KB (React production + styles inline + portrait, minimal initial payload)
 
 ---
 
@@ -99,7 +104,7 @@ graph TB
     
     C -->|Form Submission| D["WhatsApp Web API<br/>wa.me/573113863080"]
     
-    E["🖼️ Static Assets<br/>luisbonito.png<br/>Google Fonts<br/>React CDN"] -->|Load| A
+    E["🖼️ Static Assets<br/>luis.webp / luis.jpg<br/>Google Fonts<br/>React CDN"] -->|Load| A
     
     D -->|Opens Chat| F["📞 Direct WhatsApp<br/>Message to Founder"]
     
