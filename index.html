@@ -4,12 +4,113 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Beanters — Cloud-Native Cellular Networks for the Global South</title>
+  <meta name="description" content="Deploy 5G/4G/NB-IoT cellular networks with a single CLI command. No vendor lock-in, no proprietary hardware. Open-source infrastructure for Latin America, Africa, Southeast Asia."/>
+  <meta name="keywords" content="5G,4G LTE,NB-IoT,cloud-native,cellular networks,open-source,telco,3GPP,private network,telecommunications"/>
+  <meta name="author" content="Luis Felipe Ariza Vesga"/>
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+  <link rel="canonical" href="https://beanters.com/"/>
+  <link rel="sitemap" type="application/xml" href="https://beanters.com/sitemap.xml"/>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Beanters — Cloud-Native Cellular Networks for the Global South">
+  <meta property="og:description" content="Deploy 5G/4G/NB-IoT networks with one command. No vendor lock-in, no proprietary hardware. Open-source infrastructure for Latin America, Africa, Southeast Asia.">
+  <meta property="og:image" content="https://beanters.com/luisbonito.png">
+  <meta property="og:url" content="https://beanters.com">
+  <meta property="og:type" content="website">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Beanters">
+  <meta name="twitter:description" content="Open-source cloud-native cellular networks for the Global South">
+  <meta name="twitter:image" content="https://beanters.com/luisbonito.png">
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="Beanters">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Crect fill='%23080d1a' width='120' height='80'/%3E%3Ctext x='20' y='45' font-family='monospace' font-size='18' font-weight='bold' fill='%2338d2c8'%3Ebean%3C/text%3E%3Ctext x='65' y='45' font-family='monospace' font-size='18' font-weight='bold' fill='%23eef0f6'%3Eters%3C/text%3E%3C/svg%3E">
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Beanters",
+    "description": "Cloud-native 5G/4G/NB-IoT cellular network orchestration platform for the Global South",
+    "url": "https://beanters.com",
+    "logo": "https://beanters.com/luisbonito.png",
+    "foundingDate": "2025",
+    "founder": {
+      "@type": "Person",
+      "name": "Luis Felipe Ariza Vesga",
+      "url": "https://beanters.com/#about",
+      "jobTitle": "Founder & Principal Researcher"
+    },
+    "sameAs": [
+      "https://github.com/lfarizav",
+      "https://linkedin.com/in/luis-felipe-ariza-vesga",
+      "https://youtube.com/@beanters"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Sales",
+      "telephone": "+57-311-386-3080",
+      "email": "luis@beanters.com",
+      "url": "https://beanters.com/#contact"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "CO",
+      "addressRegion": "Bogotá"
+    },
+    "knowsAbout": [
+      "5G Networks",
+      "4G LTE",
+      "NB-IoT",
+      "Cloud-Native Infrastructure",
+      "Open-Source Telco",
+      "Kubernetes",
+      "Docker",
+      "Helm Charts",
+      "FluxCD",
+      "3GPP Standards"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Beanters?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Beanters is an open-source orchestration platform that enables anyone to deploy production-grade 4G/5G/NB-IoT cellular networks with a single CLI command, without vendor lock-in or expensive proprietary hardware."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Who is Beanters for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Beanters is designed for universities, enterprises, governments, NGOs, and telecom operators in the Global South—Latin America, Africa, and Southeast Asia."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Beanters open-source?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Beanters is built on 100% open-source components: Docker, Kubernetes, Helm, Open5GS, OpenAirInterface, srsRAN, and Magma."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -1067,15 +1168,10 @@ function Footer() {
         </span>
       </div>
       <div style={{display:'flex', gap:'1.5rem', flexWrap:'wrap'}}>
-        {['GitHub','LinkedIn','YouTube','Contact'].map(l => (
-          <a key={l} href="#contact" style={{
-            fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--text-dim)',
-            textDecoration:'none', transition:'color 0.2s',
-          }}
-          onMouseEnter={e=>e.target.style.color='var(--teal)'}
-          onMouseLeave={e=>e.target.style.color='var(--text-dim)'}
-          >{l}</a>
-        ))}
+        <a href="https://github.com/lfarizav" target="_blank" rel="noopener noreferrer" style={{fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--text-dim)', textDecoration:'none', transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='var(--teal)'} onMouseLeave={e=>e.target.style.color='var(--text-dim)'}>GitHub</a>
+        <a href="https://linkedin.com/in/luis-felipe-ariza-vesga" target="_blank" rel="noopener noreferrer" style={{fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--text-dim)', textDecoration:'none', transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='var(--teal)'} onMouseLeave={e=>e.target.style.color='var(--text-dim)'}>LinkedIn</a>
+        <a href="https://youtube.com/@beanters" target="_blank" rel="noopener noreferrer" style={{fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--text-dim)', textDecoration:'none', transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='var(--teal)'} onMouseLeave={e=>e.target.style.color='var(--text-dim)'}>YouTube</a>
+        <a href="#contact" style={{fontFamily:'var(--font-mono)', fontSize:'0.75rem', color:'var(--text-dim)', textDecoration:'none', transition:'color 0.2s'}} onMouseEnter={e=>e.target.style.color='var(--teal)'} onMouseLeave={e=>e.target.style.color='var(--text-dim)'}>Contact</a>
       </div>
       <p style={{fontFamily:'var(--font-mono)', fontSize:'0.7rem', color:'var(--text-dim)'}}>
         © 2026 Beanters Telecommunications
