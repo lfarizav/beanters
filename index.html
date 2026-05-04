@@ -149,6 +149,14 @@
   </style>
 </head>
 <body>
+<div id="error-display" style="position:fixed;top:0;left:0;right:0;background:#c00;color:#fff;padding:10px;z-index:99999;display:none;font-family:monospace;white-space:pre-wrap;"></div>
+<script>
+window.onerror = function(msg, url, line, col, err) {
+  var d = document.getElementById('error-display');
+  d.style.display = 'block';
+  d.textContent = 'JS ERROR at line ' + line + ':' + col + '\n' + msg + '\n' + (err && err.stack ? err.stack : '');
+};
+</script>
 <div id="root"></div>
 <script>
 const {
