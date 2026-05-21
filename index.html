@@ -1186,6 +1186,13 @@ function Products() {
         tagline: '5G para backhaul satelital y UAV',
         desc: 'Extiende la conectividad celular a \u00E1reas remotas y desatendidas con configuraciones de redes no terrestres seg\u00FAn 3GPP R17. Ideal para banda ancha rural, respuesta a desastres y conectividad mar\u00EDtima en el Sur Global.',
         tags: ['NTN', '3GPP R17', 'LEO Sat', 'UAV', 'Banda Ancha Rural']
+      },
+      {
+        icon: '🤖',
+        name: 'Agente Experto Telco 3GPP',
+        tagline: 'IA que evoluciona con los estándares 3GPP',
+        desc: 'Un agente de IA especializado en redes celulares que se mantiene actualizado con las últimas especificaciones 3GPP. Responde consultas técnicas sobre arquitecturas 2G-6G, Open RAN, core 5G y MEC, aprende de nuevas versiones de estándares y asiste a ingenieros en el diseño y solución de problemas de redes celulares en tiempo real.',
+        tags: ['3GPP', 'IA Agente', 'LLM', 'Open RAN', '5G Core', 'Evolución Continua']
       }
     ]
   } : {
@@ -1227,6 +1234,13 @@ function Products() {
         tagline: '5G for satellite & UAV backhaul',
         desc: 'Extend cellular connectivity to remote and underserved areas using Non-Terrestrial Network configurations per 3GPP R17. Ideal for rural broadband, disaster response, and maritime connectivity in the Global South.',
         tags: ['NTN', '3GPP R17', 'LEO Sat', 'UAV', 'Rural Broadband']
+      },
+      {
+        icon: '🤖',
+        name: '3GPP Telco Expert Agent',
+        tagline: 'AI that evolves with 3GPP standards',
+        desc: 'A specialized AI agent for cellular networks that stays current with the latest 3GPP specifications. Answers technical queries on 2G-6G architectures, Open RAN, 5G core, and MEC, learns from new standard releases, and assists engineers in real-time network design and troubleshooting.',
+        tags: ['3GPP', 'Agentic AI', 'LLM', 'Open RAN', '5G Core', 'Continuous Evolution']
       }
     ]
   };
@@ -1273,6 +1287,197 @@ function Products() {
     desc: c.desc,
     tags: c.tags
   }))));
+}
+
+// ─── TRAINING & LEARNING ──────────────────────────────────────────────────────
+function TrainingSection() {
+  const { lang } = useLang();
+  const t = lang === 'es' ? {
+    eyebrow: 'Capacitación y Aprendizaje',
+    title: 'Domina el ecosistema cloud-native con software open-source.',
+    subtitle: 'Capacitaciones, cursos y presentaciones sobre CNCF, Kubernetes, observabilidad, seguridad y redes celulares.',
+    pillars: [
+      {
+        icon: '🎓',
+        title: 'Cursos',
+        desc: 'Masterclasses profundas sobre redes celulares (2G a 6G), Kubernetes y el paisaje CNCF — con quizzes, laboratorios prácticos y diagramas interactivos.',
+        link: '/courses/cellular-networks/',
+        linkLabel: 'Ver curso de Redes Celulares'
+      },
+      {
+        icon: '🛠️',
+        title: 'Capacitaciones',
+        desc: 'Talleres prácticos para equipos de ingeniería: orchestración con Helm/FluxCD, observabilidad con Prometheus y Grafana, seguridad con Falco y OPA, y reducción del tiempo de resolución en incidentes de Kubernetes.',
+        link: '/training/',
+        linkLabel: 'Explorar capacitaciones'
+      },
+      {
+        icon: '📢',
+        title: 'Presentaciones',
+        desc: 'Charlas y ponencias en conferencias sobre redes celulares cloud-native, GitOps, Open RAN y IA agéntica — compartiendo experiencia de producción desde Bogotá hasta Amsterdam.',
+        link: '#speaking',
+        linkLabel: 'Ver presentaciones'
+      }
+    ],
+    cncfTitle: 'Software open-source del paisaje CNCF',
+    cncfDesc: 'Enseñamos a usar las herramientas más relevantes del ecosistema CNCF para resolver problemas reales de infraestructura Kubernetes:',
+    cncfPills: [
+      { label: 'Orquestación', tools: ['Kubernetes', 'Helm', 'Kustomize', 'FluxCD', 'Argo CD'] },
+      { label: 'Observabilidad', tools: ['Prometheus', 'Grafana', 'OpenTelemetry', 'Jaeger', 'Loki'] },
+      { label: 'Seguridad', tools: ['Falco', 'OPA / Gatekeeper', 'cert-manager', 'Trivy', 'SPIFFE/SPIRE'] },
+      { label: 'Tiempo de Resolución', tools: ['k9s', 'Stern', 'Telepresence', 'Hubble', 'Chaos Mesh'] }
+    ]
+  } : {
+    eyebrow: 'Training & Learning',
+    title: 'Master the cloud-native ecosystem with open-source software.',
+    subtitle: 'Training, courses, and presentations on CNCF, Kubernetes, observability, security, and cellular networks.',
+    pillars: [
+      {
+        icon: '🎓',
+        title: 'Courses',
+        desc: 'Deep masterclasses on cellular networks (2G to 6G), Kubernetes, and the CNCF landscape — with quizzes, hands-on labs, and interactive diagrams.',
+        link: '/courses/cellular-networks/',
+        linkLabel: 'View Cellular Networks Course'
+      },
+      {
+        icon: '🛠️',
+        title: 'Training',
+        desc: 'Hands-on workshops for engineering teams: orchestration with Helm/FluxCD, observability with Prometheus and Grafana, security with Falco and OPA, and reducing time-to-resolution on Kubernetes incidents.',
+        link: '/training/',
+        linkLabel: 'Explore Training'
+      },
+      {
+        icon: '📢',
+        title: 'Presentations',
+        desc: 'Conference talks on cloud-native cellular networks, GitOps, Open RAN, and agentic AI — sharing production experience from Bogotá to Amsterdam.',
+        link: '#speaking',
+        linkLabel: 'View Presentations'
+      }
+    ],
+    cncfTitle: 'Open-source software from the CNCF landscape',
+    cncfDesc: 'We teach how to use the most relevant CNCF ecosystem tools to solve real Kubernetes infrastructure problems:',
+    cncfPills: [
+      { label: 'Orchestration', tools: ['Kubernetes', 'Helm', 'Kustomize', 'FluxCD', 'Argo CD'] },
+      { label: 'Observability', tools: ['Prometheus', 'Grafana', 'OpenTelemetry', 'Jaeger', 'Loki'] },
+      { label: 'Security', tools: ['Falco', 'OPA / Gatekeeper', 'cert-manager', 'Trivy', 'SPIFFE/SPIRE'] },
+      { label: 'Time-to-Resolution', tools: ['k9s', 'Stern', 'Telepresence', 'Hubble', 'Chaos Mesh'] }
+    ]
+  };
+
+  return React.createElement("section", {
+    id: "training",
+    style: {
+      padding: '6rem 2rem',
+      background: 'var(--bg2)',
+      borderTop: '1px solid var(--border)',
+      borderBottom: '1px solid var(--border)'
+    }
+  },
+    React.createElement("div", { style: { maxWidth: '1200px', margin: '0 auto' } },
+      React.createElement("div", { style: { marginBottom: '3.5rem', textAlign: 'center' } },
+        React.createElement("p", {
+          style: {
+            fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
+            color: 'var(--teal)', letterSpacing: '0.1em',
+            textTransform: 'uppercase', marginBottom: '0.75rem'
+          }
+        }, t.eyebrow),
+        React.createElement("h2", {
+          style: {
+            fontFamily: 'var(--font-head)', fontWeight: 700,
+            fontSize: 'clamp(2rem,3.5vw,2.75rem)',
+            letterSpacing: '-0.02em', marginBottom: '1rem'
+          }
+        }, t.title),
+        React.createElement("p", {
+          style: { color: 'var(--text-mid)', fontSize: '1.05rem', maxWidth: '680px', margin: '0 auto' }
+        }, t.subtitle)
+      ),
+      React.createElement("div", {
+        style: {
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '1.5rem',
+          marginBottom: '4rem'
+        }
+      }, t.pillars.map((p, i) =>
+        React.createElement("div", {
+          key: i,
+          style: {
+            background: 'var(--bg1)', border: '1px solid var(--border)',
+            borderRadius: '12px', padding: '2rem',
+            display: 'flex', flexDirection: 'column', gap: '0.75rem'
+          }
+        },
+          React.createElement("div", {
+            style: {
+              width: 48, height: 48, borderRadius: '10px',
+              background: 'var(--surface)', border: '1px solid var(--border)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '1.5rem', marginBottom: '0.5rem'
+            }
+          }, p.icon),
+          React.createElement("h3", {
+            style: { fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: '1.2rem' }
+          }, p.title),
+          React.createElement("p", {
+            style: { color: 'var(--text-mid)', fontSize: '0.9rem', lineHeight: 1.65, flex: 1 }
+          }, p.desc),
+          React.createElement("a", {
+            href: p.link,
+            style: {
+              fontFamily: 'var(--font-mono)', fontSize: '0.78rem',
+              color: 'var(--teal)', textDecoration: 'none',
+              display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
+              marginTop: '0.5rem'
+            }
+          }, p.linkLabel, ' →')
+        )
+      )),
+      React.createElement("div", {
+        style: {
+          background: 'var(--bg1)', border: '1px solid var(--border)',
+          borderRadius: '12px', padding: '2rem 2.5rem'
+        }
+      },
+        React.createElement("h3", {
+          style: {
+            fontFamily: 'var(--font-head)', fontWeight: 700,
+            fontSize: '1.2rem', marginBottom: '0.5rem'
+          }
+        }, t.cncfTitle),
+        React.createElement("p", {
+          style: { color: 'var(--text-mid)', fontSize: '0.9rem', marginBottom: '2rem' }
+        }, t.cncfDesc),
+        React.createElement("div", {
+          style: { display: 'flex', flexDirection: 'column', gap: '1.25rem' }
+        }, t.cncfPills.map((group, gi) =>
+          React.createElement("div", { key: gi },
+            React.createElement("p", {
+              style: {
+                fontFamily: 'var(--font-mono)', fontSize: '0.7rem',
+                color: 'var(--teal)', textTransform: 'uppercase',
+                letterSpacing: '0.08em', marginBottom: '0.5rem'
+              }
+            }, group.label),
+            React.createElement("div", { style: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem' } },
+              group.tools.map(tool =>
+                React.createElement("span", {
+                  key: tool,
+                  style: {
+                    fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
+                    background: 'var(--surface)', border: '1px solid var(--border)',
+                    borderRadius: '4px', padding: '0.3rem 0.75rem',
+                    color: 'var(--text-dim)'
+                  }
+                }, tool)
+              )
+            )
+          )
+        ))
+      )
+    )
+  );
 }
 
 // ─── SOLUTIONS ────────────────────────────────────────────────────────────────
@@ -2951,7 +3156,7 @@ function App() {
     tweaks: tweaks
   }), /*#__PURE__*/React.createElement(Hero, {
     tweaks: tweaks
-  }), /*#__PURE__*/React.createElement(NetworksRibbon, null), /*#__PURE__*/React.createElement(Products, null), /*#__PURE__*/React.createElement(Solutions, null), /*#__PURE__*/React.createElement(Technology, null), /*#__PURE__*/React.createElement(GlobalSouth, null), /*#__PURE__*/React.createElement(About, null), /*#__PURE__*/React.createElement(Speaking, null), /*#__PURE__*/React.createElement(Newsletter, null), /*#__PURE__*/React.createElement(Contact, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(TweaksPanel, {
+  }), /*#__PURE__*/React.createElement(NetworksRibbon, null), /*#__PURE__*/React.createElement(Products, null), /*#__PURE__*/React.createElement(TrainingSection, null), /*#__PURE__*/React.createElement(Solutions, null), /*#__PURE__*/React.createElement(Technology, null), /*#__PURE__*/React.createElement(GlobalSouth, null), /*#__PURE__*/React.createElement(About, null), /*#__PURE__*/React.createElement(Speaking, null), /*#__PURE__*/React.createElement(Newsletter, null), /*#__PURE__*/React.createElement(Contact, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(TweaksPanel, {
     tweaks: tweaks,
     setTweaks: setTweaks,
     visible: tweaksVisible
