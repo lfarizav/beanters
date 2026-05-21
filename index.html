@@ -510,6 +510,7 @@ function Nav({
     { label: 'Capacitaciones', href: '/training/', badge: soonBadge },
     { label: 'Presentaciones', href: '/presentations/', badge: soonBadge },
     { label: 'Conferencias', href: '#speaking' },
+    { label: 'Comunidades', href: '#communities' },
     { label: 'Newsletter', href: '#newsletter' },
     { label: 'Contacto', href: '#contact' }
   ] : [
@@ -521,6 +522,7 @@ function Nav({
     { label: 'Training', href: '/training/', badge: soonBadge },
     { label: 'Presentations', href: '/presentations/', badge: soonBadge },
     { label: 'Speaking', href: '#speaking' },
+    { label: 'Communities', href: '#communities' },
     { label: 'Newsletter', href: '#newsletter' },
     { label: 'Contact', href: '#contact' }
   ];
@@ -2919,6 +2921,142 @@ function Contact() {
   }, loading ? t.submitting : t.submit))));
 }
 
+// ─── COMMUNITIES ──────────────────────────────────────────────────────────────
+function Communities() {
+  const { lang } = useLang();
+  const t = lang === 'es' ? {
+    eyebrow: 'Comunidades',
+    title: 'Construyendo infraestructura juntos.',
+    subtitle: 'Espacios donde ingenieros, operadores y académicos colaboran para llevar el open-source al sector telco.',
+    communities: [
+      {
+        name: 'OpenInfra Colombia',
+        tagline: 'Linux · OpenStack · Kubernetes · Infrastructure + IA para Telco',
+        desc: 'Grupo de usuarios dedicado a impulsar el ecosistema LOKI — Linux, OpenStack, Kubernetes e Infraestructura — con esteroides de IA para la industria telco colombiana y latinoamericana. Organizamos al menos un evento por año para conectar a la comunidad, compartir experiencias de producción y acelerar la adopción de infraestructura open-source.',
+        links: [
+          { label: 'LinkedIn', href: 'https://www.linkedin.com/company/colombia-openinfra-user-group' },
+          { label: 'Meetup', href: 'https://www.meetup.com/colombia-openinfra-user-group/' }
+        ],
+        tags: ['Linux', 'OpenStack', 'Kubernetes', 'Open RAN', 'IA Agéntica', 'Telco', 'Colombia']
+      }
+    ]
+  } : {
+    eyebrow: 'Communities',
+    title: 'Building infrastructure together.',
+    subtitle: 'Spaces where engineers, operators, and academics collaborate to bring open-source to the telco industry.',
+    communities: [
+      {
+        name: 'OpenInfra Colombia',
+        tagline: 'Linux · OpenStack · Kubernetes · Infrastructure + AI for Telco',
+        desc: 'User group dedicated to growing the LOKI ecosystem — Linux, OpenStack, Kubernetes, and Infrastructure — with AI steroids for the Colombian and Latin American telco industry. We organise at least one event per year to connect the community, share production experience, and accelerate open-source infrastructure adoption.',
+        links: [
+          { label: 'LinkedIn', href: 'https://www.linkedin.com/company/colombia-openinfra-user-group' },
+          { label: 'Meetup', href: 'https://www.meetup.com/colombia-openinfra-user-group/' }
+        ],
+        tags: ['Linux', 'OpenStack', 'Kubernetes', 'Open RAN', 'Agentic AI', 'Telco', 'Colombia']
+      }
+    ]
+  };
+
+  return React.createElement("section", {
+    id: "communities",
+    style: {
+      padding: '6rem 2rem',
+      maxWidth: '1200px',
+      margin: '0 auto'
+    }
+  },
+    React.createElement("div", { style: { marginBottom: '3.5rem' } },
+      React.createElement("p", {
+        style: {
+          fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
+          color: 'var(--teal)', letterSpacing: '0.1em',
+          textTransform: 'uppercase', marginBottom: '0.75rem'
+        }
+      }, t.eyebrow),
+      React.createElement("h2", {
+        style: {
+          fontFamily: 'var(--font-head)', fontWeight: 700,
+          fontSize: 'clamp(2rem,3.5vw,2.75rem)',
+          letterSpacing: '-0.02em', marginBottom: '1rem', maxWidth: '600px'
+        }
+      }, t.title),
+      React.createElement("p", {
+        style: { color: 'var(--text-mid)', fontSize: '1.05rem', maxWidth: '680px' }
+      }, t.subtitle)
+    ),
+    React.createElement("div", {
+      style: { display: 'flex', flexDirection: 'column', gap: '1.5rem' }
+    }, t.communities.map((c, i) =>
+      React.createElement("div", {
+        key: i,
+        style: {
+          background: 'var(--bg2)', border: '1px solid var(--border)',
+          borderRadius: '12px', padding: '2.5rem',
+          display: 'grid', gridTemplateColumns: '1fr auto',
+          gap: '2rem', alignItems: 'start'
+        }
+      },
+        React.createElement("div", null,
+          React.createElement("h3", {
+            style: {
+              fontFamily: 'var(--font-head)', fontWeight: 700,
+              fontSize: '1.5rem', marginBottom: '0.35rem'
+            }
+          }, c.name),
+          React.createElement("p", {
+            style: {
+              fontFamily: 'var(--font-mono)', fontSize: '0.78rem',
+              color: 'var(--teal)', marginBottom: '1rem'
+            }
+          }, c.tagline),
+          React.createElement("p", {
+            style: {
+              color: 'var(--text-mid)', fontSize: '0.92rem',
+              lineHeight: 1.7, marginBottom: '1.5rem', maxWidth: '700px'
+            }
+          }, c.desc),
+          React.createElement("div", {
+            style: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }
+          }, c.tags.map(tag =>
+            React.createElement("span", {
+              key: tag,
+              style: {
+                fontFamily: 'var(--font-mono)', fontSize: '0.7rem',
+                background: 'var(--surface)', border: '1px solid var(--border)',
+                borderRadius: '4px', padding: '0.2rem 0.6rem',
+                color: 'var(--text-dim)'
+              }
+            }, tag)
+          ))
+        ),
+        React.createElement("div", {
+          style: { display: 'flex', flexDirection: 'column', gap: '0.75rem', minWidth: '140px' }
+        }, c.links.map(link =>
+          React.createElement("a", {
+            key: link.label,
+            href: link.href,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            style: {
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              gap: '0.4rem', padding: '0.6rem 1.25rem',
+              background: 'var(--bg1)', border: '1px solid var(--border)',
+              borderRadius: '8px', color: 'var(--teal)',
+              fontFamily: 'var(--font-mono)', fontSize: '0.8rem',
+              fontWeight: 600, textDecoration: 'none',
+              transition: 'border-color 0.2s, background 0.2s',
+              whiteSpace: 'nowrap'
+            },
+            onMouseEnter: e => { e.currentTarget.style.borderColor = 'var(--teal)'; e.currentTarget.style.background = 'var(--teal-glow)'; },
+            onMouseLeave: e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.background = 'var(--bg1)'; }
+          }, link.label, ' →')
+        ))
+      )
+    ))
+  );
+}
+
 // ─── FOOTER ───────────────────────────────────────────────────────────────────
 function Footer() {
   const { lang } = useLang();
@@ -3156,7 +3294,7 @@ function App() {
     tweaks: tweaks
   }), /*#__PURE__*/React.createElement(Hero, {
     tweaks: tweaks
-  }), /*#__PURE__*/React.createElement(NetworksRibbon, null), /*#__PURE__*/React.createElement(Products, null), /*#__PURE__*/React.createElement(TrainingSection, null), /*#__PURE__*/React.createElement(Solutions, null), /*#__PURE__*/React.createElement(Technology, null), /*#__PURE__*/React.createElement(GlobalSouth, null), /*#__PURE__*/React.createElement(About, null), /*#__PURE__*/React.createElement(Speaking, null), /*#__PURE__*/React.createElement(Newsletter, null), /*#__PURE__*/React.createElement(Contact, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(TweaksPanel, {
+  }), /*#__PURE__*/React.createElement(NetworksRibbon, null), /*#__PURE__*/React.createElement(Products, null), /*#__PURE__*/React.createElement(TrainingSection, null), /*#__PURE__*/React.createElement(Solutions, null), /*#__PURE__*/React.createElement(Technology, null), /*#__PURE__*/React.createElement(GlobalSouth, null), /*#__PURE__*/React.createElement(About, null), /*#__PURE__*/React.createElement(Speaking, null), /*#__PURE__*/React.createElement(Communities, null), /*#__PURE__*/React.createElement(Newsletter, null), /*#__PURE__*/React.createElement(Contact, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(TweaksPanel, {
     tweaks: tweaks,
     setTweaks: setTweaks,
     visible: tweaksVisible
