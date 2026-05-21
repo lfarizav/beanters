@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heritage Courses — Vista preliminar</title>
+<meta name="description" content="Masterclass de Redes Celulares — vista preliminar de los primeros 3 módulos. Solicita acceso por correo.">
+<style>
+  :root { --bg0:#0d1117; --bg1:#161b22; --bg2:#21262d; --border:#30363d; --text:#f0f6fc; --text2:#8b949e; --accent:#00D9FF; --gold:#FFD700; }
+  [data-theme="light"] { --bg0:#ffffff; --bg1:#f6f8fa; --bg2:#eaeef2; --border:#d0d7de; --text:#1f2328; --text2:#656d76; --accent:#0969da; --gold:#9a6700; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI', system-ui, sans-serif; background:var(--bg0); color:var(--text); min-height:100vh; line-height:1.55; }
+  nav { background:var(--bg1); border-bottom:1px solid var(--border); padding:14px 24px; display:flex; align-items:center; gap:16px; }
+  nav .brand { font-weight:700; font-size:1.15em; color:var(--accent); }
+  nav .right { margin-left:auto; display:flex; gap:14px; align-items:center; }
+  nav a { color:var(--accent); text-decoration:none; font-size:0.9em; }
+  nav a:hover { text-decoration:underline; }
+  nav button { background:none; border:1px solid var(--border); color:var(--text2); border-radius:6px; padding:5px 12px; cursor:pointer; font-size:0.85em; }
+  .hero { padding:80px 24px 48px; text-align:center; max-width:900px; margin:0 auto; }
+  .hero h1 { font-size:2.6em; color:var(--accent); margin-bottom:18px; line-height:1.15; }
+  .hero .lead { font-size:1.2em; color:var(--text2); margin-bottom:30px; }
+  .hero .pill { display:inline-block; background:rgba(0,217,255,0.12); color:var(--accent); border:1px solid rgba(0,217,255,0.4); border-radius:999px; padding:4px 14px; font-size:0.82em; font-weight:600; margin-bottom:18px; letter-spacing:0.04em; }
+  .container { max-width:1100px; margin:0 auto; padding:0 24px 80px; }
+  h2 { font-size:1.5em; color:var(--gold); margin:40px 0 18px; }
+  .course-card { background:var(--bg1); border:1px solid var(--border); border-radius:12px; padding:28px; margin-bottom:20px; transition:border-color 0.2s; }
+  .course-card:hover { border-color:var(--accent); }
+  .course-card h3 { color:var(--accent); font-size:1.35em; margin-bottom:6px; }
+  .course-card .subtitle { color:var(--text2); margin-bottom:18px; font-size:0.95em; }
+  .module-list { list-style:none; padding:0; margin:14px 0 22px; }
+  .module-list li { padding:9px 0; border-bottom:1px solid var(--border); color:var(--text); font-size:0.95em; display:flex; gap:10px; align-items:center; }
+  .module-list li:last-child { border-bottom:none; }
+  .module-list .num { color:var(--accent); font-weight:700; min-width:28px; }
+  .module-list .lock { margin-left:auto; color:var(--text2); font-size:0.85em; }
+  .cta-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+  .btn { display:inline-block; padding:11px 22px; border-radius:8px; text-decoration:none; font-weight:600; font-size:0.95em; cursor:pointer; border:none; transition:transform 0.1s, background 0.2s; }
+  .btn:hover { transform:translateY(-1px); }
+  .btn-primary { background:var(--accent); color:#0d1117; }
+  .btn-secondary { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+  .info { background:var(--bg2); border-left:3px solid var(--accent); padding:14px 18px; border-radius:6px; margin:24px 0; font-size:0.92em; color:var(--text2); }
+  .info strong { color:var(--text); }
+  footer { border-top:1px solid var(--border); padding:30px 24px; text-align:center; color:var(--text2); font-size:0.88em; }
+  footer a { color:var(--accent); text-decoration:none; }
+  footer a:hover { text-decoration:underline; }
+  .instructor { display:flex; gap:16px; align-items:center; margin:18px 0; padding:14px; background:var(--bg2); border-radius:8px; }
+  .instructor img { width:56px; height:56px; border-radius:50%; border:2px solid var(--accent); object-fit:cover; }
+  .instructor .meta { font-size:0.9em; }
+  .instructor .name { color:var(--text); font-weight:600; margin-bottom:2px; }
+  .instructor .role { color:var(--text2); font-size:0.85em; }
+</style>
+</head>
+<body>
+<nav>
+  <span class="brand">Heritage Courses</span>
+  <div class="right">
+    <a href="https://beanters.com" rel="noopener">beanters.com</a>
+    <button id="themeBtn" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="pill">VISTA PRELIMINAR · 3 MÓDULOS</div>
+  <h1>Masterclass de Redes Celulares</h1>
+  <p class="lead">25 módulos de 2G a 6G + edge + Open RAN, con quizzes interactivos, laboratorios prácticos y diagramas Mermaid. Aquí puedes ver los primeros 3 antes de pedir acceso al curso completo.</p>
+  <div class="cta-row" style="justify-content:center;">
+    <a href="slides.html" class="btn btn-primary">Ver vista preliminar →</a>
+    <a href="mailto:lfarizav@gmail.com?subject=Heritage%20-%20Solicitud%20de%20acceso&body=Hola%20Luis%2C%0A%0AMe%20interesa%20acceder%20al%20curso%20Heritage%20de%20redes%20celulares.%0A%0AMi%20nombre%3A%20%0AInstitución%2FEmpresa%3A%20%0AMotivo%3A%20%0A%0AGracias." class="btn btn-secondary">Solicitar acceso por correo</a>
+  </div>
+</div>
+
+<div class="container">
+  <h2>📚 Curso disponible</h2>
+
+  <div class="course-card">
+    <h3>Redes Celulares: de 2G a 6G</h3>
+    <p class="subtitle">Una masterclass completa que cubre la evolución de las redes móviles desde GSM hasta la próxima generación, incluyendo arquitectura, protocolos, RAN, core, edge computing y laboratorios prácticos.</p>
+
+    <div class="instructor">
+      <img src="images/luis_ariza.jpg" alt="Luis Felipe Ariza Vesga">
+      <div class="meta">
+        <div class="name">Luis Felipe Ariza Vesga</div>
+        <div class="role">PhD Telecom · Kubestronaut · <a href="https://linktr.ee/lfarizav" rel="noopener" style="color:var(--accent);">linktr.ee/lfarizav</a></div>
+      </div>
+    </div>
+
+    <ul class="module-list">
+      <li><span class="num">01</span> <span>Redes 2G/3G — GSM, GPRS y UMTS</span> <span class="lock">🔓 incluido en preview</span></li>
+      <li><span class="num">02</span> <span>4G LTE — EPC, eNodeB, IMS</span> <span class="lock">🔓 incluido en preview</span></li>
+      <li><span class="num">03</span> <span>5G NR — gNB, 5GC, slicing</span> <span class="lock">🔓 incluido en preview</span></li>
+      <li><span class="num">04</span> <span>Módulos 04–25 — RAN, core, edge, MEC, Open RAN, 6G…</span> <span class="lock">🔒 acceso completo</span></li>
+    </ul>
+
+    <div class="info">
+      <strong>📨 Cómo acceder:</strong> Los slides están protegidos con contraseña. Envíame un correo a <a href="mailto:lfarizav@gmail.com?subject=Heritage%20-%20Solicitud%20de%20acceso" style="color:var(--accent);">lfarizav@gmail.com</a> con una breve presentación y te respondo con la clave en menos de 24 horas.
+    </div>
+
+    <div class="cta-row">
+      <a href="slides.html" class="btn btn-primary">Abrir vista preliminar</a>
+      <a href="mailto:lfarizav@gmail.com?subject=Heritage%20-%20Solicitud%20de%20acceso" class="btn btn-secondary">Solicitar acceso</a>
+    </div>
+  </div>
+
+  <h2>🚧 Más cursos pronto</h2>
+  <p style="color:var(--text2);">Kubernetes (CKA / CKAD / CKS), networking avanzado, agentic engineering y más están en preparación. Si quieres ser notificado, escríbeme.</p>
+</div>
+
+<footer>
+  <p>Heritage Courses · Parte de <a href="https://beanters.com" rel="noopener">beanters.com</a> · © 2026 Luis Felipe Ariza Vesga</p>
+</footer>
+
+<script>
+function toggleTheme() {
+  var cur = document.documentElement.getAttribute('data-theme');
+  var next = cur === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('heritage-theme', next);
+  document.getElementById('themeBtn').textContent = next === 'light' ? '☀️' : '🌙';
+}
+(function() {
+  var t = localStorage.getItem('heritage-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = t === 'light' ? '☀️' : '🌙';
+  });
+})();
+</script>
+</body>
+</html>
