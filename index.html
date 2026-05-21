@@ -493,7 +493,28 @@ function Nav({
     window.addEventListener('scroll', h);
     return () => window.removeEventListener('scroll', h);
   }, []);
-  const links = ['Products', 'Solutions', 'Technology', 'About', 'Speaking', 'Contact'];
+  const links = [{
+    label: 'Products',
+    href: '#products'
+  }, {
+    label: 'Solutions',
+    href: '#solutions'
+  }, {
+    label: 'Technology',
+    href: '#technology'
+  }, {
+    label: 'About',
+    href: '#about'
+  }, {
+    label: 'Courses',
+    href: '/courses/cellular-networks/'
+  }, {
+    label: 'Speaking',
+    href: '#speaking'
+  }, {
+    label: 'Contact',
+    href: '#contact'
+  }];
   return /*#__PURE__*/React.createElement("nav", {
     style: {
       position: 'fixed',
@@ -538,8 +559,8 @@ function Nav({
       alignItems: 'center'
     }
   }, links.map(l => /*#__PURE__*/React.createElement("a", {
-    key: l,
-    href: `#${l.toLowerCase()}`,
+    key: l.label,
+    href: l.href,
     style: {
       fontFamily: 'var(--font-body)',
       fontSize: '0.875rem',
@@ -550,7 +571,7 @@ function Nav({
     },
     onMouseEnter: e => e.target.style.color = 'var(--text)',
     onMouseLeave: e => e.target.style.color = 'var(--text-mid)'
-  }, l)), /*#__PURE__*/React.createElement("a", {
+  }, l.label)), /*#__PURE__*/React.createElement("a", {
     href: "#contact",
     style: {
       display: 'inline-flex',
