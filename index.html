@@ -509,6 +509,14 @@ function Nav({
     label: 'Courses',
     href: '/courses/cellular-networks/'
   }, {
+    label: 'Training',
+    href: '/training/',
+    badge: 'Soon'
+  }, {
+    label: 'Presentations',
+    href: '/presentations/',
+    badge: 'Soon'
+  }, {
     label: 'Speaking',
     href: '#speaking'
   }, {
@@ -567,11 +575,26 @@ function Nav({
       fontWeight: 500,
       color: 'var(--text-mid)',
       textDecoration: 'none',
-      transition: 'color 0.2s'
+      transition: 'color 0.2s',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.4rem'
     },
-    onMouseEnter: e => e.target.style.color = 'var(--text)',
-    onMouseLeave: e => e.target.style.color = 'var(--text-mid)'
-  }, l.label)), /*#__PURE__*/React.createElement("a", {
+    onMouseEnter: e => e.currentTarget.style.color = 'var(--text)',
+    onMouseLeave: e => e.currentTarget.style.color = 'var(--text-mid)'
+  }, l.label, l.badge && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: '0.62rem',
+      fontWeight: 700,
+      letterSpacing: '0.06em',
+      textTransform: 'uppercase',
+      padding: '2px 6px',
+      borderRadius: '999px',
+      background: 'rgba(255,215,0,0.12)',
+      color: '#FFD700',
+      border: '1px solid rgba(255,215,0,0.35)'
+    }
+  }, l.badge))), /*#__PURE__*/React.createElement("a", {
     href: "#contact",
     style: {
       display: 'inline-flex',
