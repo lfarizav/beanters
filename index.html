@@ -458,7 +458,9 @@ const {
   useState,
   useEffect,
   useRef,
-  useCallback
+  useCallback,
+  useContext,
+  createContext
 } = React;
 
 // ─── TWEAK DEFAULTS ──────────────────────────────────────────────────────────
@@ -468,6 +470,10 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "showStats": true,
   "animateCLI": true
 } /*EDITMODE-END*/;
+
+// ─── i18n ────────────────────────────────────────────────────────────────────
+const LangContext = createContext({ lang: 'en', setLang: () => {} });
+const useLang = () => useContext(LangContext);
 
 // ─── UTILS ───────────────────────────────────────────────────────────────────
 const useIntersection = (ref, options) => {
@@ -486,6 +492,7 @@ const useIntersection = (ref, options) => {
 function Nav({
   tweaks
 }) {
+  const { lang, setLang } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -493,39 +500,31 @@ function Nav({
     window.addEventListener('scroll', h);
     return () => window.removeEventListener('scroll', h);
   }, []);
-  const links = [{
-    label: 'Products',
-    href: '#products'
-  }, {
-    label: 'Solutions',
-    href: '#solutions'
-  }, {
-    label: 'Technology',
-    href: '#technology'
-  }, {
-    label: 'About',
-    href: '#about'
-  }, {
-    label: 'Courses',
-    href: '/courses/cellular-networks/'
-  }, {
-    label: 'Training',
-    href: '/training/',
-    badge: 'Soon'
-  }, {
-    label: 'Presentations',
-    href: '/presentations/',
-    badge: 'Soon'
-  }, {
-    label: 'Speaking',
-    href: '#speaking'
-  }, {
-    label: 'Newsletter',
-    href: '#newsletter'
-  }, {
-    label: 'Contact',
-    href: '#contact'
-  }];
+  const soonBadge = lang === 'es' ? 'Pronto' : 'Soon';
+  const links = lang === 'es' ? [
+    { label: 'Productos', href: '#products' },
+    { label: 'Soluciones', href: '#solutions' },
+    { label: 'Tecnología', href: '#technology' },
+    { label: 'Sobre mí', href: '#about' },
+    { label: 'Cursos', href: '/courses/cellular-networks/' },
+    { label: 'Capacitaciones', href: '/training/', badge: soonBadge },
+    { label: 'Presentaciones', href: '/presentations/', badge: soonBadge },
+    { label: 'Conferencias', href: '#speaking' },
+    { label: 'Newsletter', href: '#newsletter' },
+    { label: 'Contacto', href: '#contact' }
+  ] : [
+    { label: 'Products', href: '#products' },
+    { label: 'Solutions', href: '#solutions' },
+    { label: 'Technology', href: '#technology' },
+    { label: 'About', href: '#about' },
+    { label: 'Courses', href: '/courses/cellular-networks/' },
+    { label: 'Training', href: '/training/', badge: soonBadge },
+    { label: 'Presentations', href: '/presentations/', badge: soonBadge },
+    { label: 'Speaking', href: '#speaking' },
+    { label: 'Newsletter', href: '#newsletter' },
+    { label: 'Contact', href: '#contact' }
+  ];
+  const ctaLabel = lang === 'es' ? 'Solicitar demo' : 'Book Demo';
   return /*#__PURE__*/React.createElement("nav", {
     style: {
       position: 'fixed',
@@ -597,7 +596,38 @@ function Nav({
       color: '#FFD700',
       border: '1px solid rgba(255,215,0,0.35)'
     }
-  }, l.badge))), /*#__PURE__*/React.createElement("a", {
+  }, l.badge))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.75rem'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    role: "tablist",
+    "aria-label": "Language",
+    style: {
+      display: 'inline-flex',
+      gap: '0.25rem'
+    }
+  }, ['en', 'es'].map(code => /*#__PURE__*/React.createElement("button", {
+    key: code,
+    role: "tab",
+    "aria-selected": lang === code,
+    onClick: () => setLang(code),
+    style: {
+      background: lang === code ? 'var(--teal)' : 'transparent',
+      color: lang === code ? '#080d1a' : 'var(--text-mid)',
+      border: '1px solid ' + (lang === code ? 'var(--teal)' : 'var(--border)'),
+      borderRadius: '4px',
+      padding: '3px 10px',
+      fontFamily: 'var(--font-mono)',
+      fontSize: '0.7rem',
+      fontWeight: 700,
+      cursor: 'pointer',
+      textTransform: 'uppercase',
+      letterSpacing: '0.06em'
+    }
+  }, code))), /*#__PURE__*/React.createElement("a", {
     href: "#contact",
     style: {
       display: 'inline-flex',
@@ -615,62 +645,51 @@ function Nav({
     },
     onMouseEnter: e => e.target.style.opacity = '0.85',
     onMouseLeave: e => e.target.style.opacity = '1'
-  }, "Book Demo")));
+  }, ctaLabel))));
 }
 
 // ─── CLI ANIMATION ────────────────────────────────────────────────────────────
-const CLI_LINES = [{
-  type: 'comment',
-  text: '# Deploy a 5G SA private network with NB-IoT support'
-}, {
-  type: 'cmd',
-  text: 'ngntelco network deploy \\'
-}, {
-  type: 'arg',
-  text: '  --standard 5g-sa \\'
-}, {
-  type: 'arg',
-  text: '  --add-on nb-iot,lte-m \\'
-}, {
-  type: 'arg',
-  text: '  --orchestrator helm \\'
-}, {
-  type: 'arg',
-  text: '  --namespace private-net \\'
-}, {
-  type: 'arg',
-  text: '  --gnb-count 3'
-}, {
-  type: 'blank',
-  text: ''
-}, {
-  type: 'out',
-  text: '✔ Validating 3GPP R17 conformance...'
-}, {
-  type: 'out',
-  text: '✔ Rendering Helm chart manifests...'
-}, {
-  type: 'out',
-  text: '✔ Deploying OAI-gNB × 3 to cluster...'
-}, {
-  type: 'out',
-  text: '✔ Attaching Open5GS core (AMF/SMF/UPF)...'
-}, {
-  type: 'out',
-  text: '✔ Configuring NB-IoT & LTE-M bearers...'
-}, {
-  type: 'out',
-  text: '✔ Enabling observability stack (Grafana/Prometheus)...'
-}, {
-  type: 'blank',
-  text: ''
-}, {
-  type: 'success',
-  text: '🟢 Network ONLINE — 3 gNBs active │ 0 ms latency target'
-}];
+const CLI_LINES_EN = [
+  { type: 'comment', text: '# Deploy a 5G SA private network with NB-IoT support' },
+  { type: 'cmd',     text: 'ngntelco network deploy \\' },
+  { type: 'arg',     text: '  --standard 5g-sa \\' },
+  { type: 'arg',     text: '  --add-on nb-iot,lte-m \\' },
+  { type: 'arg',     text: '  --orchestrator helm \\' },
+  { type: 'arg',     text: '  --namespace private-net \\' },
+  { type: 'arg',     text: '  --gnb-count 3' },
+  { type: 'blank',   text: '' },
+  { type: 'out',     text: '✔ Validating 3GPP R17 conformance...' },
+  { type: 'out',     text: '✔ Rendering Helm chart manifests...' },
+  { type: 'out',     text: '✔ Deploying OAI-gNB × 3 to cluster...' },
+  { type: 'out',     text: '✔ Attaching Open5GS core (AMF/SMF/UPF)...' },
+  { type: 'out',     text: '✔ Configuring NB-IoT & LTE-M bearers...' },
+  { type: 'out',     text: '✔ Enabling observability stack (Grafana/Prometheus)...' },
+  { type: 'blank',   text: '' },
+  { type: 'success', text: '🟢 Network ONLINE — 3 gNBs active │ 0 ms latency target' }
+];
+const CLI_LINES_ES = [
+  { type: 'comment', text: '# Despliega una red privada 5G SA con soporte NB-IoT' },
+  { type: 'cmd',     text: 'ngntelco network deploy \\' },
+  { type: 'arg',     text: '  --standard 5g-sa \\' },
+  { type: 'arg',     text: '  --add-on nb-iot,lte-m \\' },
+  { type: 'arg',     text: '  --orchestrator helm \\' },
+  { type: 'arg',     text: '  --namespace private-net \\' },
+  { type: 'arg',     text: '  --gnb-count 3' },
+  { type: 'blank',   text: '' },
+  { type: 'out',     text: '✔ Validando conformidad 3GPP R17...' },
+  { type: 'out',     text: '✔ Renderizando manifiestos Helm...' },
+  { type: 'out',     text: '✔ Desplegando OAI-gNB × 3 al clúster...' },
+  { type: 'out',     text: '✔ Conectando núcleo Open5GS (AMF/SMF/UPF)...' },
+  { type: 'out',     text: '✔ Configurando bearers NB-IoT y LTE-M...' },
+  { type: 'out',     text: '✔ Activando observabilidad (Grafana/Prometheus)...' },
+  { type: 'blank',   text: '' },
+  { type: 'success', text: '🟢 Red EN LÍNEA — 3 gNBs activos │ objetivo 0 ms de latencia' }
+];
 function CLIWindow({
   animate
 }) {
+  const { lang } = useLang();
+  const CLI_LINES = lang === 'es' ? CLI_LINES_ES : CLI_LINES_EN;
   const [shown, setShown] = useState(animate ? 0 : CLI_LINES.length);
   useEffect(() => {
     if (!animate) {
@@ -685,7 +704,7 @@ function CLIWindow({
       if (i >= CLI_LINES.length) clearInterval(iv);
     }, 140);
     return () => clearInterval(iv);
-  }, [animate]);
+  }, [animate, lang]);
   const colorMap = {
     comment: 'var(--text-dim)',
     cmd: 'var(--teal)',
@@ -767,6 +786,36 @@ function CLIWindow({
 function Hero({
   tweaks
 }) {
+  const { lang } = useLang();
+  const t = lang === 'es' ? {
+    pill: '3GPP COMPLIANT · CLOUD-NATIVE · OPEN-SOURCE',
+    titleA: 'Despliega Cualquier ',
+    titleHi: 'Red Celular',
+    titleB: ' con Un Solo Comando',
+    leadBold: 'ngntelco CLI',
+    lead: ' orquesta ciclos de vida en Docker Compose, Helm, Kustomize y Flux para desplegar redes privadas 4G/5G estandarizadas por 3GPP, 5G Broadcast, NB-IoT, LTE-M, NTN, MBS — y más — sobre hardware común.',
+    ctaPrimary: 'Solicita una demo →',
+    ctaSecondary: 'Explorar productos',
+    stats: [
+      { n: '8+', label: 'Estándares de Red' },
+      { n: '4', label: 'Orquestadores' },
+      { n: '1-toque', label: 'Despliegue' }
+    ]
+  } : {
+    pill: '3GPP COMPLIANT · CLOUD-NATIVE · OPEN-SOURCE',
+    titleA: 'Deploy Any ',
+    titleHi: 'Cellular Network',
+    titleB: ' with a Single Command',
+    leadBold: 'ngntelco CLI',
+    lead: ' orchestrates Docker Compose, Helm, Kustomize, and Flux lifecycles to deploy 3GPP-standardized 4G/5G private networks, 5G Broadcast, NB-IoT, LTE-M, NTN, MBS — and more — on commodity hardware.',
+    ctaPrimary: 'Book a Demo →',
+    ctaSecondary: 'Explore Products',
+    stats: [
+      { n: '8+', label: 'Network Standards' },
+      { n: '4', label: 'Orchestrators' },
+      { n: '1-touch', label: 'Deployment' }
+    ]
+  };
   const [started, setStarted] = useState(false);
   useEffect(() => {
     setTimeout(() => setStarted(true), 400);
@@ -834,7 +883,7 @@ function Hero({
       flexShrink: 0,
       animation: 'pulse 2s infinite'
     }
-  }), "3GPP COMPLIANT \xB7 CLOUD-NATIVE \xB7 OPEN-SOURCE"), /*#__PURE__*/React.createElement("div", {
+  }), t.pill), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
@@ -850,11 +899,11 @@ function Hero({
       letterSpacing: '-0.03em',
       marginBottom: '1.5rem'
     }
-  }, "Deploy Any ", /*#__PURE__*/React.createElement("span", {
+  }, t.titleA, /*#__PURE__*/React.createElement("span", {
     style: {
       color: 'var(--teal)'
     }
-  }, "Cellular Network"), ' ', "with a Single Command"), /*#__PURE__*/React.createElement("p", {
+  }, t.titleHi), t.titleB), /*#__PURE__*/React.createElement("p", {
     style: {
       fontFamily: 'var(--font-body)',
       fontSize: '1.125rem',
@@ -867,7 +916,7 @@ function Hero({
     style: {
       color: 'var(--text)'
     }
-  }, "ngntelco CLI"), " orchestrates Docker Compose, Helm, Kustomize, and Flux lifecycles to deploy 3GPP-standardized 4G/5G private networks, 5G Broadcast, NB-IoT, LTE-M, NTN, MBS \u2014 and more \u2014 on commodity hardware."), /*#__PURE__*/React.createElement("div", {
+  }, t.leadBold), t.lead), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       gap: '1rem',
@@ -898,7 +947,7 @@ function Hero({
       e.currentTarget.style.transform = 'none';
       e.currentTarget.style.boxShadow = 'none';
     }
-  }, "Book a Demo \u2192"), /*#__PURE__*/React.createElement("a", {
+  }, t.ctaPrimary), /*#__PURE__*/React.createElement("a", {
     href: "#products",
     style: {
       display: 'inline-flex',
@@ -921,21 +970,12 @@ function Hero({
     onMouseLeave: e => {
       e.currentTarget.style.borderColor = 'var(--border)';
     }
-  }, "Explore Products")), tweaks.showStats && /*#__PURE__*/React.createElement("div", {
+  }, t.ctaSecondary)), tweaks.showStats && /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       gap: '2.5rem'
     }
-  }, [{
-    n: '8+',
-    label: 'Network Standards'
-  }, {
-    n: '4',
-    label: 'Orchestrators'
-  }, {
-    n: '1-touch',
-    label: 'Deployment'
-  }].map(s => /*#__PURE__*/React.createElement("div", {
+  }, t.stats.map(s => /*#__PURE__*/React.createElement("div", {
     key: s.n
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -1008,6 +1048,8 @@ function ProductCard({
   tags,
   featured
 }) {
+  const { lang } = useLang();
+  const featuredLabel = lang === 'es' ? 'Producto Principal' : 'Core Product';
   const ref = useRef();
   const vis = useIntersection(ref, {
     threshold: 0.1
@@ -1063,7 +1105,7 @@ function ProductCard({
       display: 'block',
       marginBottom: '0.5rem'
     }
-  }, "Core Product"), /*#__PURE__*/React.createElement("h3", {
+  }, featuredLabel), /*#__PURE__*/React.createElement("h3", {
     style: {
       fontFamily: 'var(--font-head)',
       fontWeight: 700,
@@ -1104,6 +1146,90 @@ function ProductCard({
   }, t)))));
 }
 function Products() {
+  const { lang } = useLang();
+  const t = lang === 'es' ? {
+    eyebrow: 'Nuestros Productos',
+    title: 'Un CLI. Todos los Est\u00E1ndares 3GPP.',
+    cards: [
+      {
+        featured: true,
+        icon: '\u26A1',
+        name: 'ngntelco CLI',
+        tagline: '$ ngntelco network deploy --standard 5g-sa',
+        desc: 'Nuestro motor de orquestaci\u00F3n insignia. Un solo comando despliega, actualiza y monitorea cualquier red celular estandarizada por 3GPP sobre pipelines de Docker Compose, Helm, Kustomize o Flux GitOps \u2014 sin vendor lock-in ni hardware propietario. Funciona en servidores x86 gen\u00E9ricos, mini-PCs o VMs en la nube.',
+        tags: ['Docker Compose', 'Helm', 'Kustomize', 'FluxCD', 'GitOps', 'Kubernetes', 'Open5GS', 'OAI', 'srsRAN', 'Magma']
+      },
+      {
+        icon: '\uD83D\uDCE1',
+        name: 'Redes Privadas 5G SA / 4G LTE',
+        tagline: 'Conectividad celular privada industrial',
+        desc: 'Despliega redes privadas 5G standalone o 4G LTE para campus empresariales, f\u00E1bricas, minas y universidades. N\u00FAcleo completo (AMF/SMF/UPF) + RAN en un solo flujo. Incluye VoLTE, VoNR, SMS, datos e IPTV.',
+        tags: ['5G SA', '4G LTE', 'Open5GS', 'OAI gNB', 'USRP / SDR']
+      },
+      {
+        icon: '\uD83D\uDCFA',
+        name: '5G Broadcast Terrestre',
+        tagline: 'Broadcast basado en LTE para medios y emergencias',
+        desc: 'Habilita 5G broadcast punto-a-multipunto para entrega de TV, alertas de emergencia y actualizaciones de firmware OTA a millones de dispositivos usando los est\u00E1ndares 3GPP FeMBMS/5G MBS \u2014 sin canal de retorno.',
+        tags: ['5G MBS', 'FeMBMS', 'LTE Broadcast', 'MBSFN', 'eMBMS']
+      },
+      {
+        icon: '\uD83C\uDF10',
+        name: 'NB-IoT y LTE-M',
+        tagline: 'IoT masivo conectividad a escala',
+        desc: 'Redes IoT de \u00E1rea amplia y baja potencia para agricultura inteligente, rastreo de activos, medidores inteligentes y monitoreo ambiental. Despliega NB-IoT y LTE-M privados en paralelo con tu infraestructura 4G/5G existente con los m\u00F3dulos add-on de ngntelco.',
+        tags: ['NB-IoT', 'LTE-M', 'Cat-M1', 'PSM', 'eDRX', 'IoT Masivo']
+      },
+      {
+        icon: '\uD83D\uDEF0\uFE0F',
+        name: 'NTN \u2014 Redes No Terrestres',
+        tagline: '5G para backhaul satelital y UAV',
+        desc: 'Extiende la conectividad celular a \u00E1reas remotas y desatendidas con configuraciones de redes no terrestres seg\u00FAn 3GPP R17. Ideal para banda ancha rural, respuesta a desastres y conectividad mar\u00EDtima en el Sur Global.',
+        tags: ['NTN', '3GPP R17', 'LEO Sat', 'UAV', 'Banda Ancha Rural']
+      }
+    ]
+  } : {
+    eyebrow: 'Our Products',
+    title: 'One CLI. Every 3GPP Network Standard.',
+    cards: [
+      {
+        featured: true,
+        icon: '\u26A1',
+        name: 'ngntelco CLI',
+        tagline: '$ ngntelco network deploy --standard 5g-sa',
+        desc: 'Our flagship orchestration engine. A single command deploys, upgrades, and monitors any 3GPP-standardized cellular network across Docker Compose, Helm, Kustomize, or Flux GitOps pipelines \u2014 no vendor lock-in, no proprietary hardware required. Run on general-purpose x86 servers, mini-PCs, or cloud VMs.',
+        tags: ['Docker Compose', 'Helm', 'Kustomize', 'FluxCD', 'GitOps', 'Kubernetes', 'Open5GS', 'OAI', 'srsRAN', 'Magma']
+      },
+      {
+        icon: '\uD83D\uDCE1',
+        name: '5G SA / 4G LTE Private Networks',
+        tagline: 'Industrial-grade private cellular',
+        desc: 'Deploy standalone 5G or 4G LTE private networks for enterprise campuses, factories, mines, and universities. Full core (AMF/SMF/UPF) + RAN in a single workflow. Includes VoLTE, VoNR, SMS, Data, and IPTV.',
+        tags: ['5G SA', '4G LTE', 'Open5GS', 'OAI gNB', 'USRP / SDR']
+      },
+      {
+        icon: '\uD83D\uDCFA',
+        name: '5G Terrestrial Broadcast',
+        tagline: 'LTE-based broadcast for media & emergency',
+        desc: 'Enable point-to-multipoint 5G broadcast for TV delivery, emergency alerts, and firmware-over-the-air updates to millions of devices using standard 3GPP FeMBMS/5G MBS specs \u2014 no return channel required.',
+        tags: ['5G MBS', 'FeMBMS', 'LTE Broadcast', 'MBSFN', 'eMBMS']
+      },
+      {
+        icon: '\uD83C\uDF10',
+        name: 'NB-IoT & LTE-M',
+        tagline: 'Massive IoT connectivity at scale',
+        desc: 'Low-power wide-area IoT networks for smart agriculture, asset tracking, smart meters, and environmental monitoring. Deploy private NB-IoT and LTE-M in parallel with existing 4G/5G infrastructure using ngntelco add-on modules.',
+        tags: ['NB-IoT', 'LTE-M', 'Cat-M1', 'PSM', 'eDRX', 'Massive IoT']
+      },
+      {
+        icon: '\uD83D\uDEF0\uFE0F',
+        name: 'NTN \u2014 Non-Terrestrial Networks',
+        tagline: '5G for satellite & UAV backhaul',
+        desc: 'Extend cellular connectivity to remote and underserved areas using Non-Terrestrial Network configurations per 3GPP R17. Ideal for rural broadband, disaster response, and maritime connectivity in the Global South.',
+        tags: ['NTN', '3GPP R17', 'LEO Sat', 'UAV', 'Rural Broadband']
+      }
+    ]
+  };
   return /*#__PURE__*/React.createElement("section", {
     id: "products",
     style: {
@@ -1124,7 +1250,7 @@ function Products() {
       textTransform: 'uppercase',
       marginBottom: '0.75rem'
     }
-  }, "Our Products"), /*#__PURE__*/React.createElement("h2", {
+  }, t.eyebrow), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: 'var(--font-head)',
       fontWeight: 700,
@@ -1132,44 +1258,21 @@ function Products() {
       letterSpacing: '-0.02em',
       maxWidth: '600px'
     }
-  }, "One CLI. Every 3GPP Network Standard.")), /*#__PURE__*/React.createElement("div", {
+  }, t.title)), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
       gap: '1.5rem'
     }
-  }, /*#__PURE__*/React.createElement(ProductCard, {
-    featured: true,
-    icon: "\u26A1",
-    name: "ngntelco CLI",
-    tagline: "$ ngntelco network deploy --standard 5g-sa",
-    desc: "Our flagship orchestration engine. A single command deploys, upgrades, and monitors any 3GPP-standardized cellular network across Docker Compose, Helm, Kustomize, or Flux GitOps pipelines \u2014 no vendor lock-in, no proprietary hardware required. Run on general-purpose x86 servers, mini-PCs, or cloud VMs.",
-    tags: ['Docker Compose', 'Helm', 'Kustomize', 'FluxCD', 'GitOps', 'Kubernetes', 'Open5GS', 'OAI', 'srsRAN', 'Magma']
-  }), /*#__PURE__*/React.createElement(ProductCard, {
-    icon: "\uD83D\uDCE1",
-    name: "5G SA / 4G LTE Private Networks",
-    tagline: "Industrial-grade private cellular",
-    desc: "Deploy standalone 5G or 4G LTE private networks for enterprise campuses, factories, mines, and universities. Full core (AMF/SMF/UPF) + RAN in a single workflow. Includes VoLTE, VoNR, SMS, Data, and IPTV.",
-    tags: ['5G SA', '4G LTE', 'Open5GS', 'OAI gNB', 'USRP / SDR']
-  }), /*#__PURE__*/React.createElement(ProductCard, {
-    icon: "\uD83D\uDCFA",
-    name: "5G Terrestrial Broadcast",
-    tagline: "LTE-based broadcast for media & emergency",
-    desc: "Enable point-to-multipoint 5G broadcast for TV delivery, emergency alerts, and firmware-over-the-air updates to millions of devices using standard 3GPP FeMBMS/5G MBS specs \u2014 no return channel required.",
-    tags: ['5G MBS', 'FeMBMS', 'LTE Broadcast', 'MBSFN', 'eMBMS']
-  }), /*#__PURE__*/React.createElement(ProductCard, {
-    icon: "\uD83C\uDF10",
-    name: "NB-IoT & LTE-M",
-    tagline: "Massive IoT connectivity at scale",
-    desc: "Low-power wide-area IoT networks for smart agriculture, asset tracking, smart meters, and environmental monitoring. Deploy private NB-IoT and LTE-M in parallel with existing 4G/5G infrastructure using ngntelco add-on modules.",
-    tags: ['NB-IoT', 'LTE-M', 'Cat-M1', 'PSM', 'eDRX', 'Massive IoT']
-  }), /*#__PURE__*/React.createElement(ProductCard, {
-    icon: "\uD83D\uDEF0\uFE0F",
-    name: "NTN \u2014 Non-Terrestrial Networks",
-    tagline: "5G for satellite & UAV backhaul",
-    desc: "Extend cellular connectivity to remote and underserved areas using Non-Terrestrial Network configurations per 3GPP R17. Ideal for rural broadband, disaster response, and maritime connectivity in the Global South.",
-    tags: ['NTN', '3GPP R17', 'LEO Sat', 'UAV', 'Rural Broadband']
-  })));
+  }, t.cards.map((c, i) => /*#__PURE__*/React.createElement(ProductCard, {
+    key: i,
+    featured: c.featured,
+    icon: c.icon,
+    name: c.name,
+    tagline: c.tagline,
+    desc: c.desc,
+    tags: c.tags
+  }))));
 }
 
 // ─── SOLUTIONS ────────────────────────────────────────────────────────────────
@@ -1195,7 +1298,7 @@ function SolutionTab({
     }
   }, label);
 }
-const SOLUTIONS = {
+const SOLUTIONS_EN = {
   university: {
     title: 'Universities & R&D Labs',
     subtitle: 'From classroom to cutting-edge research',
@@ -1225,7 +1328,59 @@ const SOLUTIONS = {
     accent: 'oklch(0.72 0.16 270)'
   }
 };
+const SOLUTIONS_ES = {
+  university: {
+    title: 'Universidades y Laboratorios I+D',
+    subtitle: 'Del aula a la investigación de punta',
+    desc: 'Beanters permite a las instituciones académicas construir sus propios testbeds 4G/5G en horas, no en meses. Realiza experimentos sobre redes privadas, enseña operaciones de telco cloud-native y contribuye a la investigación 3GPP de código abierto sin contratos millonarios con proveedores.',
+    usecases: ['Testbed 5G privado para laboratorios estudiantiles', '5G Broadcast para entrega de contenido en el campus', 'Investigación de IoT con NB-IoT y despliegues de sensores', 'Entornos de emulación OAI/srsRAN', 'Investigación de optimización multiobjetivo (energía RAN)'],
+    accent: 'var(--teal)'
+  },
+  enterprise: {
+    title: 'Empresas e Industria 4.0',
+    subtitle: 'Conectividad privada para tecnología operativa',
+    desc: 'Despliega redes privadas 5G deterministas para plantas industriales, operaciones mineras, logística portuaria y agroindustria. Totalmente aisladas de las redes públicas, con slicing de QoS para robótica, cámaras y sensores IoT — todo gestionado desde un solo CLI.',
+    usecases: ['Conectividad inalámbrica para fábricas inteligentes', 'Control determinístico de AGVs y brazos robóticos', 'Telemetría y SCADA sobre LTE-M', 'Inspección de calidad por video HD sobre 5G', 'Trazabilidad portuaria y logística sobre 4G privado'],
+    accent: 'var(--amber)'
+  },
+  government: {
+    title: 'Gobierno y Conectividad Rural',
+    subtitle: 'Conectando a los desconectados del Sur Global',
+    desc: 'Gobiernos y ONGs en Latinoamérica, África y el Sudeste Asiático pueden desplegar redes celulares soberanas y de código abierto para banda ancha rural, respuesta de emergencias y broadcast — sin depender de proveedores propietarios extranjeros.',
+    usecases: ['Banda ancha rural vía backhaul 5G NTN', 'Difusión de alertas de emergencia con 5G MBS', 'Agricultura inteligente con sensores NB-IoT', 'Servicios públicos digitales sobre 4G privado', 'Soberanía del espectro y RAN open-source'],
+    accent: 'oklch(0.72 0.18 140)'
+  },
+  telco: {
+    title: 'MVNOs y Operadores de Telecomunicaciones',
+    subtitle: 'Abre el código de tu stack de red',
+    desc: 'Construye o moderniza tu infraestructura de telco con automatización cloud-native, dirigida por GitOps. ngntelco CLI conecta las operaciones legadas con la orquestación moderna nativa de Kubernetes, habilitando el aprovisionamiento sin intervención de cualquier slice de red.',
+    usecases: ['Despliegue de núcleo 5G SA sin intervención', 'Gestión del ciclo de vida de red con GitOps', 'Slicing de red para múltiples inquilinos', 'Entrega continua del RAN basada en FluxCD', 'Observabilidad con Prometheus y Grafana'],
+    accent: 'oklch(0.72 0.16 270)'
+  }
+};
 function Solutions() {
+  const { lang } = useLang();
+  const SOLUTIONS = lang === 'es' ? SOLUTIONS_ES : SOLUTIONS_EN;
+  const tabs = lang === 'es' ? {
+    university: 'Universidad e I+D',
+    enterprise: 'Empresa',
+    government: 'Gobierno y ONG',
+    telco: 'Operadores de Telco'
+  } : {
+    university: 'University & R&D',
+    enterprise: 'Enterprise',
+    government: 'Government & NGO',
+    telco: 'Telecom Operators'
+  };
+  const labels = lang === 'es' ? {
+    eyebrow: 'Soluciones',
+    title: 'Diseñadas para cada operador',
+    usecasesHdr: 'Casos de Uso'
+  } : {
+    eyebrow: 'Solutions',
+    title: 'Built for Every Operator',
+    usecasesHdr: 'Use Cases'
+  };
   const [active, setActive] = useState('university');
   const s = SOLUTIONS[active];
   return /*#__PURE__*/React.createElement("section", {
@@ -1250,7 +1405,7 @@ function Solutions() {
       textTransform: 'uppercase',
       marginBottom: '0.75rem'
     }
-  }, "Solutions"), /*#__PURE__*/React.createElement("h2", {
+  }, labels.eyebrow), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: 'var(--font-head)',
       fontWeight: 700,
@@ -1258,19 +1413,14 @@ function Solutions() {
       letterSpacing: '-0.02em',
       marginBottom: '2.5rem'
     }
-  }, "Built for Every Operator"), /*#__PURE__*/React.createElement("div", {
+  }, labels.title), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       gap: '0.75rem',
       flexWrap: 'wrap',
       marginBottom: '3rem'
     }
-  }, Object.entries({
-    university: 'University & R&D',
-    enterprise: 'Enterprise',
-    government: 'Government & NGO',
-    telco: 'Telecom Operators'
-  }).map(([id, label]) => /*#__PURE__*/React.createElement(SolutionTab, {
+  }, Object.entries(tabs).map(([id, label]) => /*#__PURE__*/React.createElement(SolutionTab, {
     key: id,
     id: id,
     label: label,
@@ -1319,7 +1469,7 @@ function Solutions() {
       letterSpacing: '0.08em',
       marginBottom: '1.25rem'
     }
-  }, "Use Cases"), /*#__PURE__*/React.createElement("ul", {
+  }, labels.usecasesHdr), /*#__PURE__*/React.createElement("ul", {
     style: {
       listStyle: 'none',
       display: 'flex',
@@ -1404,6 +1554,26 @@ function TechPillar({
   }, "\u25B8"), it))));
 }
 function Technology() {
+  const { lang } = useLang();
+  const t = lang === 'es' ? {
+    eyebrow: 'Stack Tecnol\u00F3gico',
+    title: '100% Open-Source. Hardware Gen\u00E9rico. Cero Vendor Lock-In.',
+    pillars: [
+      { icon: '\uD83D\uDCE6', title: 'Orquestaci\u00F3n', items: ['Docker Compose', 'Helm Charts', 'Kustomize', 'FluxCD GitOps', 'Kubernetes (K3s/K8s)', 'Nephio (Pr\u00F3xima Generaci\u00F3n)'] },
+      { icon: '\uD83D\uDCFB', title: 'Stack RAN', items: ['OpenAirInterface (OAI)', 'srsRAN Project', 'OAI-gNB / eNB', 'USRP / ADALM-PLUTO', 'Hardware Gen\u00E9rico', 'RAN Independiente de la Nube'] },
+      { icon: '\uD83E\uDDE0', title: 'N\u00FAcleo de Red', items: ['Open5GS (5G SA/NSA)', 'Magma', 'Free5GC', 'OAI 5G Core', 'AMF / SMF / UPF', 'AUSF / UDM / PCF'] },
+      { icon: '\uD83D\uDCCA', title: 'Observabilidad', items: ['Prometheus + Grafana', 'Jaeger Tracing', 'Loki Logs', 'Dashboards de Kubernetes', 'Monitoreo de KPIs en tiempo real', 'Gesti\u00F3n de Alertas'] }
+    ]
+  } : {
+    eyebrow: 'Technology Stack',
+    title: '100% Open-Source. General-Purpose Hardware. Zero Vendor Lock-In.',
+    pillars: [
+      { icon: '\uD83D\uDCE6', title: 'Orchestration', items: ['Docker Compose', 'Helm Charts', 'Kustomize', 'FluxCD GitOps', 'Kubernetes (K3s/K8s)', 'Nephio (Next-Gen)'] },
+      { icon: '\uD83D\uDCFB', title: 'RAN Stack', items: ['OpenAirInterface (OAI)', 'srsRAN Project', 'OAI-gNB / eNB', 'USRP / ADALM-PLUTO', 'General-Purpose HW', 'Cloud-Agnostic RAN'] },
+      { icon: '\uD83E\uDDE0', title: 'Core Network', items: ['Open5GS (5G SA/NSA)', 'Magma', 'Free5GC', 'OAI 5G Core', 'AMF / SMF / UPF', 'AUSF / UDM / PCF'] },
+      { icon: '\uD83D\uDCCA', title: 'Observability', items: ['Prometheus + Grafana', 'Jaeger Tracing', 'Loki Logs', 'Kubernetes Dashboards', 'Real-time KPI monitoring', 'Alert Management'] }
+    ]
+  };
   return /*#__PURE__*/React.createElement("section", {
     id: "technology",
     style: {
@@ -1420,7 +1590,7 @@ function Technology() {
       textTransform: 'uppercase',
       marginBottom: '0.75rem'
     }
-  }, "Technology Stack"), /*#__PURE__*/React.createElement("h2", {
+  }, t.eyebrow), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: 'var(--font-head)',
       fontWeight: 700,
@@ -1429,33 +1599,48 @@ function Technology() {
       marginBottom: '3.5rem',
       maxWidth: '700px'
     }
-  }, "100% Open-Source. General-Purpose Hardware. Zero Vendor Lock-In."), /*#__PURE__*/React.createElement("div", {
+  }, t.title), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
       gridTemplateColumns: 'repeat(4,1fr)',
       gap: '2.5rem'
     }
-  }, /*#__PURE__*/React.createElement(TechPillar, {
-    icon: "\uD83D\uDCE6",
-    title: "Orchestration",
-    items: ['Docker Compose', 'Helm Charts', 'Kustomize', 'FluxCD GitOps', 'Kubernetes (K3s/K8s)', 'Nephio (Next-Gen)']
-  }), /*#__PURE__*/React.createElement(TechPillar, {
-    icon: "\uD83D\uDCFB",
-    title: "RAN Stack",
-    items: ['OpenAirInterface (OAI)', 'srsRAN Project', 'OAI-gNB / eNB', 'USRP / ADALM-PLUTO', 'General-Purpose HW', 'Cloud-Agnostic RAN']
-  }), /*#__PURE__*/React.createElement(TechPillar, {
-    icon: "\uD83E\uDDE0",
-    title: "Core Network",
-    items: ['Open5GS (5G SA/NSA)', 'Magma', 'Free5GC', 'OAI 5G Core', 'AMF / SMF / UPF', 'AUSF / UDM / PCF']
-  }), /*#__PURE__*/React.createElement(TechPillar, {
-    icon: "\uD83D\uDCCA",
-    title: "Observability",
-    items: ['Prometheus + Grafana', 'Jaeger Tracing', 'Loki Logs', 'Kubernetes Dashboards', 'Real-time KPI monitoring', 'Alert Management']
-  })));
+  }, t.pillars.map((p, i) => /*#__PURE__*/React.createElement(TechPillar, {
+    key: i,
+    icon: p.icon,
+    title: p.title,
+    items: p.items
+  }))));
 }
 
 // ─── GLOBAL SOUTH ─────────────────────────────────────────────────────────────
 function GlobalSouth() {
+  const { lang } = useLang();
+  const t = lang === 'es' ? {
+    eyebrow: 'Nuestra Misión',
+    titleA: 'Conectando a los Desconectados',
+    titleB: 'A lo Largo del Sur Global',
+    body1: 'Miles de millones de personas en Latinoamérica, África y el Sudeste Asiático siguen sin conectividad celular confiable. Beanters fue construido con la convicción de que ',
+    bodyBold: 'el software open-source + el hardware genérico',
+    body2: ' pueden entregar infraestructura de telecomunicaciones de clase mundial a una fracción del costo — eliminando la necesidad de sistemas propietarios costosos y la dependencia de proveedores extranjeros.',
+    cards: [
+      { icon: '🌎', title: 'Latinoamérica Primero', desc: 'Nacida en Colombia. Arraigada en la comunidad OpenInfra. Diseñada para reguladores, universidades y operadores de toda LATAM.' },
+      { icon: '💡', title: 'Infraestructura Soberana', desc: 'RAN y núcleo open-source significan cero cajas negras. Los gobiernos son dueños de su stack de red, espectro y datos — sin excepciones.' },
+      { icon: '📚', title: 'Investigación y Educación', desc: 'Precios académicos y planes de estudio abiertos para universidades que forman a la próxima generación de ingenieros telco cloud-native.' }
+    ]
+  } : {
+    eyebrow: 'Our Mission',
+    titleA: 'Connecting the Unconnected',
+    titleB: 'Across the Global South',
+    body1: 'Billions of people in Latin America, Africa, and Southeast Asia remain without reliable cellular connectivity. Beanters was built on the belief that ',
+    bodyBold: 'open-source software + commodity hardware',
+    body2: ' can deliver world-class telecom infrastructure at a fraction of the cost — eliminating the need for expensive proprietary systems and foreign vendor dependencies.',
+    cards: [
+      { icon: '🌎', title: 'Latin America First', desc: 'Born in Colombia. Rooted in the OpenInfra community. Designed for regulators, universities, and operators across LATAM.' },
+      { icon: '💡', title: 'Sovereign Infrastructure', desc: 'Open-source RAN and core means no black boxes. Governments own their network stack, spectrum, and data — fully.' },
+      { icon: '📚', title: 'Research & Education', desc: 'Academic pricing and open curricula for universities building the next generation of cloud-native telco engineers.' }
+    ]
+  };
   const ref = useRef();
   const vis = useIntersection(ref, {
     threshold: 0.1
@@ -1485,7 +1670,7 @@ function GlobalSouth() {
       textTransform: 'uppercase',
       marginBottom: '1rem'
     }
-  }, "Our Mission"), /*#__PURE__*/React.createElement("h2", {
+  }, t.eyebrow), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: 'var(--font-head)',
       fontWeight: 700,
@@ -1494,11 +1679,11 @@ function GlobalSouth() {
       marginBottom: '1.5rem',
       lineHeight: 1.1
     }
-  }, "Connecting the Unconnected", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+  }, t.titleA, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     style: {
       color: 'var(--amber)'
     }
-  }, "Across the Global South")), /*#__PURE__*/React.createElement("p", {
+  }, t.titleB)), /*#__PURE__*/React.createElement("p", {
     style: {
       color: 'var(--text-mid)',
       fontSize: '1.05rem',
@@ -1506,30 +1691,18 @@ function GlobalSouth() {
       maxWidth: '720px',
       margin: '0 auto 3rem'
     }
-  }, "Billions of people in Latin America, Africa, and Southeast Asia remain without reliable cellular connectivity. Beanters was built on the belief that ", /*#__PURE__*/React.createElement("strong", {
+  }, t.body1, /*#__PURE__*/React.createElement("strong", {
     style: {
       color: 'var(--text)'
     }
-  }, "open-source software + commodity hardware"), " can deliver world-class telecom infrastructure at a fraction of the cost \u2014 eliminating the need for expensive proprietary systems and foreign vendor dependencies."), /*#__PURE__*/React.createElement("div", {
+  }, t.bodyBold), t.body2), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
       gridTemplateColumns: 'repeat(3,1fr)',
       gap: '1.5rem',
       textAlign: 'left'
     }
-  }, [{
-    icon: '🌎',
-    title: 'Latin America First',
-    desc: 'Born in Colombia. Rooted in the OpenInfra community. Designed for regulators, universities, and operators across LATAM.'
-  }, {
-    icon: '💡',
-    title: 'Sovereign Infrastructure',
-    desc: 'Open-source RAN and core means no black boxes. Governments own their network stack, spectrum, and data — fully.'
-  }, {
-    icon: '📚',
-    title: 'Research & Education',
-    desc: 'Academic pricing and open curricula for universities building the next generation of cloud-native telco engineers.'
-  }].map(c => /*#__PURE__*/React.createElement("div", {
+  }, t.cards.map(c => /*#__PURE__*/React.createElement("div", {
     key: c.title,
     style: {
       background: 'var(--bg3)',
@@ -1559,6 +1732,36 @@ function GlobalSouth() {
 
 // ─── ABOUT ────────────────────────────────────────────────────────────────────
 function About() {
+  const { lang } = useLang();
+  const t = lang === 'es' ? {
+    eyebrow: 'Sobre el Fundador',
+    name: 'Luis Felipe Ariza Vesga',
+    role: 'PhD en Telecomunicaciones · MSc en Microelectrónica de RF · ❄️ Kubestronaut',
+    bio1a: 'Ex investigador en ',
+    bio1b: 'EURECOM (Francia)',
+    bio1c: ', contribuyente de la ',
+    bio1d: 'OpenAirInterface Software Alliance',
+    bio1e: ', e investigador principal reconocido por ',
+    bio1f: 'MinCiencias (Colombia)',
+    bio1g: '. Luis Felipe aporta una profunda experiencia en RAN cloud-native, 5G broadcast y optimización multiobjetivo de redes heterogéneas.',
+    bio2a: 'Como organizador del ',
+    bio2b: 'Colombia OpenInfra User Group',
+    bio2c: ' y de KCD Colombia 2025, ha construido una comunidad activa de ingenieros que impulsa la infraestructura de telco open-source en toda Latinoamérica.'
+  } : {
+    eyebrow: 'About the Founder',
+    name: 'Luis Felipe Ariza Vesga',
+    role: 'PhD Telecommunications · MSc RF Microelectronics · ❄️ Kubestronaut',
+    bio1a: 'Former researcher at ',
+    bio1b: 'EURECOM (France)',
+    bio1c: ', contributor to the ',
+    bio1d: 'OpenAirInterface Software Alliance',
+    bio1e: ', and principal researcher recognized by ',
+    bio1f: 'MinCiencias (Colombia)',
+    bio1g: '. Luis Felipe brings deep expertise in cloud-native RAN, 5G broadcast, and many-objective optimization for heterogeneous networks.',
+    bio2a: 'As organizer of the ',
+    bio2b: 'Colombia OpenInfra User Group',
+    bio2c: ' and KCD Colombia 2025, he has built a thriving community of engineers advancing open-source telecom infrastructure across Latin America.'
+  };
   return /*#__PURE__*/React.createElement("section", {
     id: "about",
     style: {
@@ -1604,7 +1807,7 @@ function About() {
       textTransform: 'uppercase',
       marginBottom: '0.75rem'
     }
-  }, "About the Founder"), /*#__PURE__*/React.createElement("h2", {
+  }, t.eyebrow), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: 'var(--font-head)',
       fontWeight: 700,
@@ -1612,44 +1815,44 @@ function About() {
       letterSpacing: '-0.02em',
       marginBottom: '0.5rem'
     }
-  }, "Luis Felipe Ariza Vesga"), /*#__PURE__*/React.createElement("p", {
+  }, t.name), /*#__PURE__*/React.createElement("p", {
     style: {
       color: 'var(--teal)',
       fontFamily: 'var(--font-mono)',
       fontSize: '0.8rem',
       marginBottom: '1.5rem'
     }
-  }, "PhD Telecommunications \xB7 MSc RF Microelectronics \xB7 \u2744\uFE0F Kubestronaut"), /*#__PURE__*/React.createElement("p", {
+  }, t.role), /*#__PURE__*/React.createElement("p", {
     style: {
       color: 'var(--text-mid)',
       lineHeight: 1.75,
       marginBottom: '1.25rem',
       fontSize: '0.95rem'
     }
-  }, "Former researcher at ", /*#__PURE__*/React.createElement("strong", {
+  }, t.bio1a, /*#__PURE__*/React.createElement("strong", {
     style: {
       color: 'var(--text)'
     }
-  }, "EURECOM (France)"), ", contributor to the ", /*#__PURE__*/React.createElement("strong", {
+  }, t.bio1b), t.bio1c, /*#__PURE__*/React.createElement("strong", {
     style: {
       color: 'var(--text)'
     }
-  }, "OpenAirInterface Software Alliance"), ", and principal researcher recognized by ", /*#__PURE__*/React.createElement("strong", {
+  }, t.bio1d), t.bio1e, /*#__PURE__*/React.createElement("strong", {
     style: {
       color: 'var(--text)'
     }
-  }, "MinCiencias (Colombia)"), ". Luis Felipe brings deep expertise in cloud-native RAN, 5G broadcast, and many-objective optimization for heterogeneous networks."), /*#__PURE__*/React.createElement("p", {
+  }, t.bio1f), t.bio1g), /*#__PURE__*/React.createElement("p", {
     style: {
       color: 'var(--text-mid)',
       lineHeight: 1.75,
       marginBottom: '1.75rem',
       fontSize: '0.95rem'
     }
-  }, "As organizer of the ", /*#__PURE__*/React.createElement("strong", {
+  }, t.bio2a, /*#__PURE__*/React.createElement("strong", {
     style: {
       color: 'var(--text)'
     }
-  }, "Colombia OpenInfra User Group"), " and KCD Colombia 2025, he has built a thriving community of engineers advancing open-source telecom infrastructure across Latin America."), /*#__PURE__*/React.createElement("div", {
+  }, t.bio2b), t.bio2c), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       flexWrap: 'wrap',
@@ -1723,6 +1926,9 @@ const TALKS = [{
 function TalkCard({
   talk
 }) {
+  const { lang } = useLang();
+  const featuredLabel = lang === 'es' ? 'Charla destacada' : 'Featured Talk';
+  const downloadLabel = lang === 'es' ? '📑 Descargar Slides' : '📑 Download Slides';
   const ref = useRef();
   const vis = useIntersection(ref, {
     threshold: 0.07
@@ -1789,7 +1995,7 @@ function TalkCard({
       display: 'block',
       marginBottom: '0.35rem'
     }
-  }, "Featured Talk"), /*#__PURE__*/React.createElement("div", {
+  }, featuredLabel), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       alignItems: 'center',
@@ -1892,9 +2098,33 @@ function TalkCard({
     onMouseLeave: e => {
       e.currentTarget.style.background = `${talk.accent}0d`;
     }
-  }, "\uD83D\uDCD1 Download Slides"))));
+  }, downloadLabel))));
 }
 function Speaking() {
+  const { lang } = useLang();
+  const t = lang === 'es' ? {
+    eyebrow: 'Charlas y Eventos',
+    title: 'Hablando en las Conferencias Cloud-Native Líderes del Mundo',
+    subtitle: 'Compartiendo investigación y experiencia de producción sobre redes celulares cloud-native, GitOps y telecomunicaciones open-source — desde Bogotá hasta Ámsterdam.',
+    stats: [
+      { n: '4+', label: 'Charlas en conferencias' },
+      { n: '3+', label: 'Países' },
+      { n: '2026', label: 'Alumni de KubeCon' },
+      { n: '🇨🇴', label: 'Nacido en Colombia' }
+    ],
+    allSlides: '🐙 Todos los slides en GitHub →'
+  } : {
+    eyebrow: 'Public Talks & Events',
+    title: "Speaking at the World's Leading Cloud-Native Conferences",
+    subtitle: 'Presenting research and production experience on cloud-native cellular networks, GitOps, and open-source telecom — from Bogotá to Amsterdam.',
+    stats: [
+      { n: '4+', label: 'Conference Talks' },
+      { n: '3+', label: 'Countries' },
+      { n: '2026', label: 'KubeCon Alumnus' },
+      { n: '🇨🇴', label: 'Born in Colombia' }
+    ],
+    allSlides: '🐙 All Slides on GitHub →'
+  };
   return /*#__PURE__*/React.createElement("section", {
     id: "speaking",
     style: {
@@ -1921,7 +2151,7 @@ function Speaking() {
       textTransform: 'uppercase',
       marginBottom: '0.75rem'
     }
-  }, "Public Talks & Events"), /*#__PURE__*/React.createElement("h2", {
+  }, t.eyebrow), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: 'var(--font-head)',
       fontWeight: 700,
@@ -1930,14 +2160,14 @@ function Speaking() {
       maxWidth: '700px',
       marginBottom: '1rem'
     }
-  }, "Speaking at the World's Leading Cloud-Native Conferences"), /*#__PURE__*/React.createElement("p", {
+  }, t.title), /*#__PURE__*/React.createElement("p", {
     style: {
       color: 'var(--text-mid)',
       maxWidth: '600px',
       lineHeight: 1.7,
       fontSize: '0.95rem'
     }
-  }, "Presenting research and production experience on cloud-native cellular networks, GitOps, and open-source telecom \u2014 from Bogot\xE1 to Amsterdam.")), /*#__PURE__*/React.createElement("div", {
+  }, t.subtitle)), /*#__PURE__*/React.createElement("div", {
     style: {
       marginBottom: '1.5rem'
     }
@@ -1964,19 +2194,7 @@ function Speaking() {
       border: '1px solid var(--border)',
       borderRadius: '12px'
     }
-  }, [{
-    n: '4+',
-    label: 'Conference Talks'
-  }, {
-    n: '3+',
-    label: 'Countries'
-  }, {
-    n: '2026',
-    label: 'KubeCon Alumnus'
-  }, {
-    n: '🇨🇴',
-    label: 'Born in Colombia'
-  }].map(s => /*#__PURE__*/React.createElement("div", {
+  }, t.stats.map(s => /*#__PURE__*/React.createElement("div", {
     key: s.label
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2020,12 +2238,12 @@ function Speaking() {
       e.currentTarget.style.color = 'var(--text-mid)';
       e.currentTarget.style.borderColor = 'var(--border)';
     }
-  }, "\uD83D\uDC19 All Slides on GitHub \u2192")))));
+  }, t.allSlides)))));
 }
 
 // ─── CONTACT ──────────────────────────────────────────────────────────────────
 function Newsletter() {
-  const [lang, setLang] = useState('en');
+  const { lang } = useLang();
   const t = lang === 'es' ? {
     eyebrow: 'MANTENTE AL DÍA',
     title: 'Tecnología que importa, en tu bandeja',
@@ -2052,15 +2270,6 @@ function Newsletter() {
       maxWidth: '720px',
       margin: '0 auto'
     }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      gap: '1rem',
-      marginBottom: '0.75rem',
-      flexWrap: 'wrap'
-    }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontFamily: 'var(--font-mono)',
@@ -2068,34 +2277,9 @@ function Newsletter() {
       color: 'var(--teal)',
       letterSpacing: '0.1em',
       textTransform: 'uppercase',
-      margin: 0
+      margin: '0 0 0.75rem'
     }
-  }, t.eyebrow), /*#__PURE__*/React.createElement("div", {
-    role: "tablist",
-    "aria-label": "Language",
-    style: {
-      display: 'inline-flex',
-      gap: '0.25rem'
-    }
-  }, ['en', 'es'].map(code => /*#__PURE__*/React.createElement("button", {
-    key: code,
-    role: "tab",
-    "aria-selected": lang === code,
-    onClick: () => setLang(code),
-    style: {
-      background: lang === code ? 'var(--teal)' : 'transparent',
-      color: lang === code ? '#080d1a' : 'var(--text-mid)',
-      border: '1px solid ' + (lang === code ? 'var(--teal)' : 'var(--border)'),
-      borderRadius: '4px',
-      padding: '3px 10px',
-      fontFamily: 'var(--font-mono)',
-      fontSize: '0.7rem',
-      fontWeight: 700,
-      cursor: 'pointer',
-      textTransform: 'uppercase',
-      letterSpacing: '0.06em'
-    }
-  }, code)))), /*#__PURE__*/React.createElement("h2", {
+  }, t.eyebrow), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: 'var(--font-head)',
       fontWeight: 700,
@@ -2168,6 +2352,88 @@ function Newsletter() {
 }
 
 function Contact() {
+  const { lang } = useLang();
+  const t = lang === 'es' ? {
+    eyebrow: 'Comencemos',
+    title: 'Agenda una demo o una consultoría técnica',
+    subtitle: "Cuéntanos sobre tu caso de uso — red privada, broadcast, IoT, laboratorio de investigación — y diseñaremos un plan de despliegue a tu medida.",
+    errName: 'Por favor ingresa tu nombre completo.',
+    errEmail: 'Por favor ingresa un correo electrónico válido.',
+    errUsecase: 'Por favor selecciona un caso de uso principal.',
+    errGeneric: 'Algo salió mal. Inténtalo de nuevo o contáctanos directamente al +57 311-386-3080.',
+    waLineHeader: 'Nueva solicitud de demo:',
+    waName: 'Nombre',
+    waOrg: 'Organización',
+    waEmail: 'Correo',
+    waUseCase: 'Caso de uso',
+    waMessage: 'Mensaje',
+    waNoMsg: '(sin mensaje adicional)',
+    sentTitle: '¡Mensaje enviado!',
+    sentBody: 'Estamos abriendo WhatsApp con los detalles de tu solicitud...',
+    sentFallback: 'Si WhatsApp no abre, puedes escribirnos directamente al +57 311-386-3080',
+    sentAgain: 'Enviar otro mensaje',
+    fName: 'Nombre completo',
+    pName: 'Juana Pérez',
+    fOrg: 'Organización',
+    pOrg: 'Universidad / Empresa / Ministerio',
+    fEmail: 'Correo electrónico',
+    pEmail: 'juana@ejemplo.com',
+    fUsecase: 'Caso de uso principal',
+    pUsecase: 'Selecciona un caso de uso...',
+    usecases: [
+      'Red Privada 4G/5G',
+      '5G Broadcast / MBS',
+      'Despliegue NB-IoT / LTE-M',
+      'Testbed Universitario / I+D',
+      'Gobierno / Conectividad Rural',
+      'NTN / Integración Satelital',
+      'Consultoría Técnica'
+    ],
+    fMsg: 'Cuéntanos más (opcional)',
+    pMsg: 'Describe los requisitos de tu red, la escala, los plazos...',
+    submit: 'Enviar mensaje →',
+    submitting: 'Enviando...'
+  } : {
+    eyebrow: 'Get Started',
+    title: 'Book a Demo or Technical Consultation',
+    subtitle: "Tell us about your use case — private network, broadcast, IoT, research lab — and we'll tailor a deployment plan for you.",
+    errName: 'Please enter your full name.',
+    errEmail: 'Please enter a valid email address.',
+    errUsecase: 'Please select a primary use case.',
+    errGeneric: 'Something went wrong. Please try again or contact us directly at +57 311-386-3080.',
+    waLineHeader: 'New demo booking request:',
+    waName: 'Name',
+    waOrg: 'Organization',
+    waEmail: 'Email',
+    waUseCase: 'Use Case',
+    waMessage: 'Message',
+    waNoMsg: '(no additional message)',
+    sentTitle: 'Message submitted!',
+    sentBody: 'WhatsApp chat is opening with your booking details...',
+    sentFallback: "If WhatsApp doesn't open, you can message us directly at +57 311-386-3080",
+    sentAgain: 'Send Another Message',
+    fName: 'Full Name',
+    pName: 'Jane Smith',
+    fOrg: 'Organization',
+    pOrg: 'University / Company / Ministry',
+    fEmail: 'Email',
+    pEmail: 'jane@example.com',
+    fUsecase: 'Primary Use Case',
+    pUsecase: 'Select a use case...',
+    usecases: [
+      '4G/5G Private Network',
+      '5G Broadcast / MBS',
+      'NB-IoT / LTE-M Deployment',
+      'University / R&D Testbed',
+      'Government / Rural Connectivity',
+      'NTN / Satellite Integration',
+      'Technical Consulting'
+    ],
+    fMsg: 'Tell us more (optional)',
+    pMsg: 'Describe your network requirements, scale, timeline...',
+    submit: 'Send Message →',
+    submitting: 'Sending...'
+  };
   const [form, setForm] = useState({
     name: '',
     org: '',
@@ -2184,20 +2450,20 @@ function Contact() {
 
     // Client-side validation
     if (!form.name.trim()) {
-      setError('Please enter your full name.');
+      setError(t.errName);
       return;
     }
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setError('Please enter a valid email address.');
+      setError(t.errEmail);
       return;
     }
     if (!form.usecase) {
-      setError('Please select a primary use case.');
+      setError(t.errUsecase);
       return;
     }
     setLoading(true);
     try {
-      const whatsappMessage = `New demo booking request:\n\nName: ${form.name.trim()}\nOrganization: ${form.org.trim() || 'N/A'}\nEmail: ${form.email.trim()}\nUse Case: ${form.usecase}\nMessage: ${form.msg.trim() || '(no additional message)'}`;
+      const whatsappMessage = `${t.waLineHeader}\n\n${t.waName}: ${form.name.trim()}\n${t.waOrg}: ${form.org.trim() || 'N/A'}\n${t.waEmail}: ${form.email.trim()}\n${t.waUseCase}: ${form.usecase}\n${t.waMessage}: ${form.msg.trim() || t.waNoMsg}`;
       setSent(true);
       setForm({
         name: '',
@@ -2211,7 +2477,7 @@ function Contact() {
       }, 800);
     } catch (err) {
       console.error('Error:', err);
-      setError('Something went wrong. Please try again or contact us directly at +57 311-386-3080.');
+      setError(t.errGeneric);
     }
     setLoading(false);
   };
@@ -2236,7 +2502,7 @@ function Contact() {
       textTransform: 'uppercase',
       marginBottom: '0.75rem'
     }
-  }, "Get Started"), /*#__PURE__*/React.createElement("h2", {
+  }, t.eyebrow), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: 'var(--font-head)',
       fontWeight: 700,
@@ -2244,13 +2510,13 @@ function Contact() {
       letterSpacing: '-0.02em',
       marginBottom: '0.75rem'
     }
-  }, "Book a Demo or Technical Consultation"), /*#__PURE__*/React.createElement("p", {
+  }, t.title), /*#__PURE__*/React.createElement("p", {
     style: {
       color: 'var(--text-mid)',
       marginBottom: '2.5rem',
       lineHeight: 1.7
     }
-  }, "Tell us about your use case \u2014 private network, broadcast, IoT, research lab \u2014 and we'll tailor a deployment plan for you."), sent ? /*#__PURE__*/React.createElement("div", {
+  }, t.subtitle), sent ? /*#__PURE__*/React.createElement("div", {
     style: {
       background: 'var(--teal-glow)',
       border: '1px solid var(--teal-dim)',
@@ -2269,19 +2535,19 @@ function Contact() {
       fontWeight: 600,
       marginBottom: '0.5rem'
     }
-  }, "Message submitted!"), /*#__PURE__*/React.createElement("p", {
+  }, t.sentTitle), /*#__PURE__*/React.createElement("p", {
     style: {
       color: 'var(--text-mid)',
       fontSize: '0.9rem',
       marginBottom: '0.5rem'
     }
-  }, "WhatsApp chat is opening with your booking details..."), /*#__PURE__*/React.createElement("p", {
+  }, t.sentBody), /*#__PURE__*/React.createElement("p", {
     style: {
       color: 'var(--text-dim)',
       fontSize: '0.75rem',
       marginBottom: '1.5rem'
     }
-  }, "If WhatsApp doesn't open, you can message us directly at +57 311-386-3080"), /*#__PURE__*/React.createElement("button", {
+  }, t.sentFallback), /*#__PURE__*/React.createElement("button", {
     onClick: () => setSent(false),
     style: {
       marginTop: '1rem',
@@ -2294,7 +2560,7 @@ function Contact() {
       fontWeight: 600,
       fontSize: '0.85rem'
     }
-  }, "Send Another Message")) : /*#__PURE__*/React.createElement("form", {
+  }, t.sentAgain)) : /*#__PURE__*/React.createElement("form", {
     onSubmit: handle,
     style: {
       display: 'flex',
@@ -2303,18 +2569,18 @@ function Contact() {
     }
   }, [{
     key: 'name',
-    label: 'Full Name',
-    placeholder: 'Jane Smith',
+    label: t.fName,
+    placeholder: t.pName,
     type: 'text'
   }, {
     key: 'org',
-    label: 'Organization',
-    placeholder: 'University / Company / Ministry',
+    label: t.fOrg,
+    placeholder: t.pOrg,
     type: 'text'
   }, {
     key: 'email',
-    label: 'Email',
-    placeholder: 'jane@example.com',
+    label: t.fEmail,
+    placeholder: t.pEmail,
     type: 'email'
   }].map(f => /*#__PURE__*/React.createElement("div", {
     key: f.key
@@ -2357,7 +2623,7 @@ function Contact() {
       display: 'block',
       marginBottom: '0.4rem'
     }
-  }, "Primary Use Case"), /*#__PURE__*/React.createElement("select", {
+  }, t.fUsecase), /*#__PURE__*/React.createElement("select", {
     value: form.usecase,
     onChange: e => setForm({
       ...form,
@@ -2378,7 +2644,7 @@ function Contact() {
   }, /*#__PURE__*/React.createElement("option", {
     value: "",
     disabled: true
-  }, "Select a use case..."), /*#__PURE__*/React.createElement("option", null, "4G/5G Private Network"), /*#__PURE__*/React.createElement("option", null, "5G Broadcast / MBS"), /*#__PURE__*/React.createElement("option", null, "NB-IoT / LTE-M Deployment"), /*#__PURE__*/React.createElement("option", null, "University / R&D Testbed"), /*#__PURE__*/React.createElement("option", null, "Government / Rural Connectivity"), /*#__PURE__*/React.createElement("option", null, "NTN / Satellite Integration"), /*#__PURE__*/React.createElement("option", null, "Technical Consulting"))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+  }, t.pUsecase), t.usecases.map(uc => /*#__PURE__*/React.createElement("option", { key: uc }, uc)))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
       fontFamily: 'var(--font-body)',
       fontSize: '0.85rem',
@@ -2386,9 +2652,9 @@ function Contact() {
       display: 'block',
       marginBottom: '0.4rem'
     }
-  }, "Tell us more (optional)"), /*#__PURE__*/React.createElement("textarea", {
+  }, t.fMsg), /*#__PURE__*/React.createElement("textarea", {
     rows: 4,
-    placeholder: "Describe your network requirements, scale, timeline...",
+    placeholder: t.pMsg,
     value: form.msg,
     onChange: e => setForm({
       ...form,
@@ -2445,11 +2711,14 @@ function Contact() {
         e.currentTarget.style.transform = 'none';
       }
     }
-  }, loading ? 'Sending...' : 'Send Message →'))));
+  }, loading ? t.submitting : t.submit))));
 }
 
 // ─── FOOTER ───────────────────────────────────────────────────────────────────
 function Footer() {
+  const { lang } = useLang();
+  const tagline = lang === 'es' ? 'Redes Celulares Cloud-Native · Colombia 🇨🇴' : 'Cloud-Native Cellular Networks · Colombia 🇨🇴';
+  const contactLink = lang === 'es' ? 'Contacto' : 'Contact';
   return /*#__PURE__*/React.createElement("footer", {
     style: {
       padding: '2.5rem 2rem',
@@ -2483,7 +2752,7 @@ function Footer() {
       color: 'var(--text-dim)',
       marginLeft: '1rem'
     }
-  }, "Cloud-Native Cellular Networks \xB7 Colombia \uD83C\uDDE8\uD83C\uDDF4")), /*#__PURE__*/React.createElement("div", {
+  }, tagline)), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       gap: '1.5rem',
@@ -2539,7 +2808,7 @@ function Footer() {
     },
     onMouseEnter: e => e.target.style.color = 'var(--teal)',
     onMouseLeave: e => e.target.style.color = 'var(--text-dim)'
-  }, "Contact")), /*#__PURE__*/React.createElement("p", {
+  }, contactLink)), /*#__PURE__*/React.createElement("p", {
     style: {
       fontFamily: 'var(--font-mono)',
       fontSize: '0.7rem',
@@ -2650,6 +2919,23 @@ function TweaksPanel({
 function App() {
   const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
   const [tweaksVisible, setTweaksVisible] = useState(false);
+  const [lang, setLangState] = useState(() => {
+    try {
+      const stored = localStorage.getItem('beanters-lang');
+      if (stored === 'en' || stored === 'es') return stored;
+      const nav = (navigator.language || 'en').toLowerCase();
+      return nav.startsWith('es') ? 'es' : 'en';
+    } catch (_) {
+      return 'en';
+    }
+  });
+  const setLang = useCallback(next => {
+    setLangState(next);
+    try { localStorage.setItem('beanters-lang', next); } catch (_) {}
+  }, []);
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
   useEffect(() => {
     window.addEventListener('message', e => {
       if (e.data?.type === '__activate_edit_mode') setTweaksVisible(true);
@@ -2659,7 +2945,9 @@ function App() {
       type: '__edit_mode_available'
     }, '*');
   }, []);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
+  return /*#__PURE__*/React.createElement(LangContext.Provider, {
+    value: { lang: lang, setLang: setLang }
+  }, /*#__PURE__*/React.createElement(Nav, {
     tweaks: tweaks
   }), /*#__PURE__*/React.createElement(Hero, {
     tweaks: tweaks
