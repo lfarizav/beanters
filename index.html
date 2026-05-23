@@ -1242,7 +1242,7 @@ function Products() {
         icon: '\uD83D\uDCE1',
         name: 'Redes Privadas 5G SA / 4G LTE',
         tagline: 'Conectividad celular privada industrial',
-        desc: 'Despliega redes privadas 5G standalone o 4G LTE para campus empresariales, f\u00E1bricas, minas y universidades. N\u00FAcleo completo (AMF/SMF/UPF) + RAN en un solo flujo. Incluye VoLTE, VoNR, SMS, datos e IPTV.',
+        desc: 'Despliega redes privadas 5G standalone o 4G LTE para campus empresariales, f\u00E1bricas, minas y universidades. N\u00FAcleo completo (AMF/SMF/UPF) + RAN en un solo flujo. 4G LTE: servicios completos \u2014 VoLTE, SMS, datos e IPTV. 5G SA: datos actualmente (VoLTE/VoNR e IMS en investigaci\u00F3n activa).',
         tags: ['5G SA', '4G LTE', 'Open5GS', 'OAI gNB', 'USRP / SDR']
       },
       {
@@ -1290,7 +1290,7 @@ function Products() {
         icon: '\uD83D\uDCE1',
         name: '5G SA / 4G LTE Private Networks',
         tagline: 'Industrial-grade private cellular',
-        desc: 'Deploy standalone 5G or 4G LTE private networks for enterprise campuses, factories, mines, and universities. Full core (AMF/SMF/UPF) + RAN in a single workflow. Includes VoLTE, VoNR, SMS, Data, and IPTV.',
+        desc: 'Deploy standalone 5G or 4G LTE private networks for enterprise campuses, factories, mines, and universities. Full core (AMF/SMF/UPF) + RAN in a single workflow. 4G LTE: full services — VoLTE, SMS, data, and IPTV. 5G SA: data service currently (VoLTE/VoNR and IMS under active research).',
         tags: ['5G SA', '4G LTE', 'Open5GS', 'OAI gNB', 'USRP / SDR']
       },
       {
@@ -1847,7 +1847,18 @@ function Technology() {
       { icon: '\uD83D\uDCFB', title: 'Stack RAN', items: ['OpenAirInterface (OAI)', 'srsRAN Project', 'OAI-gNB / eNB', 'USRP / ADALM-PLUTO', 'Hardware Gen\u00E9rico', 'RAN Independiente de la Nube'] },
       { icon: '\uD83E\uDDE0', title: 'N\u00FAcleo de Red', items: ['Open5GS (5G SA/NSA)', 'Magma', 'Free5GC', 'OAI 5G Core', 'AMF / SMF / UPF', 'AUSF / UDM / PCF'] },
       { icon: '\uD83D\uDCCA', title: 'Observabilidad', items: ['Prometheus + Grafana', 'Jaeger Tracing', 'Loki Logs', 'Dashboards de Kubernetes', 'Monitoreo de KPIs en tiempo real', 'Gesti\u00F3n de Alertas'] }
-    ]
+    ],
+    research: {
+      eyebrow: 'Investigaci\u00F3n Activa',
+      title: 'En qu\u00E9 estamos trabajando ahora',
+      items: [
+        { icon: '\uD83D\uDD2C', label: 'Network Slicing', desc: 'Segmentaci\u00F3n de red end-to-end en stacks 4G/5G SA sobre hardware commodity.' },
+        { icon: '\uD83D\uDCE1', label: 'Open RAN', desc: 'Separaci\u00F3n E2 de las capas PHY/MAC/RLC/PDCP; splits 7.x y CU/DU/RU en SDR.' },
+        { icon: '\u2699\uFE0F', label: 'Observabilidad PHY/MAC', desc: 'Telemetr\u00EDa de capa f\u00EDsica y MAC para diagn\u00F3stico y monitoreo en tiempo real de la RAN.' },
+        { icon: '\uD83E\uDD16', label: 'RApps / xApps', desc: 'Aplicaciones de IA/ML sobre la interfaz E2 del RIC para optimizaci\u00F3n aut\u00F3noma de la red.' },
+        { icon: '\uD83C\uDF10', label: 'Functional Splits', desc: 'Evaluaci\u00F3n de splits 2 a 8 para despliegues edge de alta densidad con latencia m\u00EDnima.' }
+      ]
+    }
   } : {
     eyebrow: 'Technology Stack',
     title: '100% Open-Source. General-Purpose Hardware. Zero Vendor Lock-In.',
@@ -1856,7 +1867,18 @@ function Technology() {
       { icon: '\uD83D\uDCFB', title: 'RAN Stack', items: ['OpenAirInterface (OAI)', 'srsRAN Project', 'OAI-gNB / eNB', 'USRP / ADALM-PLUTO', 'General-Purpose HW', 'Cloud-Agnostic RAN'] },
       { icon: '\uD83E\uDDE0', title: 'Core Network', items: ['Open5GS (5G SA/NSA)', 'Magma', 'Free5GC', 'OAI 5G Core', 'AMF / SMF / UPF', 'AUSF / UDM / PCF'] },
       { icon: '\uD83D\uDCCA', title: 'Observability', items: ['Prometheus + Grafana', 'Jaeger Tracing', 'Loki Logs', 'Kubernetes Dashboards', 'Real-time KPI monitoring', 'Alert Management'] }
-    ]
+    ],
+    research: {
+      eyebrow: 'Active Research',
+      title: "What we're building next",
+      items: [
+        { icon: '\uD83D\uDD2C', label: 'Network Slicing', desc: 'End-to-end network slicing across 4G/5G SA stacks on commodity hardware.' },
+        { icon: '\uD83D\uDCE1', label: 'Open RAN', desc: 'E2-layer CU/DU/RU separation with 7.x functional splits on SDR hardware.' },
+        { icon: '\u2699\uFE0F', label: 'PHY/MAC Observability', desc: 'Physical and MAC layer telemetry for real-time RAN diagnostics and monitoring.' },
+        { icon: '\uD83E\uDD16', label: 'RApps / xApps', desc: 'AI/ML apps over the RIC E2 interface for autonomous network optimization.' },
+        { icon: '\uD83C\uDF10', label: 'Functional Splits', desc: 'Evaluating splits 2\u20138 for high-density edge deployments with minimal latency.' }
+      ]
+    }
   };
   return /*#__PURE__*/React.createElement("section", {
     id: "technology",
@@ -1894,7 +1916,27 @@ function Technology() {
     icon: p.icon,
     title: p.title,
     items: p.items
-  }))));
+  }))),
+  /*#__PURE__*/React.createElement("div", {
+    style: { marginTop: '4rem', borderTop: '1px solid var(--border)', paddingTop: '3rem' }
+  },
+    /*#__PURE__*/React.createElement("p", {
+      style: { fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--amber)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }
+    }, t.research.eyebrow),
+    /*#__PURE__*/React.createElement("h3", {
+      style: { fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: '1.35rem', letterSpacing: '-0.01em', marginBottom: '1.75rem', color: 'var(--text)' }
+    }, t.research.title),
+    /*#__PURE__*/React.createElement("div", {
+      style: { display: 'flex', flexWrap: 'wrap', gap: '1rem' }
+    }, t.research.items.map((r, i) => /*#__PURE__*/React.createElement("div", {
+      key: i,
+      style: { background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: '10px', padding: '1rem 1.25rem', flex: '1 1 180px', minWidth: '180px' }
+    },
+      /*#__PURE__*/React.createElement("div", { style: { fontSize: '1.25rem', marginBottom: '0.4rem' } }, r.icon),
+      /*#__PURE__*/React.createElement("div", { style: { fontWeight: 700, fontSize: '0.88rem', marginBottom: '0.3rem', color: 'var(--teal)' } }, r.label),
+      /*#__PURE__*/React.createElement("div", { style: { fontSize: '0.8rem', color: 'var(--text2)', lineHeight: 1.5 } }, r.desc)
+    )))
+  ));
 }
 
 // ─── GLOBAL SOUTH ─────────────────────────────────────────────────────────────
@@ -2687,9 +2729,9 @@ function Services() {
     community: {
       icon: '🏘️',
       title: 'Red Comunitaria LTE · Conectividad para Veredas y Territorios',
-      tagline: 'Banda 8 (850 MHz) · hasta 10 km de cobertura · 20–120 usuarios',
+      tagline: 'Banda 8 (850 MHz) · hasta 10 km de cobertura · hasta 20 usuarios simultáneos',
       rate: 'Cotización social', coverage: 'Hasta 10 km de radio', badge: '★ ANE Resolución 028 / 2026',
-      desc: 'Red LTE privada a escala de vereda sobre espectro Banda 8 (850 MHz), desplegada con srsRAN + Open5GS + CoLTE sobre hardware SDR abierto. Cubre comunidades de 50–300 habitantes más allá de la última torre comercial. Diseñado para comunidades en Chocó, Vaupés, Guajira, Putumayo, Nariño y otras regiones con brecha de conectividad. Operable con energía solar. Primer despliegue de este tipo habilitado por la flexibilización de espectro de la ANE.',
+      desc: 'Red LTE privada a escala de vereda sobre espectro Banda 8 (850 MHz), desplegada con srsRAN + Open5GS + CoLTE sobre hardware SDR abierto. Soporta hasta 20 usuarios simultáneos (20 tarjetas SIM preprogramadas incluidas). Servicios 4G completos: VoLTE, SMS, datos e IPTV. Cubre comunidades de 50–300 habitantes más allá de la última torre comercial. Diseñado para Chocó, Vaupés, Guajira, Putumayo, Nariño y otras regiones con brecha de conectividad. Operable con energía solar. Habilitado por la flexibilización de espectro de la ANE — Resolución 028/2026.',
       gear: ['BTS SDR (USRP B210 / LimeSDR)', 'Core LTE Open5GS + srsRAN eNodeB', 'PA+LNA 20W Banda 8 + antena panel', 'CoLTE: portal de gestión y SIMs', 'Panel solar + batería (off-grid)', 'Backhaul satelital Starlink opcional'],
       usecases: ['Veredas en Chocó, Vaupés, Guajira', 'Territorios indígenas y afrocolombianos', 'Organizaciones MinTIC "Juntas de Internet"', 'Universidades y proyectos de investigación']
     },
@@ -2733,9 +2775,9 @@ function Services() {
     community: {
       icon: '🏘️',
       title: 'Community LTE Network · Connectivity for Villages & Territories',
-      tagline: 'Band 8 (850 MHz) · up to 10 km coverage · 20–120 users',
+      tagline: 'Band 8 (850 MHz) · up to 10 km coverage · up to 20 concurrent users',
       rate: 'Social pricing', coverage: 'Up to 10 km radius', badge: '★ ANE Resolution 028 / 2026',
-      desc: 'Village-scale private LTE on Band 8 (850 MHz), deployed with srsRAN + Open5GS + CoLTE on open SDR hardware. Covers communities of 50–300 inhabitants beyond the last commercial tower. Designed for communities in Chocó, Vaupés, La Guajira, Putumayo, Nariño, and other underserved regions. Solar-power compatible. Enabled by ANE\'s spectrum flexibilization — the same regulatory path used for Colombia\'s first authorized 5G Broadcast pilot.',
+      desc: 'Village-scale private LTE on Band 8 (850 MHz), deployed with srsRAN + Open5GS + CoLTE on open SDR hardware. Supports up to 20 concurrent users (20 preprogrammed SIM cards included). Full 4G LTE services: VoLTE, SMS, data, and IPTV. Covers communities of 50–300 inhabitants beyond the last commercial tower. Designed for Chocó, Vaupés, La Guajira, Putumayo, Nariño, and other underserved regions. Solar-power compatible. Enabled by ANE\'s spectrum flexibilization — ANE Resolution 028/2026.',
       gear: ['SDR BTS (USRP B210 / LimeSDR)', 'Open5GS EPC + srsRAN eNodeB', '20W Band 8 PA+LNA + panel antenna', 'CoLTE management portal + SIM provisioning', 'Solar panel + battery (off-grid ready)', 'Optional Starlink satellite backhaul'],
       usecases: ['Veredas in Chocó, Vaupés, La Guajira', 'Indigenous and Afro-Colombian territories', 'MinTIC "Juntas de Internet" organizations', 'Universities and research deployments']
     },
