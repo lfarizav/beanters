@@ -528,7 +528,7 @@ function Nav({
     { label: 'Newsletter', href: '#newsletter' },
     { label: 'Contact', href: '#contact' }
   ];
-  const ctaLabel = lang === 'es' ? 'Solicitar demo' : 'Book Demo';
+  const ctaLabel = lang === 'es' ? 'Llamada Técnica' : 'Technical Call';
   return /*#__PURE__*/React.createElement("nav", {
     style: {
       position: 'fixed',
@@ -793,31 +793,33 @@ function Hero({
   const { lang } = useLang();
   const t = lang === 'es' ? {
     pill: '3GPP COMPLIANT · CLOUD-NATIVE · OPEN-SOURCE',
-    titleA: 'Despliega Cualquier ',
-    titleHi: 'Red Celular',
-    titleB: ' con Un Solo Comando',
+    titleA: 'Redes Privadas ',
+    titleHi: '5G/LTE',
+    titleB: ' Operativas en Horas — Sin Vendor Lock-in',
     leadBold: 'ngntelco CLI',
-    lead: ' orquesta ciclos de vida en Docker Compose, Helm, Kustomize y Flux para desplegar redes privadas 4G/5G estandarizadas por 3GPP, 5G Broadcast, NB-IoT, LTE-M, NTN, MBS — y más — sobre hardware común.',
-    ctaPrimary: 'Solicita una demo →',
-    ctaSecondary: 'Explorar productos',
+    lead: ' despliega redes privadas estándar 3GPP sobre hardware común. O déjanos hacerlo por ti — desde $350/hora, operativo en menos de 90 minutos, sin costos ocultos.',
+    ctaPrimary: 'Agenda una Llamada Técnica →',
+    ctaSecondary: 'Ver Servicios y Precios',
+    ctaSecondaryHref: '#services',
     stats: [
-      { n: '8+', label: 'Estándares de Red' },
-      { n: '4', label: 'Orquestadores' },
-      { n: '1-toque', label: 'Despliegue' }
+      { n: 'Desde $350/h', label: 'Todo incluido' },
+      { n: '< 90 min', label: 'Despliegue más rápido' },
+      { n: '50.000', label: 'Usuarios simultáneos' }
     ]
   } : {
     pill: '3GPP COMPLIANT · CLOUD-NATIVE · OPEN-SOURCE',
-    titleA: 'Deploy Any ',
-    titleHi: 'Cellular Network',
-    titleB: ' with a Single Command',
+    titleA: 'Private ',
+    titleHi: '5G/LTE',
+    titleB: ' Networks Operational in Hours — No Vendor Lock-in',
     leadBold: 'ngntelco CLI',
-    lead: ' orchestrates Docker Compose, Helm, Kustomize, and Flux lifecycles to deploy 3GPP-standardized 4G/5G private networks, 5G Broadcast, NB-IoT, LTE-M, NTN, MBS — and more — on commodity hardware.',
-    ctaPrimary: 'Book a Demo →',
-    ctaSecondary: 'Explore Products',
+    lead: ' deploys 3GPP-standardized private networks on commodity hardware. Or let us deploy for you — from $350/hr, operational in under 90 minutes, no hidden costs.',
+    ctaPrimary: 'Book a Technical Call →',
+    ctaSecondary: 'See Services & Pricing',
+    ctaSecondaryHref: '#services',
     stats: [
-      { n: '8+', label: 'Network Standards' },
-      { n: '4', label: 'Orchestrators' },
-      { n: '1-touch', label: 'Deployment' }
+      { n: 'From $350/hr', label: 'All-inclusive' },
+      { n: '< 90 min', label: 'Fastest deployment' },
+      { n: '50,000', label: 'Concurrent users' }
     ]
   };
   const [started, setStarted] = useState(false);
@@ -952,7 +954,7 @@ function Hero({
       e.currentTarget.style.boxShadow = 'none';
     }
   }, t.ctaPrimary), /*#__PURE__*/React.createElement("a", {
-    href: "#products",
+    href: t.ctaSecondaryHref,
     style: {
       display: 'inline-flex',
       alignItems: 'center',
@@ -1041,6 +1043,79 @@ function NetworksRibbon() {
       display: 'inline-block'
     }
   }), n))));
+}
+
+// ─── TRUST BAR ────────────────────────────────────────────────────────────────
+function TrustBar() {
+  const { lang } = useLang();
+  const label = lang === 'es' ? 'Construido 100% sobre open-source' : 'Built 100% on open-source';
+  const stats = lang === 'es' ? [
+    { n: '< 90 min', desc: 'Despliegue de emergencia' },
+    { n: '$350/hr', desc: 'Desde (sin costos ocultos)' },
+    { n: '50.000', desc: 'Usuarios simultáneos' },
+    { n: '100%', desc: 'Open-source, sin vendor lock-in' }
+  ] : [
+    { n: '< 90 min', desc: 'Emergency deployment' },
+    { n: '$350/hr', desc: 'Starting (no hidden costs)' },
+    { n: '50,000', desc: 'Concurrent users' },
+    { n: '100%', desc: 'Open-source, no vendor lock-in' }
+  ];
+  const stack = ['Open5GS', 'srsRAN', 'OpenAirInterface', 'Magma', 'Kubernetes', 'Helm', 'FluxCD', 'Docker'];
+  return React.createElement("div", {
+    style: {
+      background: 'var(--bg2)',
+      borderBottom: '1px solid var(--border)',
+      padding: '3rem 2rem'
+    }
+  },
+    React.createElement("div", {
+      style: { maxWidth: '1200px', margin: '0 auto' }
+    },
+      React.createElement("p", {
+        style: {
+          fontFamily: 'var(--font-mono)', fontSize: '0.7rem',
+          color: 'var(--text-dim)', textTransform: 'uppercase',
+          letterSpacing: '0.1em', textAlign: 'center', marginBottom: '1.25rem'
+        }
+      }, label),
+      React.createElement("div", {
+        style: {
+          display: 'flex', flexWrap: 'wrap', gap: '0.6rem',
+          justifyContent: 'center', marginBottom: '3rem'
+        }
+      }, stack.map(s => React.createElement("span", {
+        key: s,
+        style: {
+          fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
+          background: 'var(--surface)', border: '1px solid var(--border)',
+          borderRadius: '6px', padding: '0.3rem 0.85rem',
+          color: 'var(--teal)'
+        }
+      }, s))),
+      React.createElement("div", {
+        style: {
+          display: 'grid', gridTemplateColumns: 'repeat(4,1fr)',
+          gap: '1.5rem', textAlign: 'center'
+        }
+      }, stats.map(s => React.createElement("div", {
+        key: s.n,
+        style: {
+          background: 'var(--bg3)', border: '1px solid var(--border)',
+          borderRadius: '10px', padding: '1.25rem'
+        }
+      },
+        React.createElement("div", {
+          style: {
+            fontFamily: 'var(--font-head)', fontWeight: 700,
+            fontSize: '1.5rem', color: 'var(--teal)', marginBottom: '0.25rem'
+          }
+        }, s.n),
+        React.createElement("div", {
+          style: { fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--text-dim)' }
+        }, s.desc)
+      )))
+    )
+  );
 }
 
 // ─── PRODUCTS ─────────────────────────────────────────────────────────────────
@@ -2450,6 +2525,141 @@ function Speaking() {
   }, t.allSlides)))));
 }
 
+// ─── HOW IT WORKS ─────────────────────────────────────────────────────────────
+function HowItWorks() {
+  const { lang } = useLang();
+  const ref = useRef();
+  const vis = useIntersection(ref, { threshold: 0.1 });
+  const t = lang === 'es' ? {
+    eyebrow: 'Proceso',
+    title: 'Operativo en Tres Pasos',
+    subtitle: 'Sin meses de integración ni contratos de proveedor. Defines el escenario, nosotros llevamos todo el hardware y el stack, tú te conectas.',
+    steps: [
+      {
+        n: '01',
+        title: 'Define tu escenario',
+        desc: 'Cuéntanos el caso: tamaño del evento o sitio, ubicación, duración y requisitos de conectividad. Respondemos con una propuesta técnica y cotización en menos de 4 horas hábiles.'
+      },
+      {
+        n: '02',
+        title: 'Desplegamos la red',
+        desc: 'Nuestro equipo llega con todo el hardware (BTS, core LTE/5G, backhaul satelital si es necesario) y lo instala y valida en sitio. Sin sorpresas, sin costos ocultos.'
+      },
+      {
+        n: '03',
+        title: 'Te conectas y operas',
+        desc: 'La red privada queda activa con monitoreo en tiempo real, SLA de disponibilidad garantizado y soporte en sitio durante toda la operación. Cuando terminas, retiramos todo.'
+      }
+    ],
+    cta: 'Solicitar cotización →'
+  } : {
+    eyebrow: 'Process',
+    title: 'Operational in Three Steps',
+    subtitle: 'No months of integration, no vendor contracts. You define the scenario, we bring all the hardware and the full stack, you connect.',
+    steps: [
+      {
+        n: '01',
+        title: 'Define your scenario',
+        desc: 'Tell us the case: event or site size, location, duration, and connectivity requirements. We respond with a technical proposal and quote in under 4 business hours.'
+      },
+      {
+        n: '02',
+        title: 'We deploy the network',
+        desc: 'Our team arrives with all the hardware (BTS, LTE/5G core, satellite backhaul if needed) and installs and validates on-site. No surprises, no hidden costs.'
+      },
+      {
+        n: '03',
+        title: 'You connect and operate',
+        desc: 'The private network goes live with real-time monitoring, guaranteed uptime SLA, and on-site support throughout the operation. When you\'re done, we pack everything up.'
+      }
+    ],
+    cta: 'Request a Quote →'
+  };
+  return React.createElement("section", {
+    style: {
+      padding: '6rem 2rem',
+      borderTop: '1px solid var(--border)'
+    }
+  },
+    React.createElement("div", {
+      ref: ref,
+      style: {
+        maxWidth: '1200px', margin: '0 auto',
+        opacity: vis ? 1 : 0, transform: vis ? 'none' : 'translateY(30px)',
+        transition: 'all 0.6s ease'
+      }
+    },
+      React.createElement("p", {
+        style: {
+          fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
+          color: 'var(--teal)', letterSpacing: '0.1em',
+          textTransform: 'uppercase', marginBottom: '0.75rem'
+        }
+      }, t.eyebrow),
+      React.createElement("h2", {
+        style: {
+          fontFamily: 'var(--font-head)', fontWeight: 700,
+          fontSize: 'clamp(2rem,3.5vw,2.75rem)', letterSpacing: '-0.02em',
+          marginBottom: '1rem', maxWidth: '600px'
+        }
+      }, t.title),
+      React.createElement("p", {
+        style: {
+          color: 'var(--text-mid)', fontSize: '1.05rem',
+          lineHeight: 1.75, maxWidth: '680px', marginBottom: '3.5rem'
+        }
+      }, t.subtitle),
+      React.createElement("div", {
+        style: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '2rem', marginBottom: '2.5rem' }
+      }, t.steps.map(s => React.createElement("div", {
+        key: s.n,
+        style: {
+          background: 'var(--bg2)', border: '1px solid var(--border)',
+          borderRadius: '12px', padding: '2rem', position: 'relative', overflow: 'hidden'
+        }
+      },
+        React.createElement("div", {
+          style: {
+            fontFamily: 'var(--font-head)', fontWeight: 700,
+            fontSize: '3.5rem', color: 'oklch(0.72 0.16 192 / 0.08)',
+            position: 'absolute', top: '0.5rem', right: '1rem',
+            lineHeight: 1, userSelect: 'none'
+          }
+        }, s.n),
+        React.createElement("div", {
+          style: {
+            fontFamily: 'var(--font-mono)', fontSize: '0.8rem',
+            color: 'var(--teal)', marginBottom: '0.75rem', fontWeight: 700
+          }
+        }, s.n),
+        React.createElement("h3", {
+          style: {
+            fontFamily: 'var(--font-head)', fontWeight: 700,
+            fontSize: '1.15rem', marginBottom: '0.75rem'
+          }
+        }, s.title),
+        React.createElement("p", {
+          style: { color: 'var(--text-mid)', fontSize: '0.9rem', lineHeight: 1.7 }
+        }, s.desc)
+      ))),
+      React.createElement("div", { style: { textAlign: 'center' } },
+        React.createElement("a", {
+          href: '#contact',
+          style: {
+            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+            background: 'var(--teal)', color: 'var(--bg1)',
+            fontFamily: 'var(--font-head)', fontWeight: 700,
+            fontSize: '1rem', padding: '0.875rem 2rem',
+            borderRadius: '8px', textDecoration: 'none', transition: 'opacity 0.2s'
+          },
+          onMouseEnter: e => { e.currentTarget.style.opacity = '0.85'; },
+          onMouseLeave: e => { e.currentTarget.style.opacity = '1'; }
+        }, t.cta)
+      )
+    )
+  );
+}
+
 // ─── SERVICES & PRICING ───────────────────────────────────────────────────────
 function Services() {
   const { lang } = useLang();
@@ -3528,7 +3738,7 @@ function App() {
     tweaks: tweaks
   }), /*#__PURE__*/React.createElement(Hero, {
     tweaks: tweaks
-  }), /*#__PURE__*/React.createElement(NetworksRibbon, null), /*#__PURE__*/React.createElement(Products, null), /*#__PURE__*/React.createElement(TrainingSection, null), /*#__PURE__*/React.createElement(Solutions, null), /*#__PURE__*/React.createElement(Technology, null), /*#__PURE__*/React.createElement(GlobalSouth, null), /*#__PURE__*/React.createElement(About, null), /*#__PURE__*/React.createElement(Speaking, null), /*#__PURE__*/React.createElement(Communities, null), /*#__PURE__*/React.createElement(Services, null), /*#__PURE__*/React.createElement(Newsletter, null), /*#__PURE__*/React.createElement(Contact, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(TweaksPanel, {
+  }), /*#__PURE__*/React.createElement(NetworksRibbon, null), /*#__PURE__*/React.createElement(TrustBar, null), /*#__PURE__*/React.createElement(Products, null), /*#__PURE__*/React.createElement(TrainingSection, null), /*#__PURE__*/React.createElement(Solutions, null), /*#__PURE__*/React.createElement(Technology, null), /*#__PURE__*/React.createElement(GlobalSouth, null), /*#__PURE__*/React.createElement(About, null), /*#__PURE__*/React.createElement(Speaking, null), /*#__PURE__*/React.createElement(Communities, null), /*#__PURE__*/React.createElement(HowItWorks, null), /*#__PURE__*/React.createElement(Services, null), /*#__PURE__*/React.createElement(Newsletter, null), /*#__PURE__*/React.createElement(Contact, null), /*#__PURE__*/React.createElement(Footer, null), /*#__PURE__*/React.createElement(TweaksPanel, {
     tweaks: tweaks,
     setTweaks: setTweaks,
     visible: tweaksVisible
