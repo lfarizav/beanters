@@ -3,71 +3,199 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Training — Beanters</title>
-<meta name="description" content="Cloud-native + cellular networks training programs (CKA, CKAD, CKS, Agentic Engineering, Cloud-Native Telco). In construction — coming soon.">
+<title>Training Programs — Beanters</title>
+<meta name="description" content="Hands-on technical training: Agentic Engineering ($249), Cloud-Native Kubernetes ($199), CKA/CKAD/CKS Certification Prep ($149). Instructor-led by PhD Telecom + Kubestronaut Luis Felipe Ariza Vesga.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root { --bg0:#080d1a; --bg1:#0f1525; --bg2:#1a2138; --border:#2a3148; --text:#f0f6fc; --text2:#8b949e; --teal:#00D9FF; --gold:#FFD700; }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family:'Inter', system-ui, sans-serif; background:var(--bg0); color:var(--text); min-height:100vh; line-height:1.6; display:flex; flex-direction:column; }
-  nav { padding:18px 32px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); }
-  nav .brand { font-weight:700; font-size:1.2em; letter-spacing:-0.02em; }
-  nav .brand .teal { color:var(--teal); }
-  nav a { color:var(--text2); text-decoration:none; font-size:0.9em; margin-left:1.5rem; }
-  nav a:hover { color:var(--text); }
-  main { flex:1; max-width:760px; margin:0 auto; padding:80px 32px 40px; text-align:center; }
-  .pill { display:inline-block; background:rgba(255,215,0,0.1); color:var(--gold); border:1px solid rgba(255,215,0,0.4); border-radius:999px; padding:5px 14px; font-size:0.75em; font-weight:600; letter-spacing:0.08em; margin-bottom:24px; text-transform:uppercase; }
-  h1 { font-size:2.8em; line-height:1.15; margin-bottom:18px; letter-spacing:-0.02em; }
-  h1 .teal { color:var(--teal); }
-  .lead { font-size:1.15em; color:var(--text2); max-width:560px; margin:0 auto 40px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin:40px 0; text-align:left; }
-  .card { background:var(--bg1); border:1px solid var(--border); border-radius:10px; padding:20px; }
-  .card h3 { color:var(--teal); font-size:1.05em; margin-bottom:6px; }
-  .card p { color:var(--text2); font-size:0.88em; }
-  .cta { margin-top:32px; }
-  .btn { display:inline-block; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:600; font-size:0.95em; }
-  .btn-primary { background:var(--teal); color:#080d1a; }
-  .btn-primary:hover { opacity:0.9; }
-  footer { padding:24px 32px; text-align:center; color:var(--text2); font-size:0.85em; border-top:1px solid var(--border); }
-  footer a { color:var(--teal); text-decoration:none; }
+  :root{--bg0:#080d1a;--bg1:#0f1525;--bg2:#1a2138;--bg3:#212a42;--border:#2a3148;--text:#eef0f6;--text2:#8b99b5;--teal:#00D9FF;--teal-glow:rgba(0,217,255,0.08);--amber:#F0A500;--green:#3dd68c;--font-head:'Space Grotesk',system-ui,sans-serif;--font-mono:'JetBrains Mono',monospace}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-head);background:var(--bg0);color:var(--text);min-height:100vh;line-height:1.6}
+  a{color:var(--teal);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  nav{position:sticky;top:0;z-index:10;background:rgba(8,13,26,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between}
+  .brand{font-weight:700;font-size:1.15rem}.brand .teal{color:var(--teal)}
+  nav .links{display:flex;gap:1.5rem;font-size:0.875rem}
+  nav .links a{color:var(--text2)}nav .links a:hover{color:var(--text);text-decoration:none}
+
+  .hero{padding:80px 2rem 56px;text-align:center;max-width:800px;margin:0 auto}
+  .pill{display:inline-flex;align-items:center;gap:0.5rem;background:var(--teal-glow);border:1px solid rgba(0,217,255,0.3);border-radius:999px;padding:4px 14px;font-family:var(--font-mono);font-size:0.72rem;color:var(--teal);letter-spacing:0.06em;margin-bottom:1.5rem}
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  h1{font-size:clamp(2rem,4.5vw,2.8rem);font-weight:700;letter-spacing:-0.03em;line-height:1.15;margin-bottom:1rem}
+  h1 .hi{color:var(--teal)}
+  .lead{font-size:1.05rem;color:var(--text2);max-width:620px;margin:0 auto;line-height:1.75}
+
+  .container{max-width:1060px;margin:0 auto;padding:0 2rem 80px}
+  .section-label{font-family:var(--font-mono);font-size:0.72rem;color:var(--teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem}
+
+  .program{background:var(--bg1);border:1px solid var(--border);border-radius:14px;padding:2.25rem;margin-bottom:1.75rem;transition:border-color 0.2s}
+  .program:hover{border-color:rgba(0,217,255,0.25)}
+  .program.featured{border-color:rgba(0,217,255,0.35);background:linear-gradient(135deg,var(--bg1),var(--bg2))}
+  .program-header{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start;margin-bottom:1.5rem}
+  .program-icon{font-size:1.75rem;margin-bottom:0.5rem}
+  .program-level{font-family:var(--font-mono);font-size:0.7rem;color:var(--teal);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem}
+  .program h2{font-size:1.3rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.35rem}
+  .program .tagline{font-family:var(--font-mono);font-size:0.8rem;color:var(--teal);margin-bottom:0.75rem}
+  .program .desc{font-size:0.92rem;color:var(--text2);line-height:1.7;margin-bottom:1.25rem;max-width:680px}
+
+  .price-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1.5rem;text-align:right;min-width:170px;flex-shrink:0}
+  .price-box .amount{font-size:2rem;font-weight:700;color:var(--teal);line-height:1;margin-bottom:0.25rem}
+  .price-box .per{font-family:var(--font-mono);font-size:0.72rem;color:var(--text2);margin-bottom:0.5rem}
+  .price-box .hours{font-family:var(--font-mono);font-size:0.7rem;color:var(--amber)}
+
+  .tracks{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:1.25rem}
+  .track{font-family:var(--font-mono);font-size:0.72rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.7rem;color:var(--text2)}
+
+  .modules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:1.5rem}
+  .module-chip{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:0.6rem 0.75rem;font-size:0.8rem}
+  .module-chip .hours{font-family:var(--font-mono);font-size:0.68rem;color:var(--teal);margin-top:0.2rem}
+
+  .cta-row{display:flex;gap:0.75rem;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.65rem 1.35rem;border-radius:8px;font-weight:700;font-size:0.9rem;cursor:pointer;border:none;transition:all 0.2s;text-decoration:none}
+  .btn:hover{text-decoration:none;transform:translateY(-1px)}
+  .btn-primary{background:var(--teal);color:#080d1a}
+  .btn-primary:hover{box-shadow:0 6px 20px rgba(0,217,255,0.3)}
+  .btn-outline{background:transparent;color:var(--teal);border:1px solid var(--teal)}
+  .btn-outline:hover{background:var(--teal-glow)}
+
+  .instructor{display:flex;align-items:center;gap:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:2.5rem}
+  .instructor img{width:48px;height:48px;border-radius:50%;border:2px solid var(--teal);object-fit:cover}
+  .instructor .name{font-weight:700;font-size:0.92rem}
+  .instructor .role{font-family:var(--font-mono);font-size:0.72rem;color:var(--teal);margin-top:0.15rem}
+
+  .info-box{background:var(--bg2);border-left:3px solid rgba(0,217,255,0.4);border-radius:0 8px 8px 0;padding:1rem 1.25rem;font-size:0.88rem;color:var(--text2);margin:1.5rem 0}
+  .info-box strong{color:var(--text)}
+
+  @media(max-width:700px){.program-header{grid-template-columns:1fr}.modules-grid{grid-template-columns:1fr 1fr}.price-box{text-align:left}}
+  @media(max-width:480px){.modules-grid{grid-template-columns:1fr}.hero{padding:60px 1.5rem 40px}}
+
+  footer{border-top:1px solid var(--border);padding:1.75rem 2rem;text-align:center;color:var(--text2);font-size:0.85rem}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="/" style="text-decoration:none; margin:0;"><span class="brand"><span class="teal">bean</span>ters</span></a>
-  <div>
-    <a href="/">← Home</a>
+  <a href="https://beanters.com" style="text-decoration:none">
+    <span class="brand"><span class="teal">bean</span>ters</span>
+  </a>
+  <div class="links">
+    <a href="https://beanters.com">← Home</a>
     <a href="/courses/cellular-networks/">Courses</a>
+    <a href="/presentations/">Presentations</a>
   </div>
 </nav>
 
-<main>
-  <div class="pill">🚧 In construction</div>
-  <h1>Hands-on <span class="teal">training programs</span></h1>
-  <p class="lead">Structured, role-based learning paths for cloud-native infrastructure, Kubernetes certifications, and agentic engineering. Coming soon to beanters.com.</p>
+<div class="hero">
+  <div class="pill"><span class="dot"></span>TRAINING PROGRAMS</div>
+  <h1>Hands-on <span class="hi">technical training</span></h1>
+  <p class="lead">Role-based, lab-heavy programs on cloud-native infrastructure, Kubernetes certifications, and agentic AI engineering. Taught by a Kubestronaut + PhD Telecom with real production deployments.</p>
+</div>
 
-  <div class="grid">
-    <div class="card">
-      <h3>Cloud-Native Telco</h3>
-      <p>Kubernetes, Helm, GitOps + Flux applied to 4G/5G cellular network operations.</p>
-    </div>
-    <div class="card">
-      <h3>CKA / CKAD / CKS</h3>
-      <p>Kubernetes certification tracks with hands-on labs and real cluster scenarios.</p>
-    </div>
-    <div class="card">
-      <h3>Agentic Engineering</h3>
-      <p>LLM fundamentals, AEF framework, agent orchestration, VS Code Copilot workflows.</p>
+<div class="container">
+
+  <div class="instructor">
+    <img src="https://beanters.com/luis.webp" alt="Luis Felipe Ariza Vesga">
+    <div>
+      <div class="name">Luis Felipe Ariza Vesga — instructor for all programs</div>
+      <div class="role">PhD Telecom · ❄️ Kubestronaut · EURECOM · MinCiencias · KubeCon Amsterdam 2026 Speaker · 5G Broadcast Pilot (MinTIC + ANE)</div>
     </div>
   </div>
 
-  <div class="cta">
-    <a href="mailto:lfarizav@gmail.com?subject=Beanters%20Training%20-%20Notify%20me" class="btn btn-primary">Notify me when it launches</a>
+  <!-- AGENTIC ENGINEERING -->
+  <div class="program featured">
+    <div class="program-header">
+      <div>
+        <div class="program-icon">🤖</div>
+        <div class="program-level">Advanced · 66+ hours</div>
+        <h2>Agentic Engineering</h2>
+        <p class="tagline">Build AI agents that reason, plan, and act autonomously</p>
+        <p class="desc">From LLM fundamentals to multi-agent orchestration with the AEF (Agentic Engineering Framework). Hands-on labs with VS Code + GitHub Copilot, local model inference (Ollama/vLLM), and production agent systems. The curriculum used to build beanters' own 3GPP Telco Expert Agent.</p>
+        <div class="tracks">
+          <span class="track">LLM Fundamentals — 8 h</span>
+          <span class="track">Prompt Engineering — 6 h</span>
+          <span class="track">Agent Patterns — 14 h</span>
+          <span class="track">AEF Framework — 10 h</span>
+          <span class="track">VS Code + Copilot — 8 h</span>
+          <span class="track">Multi-Agent Orchestration — 20 h</span>
+        </div>
+        <div class="cta-row">
+          <a href="mailto:lfarizav@gmail.com?subject=Agentic%20Engineering%20Training%20—%20249%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20in%20the%20Agentic%20Engineering%20training%20program%20(USD%20249).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0APreferred%20start%3A%20%0A%0AThanks." class="btn btn-primary">Enroll — $249 USD →</a>
+          <a href="mailto:lfarizav@gmail.com?subject=Agentic%20Engineering%20—%20Team%20pricing&body=Hi%20Luis%2C%0A%0AWe%27re%20interested%20in%20team%20pricing%20for%20Agentic%20Engineering%20training.%0A%0ATeam%20size%3A%20%0ACompany%3A%20%0A%0AThanks." class="btn btn-outline">Team pricing</a>
+        </div>
+      </div>
+      <div class="price-box">
+        <div class="amount">$249</div>
+        <div class="per">USD · individual</div>
+        <div class="hours">66+ hours</div>
+      </div>
+    </div>
   </div>
-</main>
+
+  <!-- CLOUD-NATIVE -->
+  <div class="program">
+    <div class="program-header">
+      <div>
+        <div class="program-icon">☸️</div>
+        <div class="program-level">Intermediate → Advanced · 50+ hours</div>
+        <h2>Cloud-Native Kubernetes</h2>
+        <p class="tagline">Kubernetes, Helm, GitOps with Flux, and observability — production grade</p>
+        <p class="desc">Role-based learning paths for developers, platform engineers, and SREs. Covers Kubernetes architecture, workloads, Helm charts, GitOps with FluxCD, and the full observability stack (Prometheus, Grafana, Loki, Tempo). Direct application to cloud-native telco and 5G/LTE private networks.</p>
+        <div class="tracks">
+          <span class="track">Containers + K8s Basics — 12 h</span>
+          <span class="track">Workloads + Production — 22 h</span>
+          <span class="track">Helm Charts — 8 h</span>
+          <span class="track">GitOps + Flux — 10 h</span>
+          <span class="track">Observability (Prometheus, Grafana) — 14 h</span>
+        </div>
+        <div class="cta-row">
+          <a href="mailto:lfarizav@gmail.com?subject=Cloud-Native%20Kubernetes%20Training%20—%20199%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20in%20the%20Cloud-Native%20Kubernetes%20training%20(USD%20199).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0A%0AThanks." class="btn btn-primary">Enroll — $199 USD →</a>
+          <a href="mailto:lfarizav@gmail.com?subject=Cloud-Native%20—%20Team%20pricing" class="btn btn-outline">Team pricing</a>
+        </div>
+      </div>
+      <div class="price-box">
+        <div class="amount">$199</div>
+        <div class="per">USD · individual</div>
+        <div class="hours">50+ hours</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CKA / CKAD / CKS -->
+  <div class="program">
+    <div class="program-header">
+      <div>
+        <div class="program-icon">🎓</div>
+        <div class="program-level">Certification Prep · ~30 hours per track</div>
+        <h2>CKA / CKAD / CKS Certification Prep</h2>
+        <p class="tagline">Pass the CNCF Kubernetes certifications with real exam scenarios</p>
+        <p class="desc">Exam-focused preparation for CKA (Certified Kubernetes Administrator), CKAD (Developer), and CKS (Security Specialist). Includes timed mock exams, live cluster scenarios, and common exam traps. Taught by a certified Kubestronaut who has passed all three.</p>
+        <div class="tracks">
+          <span class="track">CKA — Cluster Administration</span>
+          <span class="track">CKAD — Application Development</span>
+          <span class="track">CKS — Security Specialist</span>
+        </div>
+        <div class="cta-row">
+          <a href="mailto:lfarizav@gmail.com?subject=CKA%20Certification%20Prep%20—%20149%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20in%20the%20CKA%20certification%20prep%20(USD%20149).%0A%0AName%3A%20%0ATarget%20cert%20(CKA%2FCKAD%2FCKS)%3A%20%0ATarget%20exam%20date%3A%20%0A%0AThanks." class="btn btn-primary">Enroll — $149 USD / cert →</a>
+          <a href="mailto:lfarizav@gmail.com?subject=CKA%20CKAD%20CKS%20—%20bundle%20pricing" class="btn btn-outline">Bundle all 3 — ask for price</a>
+        </div>
+      </div>
+      <div class="price-box">
+        <div class="amount">$149</div>
+        <div class="per">USD · per cert track</div>
+        <div class="hours">~30 h per cert</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>📨 How enrollment works:</strong> Click "Enroll" to send a pre-filled email. Luis replies within 24 hours with a payment link and access credentials. Accepts card, bank transfer, and local payment methods (Colombia: Nequi / Daviplata). Corporate invoicing available.
+  </div>
+
+</div>
 
 <footer>
-  <p>© 2026 Beanters · <a href="/">beanters.com</a></p>
+  <p>Beanters Training · <a href="https://beanters.com">beanters.com</a> · © 2026 Luis Felipe Ariza Vesga · <a href="mailto:lfarizav@gmail.com">lfarizav@gmail.com</a></p>
 </footer>
 
 </body>
