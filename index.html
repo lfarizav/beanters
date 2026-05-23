@@ -797,7 +797,7 @@ function Hero({
     titleHi: '5G/LTE',
     titleB: ' Operativas en Horas — Sin Vendor Lock-in',
     leadBold: 'ngntelco CLI',
-    lead: ' despliega redes privadas estándar 3GPP sobre hardware común. O déjanos hacerlo por ti — desde $350/hora, operativo en menos de 90 minutos, sin costos ocultos.',
+    lead: ' despliega cualquier red inalámbrica de 400 MHz a 6 GHz sobre hardware común. Celular, drones, comms de seguridad, IoT. Mantenlos en 99,99%+ con nuestro agente IA 3GPP on-premise.',
     ctaPrimary: 'Agenda una Llamada Técnica →',
     ctaSecondary: 'Ver Servicios y Precios',
     ctaSecondaryHref: '#services',
@@ -812,7 +812,7 @@ function Hero({
     titleHi: '5G/LTE',
     titleB: ' Networks Operational in Hours — No Vendor Lock-in',
     leadBold: 'ngntelco CLI',
-    lead: ' deploys 3GPP-standardized private networks on commodity hardware. Or let us deploy for you — from $350/hr, operational in under 90 minutes, no hidden costs.',
+    lead: ' deploys any wireless network from 400 MHz to 6 GHz on commodity hardware — cellular, drones, security comms, IoT. Keep them at 99.99%+ uptime with our on-premise 3GPP AI agent.',
     ctaPrimary: 'Book a Technical Call →',
     ctaSecondary: 'See Services & Pricing',
     ctaSecondaryHref: '#services',
@@ -1052,13 +1052,13 @@ function TrustBar() {
   const stats = lang === 'es' ? [
     { n: '< 90 min', desc: 'Despliegue de emergencia' },
     { n: '$350/hr', desc: 'Desde (sin costos ocultos)' },
-    { n: '50.000', desc: 'Usuarios simultáneos' },
-    { n: '100%', desc: 'Open-source, sin vendor lock-in' }
+    { n: '99,99%', desc: 'SLA objetivo con agente IA' },
+    { n: '5G Broadcast', desc: '1er piloto autorizado MinTIC + ANE' }
   ] : [
     { n: '< 90 min', desc: 'Emergency deployment' },
     { n: '$350/hr', desc: 'Starting (no hidden costs)' },
-    { n: '50,000', desc: 'Concurrent users' },
-    { n: '100%', desc: 'Open-source, no vendor lock-in' }
+    { n: '99.99%', desc: 'SLA target with AI agent' },
+    { n: '5G Broadcast', desc: '1st authorized pilot MinTIC + ANE' }
   ];
   const stack = ['Open5GS', 'srsRAN', 'OpenAirInterface', 'Magma', 'Kubernetes', 'Helm', 'FluxCD', 'Docker'];
   return React.createElement("div", {
@@ -1228,7 +1228,7 @@ function Products() {
   const { lang } = useLang();
   const t = lang === 'es' ? {
     eyebrow: 'Nuestros Productos',
-    title: 'Un CLI. Todos los Est\u00E1ndares 3GPP.',
+    title: 'Desplegar. Monitorear. Detectar. \u2014 400 MHz a 6 GHz.',
     cards: [
       {
         featured: true,
@@ -1269,14 +1269,14 @@ function Products() {
       {
         icon: '🤖',
         name: 'Agente Experto Telco 3GPP',
-        tagline: 'IA que evoluciona con los estándares 3GPP',
-        desc: 'Un agente de IA especializado en redes celulares que se mantiene actualizado con las últimas especificaciones 3GPP. Responde consultas técnicas sobre arquitecturas 2G-6G, Open RAN, core 5G y MEC, aprende de nuevas versiones de estándares y asiste a ingenieros en el diseño y solución de problemas de redes celulares en tiempo real.',
-        tags: ['3GPP', 'IA Agente', 'LLM', 'Open RAN', '5G Core', 'Evolución Continua']
+        tagline: 'IA on-premise · Logs, trazas y métricas → diagnóstico + fix · Beta',
+        desc: 'Ingiere los logs, trazas y métricas de tu red en un LLM local (Ollama / vLLM) con conocimiento profundo de 3GPP. El agente detecta causas raíz en tu stack 2G–5G, genera reportes con instrucciones paso a paso para el operador humano y rastrea el cumplimiento de SLA hacia 99,99%+ de disponibilidad. Los datos nunca salen de tu infraestructura — completamente on-premise, cero dependencia de nube.',
+        tags: ['LLM Local', 'Ollama', 'vLLM', 'Logs · Trazas · Métricas', 'Humano en el Lazo', 'SLA 99,99%', 'On-Premise', 'Beta']
       }
     ]
   } : {
     eyebrow: 'Our Products',
-    title: 'One CLI. Every 3GPP Network Standard.',
+    title: 'Deploy. Monitor. Sense. — 400 MHz to 6 GHz.',
     cards: [
       {
         featured: true,
@@ -1317,9 +1317,9 @@ function Products() {
       {
         icon: '🤖',
         name: '3GPP Telco Expert Agent',
-        tagline: 'AI that evolves with 3GPP standards',
-        desc: 'A specialized AI agent for cellular networks that stays current with the latest 3GPP specifications. Answers technical queries on 2G-6G architectures, Open RAN, 5G core, and MEC, learns from new standard releases, and assists engineers in real-time network design and troubleshooting.',
-        tags: ['3GPP', 'Agentic AI', 'LLM', 'Open RAN', '5G Core', 'Continuous Evolution']
+        tagline: 'On-premise AI · Logs, traces & metrics → diagnosis + fix · Beta',
+        desc: 'Feed your network\'s logs, traces, and metrics into a local LLM (Ollama / vLLM) with deep 3GPP knowledge. The agent detects root causes across your 2G–5G stack, generates human-readable reports with step-by-step fix instructions for the operator, and tracks SLA compliance toward 99.99%+ uptime. Data never leaves your infrastructure — fully on-premise, zero cloud dependency.',
+        tags: ['Local LLM', 'Ollama', 'vLLM', 'Logs · Traces · Metrics', 'Human-in-the-Loop', '99.99% SLA', 'On-Premise', 'Beta']
       }
     ]
   };
@@ -2027,10 +2027,11 @@ function About() {
     bio1d: 'OpenAirInterface Software Alliance',
     bio1e: ', e investigador principal reconocido por ',
     bio1f: 'MinCiencias (Colombia)',
-    bio1g: '. Luis Felipe aporta una profunda experiencia en RAN cloud-native, 5G broadcast y optimización multiobjetivo de redes heterogéneas.',
+    bio1g: '. Desplegó el primer piloto de 5G Broadcast autorizado en Colombia (MinTIC + ANE), y aporta experiencia profunda en RAN cloud-native, redes de espectro libre (400 MHz – 6 GHz) y agentes IA para operaciones de red.',
     bio2a: 'Como organizador del ',
     bio2b: 'Colombia OpenInfra User Group',
-    bio2c: ' y de KCD Colombia 2025, ha construido una comunidad activa de ingenieros que impulsa la infraestructura de telco open-source en toda Latinoamérica.'
+    bio2c: ' y de KCD Colombia 2025, ha construido una comunidad activa de ingenieros que impulsa la infraestructura de telco open-source en toda Latinoamérica.',
+    bio3: '★ Primer piloto de 5G Broadcast autorizado por MinTIC + ANE en Colombia'
   } : {
     eyebrow: 'About the Founder',
     name: 'Luis Felipe Ariza Vesga',
@@ -2041,10 +2042,11 @@ function About() {
     bio1d: 'OpenAirInterface Software Alliance',
     bio1e: ', and principal researcher recognized by ',
     bio1f: 'MinCiencias (Colombia)',
-    bio1g: '. Luis Felipe brings deep expertise in cloud-native RAN, 5G broadcast, and many-objective optimization for heterogeneous networks.',
+    bio1g: '. He deployed Colombia\'s first authorized 5G Broadcast pilot (MinTIC + ANE), and brings deep expertise in cloud-native RAN, free-spectrum networks (400 MHz – 6 GHz), and AI agents for network operations.',
     bio2a: 'As organizer of the ',
     bio2b: 'Colombia OpenInfra User Group',
-    bio2c: ' and KCD Colombia 2025, he has built a thriving community of engineers advancing open-source telecom infrastructure across Latin America.'
+    bio2c: ' and KCD Colombia 2025, he has built a thriving community of engineers advancing open-source telecom infrastructure across Latin America.',
+    bio3: '★ Colombia\'s first 5G Broadcast pilot authorized by MinTIC + ANE'
   };
   return /*#__PURE__*/React.createElement("section", {
     id: "about",
@@ -2138,11 +2140,20 @@ function About() {
     }
   }, t.bio2b), t.bio2c), /*#__PURE__*/React.createElement("div", {
     style: {
+      display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+      background: 'oklch(0.72 0.16 192 / 0.1)', border: '1px solid oklch(0.72 0.16 192 / 0.35)',
+      borderRadius: '8px', padding: '0.5rem 1rem', marginBottom: '1.5rem'
+    }
+  }, /*#__PURE__*/React.createElement("span", { style: { color: 'var(--amber)' } }, '★'),
+  /*#__PURE__*/React.createElement("span", {
+    style: { fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--teal)', fontWeight: 600 }
+  }, t.bio3)), /*#__PURE__*/React.createElement("div", {
+    style: {
       display: 'flex',
       flexWrap: 'wrap',
       gap: '0.5rem'
     }
-  }, ['OpenAirInterface', 'srsRAN', 'Magma', 'Open5GS', 'Kubestronaut', 'OAI Contributor', 'EURECOM Alumni', 'MinCiencias Researcher'].map(t => /*#__PURE__*/React.createElement("span", {
+  }, ['OpenAirInterface', 'srsRAN', 'Magma', 'Open5GS', 'Kubestronaut', 'OAI Contributor', 'EURECOM Alumni', 'MinCiencias Researcher', '5G Broadcast · MinTIC+ANE'].map(t => /*#__PURE__*/React.createElement("span", {
     key: t,
     style: {
       fontFamily: 'var(--font-mono)',
@@ -2673,6 +2684,15 @@ function Services() {
     usecasesLabel: 'Casos de Uso',
     cta: 'Solicitar cotización',
     ctaSub: 'Cuéntanos tu escenario — respondemos en < 4 h hábiles.',
+    community: {
+      icon: '🏘️',
+      title: 'Red Comunitaria LTE · Conectividad para Veredas y Territorios',
+      tagline: 'Banda 8 (850 MHz) · hasta 10 km de cobertura · 20–120 usuarios',
+      rate: 'Cotización social', coverage: 'Hasta 10 km de radio', badge: '★ ANE Resolución 028 / 2026',
+      desc: 'Red LTE privada a escala de vereda sobre espectro Banda 8 (850 MHz), desplegada con srsRAN + Open5GS + CoLTE sobre hardware SDR abierto. Cubre comunidades de 50–300 habitantes más allá de la última torre comercial. Diseñado para comunidades en Chocó, Vaupés, Guajira, Putumayo, Nariño y otras regiones con brecha de conectividad. Operable con energía solar. Primer despliegue de este tipo habilitado por la flexibilización de espectro de la ANE.',
+      gear: ['BTS SDR (USRP B210 / LimeSDR)', 'Core LTE Open5GS + srsRAN eNodeB', 'PA+LNA 20W Banda 8 + antena panel', 'CoLTE: portal de gestión y SIMs', 'Panel solar + batería (off-grid)', 'Backhaul satelital Starlink opcional'],
+      usecases: ['Veredas en Chocó, Vaupés, Guajira', 'Territorios indígenas y afrocolombianos', 'Organizaciones MinTIC "Juntas de Internet"', 'Universidades y proyectos de investigación']
+    },
     services: [
       {
         icon: '🏟️', id: 'stadium-event',
@@ -2710,6 +2730,15 @@ function Services() {
     usecasesLabel: 'Use Cases',
     cta: 'Request a Quote',
     ctaSub: 'Tell us your scenario — we respond in < 4 business hours.',
+    community: {
+      icon: '🏘️',
+      title: 'Community LTE Network · Connectivity for Villages & Territories',
+      tagline: 'Band 8 (850 MHz) · up to 10 km coverage · 20–120 users',
+      rate: 'Social pricing', coverage: 'Up to 10 km radius', badge: '★ ANE Resolution 028 / 2026',
+      desc: 'Village-scale private LTE on Band 8 (850 MHz), deployed with srsRAN + Open5GS + CoLTE on open SDR hardware. Covers communities of 50–300 inhabitants beyond the last commercial tower. Designed for communities in Chocó, Vaupés, La Guajira, Putumayo, Nariño, and other underserved regions. Solar-power compatible. Enabled by ANE\'s spectrum flexibilization — the same regulatory path used for Colombia\'s first authorized 5G Broadcast pilot.',
+      gear: ['SDR BTS (USRP B210 / LimeSDR)', 'Open5GS EPC + srsRAN eNodeB', '20W Band 8 PA+LNA + panel antenna', 'CoLTE management portal + SIM provisioning', 'Solar panel + battery (off-grid ready)', 'Optional Starlink satellite backhaul'],
+      usecases: ['Veredas in Chocó, Vaupés, La Guajira', 'Indigenous and Afro-Colombian territories', 'MinTIC "Juntas de Internet" organizations', 'Universities and research deployments']
+    },
     services: [
       {
         icon: '🏟️', id: 'stadium-event',
@@ -2881,6 +2910,89 @@ function Services() {
             }, t.cta, ' →')
           )
         ))
+      ),
+      t.community && React.createElement("div", {
+        style: {
+          background: 'linear-gradient(135deg, var(--bg3), var(--surface))',
+          border: '1px solid oklch(0.72 0.16 192 / 0.3)',
+          borderRadius: '12px', padding: '2.5rem', marginTop: '0'
+        }
+      },
+        React.createElement("div", {
+          style: { display: 'grid', gridTemplateColumns: '1fr auto', gap: '2.5rem', alignItems: 'start' }
+        },
+          React.createElement("div", null,
+            React.createElement("div", {
+              style: { display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }
+            },
+              React.createElement("span", { style: { fontSize: '1.75rem' } }, t.community.icon),
+              React.createElement("h3", {
+                style: { fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: '1.2rem', lineHeight: 1.3 }
+              }, t.community.title)
+            ),
+            React.createElement("p", {
+              style: { fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--teal)', marginBottom: '1rem' }
+            }, t.community.tagline),
+            React.createElement("p", {
+              style: { color: 'var(--text-mid)', fontSize: '0.92rem', lineHeight: 1.7, marginBottom: '1.25rem', maxWidth: '700px' }
+            }, t.community.desc),
+            React.createElement("div", {
+              style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }
+            },
+              React.createElement("div", null,
+                React.createElement("p", {
+                  style: { fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }
+                }, t.includedLabel),
+                React.createElement("ul", {
+                  style: { listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.3rem' }
+                }, t.community.gear.map(g => React.createElement("li", {
+                  key: g,
+                  style: { fontSize: '0.85rem', color: 'var(--text-mid)', display: 'flex', alignItems: 'flex-start', gap: '0.4rem' }
+                }, React.createElement("span", { style: { color: 'var(--teal)', flexShrink: 0 } }, '✓'), g)))
+              ),
+              React.createElement("div", null,
+                React.createElement("p", {
+                  style: { fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.5rem' }
+                }, t.usecasesLabel),
+                React.createElement("ul", {
+                  style: { listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.3rem' }
+                }, t.community.usecases.map(u => React.createElement("li", {
+                  key: u,
+                  style: { fontSize: '0.85rem', color: 'var(--text-mid)', display: 'flex', alignItems: 'flex-start', gap: '0.4rem' }
+                }, React.createElement("span", { style: { color: 'var(--amber)', flexShrink: 0 } }, '→'), u)))
+              )
+            )
+          ),
+          React.createElement("div", {
+            style: { display: 'flex', flexDirection: 'column', gap: '0.75rem', minWidth: '180px', textAlign: 'right' }
+          },
+            React.createElement("div", {
+              style: { background: 'var(--surface)', border: '1px solid oklch(0.72 0.16 192 / 0.3)', borderRadius: '10px', padding: '1.25rem' }
+            },
+              React.createElement("p", {
+                style: { fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: '1.1rem', color: 'var(--teal)', marginBottom: '0.25rem' }
+              }, t.community.rate),
+              React.createElement("p", {
+                style: { fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '0.5rem' }
+              }, t.community.coverage),
+              React.createElement("p", {
+                style: { fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--amber)' }
+              }, t.community.badge)
+            ),
+            React.createElement("a", {
+              href: '#contact',
+              style: {
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                gap: '0.4rem', padding: '0.65rem 1.25rem',
+                background: 'var(--teal)', borderRadius: '8px',
+                color: 'var(--bg1)', fontFamily: 'var(--font-mono)',
+                fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', transition: 'opacity 0.2s'
+              },
+              onMouseEnter: e => { e.currentTarget.style.opacity = '0.85'; },
+              onMouseLeave: e => { e.currentTarget.style.opacity = '1'; }
+            }, t.cta, ' →')
+          )
+        )
       ),
       React.createElement("p", {
         style: {
