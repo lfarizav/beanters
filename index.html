@@ -100,7 +100,7 @@
         "name": "Is Beanters open-source?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. Beanters is built on 100% open-source components: Docker, Kubernetes, Helm, Open5GS, OpenAirInterface, srsRAN, and Magma."
+          "text": "Yes. Beanters is built on 100% open-source components: Docker, Kubernetes, Helm, Open5GS, OpenAirInterface, OCUDU, and Magma."
         }
       }
     ]
@@ -1060,7 +1060,7 @@ function TrustBar() {
     { n: '99.99%', desc: 'SLA target with AI agent' },
     { n: '5G Broadcast', desc: '1st authorized pilot MinTIC + ANE' }
   ];
-  const stack = ['Open5GS', 'srsRAN', 'OpenAirInterface', 'Magma', 'Kubernetes', 'Helm', 'FluxCD', 'Docker'];
+  const stack = ['Open5GS', 'OCUDU', 'OpenAirInterface', 'Magma', 'Kubernetes', 'Helm', 'FluxCD', 'Docker'];
   return React.createElement("div", {
     style: {
       background: 'var(--bg2)',
@@ -1236,7 +1236,7 @@ function Products() {
         name: 'ngntelco CLI',
         tagline: '$ ngntelco network deploy --standard 5g-sa',
         desc: 'Nuestro motor de orquestaci\u00F3n insignia. Un solo comando despliega, actualiza y monitorea cualquier red celular estandarizada por 3GPP sobre pipelines de Docker Compose, Helm, Kustomize o Flux GitOps \u2014 sin vendor lock-in ni hardware propietario. Funciona en servidores x86 gen\u00E9ricos, mini-PCs o VMs en la nube.',
-        tags: ['Docker Compose', 'Helm', 'Kustomize', 'FluxCD', 'GitOps', 'Kubernetes', 'Open5GS', 'OAI', 'srsRAN', 'Magma']
+        tags: ['Docker Compose', 'Helm', 'Kustomize', 'FluxCD', 'GitOps', 'Kubernetes', 'Open5GS', 'OAI', 'OCUDU', 'Magma']
       },
       {
         icon: '\uD83D\uDCE1',
@@ -1284,7 +1284,7 @@ function Products() {
         name: 'ngntelco CLI',
         tagline: '$ ngntelco network deploy --standard 5g-sa',
         desc: 'Our flagship orchestration engine. A single command deploys, upgrades, and monitors any 3GPP-standardized cellular network across Docker Compose, Helm, Kustomize, or Flux GitOps pipelines \u2014 no vendor lock-in, no proprietary hardware required. Run on general-purpose x86 servers, mini-PCs, or cloud VMs.',
-        tags: ['Docker Compose', 'Helm', 'Kustomize', 'FluxCD', 'GitOps', 'Kubernetes', 'Open5GS', 'OAI', 'srsRAN', 'Magma']
+        tags: ['Docker Compose', 'Helm', 'Kustomize', 'FluxCD', 'GitOps', 'Kubernetes', 'Open5GS', 'OAI', 'OCUDU', 'Magma']
       },
       {
         icon: '\uD83D\uDCE1',
@@ -1587,7 +1587,7 @@ const SOLUTIONS_EN = {
     title: 'Universities & R&D Labs',
     subtitle: 'From classroom to cutting-edge research',
     desc: 'Beanters enables academic institutions to build their own 4G/5G testbeds in hours, not months. Run experiments on private networks, teach cloud-native telco operations, and contribute to open-source 3GPP research without multi-million-dollar vendor contracts.',
-    usecases: ['Private 5G testbed for student labs', '5G Broadcast for campus-wide content delivery', 'NB-IoT IoT research & sensor deployments', 'OAI/srsRAN emulation environments', 'Multi-objective optimization research (RAN energy)'],
+    usecases: ['Private 5G testbed for student labs', '5G Broadcast for campus-wide content delivery', 'NB-IoT IoT research & sensor deployments', 'OAI/OCUDU emulation environments', 'Multi-objective optimization research (RAN energy)'],
     accent: 'var(--teal)'
   },
   enterprise: {
@@ -1617,7 +1617,7 @@ const SOLUTIONS_ES = {
     title: 'Universidades y Laboratorios I+D',
     subtitle: 'Del aula a la investigación de punta',
     desc: 'Beanters permite a las instituciones académicas construir sus propios testbeds 4G/5G en horas, no en meses. Realiza experimentos sobre redes privadas, enseña operaciones de telco cloud-native y contribuye a la investigación 3GPP de código abierto sin contratos millonarios con proveedores.',
-    usecases: ['Testbed 5G privado para laboratorios estudiantiles', '5G Broadcast para entrega de contenido en el campus', 'Investigación de IoT con NB-IoT y despliegues de sensores', 'Entornos de emulación OAI/srsRAN', 'Investigación de optimización multiobjetivo (energía RAN)'],
+    usecases: ['Testbed 5G privado para laboratorios estudiantiles', '5G Broadcast para entrega de contenido en el campus', 'Investigación de IoT con NB-IoT y despliegues de sensores', 'Entornos de emulación OAI/OCUDU', 'Investigación de optimización multiobjetivo (energía RAN)'],
     accent: 'var(--teal)'
   },
   enterprise: {
@@ -1844,7 +1844,7 @@ function Technology() {
     title: '100% Open-Source. Hardware Gen\u00E9rico. Cero Vendor Lock-In.',
     pillars: [
       { icon: '\uD83D\uDCE6', title: 'Orquestaci\u00F3n', items: ['Docker Compose', 'Helm Charts', 'Kustomize', 'FluxCD GitOps', 'Kubernetes (K3s/K8s)', 'Nephio (Pr\u00F3xima Generaci\u00F3n)'] },
-      { icon: '\uD83D\uDCFB', title: 'Stack RAN', items: ['OpenAirInterface (OAI)', 'srsRAN Project', 'OAI-gNB / eNB', 'USRP / ADALM-PLUTO', 'Hardware Gen\u00E9rico', 'RAN Independiente de la Nube'] },
+      { icon: '\uD83D\uDCFB', title: 'Stack RAN', items: ['OpenAirInterface (OAI)', 'OCUDU Project', 'OAI-gNB / eNB', 'USRP / ADALM-PLUTO', 'Hardware Gen\u00E9rico', 'RAN Independiente de la Nube'] },
       { icon: '\uD83E\uDDE0', title: 'N\u00FAcleo de Red', items: ['Open5GS (5G SA/NSA)', 'Magma', 'Free5GC', 'OAI 5G Core', 'AMF / SMF / UPF', 'AUSF / UDM / PCF'] },
       { icon: '\uD83D\uDCCA', title: 'Observabilidad', items: ['Prometheus + Grafana', 'Jaeger Tracing', 'Loki Logs', 'Dashboards de Kubernetes', 'Monitoreo de KPIs en tiempo real', 'Gesti\u00F3n de Alertas'] }
     ],
@@ -1864,7 +1864,7 @@ function Technology() {
     title: '100% Open-Source. General-Purpose Hardware. Zero Vendor Lock-In.',
     pillars: [
       { icon: '\uD83D\uDCE6', title: 'Orchestration', items: ['Docker Compose', 'Helm Charts', 'Kustomize', 'FluxCD GitOps', 'Kubernetes (K3s/K8s)', 'Nephio (Next-Gen)'] },
-      { icon: '\uD83D\uDCFB', title: 'RAN Stack', items: ['OpenAirInterface (OAI)', 'srsRAN Project', 'OAI-gNB / eNB', 'USRP / ADALM-PLUTO', 'General-Purpose HW', 'Cloud-Agnostic RAN'] },
+      { icon: '\uD83D\uDCFB', title: 'RAN Stack', items: ['OpenAirInterface (OAI)', 'OCUDU Project', 'OAI-gNB / eNB', 'USRP / ADALM-PLUTO', 'General-Purpose HW', 'Cloud-Agnostic RAN'] },
       { icon: '\uD83E\uDDE0', title: 'Core Network', items: ['Open5GS (5G SA/NSA)', 'Magma', 'Free5GC', 'OAI 5G Core', 'AMF / SMF / UPF', 'AUSF / UDM / PCF'] },
       { icon: '\uD83D\uDCCA', title: 'Observability', items: ['Prometheus + Grafana', 'Jaeger Tracing', 'Loki Logs', 'Kubernetes Dashboards', 'Real-time KPI monitoring', 'Alert Management'] }
     ],
@@ -2195,7 +2195,7 @@ function About() {
       flexWrap: 'wrap',
       gap: '0.5rem'
     }
-  }, ['OpenAirInterface', 'srsRAN', 'Magma', 'Open5GS', 'Kubestronaut', 'OAI Contributor', 'EURECOM Alumni', 'MinCiencias Researcher', '5G Broadcast · MinTIC+ANE'].map(t => /*#__PURE__*/React.createElement("span", {
+  }, ['OpenAirInterface', 'OCUDU', 'Magma', 'Open5GS', 'Kubestronaut', 'OAI Contributor', 'EURECOM Alumni', 'MinCiencias Researcher', '5G Broadcast · MinTIC+ANE'].map(t => /*#__PURE__*/React.createElement("span", {
     key: t,
     style: {
       fontFamily: 'var(--font-mono)',
@@ -2731,8 +2731,8 @@ function Services() {
       title: 'Red Comunitaria LTE · Conectividad para Veredas y Territorios',
       tagline: 'Banda 8 (850 MHz) · hasta 10 km de cobertura · hasta 20 usuarios simultáneos',
       rate: 'Cotización social', coverage: 'Hasta 10 km de radio', badge: '★ ANE Resolución 028 / 2026',
-      desc: 'Red LTE privada a escala de vereda sobre espectro Banda 8 (850 MHz), desplegada con srsRAN + Open5GS + CoLTE sobre hardware SDR abierto. Soporta hasta 20 usuarios simultáneos (20 tarjetas SIM preprogramadas incluidas). Servicios 4G completos: VoLTE, SMS, datos e IPTV. Cubre comunidades de 50–300 habitantes más allá de la última torre comercial. Diseñado para Chocó, Vaupés, Guajira, Putumayo, Nariño y otras regiones con brecha de conectividad. Operable con energía solar. Habilitado por la flexibilización de espectro de la ANE — Resolución 028/2026.',
-      gear: ['BTS SDR (USRP B210 / LimeSDR)', 'Core LTE Open5GS + srsRAN eNodeB', 'PA+LNA 20W Banda 8 + antena panel', 'CoLTE: portal de gestión y SIMs', 'Panel solar + batería (off-grid)', 'Backhaul satelital Starlink opcional'],
+      desc: 'Red LTE privada a escala de vereda sobre espectro Banda 8 (850 MHz), desplegada con OCUDU + Open5GS + CoLTE sobre hardware SDR abierto. Soporta hasta 20 usuarios simultáneos (20 tarjetas SIM preprogramadas incluidas). Servicios 4G completos: VoLTE, SMS, datos e IPTV. Cubre comunidades de 50–300 habitantes más allá de la última torre comercial. Diseñado para Chocó, Vaupés, Guajira, Putumayo, Nariño y otras regiones con brecha de conectividad. Operable con energía solar. Habilitado por la flexibilización de espectro de la ANE — Resolución 028/2026.',
+      gear: ['BTS SDR (USRP B210 / LimeSDR)', 'Core LTE Open5GS + OCUDU eNodeB', 'PA+LNA 20W Banda 8 + antena panel', 'CoLTE: portal de gestión y SIMs', 'Panel solar + batería (off-grid)', 'Backhaul satelital Starlink opcional'],
       usecases: ['Veredas en Chocó, Vaupés, Guajira', 'Territorios indígenas y afrocolombianos', 'Organizaciones MinTIC "Juntas de Internet"', 'Universidades y proyectos de investigación']
     },
     services: [
@@ -2777,8 +2777,8 @@ function Services() {
       title: 'Community LTE Network · Connectivity for Villages & Territories',
       tagline: 'Band 8 (850 MHz) · up to 10 km coverage · up to 20 concurrent users',
       rate: 'Social pricing', coverage: 'Up to 10 km radius', badge: '★ ANE Resolution 028 / 2026',
-      desc: 'Village-scale private LTE on Band 8 (850 MHz), deployed with srsRAN + Open5GS + CoLTE on open SDR hardware. Supports up to 20 concurrent users (20 preprogrammed SIM cards included). Full 4G LTE services: VoLTE, SMS, data, and IPTV. Covers communities of 50–300 inhabitants beyond the last commercial tower. Designed for Chocó, Vaupés, La Guajira, Putumayo, Nariño, and other underserved regions. Solar-power compatible. Enabled by ANE\'s spectrum flexibilization — ANE Resolution 028/2026.',
-      gear: ['SDR BTS (USRP B210 / LimeSDR)', 'Open5GS EPC + srsRAN eNodeB', '20W Band 8 PA+LNA + panel antenna', 'CoLTE management portal + SIM provisioning', 'Solar panel + battery (off-grid ready)', 'Optional Starlink satellite backhaul'],
+      desc: 'Village-scale private LTE on Band 8 (850 MHz), deployed with OCUDU + Open5GS + CoLTE on open SDR hardware. Supports up to 20 concurrent users (20 preprogrammed SIM cards included). Full 4G LTE services: VoLTE, SMS, data, and IPTV. Covers communities of 50–300 inhabitants beyond the last commercial tower. Designed for Chocó, Vaupés, La Guajira, Putumayo, Nariño, and other underserved regions. Solar-power compatible. Enabled by ANE\'s spectrum flexibilization — ANE Resolution 028/2026.',
+      gear: ['SDR BTS (USRP B210 / LimeSDR)', 'Open5GS EPC + OCUDU eNodeB', '20W Band 8 PA+LNA + panel antenna', 'CoLTE management portal + SIM provisioning', 'Solar panel + battery (off-grid ready)', 'Optional Starlink satellite backhaul'],
       usecases: ['Veredas in Chocó, Vaupés, La Guajira', 'Indigenous and Afro-Colombian territories', 'MinTIC "Juntas de Internet" organizations', 'Universities and research deployments']
     },
     services: [
