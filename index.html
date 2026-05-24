@@ -1050,12 +1050,12 @@ function TrustBar() {
   const { lang } = useLang();
   const label = lang === 'es' ? 'Construido 100% sobre open-source' : 'Built 100% on open-source';
   const stats = lang === 'es' ? [
-    { n: '< 90 min', desc: 'Despliegue de emergencia' },
+    { n: '< 15 min', desc: 'Despliegue de emergencia' },
     { n: '$350/hr', desc: 'Desde (sin costos ocultos)' },
     { n: '99,99%', desc: 'SLA objetivo con agente IA' },
     { n: '5G Broadcast', desc: '1er piloto autorizado MinTIC + ANE' }
   ] : [
-    { n: '< 90 min', desc: 'Emergency deployment' },
+    { n: '< 15 min', desc: 'Emergency deployment' },
     { n: '$350/hr', desc: 'Starting (no hidden costs)' },
     { n: '99.99%', desc: 'SLA target with AI agent' },
     { n: '5G Broadcast', desc: '1st authorized pilot MinTIC + ANE' }
@@ -2757,8 +2757,8 @@ function Services() {
       {
         icon: '🚨', id: 'emergency-comms',
         title: 'Comunicaciones de Emergencia · Despliegue Rápido tras Desastres',
-        tagline: 'Red privada operativa en menos de 90 minutos cuando la pública cae',
-        rate: '$350 USD/hora', min: 'Mínimo 12 horas', deployment: 'Despliegue: ~90 min',
+        tagline: 'Red privada operativa en menos de 15 minutos cuando la pública cae',
+        rate: '$350 USD/hora', min: 'Mínimo 12 horas', deployment: 'Despliegue: ~15 min',
         gear: ['BTS portátil en mochila / vehículo', 'Core LTE en laptop ruggedizada', 'Batería autónoma 12 h + panel solar', 'Backhaul satelital Starlink incluido', '100 SIMs para personal de respuesta', 'Equipo de despliegue de 2 personas'],
         usecases: ['Terremotos, inundaciones, huracanes', 'Operaciones de búsqueda y rescate', 'Centros de mando temporales'],
         desc: 'Kit autónomo y transportable de despliegue ultra-rápido para escenarios donde la red pública está caída o no existe. Diseñado para defensa civil, bomberos, primeros respondedores y organizaciones humanitarias. Tarifa reducida para misiones humanitarias bajo solicitud.'
@@ -2803,8 +2803,8 @@ function Services() {
       {
         icon: '🚨', id: 'emergency-comms',
         title: 'Emergency Comms · Rapid Deployment After Disasters',
-        tagline: 'Private network operational in under 90 minutes when public infrastructure fails',
-        rate: '$350 USD/hr', min: '12-hour minimum', deployment: 'Deployment: ~90 min',
+        tagline: 'Private network operational in under 15 minutes when public infrastructure fails',
+        rate: '$350 USD/hr', min: '12-hour minimum', deployment: 'Deployment: ~15 min',
         gear: ['Backpack / vehicle-mounted portable BTS', 'LTE core on ruggedized laptop', '12 h battery + solar panel', 'Satellite (Starlink) backhaul included', '100 SIMs for response personnel', '2-person deployment team'],
         usecases: ['Earthquakes, floods, hurricanes', 'Search and rescue operations', 'Temporary command centers'],
         desc: 'Self-contained, transportable, ultra-rapid-deployment kit for scenarios where the public network is down or absent. Designed for civil defense, fire departments, first responders, and humanitarian organizations. Reduced hourly rate available for humanitarian missions upon request.'
