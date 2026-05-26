@@ -2483,6 +2483,14 @@ function Training() {
     { num: '03', title: '5G NR',          desc: 'gNB, 5G Core, Network Slicing', accent: 'magenta' },
   ];
 
+  const ENROLL_URL = "mailto:lfarizav@gmail.com?subject=Enroll%20Cellular%20Networks%20Course%20%E2%80%94%2089%20USD&body=Hi%20Luis%2C%0A%0AI%20would%20like%20to%20enroll%20in%20the%20full%20Cellular%20Networks%20course%20(USD%2089).%0A%0AName%3A%20%0AOrganization%3A%20%0ACountry%3A%20%0A%0AThanks.";
+
+  const PRICES = [
+    { label: 'Free preview', amount: 'Free', sub: '3 starter modules', accent: 'teal', free: true },
+    { label: 'Full access',  amount: '$89 USD', sub: '25 modules + labs + quizzes', accent: 'gold', featured: true },
+    { label: 'Team / University', amount: '$490 USD', sub: '10 seats · invoice available', accent: 'violet' },
+  ];
+
   return (
     <section id="training" style={{ position: 'relative', background: 'var(--bg-2)', borderTop: '1px solid var(--border)' }}>
       <AuroraField blobs={[
@@ -2509,6 +2517,7 @@ function Training() {
           </p>
         </div>
 
+        {/* Course card */}
         <div style={{
           background: 'var(--surface)',
           border: '1px solid var(--border-strong)',
@@ -2516,57 +2525,52 @@ function Training() {
           overflow: 'hidden',
           boxShadow: 'var(--shadow-card)',
         }}>
-          {/* Course header */}
+          {/* Header */}
           <div style={{
             padding: '2rem 2.5rem',
             borderBottom: '1px solid var(--border)',
-            display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '1rem',
+            display: 'flex', alignItems: 'flex-start',
+            justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem',
             background: 'linear-gradient(135deg, color-mix(in oklab, var(--teal) 8%, transparent), color-mix(in oklab, var(--magenta) 5%, transparent))',
           }}>
             <div>
               <div style={{
                 display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                padding: '0.25rem 0.75rem',
-                borderRadius: '100px',
+                padding: '0.25rem 0.75rem', borderRadius: '100px',
                 background: 'color-mix(in oklab, var(--teal) 15%, transparent)',
                 border: '1px solid color-mix(in oklab, var(--teal) 30%, transparent)',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.68rem', letterSpacing: '0.12em',
-                color: 'var(--teal)', textTransform: 'uppercase',
-                marginBottom: '0.85rem',
+                fontFamily: 'var(--font-mono)', fontSize: '0.68rem',
+                letterSpacing: '0.12em', color: 'var(--teal)',
+                textTransform: 'uppercase', marginBottom: '0.85rem',
               }}>
                 <Sparkle size={9} color="var(--teal)"/>
-                Free starter modules
+                3 free starter modules
               </div>
               <h3 style={{
                 fontFamily: 'var(--font-head)', fontWeight: 700,
                 fontSize: '1.5rem', letterSpacing: '-0.02em', marginBottom: '0.35rem',
               }}>Cellular Networks: 2G → 5G</h3>
               <p style={{ color: 'var(--text-mid)', fontSize: '0.92rem' }}>
-                25 modules · Starts free · Self-paced
+                25 modules · Self-paced · Spanish &amp; English
               </p>
             </div>
-            <a href="courses/cellular-networks/" className="btn btn-primary" style={{ fontSize: '0.88rem', padding: '0.65rem 1.35rem' }}>
-              Start learning →
+            <a href="courses/cellular-networks/slides.html" className="btn btn-primary"
+              style={{ fontSize: '0.88rem', padding: '0.65rem 1.35rem', flexShrink: 0 }}>
+              Open free preview →
             </a>
           </div>
 
-          {/* Module list */}
+          {/* Free module list */}
           {MODULES.map((m, i) => {
             const accentVar = `var(--${m.accent})`;
             return (
               <div key={m.num} style={{
-                padding: '1.35rem 2.5rem',
-                borderBottom: i < MODULES.length - 1 ? '1px solid var(--border)' : 'none',
+                padding: '1.2rem 2.5rem',
+                borderBottom: '1px solid var(--border)',
                 display: 'flex', alignItems: 'center', gap: '1.5rem',
               }}>
                 <div style={{
-                  flexShrink: 0,
-                  width: '40px', height: '40px',
+                  flexShrink: 0, width: '40px', height: '40px',
                   borderRadius: 'var(--radius-sm)',
                   background: `color-mix(in oklab, ${accentVar} 15%, transparent)`,
                   border: `1px solid color-mix(in oklab, ${accentVar} 30%, transparent)`,
@@ -2579,8 +2583,7 @@ function Training() {
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.74rem', color: 'var(--text-dim)', marginTop: '0.1rem' }}>{m.desc}</div>
                 </div>
                 <span style={{
-                  flexShrink: 0,
-                  fontFamily: 'var(--font-mono)', fontSize: '0.64rem',
+                  flexShrink: 0, fontFamily: 'var(--font-mono)', fontSize: '0.64rem',
                   letterSpacing: '0.08em', textTransform: 'uppercase',
                   color: 'var(--gold)',
                   border: '1px solid color-mix(in oklab, var(--gold) 40%, transparent)',
@@ -2591,23 +2594,121 @@ function Training() {
             );
           })}
 
-          {/* More modules hint */}
+          {/* Locked modules hint */}
           <div style={{
-            padding: '1.25rem 2.5rem',
+            padding: '1rem 2.5rem',
+            borderBottom: '1px solid var(--border)',
+            display: 'flex', alignItems: 'center', gap: '1.5rem',
+          }}>
+            <div style={{
+              flexShrink: 0, width: '40px', height: '40px',
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--bg-2)', border: '1px solid var(--border)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--text-dim)',
+            }}>04–25</div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontFamily: 'var(--font-head)', fontWeight: 500, fontSize: '0.9rem', color: 'var(--text-mid)' }}>
+                22 more modules — LTE-A, 5G SA core, Open RAN, NB-IoT, NTN, MLOps for RAN, 6G…
+              </div>
+            </div>
+            <span style={{
+              flexShrink: 0, fontFamily: 'var(--font-mono)', fontSize: '0.64rem',
+              letterSpacing: '0.08em', textTransform: 'uppercase',
+              color: 'var(--text-dim)',
+              border: '1px solid var(--border)',
+              borderRadius: '100px', padding: '0.2rem 0.65rem',
+            }}>🔒 Full access</span>
+          </div>
+
+          {/* Pricing row */}
+          <div style={{
+            padding: '2rem 2.5rem',
+            background: 'var(--bg)',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '1rem',
+          }} className="pricing-grid">
+            {PRICES.map(p => {
+              const av = `var(--${p.accent})`;
+              return (
+                <div key={p.label} style={{
+                  background: p.featured ? `color-mix(in oklab, ${av} 8%, var(--surface))` : 'var(--surface)',
+                  border: `1px solid ${p.featured ? `color-mix(in oklab, ${av} 40%, transparent)` : 'var(--border)'}`,
+                  borderRadius: 'var(--radius-md)',
+                  padding: '1.5rem',
+                  textAlign: 'center',
+                  position: 'relative',
+                }}>
+                  {p.featured && (
+                    <div style={{
+                      position: 'absolute', top: '-1px', left: '50%', transform: 'translateX(-50%)',
+                      fontFamily: 'var(--font-mono)', fontSize: '0.6rem',
+                      letterSpacing: '0.1em', textTransform: 'uppercase',
+                      background: av, color: 'var(--bg)',
+                      padding: '0.2rem 0.7rem', borderRadius: '0 0 6px 6px',
+                    }}>Most popular</div>
+                  )}
+                  <div style={{
+                    fontFamily: 'var(--font-head)', fontWeight: 700,
+                    fontSize: p.free ? '1.5rem' : '1.8rem',
+                    color: p.free ? 'var(--teal)' : av,
+                    lineHeight: 1, marginTop: p.featured ? '0.75rem' : 0,
+                    marginBottom: '0.4rem',
+                  }}>{p.amount}</div>
+                  <div style={{ fontFamily: 'var(--font-head)', fontWeight: 600, fontSize: '0.88rem', marginBottom: '0.3rem' }}>{p.label}</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)' }}>{p.sub}</div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* CTA footer */}
+          <div style={{
+            padding: '1.5rem 2.5rem',
             borderTop: '1px solid var(--border)',
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            display: 'flex', alignItems: 'center',
+            justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem',
             background: 'var(--bg)',
           }}>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.76rem', color: 'var(--text-dim)' }}>
-              + 22 more modules (04 – 25)
-            </span>
-            <a href="courses/cellular-networks/" style={{
-              fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: 600,
-              color: 'var(--teal)', textDecoration: 'none',
-              display: 'flex', alignItems: 'center', gap: '0.4rem',
-            }}>View full curriculum →</a>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.76rem', color: 'var(--text-dim)' }}>
+              Enroll by email · Luis responds in &lt;24 h · Accepts card, transfer, Nequi/Daviplata
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <a href="courses/cellular-networks/" style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: 600,
+                color: 'var(--text-mid)', textDecoration: 'none',
+                border: '1px solid var(--border)', borderRadius: '8px',
+                padding: '0.5rem 1rem', transition: 'all 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--teal)'; e.currentTarget.style.borderColor = 'var(--teal)'; }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-mid)'; e.currentTarget.style.borderColor = 'var(--border)'; }}
+              >View full curriculum →</a>
+              <a href={ENROLL_URL} style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.45rem',
+                fontFamily: 'var(--font-head)', fontWeight: 600, fontSize: '0.9rem',
+                background: 'linear-gradient(135deg, var(--teal) 0%, var(--magenta) 100%)',
+                color: 'white', textDecoration: 'none',
+                borderRadius: '100px', padding: '0.6rem 1.35rem',
+                boxShadow: '0 8px 24px -8px color-mix(in oklab, var(--magenta) 50%, transparent)',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'none'; }}
+              >
+                <Sparkle size={13} color="white"/>
+                Enroll — $89 USD
+              </a>
+            </div>
           </div>
         </div>
+
+        <style>{`
+          @media (max-width: 700px) {
+            .pricing-grid { grid-template-columns: 1fr !important; }
+          }
+        `}</style>
       </div>
     </section>
   );
