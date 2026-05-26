@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Courses & Training — Beanters</title>
-  <meta name="description" content="Structured courses on cellular networks — from 2G fundamentals to 5G SA deployments. Built by practitioners for engineers shipping real networks.">
+  <meta name="description" content="Structured courses on cellular networks — from 2G fundamentals to 6G. Built by practitioners for engineers shipping real networks.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
@@ -98,16 +98,7 @@
       -webkit-backdrop-filter: blur(18px) saturate(140%);
       border-bottom-color: var(--border);
     }
-    .brand {
-      font-family: var(--font-head); font-weight: 700;
-      font-size: 1.4rem; letter-spacing: -0.025em;
-      display: inline-flex; align-items: center; gap: 0.18em;
-    }
-    .brand .b1 {
-      background: linear-gradient(135deg, var(--teal) 0%, var(--magenta) 100%);
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .brand .b2 { color: var(--text); }
+    @keyframes twinkle-logo { 0%,100%{opacity:0.4;transform:scale(0.9)} 50%{opacity:1;transform:scale(1.1)} }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
     .nav-links a {
       font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
@@ -382,15 +373,18 @@
 <!-- ── NAV ── -->
 <nav id="nav">
   <a href="/" style="text-decoration:none">
-    <span class="brand"><span class="b1">bean</span><span class="b2">ters</span></span>
+    <span style="font-family:var(--font-head);font-weight:700;font-size:1.4rem;letter-spacing:-0.025em;display:inline-flex;align-items:center;gap:0.18em">
+      <span style="background:linear-gradient(135deg,var(--teal) 0%,var(--magenta) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">bean</span><span style="color:var(--text)">ters</span><span style="display:inline-block;color:var(--gold);animation:twinkle 2.5s ease-in-out infinite;margin-left:0.15em;margin-top:-0.49rem"><svg width="11" height="11" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><path d="M12 0 L13.5 9 Q14 11 16 11.5 L24 12 L16 12.5 Q14 13 13.5 15 L12 24 L10.5 15 Q10 13 8 12.5 L0 12 L8 11.5 Q10 11 10.5 9 Z"/></svg></span>
+    </span>
   </a>
   <div class="nav-links">
     <a href="/#products">Products</a>
     <a href="/#solutions">Solutions</a>
     <a href="/#tech">Technology</a>
     <a href="/#mission">Mission</a>
+    <a href="/#about">About</a>
     <a href="/#speaking">Speaking</a>
-    <a href="/courses/" class="active">Courses</a>
+    <a href="/courses/" class="active">Courses &amp; Training</a>
   </div>
   <div style="display:flex;gap:0.75rem;align-items:center">
     <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
@@ -420,7 +414,7 @@
     </h1>
     <p style="color:var(--text-mid);font-size:1.12rem;line-height:1.65;max-width:600px">
       Structured courses built by the engineer who deployed Colombia's first 5G Broadcast pilot.
-      From 2G fundamentals to cloud-native 5G SA — practical, deep, in Spanish and English.
+      From 2G fundamentals to 6G — practical, deep, in Spanish and English.
     </p>
   </div>
 </section>
@@ -433,7 +427,7 @@
   <div style="margin-bottom:2.5rem">
     <div class="eyebrow"><span class="num">01</span> Available now</div>
     <h2 style="font-family:var(--font-head);font-weight:700;font-size:clamp(1.6rem,2.5vw,2rem);letter-spacing:-0.02em">
-      Cellular Networks: 2G → 5G
+      Cellular Networks: 2G → 6G
     </h2>
   </div>
 
@@ -447,7 +441,7 @@
           <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L13.5 9Q14 11 16 11.5L24 12L16 12.5Q14 13 13.5 15L12 24L10.5 15Q10 13 8 12.5L0 12L8 11.5Q10 11 10.5 9Z"/></svg>
           3 free starter modules
         </div>
-        <div class="course-title">Redes Celulares: 2G a 6G</div>
+        <div class="course-title">Cellular Networks: 2G → 6G</div>
         <div class="course-meta">25 modules · Self-paced · Spanish &amp; English · Practical labs</div>
       </div>
       <a href="cellular-networks/slides.html" class="btn btn-primary">
