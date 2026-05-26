@@ -3077,10 +3077,9 @@ function Stage({
     if (!stageRef.current) return;
     const el = stageRef.current;
     const measure = () => {
-      const barH = 44; // playback bar height
       const s = Math.min(
         el.clientWidth / width,
-        (el.clientHeight - barH) / height
+        el.clientHeight / height
       );
       setScale(Math.max(0.05, s));
     };
@@ -3154,7 +3153,7 @@ function Stage({
         position: 'absolute', inset: 0,
         display: 'flex', flexDirection: 'column',
         alignItems: 'center',
-        background: '#0a0a0a',
+        background: 'transparent',
         fontFamily: 'Inter, system-ui, sans-serif',
       }}
     >
@@ -3175,7 +3174,6 @@ function Stage({
             transform: `scale(${scale})`,
             transformOrigin: 'center',
             flexShrink: 0,
-            boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
             overflow: 'hidden',
           }}
         >
@@ -3185,17 +3183,6 @@ function Stage({
         </div>
       </div>
 
-      {/* Playback bar — stacked below canvas, never overlapping */}
-      <PlaybackBar
-        time={displayTime}
-        actualTime={time}
-        duration={duration}
-        playing={playing}
-        onPlayPause={() => setPlaying(p => !p)}
-        onReset={() => { setTime(0); }}
-        onSeek={(t) => setTime(t)}
-        onHover={(t) => setHoverTime(t)}
-      />
     </div>
   );
 }
@@ -3502,13 +3489,12 @@ function Background() {
   const t = useTime();
   const ft = useFusionTheme();
   const isLight = ft === 'light';
-  const bgFill    = isLight ? '#f0f5ff' : C.bg0;
   const gridColor = isLight ? 'oklch(45% 0.14 230 / 0.35)' : C.gridLine;
   const starFill  = isLight ? 'rgba(30,50,140,0.5)' : 'white';
   const starOpMul = isLight ? 0.22 : 0.18;
   return (
     <g>
-      <rect x="0" y="0" width="1280" height="720" fill={bgFill}/>
+      <rect x="0" y="0" width="1280" height="720" fill="var(--bg)"/>
       {/* perspective floor grid */}
       <g opacity="0.55">
         {Array.from({ length: 18 }).map((_, i) => {
@@ -4258,11 +4244,10 @@ function FusionScene() {
 
 // ── Mount ───────────────────────────────────────────────────────────────────
 function FusionStage({ theme = 'dark' }) {
-  const isLight = theme === 'light';
   return (
     <FusionThemeCtx.Provider value={theme}>
       <Stage width={1280} height={720} duration={16}
-             background={isLight ? '#f0f5ff' : '#02060f'}
+             background="var(--bg)"
              persistKey="6g-fusion">
         <FusionScene/>
       </Stage>
@@ -4273,13 +4258,11 @@ function FusionStage({ theme = 'dark' }) {
 
 // ── FusionSection — embeds the 6G Fusion animation in a responsive container ─
 function FusionSection({ theme = 'dark' }) {
-  const isLight = theme === 'light';
   return (
     <section id="fusion" style={{
-      background: isLight ? 'var(--bg)' : '#02060f',
+      background: 'var(--bg)',
       padding: '0',
       position: 'relative',
-      transition: 'background 0.4s ease',
     }}>
       <div style={{
         position: 'relative',
