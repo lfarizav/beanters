@@ -491,6 +491,7 @@ function Nav({ theme, onThemeToggle }) {
     { id: 'tech',      label: 'Technology' },
     { id: 'mission',   label: 'Mission' },
     { id: 'speaking',  label: 'Speaking' },
+    { href: '/courses/', label: 'Courses' },
   ];
 
   return (
@@ -516,17 +517,17 @@ function Nav({ theme, onThemeToggle }) {
 
       <div className="desktop-only" style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
         {links.map(l => (
-          <a key={l.id} href={`#${l.id}`} style={{
+          <a key={l.label} href={l.href || `#${l.id}`} style={{
             fontFamily: 'var(--font-body)',
             fontSize: '0.92rem',
             fontWeight: 500,
-            color: 'var(--text-mid)',
+            color: l.href ? 'var(--teal)' : 'var(--text-mid)',
             textDecoration: 'none',
             transition: 'color 0.2s',
             letterSpacing: '-0.005em',
           }}
           onMouseEnter={e => e.target.style.color = 'var(--text)'}
-          onMouseLeave={e => e.target.style.color = 'var(--text-mid)'}
+          onMouseLeave={e => e.target.style.color = l.href ? 'var(--teal)' : 'var(--text-mid)'}
           >{l.label}</a>
         ))}
       </div>
