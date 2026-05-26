@@ -993,7 +993,7 @@ const PRODUCTS = [
     icon: '🛰️',
     name: 'NTN — Satellite Networks',
     tagline: '5G via LEO satellite & UAV backhaul',
-    desc: '3GPP R17 Non-Terrestrial Networks for rural broadband, disaster response, maritime, and remote operations across the Global South.',
+    desc: '3GPP R17 Non-Terrestrial Networks for rural broadband, disaster response, maritime, and remote operations across the World.',
     tags: ['NTN','3GPP R17','LEO','UAV'],
     accent: 'violet',
   },
@@ -1344,7 +1344,7 @@ const SOLUTIONS = [
   },
   {
     eyebrow: 'For governments & NGOs',
-    title: 'Sovereign infrastructure for the Global South.',
+    title: 'Sovereign infrastructure for the World.',
     desc: 'Deploy open-source, sovereign cellular networks for rural broadband, emergency response, and broadcast — without dependency on foreign proprietary vendors. Spectrum sovereignty by design.',
     points: [
       'Rural broadband via 5G NTN backhaul',
@@ -1464,7 +1464,7 @@ function SolutionVisual({ kind, accent }) {
           <line x1="0" y1="3" x2="0" y2="12" stroke={accentVar} strokeWidth="1"/>
         </g>
         <path d="M265 75 Q220 100 200 170" fill="none" stroke={accentVar} strokeWidth="1" strokeDasharray="3 3" opacity="0.6"/>
-        <text x="160" y="240" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9" fill="var(--text-mid)" letterSpacing="2">GLOBAL SOUTH · NTN</text>
+        <text x="160" y="240" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9" fill="var(--text-mid)" letterSpacing="2">WORLD · NTN</text>
       </svg>
     ),
     gitops: (
@@ -1655,7 +1655,7 @@ Object.assign(window, {
 </script>
 <script type="text/babel">
 // ─── depth.jsx ──────────────────────────────────────────────────────────────
-// Technology, Mission (Global South), About, Speaking, Testimonials
+// Technology, Mission (World), About, Speaking, Testimonials
 
 // ─── TECHNOLOGY ─────────────────────────────────────────────────────────────
 const TECH_PILLARS = [
@@ -1794,7 +1794,7 @@ function Technology() {
   );
 }
 
-// ─── MISSION (Global South) ─────────────────────────────────────────────────
+// ─── MISSION (World) ─────────────────────────────────────────────────
 function Mission() {
   const ref = useRef();
   const vis = useIntersection(ref, { threshold: 0.1 });
