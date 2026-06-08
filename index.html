@@ -2212,6 +2212,19 @@ const TALKS = [
     accent: 'aqua',
   },
   {
+    event: '5th Colombia OpenInfra User Group',
+    location: 'Pontificia Universidad Javeriana, Bogotá',
+    date: 'June 5, 2026',
+    flag: '🇨🇴',
+    badge: 'Speaker',
+    icon: '🏛️',
+    title: 'Despliegue automatizado de redes celulares usando lenguaje natural',
+    desc: 'Natural language automation for cellular network deployment — using LLMs and the ngntelco CLI to turn plain-language instructions into 4G/5G deployment commands. Live demo at the Colombia OpenInfra community.',
+    tags: ['OpenInfra','Natural Language','LLMs','5G','Automation','ngntelco'],
+    videoUrl: 'https://www.youtube.com/watch?v=sMaHOMGwTUE',
+    accent: 'teal',
+  },
+  {
     event: 'KCD Colombia 2025',
     location: 'Bogotá, Colombia',
     date: '2025',
@@ -2364,19 +2377,38 @@ function TalkCard({ talk }) {
               }}>{t}</span>
             ))}
           </div>
-          <a href={talk.slidesUrl} target="_blank" rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-              fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: 600,
-              color: accentVar, textDecoration: 'none',
-              border: `1px solid color-mix(in oklab, ${accentVar} 40%, transparent)`,
-              borderRadius: '6px', padding: '0.4rem 0.85rem',
-              background: `color-mix(in oklab, ${accentVar} 10%, transparent)`,
-              transition: 'background 0.2s', whiteSpace: 'nowrap',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = `color-mix(in oklab, ${accentVar} 22%, transparent)`; }}
-            onMouseLeave={e => { e.currentTarget.style.background = `color-mix(in oklab, ${accentVar} 10%, transparent)`; }}
-          >View slides →</a>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            {talk.videoUrl && (
+              <a href={talk.videoUrl} target="_blank" rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                  fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: 600,
+                  color: accentVar, textDecoration: 'none',
+                  border: `1px solid color-mix(in oklab, ${accentVar} 40%, transparent)`,
+                  borderRadius: '6px', padding: '0.4rem 0.85rem',
+                  background: `color-mix(in oklab, ${accentVar} 10%, transparent)`,
+                  transition: 'background 0.2s', whiteSpace: 'nowrap',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = `color-mix(in oklab, ${accentVar} 22%, transparent)`; }}
+                onMouseLeave={e => { e.currentTarget.style.background = `color-mix(in oklab, ${accentVar} 10%, transparent)`; }}
+              >▶ Watch on YouTube</a>
+            )}
+            {talk.slidesUrl && (
+              <a href={talk.slidesUrl} target="_blank" rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                  fontFamily: 'var(--font-mono)', fontSize: '0.78rem', fontWeight: 600,
+                  color: accentVar, textDecoration: 'none',
+                  border: `1px solid color-mix(in oklab, ${accentVar} 40%, transparent)`,
+                  borderRadius: '6px', padding: '0.4rem 0.85rem',
+                  background: `color-mix(in oklab, ${accentVar} 10%, transparent)`,
+                  transition: 'background 0.2s', whiteSpace: 'nowrap',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = `color-mix(in oklab, ${accentVar} 22%, transparent)`; }}
+                onMouseLeave={e => { e.currentTarget.style.background = `color-mix(in oklab, ${accentVar} 10%, transparent)`; }}
+              >View slides →</a>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -2427,7 +2459,7 @@ function Speaking() {
           borderRadius: 'var(--radius-md)',
         }} className="talks-footer">
           {[
-            { n: '4+',   label: 'Conference talks' },
+            { n: '5+',   label: 'Conference talks' },
             { n: '3+',   label: 'Countries' },
             { n: '2026', label: 'KubeCon alumnus' },
             { n: '🇨🇴',   label: 'Born in Colombia' },
