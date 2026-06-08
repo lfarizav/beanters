@@ -354,6 +354,30 @@
     }
     .site-footer a { color: var(--teal); }
 
+    /* ── training programs ── */
+    .program { background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); padding: 2.25rem; margin-bottom: 1.75rem; transition: border-color 0.2s, box-shadow 0.2s; }
+    .program:hover { border-color: color-mix(in oklab, var(--teal) 35%, transparent); box-shadow: var(--shadow-card); }
+    .program.featured { border-color: color-mix(in oklab, var(--teal) 35%, transparent); background: linear-gradient(135deg, var(--surface), var(--surface-2)); }
+    .program-header { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start; margin-bottom: 1.5rem; }
+    .program-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .program-level { font-family: var(--font-mono); font-size: 0.7rem; color: var(--teal); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; }
+    .program h2 { font-family: var(--font-head); font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.35rem; }
+    .program .tagline { font-family: var(--font-mono); font-size: 0.8rem; color: var(--teal); margin-bottom: 0.75rem; }
+    .program .desc { font-size: 0.92rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.25rem; max-width: 680px; }
+    .price-box { background: var(--bg-2); border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; text-align: right; min-width: 170px; flex-shrink: 0; }
+    .price-box .amount { font-family: var(--font-head); font-size: 2rem; font-weight: 700; color: var(--teal); line-height: 1; margin-bottom: 0.25rem; }
+    .price-box .per { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-mid); margin-bottom: 0.5rem; }
+    .price-box .hours { font-family: var(--font-mono); font-size: 0.7rem; color: var(--gold); }
+    .tracks { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.25rem; }
+    .track { font-family: var(--font-mono); font-size: 0.72rem; background: var(--bg-2); border: 1px solid var(--border-strong); border-radius: 6px; padding: 0.25rem 0.7rem; color: var(--text-mid); }
+    .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .instructor-bar { display: flex; align-items: center; gap: 1rem; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 2rem; }
+    .instructor-bar img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--teal); object-fit: cover; }
+    .instructor-bar .iname { font-family: var(--font-head); font-weight: 700; font-size: 0.9rem; }
+    .instructor-bar .irole { font-family: var(--font-mono); font-size: 0.7rem; color: var(--teal); margin-top: 0.1rem; }
+    .info-box { background: var(--surface-2); border-left: 3px solid color-mix(in oklab, var(--teal) 40%, transparent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 1rem 1.25rem; font-size: 0.88rem; color: var(--text-mid); margin: 1.5rem 0; }
+    .info-box strong { color: var(--text); }
+
     @media (max-width: 860px) {
       .nav-links { display: none; }
       .hero { padding: 7rem 1.5rem 4rem; }
@@ -365,6 +389,10 @@
       .cta-footer { flex-direction: column; }
       .cta-footer .note { text-align: center; }
       .coming-soon-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .program-header { grid-template-columns: 1fr; }
+      .price-box { text-align: left; }
     }
   </style>
 </head>
@@ -554,9 +582,157 @@
     </div>
   </div><!-- /course-card -->
 
+  <!-- ── TRAINING PROGRAMS ── -->
+  <div style="margin-top:4rem">
+    <div class="eyebrow"><span class="num">02</span> Training programs</div>
+    <h2 style="font-family:var(--font-head);font-weight:700;font-size:clamp(1.6rem,2.5vw,2rem);letter-spacing:-0.02em;margin-bottom:0.6rem">
+      Instructor-led training
+    </h2>
+    <p style="color:var(--text-mid);font-size:0.98rem;line-height:1.7;max-width:640px;margin-bottom:2rem">
+      Role-based, lab-heavy programs taught live by Luis. Each includes hands-on labs, real deployment scenarios, and direct instructor access.
+    </p>
+
+    <div class="instructor-bar">
+      <img src="https://beanters.com/luis.webp" alt="Luis Felipe Ariza Vesga">
+      <div>
+        <div class="iname">Luis Felipe Ariza Vesga — instructor for all programs</div>
+        <div class="irole">PhD Telecom · ❄️ Kubestronaut · EURECOM · MinCiencias · KubeCon Amsterdam 2026 Speaker</div>
+      </div>
+    </div>
+
+    <!-- Agentic Engineering -->
+    <div class="program featured">
+      <div class="program-header">
+        <div>
+          <div class="program-icon">🤖</div>
+          <div class="program-level">Advanced · 66+ hours</div>
+          <h2>Agentic Engineering</h2>
+          <p class="tagline">Build AI agents that reason, plan, and act autonomously</p>
+          <p class="desc">From LLM fundamentals to multi-agent orchestration with the AEF (Agentic Engineering Framework). Hands-on labs with VS Code + GitHub Copilot, local model inference (Ollama/vLLM), and production agent systems.</p>
+          <div class="tracks">
+            <span class="track">LLM Fundamentals — 8 h</span>
+            <span class="track">Prompt Engineering — 6 h</span>
+            <span class="track">Agent Patterns — 14 h</span>
+            <span class="track">AEF Framework — 10 h</span>
+            <span class="track">Multi-Agent Orchestration — 20 h</span>
+          </div>
+          <div class="cta-row">
+            <a href="mailto:lfarizav@gmail.com?subject=Agentic%20Engineering%20Training%20—%20249%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20in%20Agentic%20Engineering%20(USD%20249).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0APreferred%20start%3A%20%0A%0AThanks." class="btn btn-enroll">Enroll — $249 USD →</a>
+            <a href="mailto:lfarizav@gmail.com?subject=Agentic%20Engineering%20—%20Team%20pricing" class="btn btn-ghost" style="font-size:0.85rem;padding:0.6rem 1.2rem">Team pricing</a>
+          </div>
+        </div>
+        <div class="price-box"><div class="amount">$249</div><div class="per">USD · individual</div><div class="hours">66+ hours</div></div>
+      </div>
+    </div>
+
+    <!-- Cloud-Native Kubernetes -->
+    <div class="program">
+      <div class="program-header">
+        <div>
+          <div class="program-icon">☸️</div>
+          <div class="program-level">Intermediate → Advanced · 50+ hours</div>
+          <h2>Cloud-Native Kubernetes</h2>
+          <p class="tagline">Kubernetes, Helm, GitOps with Flux, and observability — production grade</p>
+          <p class="desc">Role-based learning for developers, platform engineers, and SREs. Covers Kubernetes architecture, workloads, Helm charts, GitOps with FluxCD, and the full observability stack. Direct application to cloud-native telco and 5G/LTE private networks.</p>
+          <div class="tracks">
+            <span class="track">Containers + K8s Basics — 12 h</span>
+            <span class="track">Workloads + Production — 22 h</span>
+            <span class="track">Helm Charts — 8 h</span>
+            <span class="track">GitOps + Flux — 10 h</span>
+            <span class="track">Observability — 14 h</span>
+          </div>
+          <div class="cta-row">
+            <a href="mailto:lfarizav@gmail.com?subject=Cloud-Native%20Kubernetes%20Training%20—%20199%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20199).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0A%0AThanks." class="btn btn-enroll">Enroll — $199 USD →</a>
+            <a href="mailto:lfarizav@gmail.com?subject=Cloud-Native%20—%20Team%20pricing" class="btn btn-ghost" style="font-size:0.85rem;padding:0.6rem 1.2rem">Team pricing</a>
+          </div>
+        </div>
+        <div class="price-box"><div class="amount">$199</div><div class="per">USD · individual</div><div class="hours">50+ hours</div></div>
+      </div>
+    </div>
+
+    <!-- CKA/CKAD/CKS -->
+    <div class="program">
+      <div class="program-header">
+        <div>
+          <div class="program-icon">🎓</div>
+          <div class="program-level">Certification Prep · ~30 hours per track</div>
+          <h2>CKA / CKAD / CKS Certification Prep</h2>
+          <p class="tagline">Pass the CNCF Kubernetes certifications with real exam scenarios</p>
+          <p class="desc">Exam-focused preparation for CKA, CKAD, and CKS. Includes timed mock exams, live cluster scenarios, and common exam traps. Taught by a certified Kubestronaut who has passed all three.</p>
+          <div class="tracks">
+            <span class="track">CKA — Cluster Administration</span>
+            <span class="track">CKAD — Application Development</span>
+            <span class="track">CKS — Security Specialist</span>
+          </div>
+          <div class="cta-row">
+            <a href="mailto:lfarizav@gmail.com?subject=CKA%20Certification%20Prep%20—%20149%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20149).%0A%0AName%3A%20%0ATarget%20cert%3A%20%0ATarget%20exam%20date%3A%20%0A%0AThanks." class="btn btn-enroll">Enroll — $149 USD / cert →</a>
+            <a href="mailto:lfarizav@gmail.com?subject=CKA%20CKAD%20CKS%20—%20bundle%20pricing" class="btn btn-ghost" style="font-size:0.85rem;padding:0.6rem 1.2rem">Bundle all 3</a>
+          </div>
+        </div>
+        <div class="price-box"><div class="amount">$149</div><div class="per">USD · per cert</div><div class="hours">~30 h per cert</div></div>
+      </div>
+    </div>
+
+    <!-- AI & Security -->
+    <div class="program featured">
+      <div class="program-header">
+        <div>
+          <div class="program-icon">🛡️</div>
+          <div class="program-level">Advanced · 48+ hours</div>
+          <h2>AI &amp; Security for Cloud-Native Telco</h2>
+          <p class="tagline">Deploy AI-powered workloads on 5G and cloud-native stacks — securely</p>
+          <p class="desc">Threat modeling for AI pipelines, zero-trust on Kubernetes, secure model serving for RAN optimization, adversarial ML awareness, and compliance with NIST AI RMF and 3GPP TS 33.501. For engineers operating AI-driven automation in production 4G/5G environments.</p>
+          <div class="tracks">
+            <span class="track">AI in Telco Operations — 8 h</span>
+            <span class="track">Secure AI Pipelines — 10 h</span>
+            <span class="track">Zero-Trust on Kubernetes — 10 h</span>
+            <span class="track">Threat Modeling for AI — 8 h</span>
+            <span class="track">3GPP Security &amp; AI — 6 h</span>
+            <span class="track">NIST AI RMF &amp; Compliance — 6 h</span>
+          </div>
+          <div class="cta-row">
+            <a href="mailto:lfarizav@gmail.com?subject=AI%20%26%20Security%20for%20Cloud-Native%20Telco%20—%20279%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20279).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0APreferred%20start%3A%20%0A%0AThanks." class="btn btn-enroll">Enroll — $279 USD →</a>
+            <a href="mailto:lfarizav@gmail.com?subject=AI%20%26%20Security%20Telco%20—%20Team%20pricing" class="btn btn-ghost" style="font-size:0.85rem;padding:0.6rem 1.2rem">Team pricing</a>
+          </div>
+        </div>
+        <div class="price-box"><div class="amount">$279</div><div class="per">USD · individual</div><div class="hours">48+ hours</div></div>
+      </div>
+    </div>
+
+    <!-- Risk Management -->
+    <div class="program">
+      <div class="program-header">
+        <div>
+          <div class="program-icon">⚠️</div>
+          <div class="program-level">Intermediate → Advanced · 40+ hours</div>
+          <h2>Risk Management for Telco &amp; Cloud-Native AI</h2>
+          <p class="tagline">Assess, quantify, and mitigate risk in AI-driven telecom infrastructure</p>
+          <p class="desc">ISO 27005, NIST RMF, and 3GPP security risk frameworks; AI operational risk (model drift, hallucination in automation, bias); regulatory compliance (EU AI Act, GDPR for telco data); business continuity for cloud-native deployments; and incident response for AI-driven network failures.</p>
+          <div class="tracks">
+            <span class="track">Risk Frameworks — ISO 27005 / NIST RMF — 8 h</span>
+            <span class="track">AI Operational Risk — 8 h</span>
+            <span class="track">Network Resilience &amp; Availability — 8 h</span>
+            <span class="track">Regulatory Compliance — EU AI Act / GDPR — 6 h</span>
+            <span class="track">Incident Response for AI Networks — 6 h</span>
+            <span class="track">Business Continuity for Cloud-Native — 4 h</span>
+          </div>
+          <div class="cta-row">
+            <a href="mailto:lfarizav@gmail.com?subject=Risk%20Management%20Telco%20%26%20Cloud-Native%20AI%20—%20229%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20229).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0APreferred%20start%3A%20%0A%0AThanks." class="btn btn-enroll">Enroll — $229 USD →</a>
+            <a href="mailto:lfarizav@gmail.com?subject=Risk%20Management%20Telco%20—%20Team%20pricing" class="btn btn-ghost" style="font-size:0.85rem;padding:0.6rem 1.2rem">Team pricing</a>
+          </div>
+        </div>
+        <div class="price-box"><div class="amount">$229</div><div class="per">USD · individual</div><div class="hours">40+ hours</div></div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>📨 How enrollment works:</strong> Click "Enroll" to send a pre-filled email. Luis replies within 24 hours with a payment link and access credentials. Accepts card, bank transfer, and local payment methods (Colombia: Nequi / Daviplata). Corporate invoicing available.
+    </div>
+  </div>
+
   <!-- ── COMING SOON ── -->
   <div style="margin-top:4rem">
-    <div class="eyebrow"><span class="num">02</span> Coming soon</div>
+    <div class="eyebrow"><span class="num">03</span> Coming soon</div>
     <h2 style="font-family:var(--font-head);font-weight:700;font-size:clamp(1.5rem,2.5vw,1.9rem);letter-spacing:-0.02em;margin-bottom:2rem">
       More courses in development
     </h2>
@@ -583,30 +759,6 @@
           <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:0.2rem 0.55rem;color:var(--text-dim)">GitOps</span>
           <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:0.2rem 0.55rem;color:var(--text-dim)">Prometheus</span>
           <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:0.2rem 0.55rem;color:var(--text-dim)">Grafana</span>
-        </div>
-      </div>
-      <div class="coming-card">
-        <div class="glow" style="background:var(--teal)"></div>
-        <div class="coming-tag">Coming 2026</div>
-        <h3>AI &amp; Security for Cloud-Native Telco</h3>
-        <p>Threat modeling, zero-trust Kubernetes, secure AI pipelines, and 3GPP TS 33.501 compliance for engineers deploying AI-driven automation in 4G/5G production environments.</p>
-        <div style="margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:0.4rem">
-          <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:0.2rem 0.55rem;color:var(--text-dim)">Zero-Trust</span>
-          <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:0.2rem 0.55rem;color:var(--text-dim)">AI Pipelines</span>
-          <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:0.2rem 0.55rem;color:var(--text-dim)">3GPP Security</span>
-          <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:0.2rem 0.55rem;color:var(--text-dim)">NIST AI RMF</span>
-        </div>
-      </div>
-      <div class="coming-card">
-        <div class="glow" style="background:var(--coral)"></div>
-        <div class="coming-tag">Coming 2026</div>
-        <h3>Risk Management for Telco &amp; Cloud-Native AI</h3>
-        <p>ISO 27005, NIST RMF, AI operational risk, regulatory compliance (EU AI Act / GDPR), and structured incident response for teams running AI-driven cloud-native telecom infrastructure.</p>
-        <div style="margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:0.4rem">
-          <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:0.2rem 0.55rem;color:var(--text-dim)">ISO 27005</span>
-          <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:0.2rem 0.55rem;color:var(--text-dim)">NIST RMF</span>
-          <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:0.2rem 0.55rem;color:var(--text-dim)">EU AI Act</span>
-          <span style="font-family:var(--font-mono);font-size:0.68rem;background:var(--bg-2);border:1px solid var(--border);border-radius:5px;padding:0.2rem 0.55rem;color:var(--text-dim)">Incident Response</span>
         </div>
       </div>
     </div>
