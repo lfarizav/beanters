@@ -1,0 +1,122 @@
+{
+  "checks": [
+    {
+      "id": "no-babel-standalone",
+      "pass": true,
+      "label": "No Babel Standalone in-browser transpilation"
+    },
+    {
+      "id": "precompiled-js",
+      "pass": true,
+      "label": "Pre-compiled JS bundle served (js/app.js)"
+    },
+    {
+      "id": "font-preload",
+      "pass": true,
+      "label": "Font stylesheet preloaded"
+    },
+    {
+      "id": "reduced-font-families",
+      "pass": true,
+      "label": "Instrument Serif removed (4→3 font families)"
+    },
+    {
+      "id": "lazy-images",
+      "pass": false,
+      "label": "Lazy loading on images"
+    },
+    {
+      "id": "skip-link",
+      "pass": true,
+      "label": "Skip-to-main-content link present"
+    },
+    {
+      "id": "main-landmark",
+      "pass": true,
+      "label": "<main> landmark in document"
+    },
+    {
+      "id": "no-emoji-icons",
+      "pass": true,
+      "label": "No emoji used as structural icons"
+    },
+    {
+      "id": "reduced-motion",
+      "pass": true,
+      "label": "prefers-reduced-motion CSS present"
+    },
+    {
+      "id": "meta-description",
+      "pass": true,
+      "label": "Meta description in static <head>"
+    },
+    {
+      "id": "html-lang",
+      "pass": true,
+      "label": "html[lang] attribute set"
+    },
+    {
+      "id": "favicon",
+      "pass": true,
+      "label": "Favicon linked in <head>"
+    },
+    {
+      "id": "no-heading-skip",
+      "pass": true,
+      "label": "No h4 headings (no heading level skip)"
+    },
+    {
+      "id": "select-label",
+      "pass": true,
+      "label": "Form select has associated label (htmlFor)"
+    },
+    {
+      "id": "no-fake-logos",
+      "pass": true,
+      "label": "Placeholder logo disclaimer removed"
+    },
+    {
+      "id": "no-fake-testimonials",
+      "pass": true,
+      "label": "Fake testimonial disclaimer removed"
+    },
+    {
+      "id": "privacy-page",
+      "pass": true,
+      "label": "Privacy Policy page exists"
+    },
+    {
+      "id": "terms-page",
+      "pass": true,
+      "label": "Terms of Service page exists"
+    },
+    {
+      "id": "footer-links-fixed",
+      "pass": true,
+      "label": "Footer tel: and LinkedIn links wired correctly"
+    },
+    {
+      "id": "privacy-linked",
+      "pass": true,
+      "label": "Privacy link points to privacy.html"
+    },
+    {
+      "id": "terms-linked",
+      "pass": true,
+      "label": "Terms link points to terms.html"
+    },
+    {
+      "id": "form-required",
+      "pass": true,
+      "label": "Contact form has required attributes"
+    },
+    {
+      "id": "form-async",
+      "pass": true,
+      "label": "Form handler is async with finally block"
+    }
+  ],
+  "passed": 22,
+  "total": 23,
+  "score": 96
+}
