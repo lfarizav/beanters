@@ -117,7 +117,7 @@
   </div>
 
   <div class="cta-row">
-    <a href="slides.html" class="btn btn-primary">Abrir vista previa gratuita →</a>
+    <button onclick="openKeyModal()" class="btn btn-primary">Abrir vista previa gratuita →</button>
     <a href="mailto:lfarizav@gmail.com?subject=Inscripción%20Redes%20Celulares%20—%2089%20USD&body=Hola%20Luis%2C%0A%0AQuiero%20inscribirme%20al%20curso%20completo%20de%20Redes%20Celulares%20(USD%2089).%0A%0ANombre%3A%20%0AEmpresa%2FUniversidad%3A%20%0AMotivo%3A%20%0A%0AGracias." class="btn btn-outline">Inscribirme — $89 USD</a>
   </div>
 </div>
@@ -191,7 +191,7 @@
       <span class="perk">Soporte directo</span>
     </div>
     <div class="cta-row">
-      <a href="slides.html" class="btn btn-ghost">Ver preview gratuito (3 módulos)</a>
+      <button onclick="openKeyModal()" class="btn btn-ghost">Ver preview gratuito (3 módulos)</button>
       <a href="mailto:lfarizav@gmail.com?subject=Inscripción%20Redes%20Celulares%20—%2089%20USD&body=Hola%20Luis%2C%0A%0AQuiero%20inscribirme%20al%20curso%20completo%20(USD%2089).%0A%0ANombre%3A%20%0AEmpresa%2FUniversidad%3A%20%0APaís%3A%20%0A%0AGracias." class="btn btn-primary">Inscribirme — $89 USD →</a>
     </div>
     <div class="info-box" style="margin-top:1.25rem;text-align:left">
@@ -204,6 +204,77 @@
 <footer>
   <p>Heritage Courses · Parte de <a href="https://beanters.com">beanters.com</a> · © 2026 Luis Felipe Ariza Vesga · <a href="mailto:lfarizav@gmail.com">lfarizav@gmail.com</a></p>
 </footer>
+
+<!-- Master Key Modal -->
+<div id="key-modal" style="display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,0.78);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1rem">
+  <div style="background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:2rem;width:min(480px,100%);position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.6)">
+    <button onclick="closeKeyModal()" aria-label="Cerrar" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text2);cursor:pointer;font-size:1.2rem;line-height:1;padding:0.25rem">✕</button>
+
+    <p class="section-label" style="margin-bottom:0.4rem">VISTA PREVIA · LLAVE MAESTRA</p>
+    <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.25rem">Acceder a los 3 módulos gratuitos</h3>
+
+    <div style="display:flex;border-bottom:1px solid var(--border);margin-bottom:1.5rem">
+      <button id="tab-have" onclick="switchTab('have')" style="flex:1;padding:0.6rem 0.5rem;background:none;border:none;border-bottom:2px solid var(--teal);color:var(--teal);cursor:pointer;font-family:var(--font-head);font-size:0.85rem;font-weight:600;transition:all 0.2s">Ya tengo mi llave</button>
+      <button id="tab-req" onclick="switchTab('req')" style="flex:1;padding:0.6rem 0.5rem;background:none;border:none;border-bottom:2px solid transparent;color:var(--text2);cursor:pointer;font-family:var(--font-head);font-size:0.85rem;transition:all 0.2s">Solicitar llave</button>
+    </div>
+
+    <div id="panel-have">
+      <p style="font-size:0.85rem;color:var(--text2);margin-bottom:1rem">Ingresa la llave maestra que recibiste de Luis para acceder a la vista previa.</p>
+      <div style="display:flex;gap:0.5rem">
+        <input id="key-input" type="password" placeholder="Llave maestra" onkeydown="if(event.key==='Enter')enterWithKey()" style="flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:0.65rem 1rem;color:var(--text);font-family:var(--font-mono);font-size:0.9rem;outline:none;min-width:0">
+        <button onclick="enterWithKey()" class="btn btn-primary" style="white-space:nowrap;flex-shrink:0">Acceder →</button>
+      </div>
+      <p style="font-size:0.78rem;color:var(--text2);margin-top:0.9rem;text-align:center">¿No tienes llave? <button onclick="switchTab('req')" style="background:none;border:none;color:var(--teal);cursor:pointer;font-size:0.78rem;font-family:var(--font-head);padding:0;text-decoration:underline">Solicita una gratis →</button></p>
+    </div>
+
+    <div id="panel-req" style="display:none">
+      <p style="font-size:0.85rem;color:var(--text2);margin-bottom:1rem">Luis te enviará la llave maestra en menos de 24 h.</p>
+      <input id="req-name" type="text" placeholder="Tu nombre" style="display:block;width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:0.65rem 1rem;color:var(--text);font-family:var(--font-head);font-size:0.9rem;outline:none;margin-bottom:0.5rem;box-sizing:border-box">
+      <input id="req-email" type="email" placeholder="Tu correo electrónico" style="display:block;width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:0.65rem 1rem;color:var(--text);font-family:var(--font-head);font-size:0.9rem;outline:none;margin-bottom:1rem;box-sizing:border-box">
+      <button onclick="requestKey()" class="btn btn-primary" style="width:100%">Solicitar llave maestra →</button>
+      <p style="font-size:0.75rem;color:var(--text2);margin-top:0.75rem;text-align:center">Recibirás un correo con la llave y el enlace de acceso.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function openKeyModal() {
+  const m = document.getElementById('key-modal');
+  m.style.display = 'flex';
+  switchTab('have');
+  setTimeout(() => document.getElementById('key-input').focus(), 80);
+}
+function closeKeyModal() {
+  document.getElementById('key-modal').style.display = 'none';
+}
+function switchTab(tab) {
+  const isHave = tab === 'have';
+  document.getElementById('panel-have').style.display = isHave ? 'block' : 'none';
+  document.getElementById('panel-req').style.display = isHave ? 'none' : 'block';
+  const tHave = document.getElementById('tab-have');
+  const tReq = document.getElementById('tab-req');
+  tHave.style.borderBottomColor = isHave ? 'var(--teal)' : 'transparent';
+  tHave.style.color = isHave ? 'var(--teal)' : 'var(--text2)';
+  tHave.style.fontWeight = isHave ? '600' : 'normal';
+  tReq.style.borderBottomColor = isHave ? 'transparent' : 'var(--teal)';
+  tReq.style.color = isHave ? 'var(--text2)' : 'var(--teal)';
+  tReq.style.fontWeight = isHave ? 'normal' : '600';
+}
+function enterWithKey() {
+  const key = document.getElementById('key-input').value.trim();
+  if (!key) { document.getElementById('key-input').focus(); return; }
+  window.location.href = 'slides.html?key=' + encodeURIComponent(key);
+}
+function requestKey() {
+  const name = document.getElementById('req-name').value.trim();
+  const email = document.getElementById('req-email').value.trim();
+  const sub = encodeURIComponent('Solicitud Llave Maestra — Redes Celulares 2G a 6G');
+  const body = encodeURIComponent('Hola Luis,\n\nMe interesa acceder a la vista previa del curso de Redes Celulares (2G a 6G).\n\nNombre: ' + (name||'(no especificado)') + '\nCorreo: ' + (email||'(no especificado)') + '\n\nGracias.');
+  window.location.href = 'mailto:lfarizav@gmail.com?subject=' + sub + '&body=' + body;
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeKeyModal(); });
+document.getElementById('key-modal').addEventListener('click', function(e) { if (e.target === this) closeKeyModal(); });
+</script>
 
 </body>
 </html>

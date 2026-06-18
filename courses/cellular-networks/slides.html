@@ -2,7 +2,7 @@
 <html class="staticrypt-html">
     <head>
         <meta charset="utf-8" />
-        <title>Heritage Courses — Acceso</title>
+        <title>Redes Celulares — Vista Previa · Beanters Courses</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <!-- do not cache this page -->
@@ -183,8 +183,8 @@
             <div class="staticrypt-page">
                 <div class="staticrypt-form">
                     <div class="staticrypt-instructions">
-                        <p class="staticrypt-title">Protected Page</p>
-                        <p>Esta vista preliminar está protegida. Ingresa la contraseña que recibiste por correo.</p>
+                        <p class="staticrypt-title">Llave Maestra</p>
+                        <p>Esta vista previa está protegida. Ingresa tu llave maestra de acceso o <a href="mailto:lfarizav@gmail.com?subject=Solicitud%20Llave%20Maestra%20%E2%80%94%20Redes%20Celulares%202G%20a%206G&body=Hola%20Luis%2C%0A%0AMe%20interesa%20la%20vista%20previa%20del%20curso%20de%20Redes%20Celulares%20(2G%20a%206G).%0A%0ANombre%3A%20%0AEmpresa%2FUniversidad%3A%20%0ACorreo%3A%20%0A%0AGracias." style="color:#00D9FF">solicita una aquí</a>.</p>
                     </div>
 
                     <hr class="staticrypt-hr" />
@@ -212,7 +212,7 @@
                             Remember me
                         </label>
 
-                        <input type="submit" class="staticrypt-decrypt-button" value="Desbloquear" />
+                        <input type="submit" class="staticrypt-decrypt-button" value="Acceder con llave maestra" />
                     </form>
                 </div>
             </div>
@@ -835,6 +835,12 @@ exports.init = init;
 
             // try to automatically decrypt on load if there is a saved password
             window.onload = async function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const masterKey = urlParams.get('key');
+                if (masterKey) {
+                    const { isSuccessful: keySuccess } = await staticrypt.handleDecryptionOfPage(masterKey, false);
+                    if (keySuccess) return;
+                }
                 const { isSuccessful } = await staticrypt.handleDecryptOnLoad();
 
                 // if we didn't decrypt anything on load, show the password prompt. Otherwise the content has already been
