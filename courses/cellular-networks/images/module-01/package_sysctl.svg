@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="gcyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8"/><stop offset="100%" style="stop-color:#0369a1"/></linearGradient>
+    <linearGradient id="ggreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399"/><stop offset="100%" style="stop-color:#047857"/></linearGradient>
+    <linearGradient id="gyellow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/><stop offset="100%" style="stop-color:#b45309"/></linearGradient>
+    <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/></marker>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/></pattern>
+  </defs>
+  <rect width="800" height="500" fill="#0a0f1d"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <rect x="15" y="15" width="770" height="470" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.6"/>
+  <text x="400" y="42" text-anchor="middle" fill="#38bdf8" font-size="17" font-weight="bold" font-family="sans-serif">Package Management &amp; sysctl</text>
+  <text x="400" y="62" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="sans-serif">APT · DNF/RPM · Kernel Parameters | LFCS Essential</text>
+  <!-- Panel 1: APT (cyan) -->
+  <rect x="22" y="78" width="238" height="300" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="141" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="141" dy="0">APT — Debian/Ubuntu</tspan>
+    <tspan x="141" dy="15" font-size="9" font-family="monospace" fill="#e0f2fe">apt update (refresh lists)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">apt upgrade (all pkgs)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">apt install pkg</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">apt remove pkg</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">apt purge pkg (+ config)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">apt autoremove</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">apt search keyword</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">apt show pkg</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">dpkg -i pkg.deb</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">dpkg -l (installed list)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">dpkg -L pkg (files)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">dpkg -S /path (owner)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">/etc/apt/sources.list</tspan>
+  </text>
+  <!-- Arrow 1→2 -->
+  <line x1="260" y1="228" x2="270" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 2: DNF/RPM (green) -->
+  <rect x="280" y="78" width="238" height="300" rx="6" fill="url(#ggreen)" filter="url(#glow)" opacity="0.9"/>
+  <text x="399" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="399" dy="0">DNF/RPM — RHEL/Fedora</tspan>
+    <tspan x="399" dy="15" font-size="9" font-family="monospace" fill="#d1fae5">dnf install pkg</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">dnf remove pkg</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">dnf update / upgrade</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">dnf search keyword</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">dnf info pkg</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">dnf list installed</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">dnf repolist</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">rpm -ivh pkg.rpm</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">rpm -qa (all installed)</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">rpm -ql pkg (files)</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">rpm -qf /path (owner)</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">rpm -V pkg (verify)</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">/etc/yum.repos.d/</tspan>
+  </text>
+  <!-- Arrow 2→3 -->
+  <line x1="518" y1="228" x2="528" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 3: sysctl (yellow) -->
+  <rect x="538" y="78" width="238" height="300" rx="6" fill="url(#gyellow)" filter="url(#glow)" opacity="0.9"/>
+  <text x="657" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="657" dy="0">sysctl — Kernel Params</tspan>
+    <tspan x="657" dy="15" font-size="9" font-family="monospace" fill="#fef3c7">sysctl -a (list all)</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">sysctl param.name</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">sysctl -w param=value</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">/etc/sysctl.conf (persist)</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">/etc/sysctl.d/*.conf</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">sysctl -p (reload)</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">net.ipv4.ip_forward=1</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">net.ipv4.tcp_syncookies=1</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">vm.swappiness=10</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">vm.overcommit_memory=1</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">kernel.panic=10</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">fs.file-max=2097152</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">/proc/sys/ (live view)</tspan>
+  </text>
+  <!-- Footer -->
+  <rect x="22" y="393" width="756" height="78" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="400" y="411" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="monospace">
+    <tspan x="400" dy="0">LFCS: apt install/remove/upgrade | dpkg -i/-l/-S | dnf install | rpm -qa | sysctl -w</tspan>
+    <tspan x="400" dy="15">Persist: /etc/sysctl.d/99-custom.conf | sysctl -p | /etc/apt/sources.list | /etc/yum.repos.d/</tspan>
+    <tspan x="400" dy="15">Key params: ip_forward=1(routing) | syncookies=1(SYN flood) | swappiness | overcommit | panic</tspan>
+  </text>
+</svg>

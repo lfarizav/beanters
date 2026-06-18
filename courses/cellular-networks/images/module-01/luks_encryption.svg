@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 330">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.3"/>
+    </pattern>
+    <linearGradient id="grad-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="grad-red" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#be123c" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="grad-green" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.02"/>
+    </linearGradient>
+    <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="440" height="330" fill="url(#grid)" rx="6"/>
+  <text x="15" y="22" fill="#38bdf8" font-size="8" font-family="monospace" letter-spacing="1">SEC.LUKS // DISK CRYPTION AND DATABASE PRIVACY</text>
+  <line x1="15" y1="26" x2="425" y2="26" stroke="#38bdf8" stroke-width="1" opacity="0.2"/>
+
+  <!-- Level 1: Disk Device -->
+  <g transform="translate(15, 120)">
+    <rect width="80" height="42" rx="4" fill="url(#grad-cyan)" stroke="#06b6d4" stroke-width="1.2"/>
+    <text x="40" y="18" fill="#e2e8f0" font-size="8.5" font-weight="bold" font-family="sans-serif" text-anchor="middle">/dev/sdc1</text>
+    <text x="40" y="32" fill="#cbd5e1" font-size="6.5" font-family="sans-serif" text-anchor="middle">Physical Partition</text>
+  </g>
+
+  <!-- Level 2: LUKS Encryption Container -->
+  <g transform="translate(115, 120)">
+    <rect width="100" height="42" rx="4" fill="url(#grad-red)" stroke="#f43f5e" stroke-width="1.2" filter="url(#glow-red)"/>
+    <text x="50" y="16" fill="#fecdd3" font-size="8.5" font-weight="bold" font-family="sans-serif" text-anchor="middle">LUKS2 volume</text>
+    <text x="50" y="26" fill="#cbd5e1" font-size="6" font-family="monospace" text-anchor="middle">aes-xts-plain64</text>
+    <text x="50" y="34" fill="#64748b" font-size="6" font-family="monospace" text-anchor="middle">Key size: 512 bit</text>
+  </g>
+
+  <!-- Level 3: Mapped Unencrypted Device -->
+  <g transform="translate(235, 120)">
+    <rect width="80" height="42" rx="4" fill="url(#grad-green)" stroke="#10b981" stroke-width="1.2"/>
+    <text x="40" y="16" fill="#a7f3d0" font-size="7" font-weight="bold" font-family="monospace" text-anchor="middle">hss-encrypted</text>
+    <text x="40" y="26" fill="#cbd5e1" font-size="6" font-family="sans-serif" text-anchor="middle">dm-crypt mapper</text>
+    <text x="40" y="34" fill="#34d399" font-size="5.5" font-family="monospace" text-anchor="middle">/dev/mapper/</text>
+  </g>
+
+  <!-- Level 4: Mounted folder / HSS db -->
+  <g transform="translate(335, 115)">
+    <rect width="90" height="52" rx="4" fill="url(#grad-green)" stroke="#10b981" stroke-width="1.2"/>
+    <text x="45" y="16" fill="#a7f3d0" font-size="8.5" font-weight="bold" font-family="sans-serif" text-anchor="middle">hss.db</text>
+    <text x="45" y="30" fill="#cbd5e1" font-size="6" font-family="monospace" text-anchor="middle">/var/lib/open5gs/hss</text>
+    <text x="45" y="42" fill="#34d399" font-size="6" font-family="sans-serif" text-anchor="middle">GDPR-ready</text>
+  </g>
+
+  <!-- crypttab / fstab links -->
+  <g transform="translate(115, 205)">
+    <rect width="200" height="34" rx="3" fill="#0b1329" stroke="#334155" stroke-width="1"/>
+    <text x="100" y="15" fill="#cbd5e1" font-size="7" font-family="monospace" text-anchor="middle">/etc/crypttab // Auto-open at boot</text>
+    <text x="100" y="25" fill="#64748b" font-size="6.5" font-family="sans-serif" text-anchor="middle">fstab options: luks, _netdev mount</text>
+  </g>
+
+  <!-- Connectors -->
+  <line x1="95" y1="141" x2="115" y2="141" stroke="#06b6d4" stroke-width="1.2"/>
+  <line x1="215" y1="141" x2="235" y2="141" stroke="#10b981" stroke-width="1.2"/>
+  <line x1="315" y1="141" x2="335" y2="141" stroke="#10b981" stroke-width="1.2"/>
+
+  <path d="M 165,162 L 165,205" fill="none" stroke="#475569" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <text x="15" y="310" fill="#475569" font-size="7" font-family="monospace">BLUEPRINT // GDPR CRYPTOGRAPHIC DATA INTEGRITY LAYOUT</text>
+  <text x="425" y="310" fill="#475569" font-size="7" font-family="monospace" text-anchor="end">LUKS2 SECURE ENGINE SPEC</text>
+</svg>

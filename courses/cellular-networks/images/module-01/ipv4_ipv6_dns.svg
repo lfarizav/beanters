@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="gcyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8"/><stop offset="100%" style="stop-color:#0369a1"/></linearGradient>
+    <linearGradient id="ggreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399"/><stop offset="100%" style="stop-color:#047857"/></linearGradient>
+    <linearGradient id="gyellow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/><stop offset="100%" style="stop-color:#b45309"/></linearGradient>
+    <linearGradient id="gpurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#4338ca"/></linearGradient>
+    <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/></marker>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/></pattern>
+  </defs>
+  <rect width="800" height="500" fill="#0a0f1d"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <rect x="15" y="15" width="770" height="470" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.6"/>
+  <text x="400" y="42" text-anchor="middle" fill="#38bdf8" font-size="17" font-weight="bold" font-family="sans-serif">IPv4 · IPv6 · DNS · ip/ss</text>
+  <text x="400" y="62" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="sans-serif">Addressing · Routing · Name Resolution · Socket Stats | LFCS Essential</text>
+  <!-- Panel 1: IPv4 (cyan) -->
+  <rect x="22" y="78" width="178" height="300" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="111" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="111" dy="0">IPv4 Addressing</tspan>
+    <tspan x="111" dy="15" font-size="9" font-family="monospace" fill="#e0f2fe">ip addr show</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">ip addr add 192.168.1.1/24</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">ip addr del 10.0.0.1/24</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">ip route show</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">ip route add default via gw</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">ip route add net via gw dev</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">CIDR: /24=255.255.255.0</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">/16=255.255.0.0</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">Private: 10/8 172.16/12</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe"> 192.168/16</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">ip neigh show (ARP)</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">nmcli con show</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">nmcli con up/down</tspan>
+  </text>
+  <!-- Arrow 1→2 -->
+  <line x1="200" y1="228" x2="210" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 2: IPv6 (green) -->
+  <rect x="212" y="78" width="178" height="300" rx="6" fill="url(#ggreen)" filter="url(#glow)" opacity="0.9"/>
+  <text x="301" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="301" dy="0">IPv6 Addressing</tspan>
+    <tspan x="301" dy="15" font-size="9" font-family="monospace" fill="#d1fae5">ip -6 addr show</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">ip -6 route show</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">Global: 2000::/3</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">Link-local: fe80::/10</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">ULA: fc00::/7</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">Loopback: ::1/128</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">SLAAC: autoconfig</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">DHCPv6: stateful</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">ping6 ::1</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">ping6 -I eth0 fe80::1</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">ip -6 neigh (NDP/ND)</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">EUI-64 from MAC addr</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">128-bit = 8×16-bit groups</tspan>
+  </text>
+  <!-- Arrow 2→3 -->
+  <line x1="390" y1="228" x2="400" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 3: DNS (yellow) -->
+  <rect x="402" y="78" width="178" height="300" rx="6" fill="url(#gyellow)" filter="url(#glow)" opacity="0.9"/>
+  <text x="491" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="491" dy="0">DNS Tools</tspan>
+    <tspan x="491" dy="15" font-size="9" font-family="monospace" fill="#fef3c7">dig example.com A</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">dig example.com AAAA</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">dig @8.8.8.8 example.com</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">dig -x 1.2.3.4 (PTR)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">dig +short example.com</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">host example.com</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">nslookup example.com</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">/etc/resolv.conf</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7"> nameserver 8.8.8.8</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">/etc/hosts (local)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">systemd-resolve --status</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">resolvectl query host</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">RR types: A MX NS TXT SOA</tspan>
+  </text>
+  <!-- Arrow 3→4 -->
+  <line x1="580" y1="228" x2="590" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 4: ip+ss (purple) -->
+  <rect x="592" y="78" width="178" height="300" rx="6" fill="url(#gpurple)" filter="url(#glow)" opacity="0.9"/>
+  <text x="681" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="681" dy="0">ip · ss · Diagnostics</tspan>
+    <tspan x="681" dy="15" font-size="9" font-family="monospace" fill="#ede9fe">ip link show</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">ip link set eth0 up/down</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">ip link set eth0 mtu 9000</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">ss -tulnp (sockets)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">ss -s (summary)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">ss -tp (TCP+process)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">ping -c4 8.8.8.8</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">traceroute 8.8.8.8</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">mtr --report host</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">tcpdump -i eth0 port 80</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">tcpdump -w file.pcap</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">ethtool eth0 (link stats)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">curl -v http://host/path</tspan>
+  </text>
+  <!-- Footer -->
+  <rect x="22" y="393" width="756" height="78" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="400" y="411" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="monospace">
+    <tspan x="400" dy="0">LFCS: ip addr/route/link | ss -tulnp | dig @ns | nmcli | /etc/resolv.conf | systemd-resolve</tspan>
+    <tspan x="400" dy="15">IPv6 types: global(2xxx:) link-local(fe80::) ULA(fc00::) loopback(::1) multicast(ff00::)</tspan>
+    <tspan x="400" dy="15">Persist: nmcli/NetworkManager | /etc/network/interfaces | netplan | systemd-networkd</tspan>
+  </text>
+</svg>

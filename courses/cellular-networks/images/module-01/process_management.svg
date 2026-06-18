@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="gcyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8"/><stop offset="100%" style="stop-color:#0369a1"/></linearGradient>
+    <linearGradient id="ggreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399"/><stop offset="100%" style="stop-color:#047857"/></linearGradient>
+    <linearGradient id="gyellow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/><stop offset="100%" style="stop-color:#b45309"/></linearGradient>
+    <linearGradient id="gpurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#4338ca"/></linearGradient>
+    <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/></marker>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/></pattern>
+  </defs>
+  <rect width="800" height="500" fill="#0a0f1d"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <rect x="15" y="15" width="770" height="470" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.6"/>
+  <text x="400" y="42" text-anchor="middle" fill="#38bdf8" font-size="17" font-weight="bold" font-family="sans-serif">Process Management</text>
+  <text x="400" y="62" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="sans-serif">Listing · Signals · Priority · Background Jobs | LFCS Essential</text>
+  <!-- Panel 1: Process Listing (cyan) -->
+  <rect x="22" y="78" width="178" height="300" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="111" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="111" dy="0">Process Listing</tspan>
+    <tspan x="111" dy="15" font-size="9" font-family="monospace" fill="#e0f2fe">ps aux (all processes)</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">ps -ef (full format)</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">ps -u user</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">pgrep nginx (by name)</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">pgrep -u root sshd</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">pidof sshd</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">top -d1 (realtime)</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">htop (interactive)</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">top -b -n1 (batch)</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">/proc/&lt;pid&gt;/status</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">/proc/&lt;pid&gt;/cmdline</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">lsof -p &lt;pid&gt;</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">strace -p &lt;pid&gt;</tspan>
+  </text>
+  <!-- Arrow 1→2 -->
+  <line x1="200" y1="228" x2="210" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 2: Signals (green) -->
+  <rect x="212" y="78" width="178" height="300" rx="6" fill="url(#ggreen)" filter="url(#glow)" opacity="0.9"/>
+  <text x="301" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="301" dy="0">Signals &amp; kill</tspan>
+    <tspan x="301" dy="15" font-size="9" font-family="monospace" fill="#d1fae5">kill -l (list signals)</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">SIGHUP  (1): reload cfg</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">SIGINT  (2): Ctrl+C</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">SIGQUIT (3): core dump</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">SIGKILL (9): cannot catch</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">SIGTERM (15): graceful</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">SIGUSR1 (10): user def</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">SIGSTOP (19): pause</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">kill &lt;pid&gt; (SIGTERM)</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">kill -9 &lt;pid&gt; (SIGKILL)</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">pkill -f process_name</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">killall nginx</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">Ctrl+Z: SIGSTOP to bg</tspan>
+  </text>
+  <!-- Arrow 2→3 -->
+  <line x1="390" y1="228" x2="400" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 3: Priority+Nice (yellow) -->
+  <rect x="402" y="78" width="178" height="300" rx="6" fill="url(#gyellow)" filter="url(#glow)" opacity="0.9"/>
+  <text x="491" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="491" dy="0">Priority &amp; Nice</tspan>
+    <tspan x="491" dy="15" font-size="9" font-family="monospace" fill="#fef3c7">nice: -20(high) to 19(low)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">nice -n 10 cmd</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">renice -n -5 -p &lt;pid&gt;</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">renice -n 5 -u user</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">ionice -c 3 cmd (idle)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">ionice -c 1 -n 4 (RT)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">chrt -f 50 cmd (FIFO)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">ps -o pid,ni,pri,stat</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">OOM score: /proc/&lt;p&gt;/oom</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">echo -1000 &gt; oom_score</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">cgroups cpu.weight</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">systemd CPUWeight=200</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">systemd MemoryMax=1G</tspan>
+  </text>
+  <!-- Arrow 3→4 -->
+  <line x1="580" y1="228" x2="590" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 4: Background Jobs (purple) -->
+  <rect x="592" y="78" width="178" height="300" rx="6" fill="url(#gpurple)" filter="url(#glow)" opacity="0.9"/>
+  <text x="681" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="681" dy="0">Jobs &amp; Persistence</tspan>
+    <tspan x="681" dy="15" font-size="9" font-family="monospace" fill="#ede9fe">cmd &amp; (background)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">jobs (list bg jobs)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">fg %1 (bring to fg)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">bg %1 (resume bg)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">disown %1 (detach)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">nohup cmd &amp; (no HUP)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">screen -S sess</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">screen -r sess</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">tmux new -s sess</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">tmux attach -t sess</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">wait (wait for bg jobs)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">$! (last bg PID)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">watch -n2 'df -h'</tspan>
+  </text>
+  <!-- Footer -->
+  <rect x="22" y="393" width="756" height="78" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="400" y="411" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="monospace">
+    <tspan x="400" dy="0">States: R(running) S(sleeping) D(uninterruptible) Z(zombie) T(stopped) I(idle)</tspan>
+    <tspan x="400" dy="15">LFCS: ps aux | pgrep | kill -15/-9 | nice -n | renice | nohup | screen/tmux | cgroups</tspan>
+    <tspan x="400" dy="15">Graceful: SIGTERM(15) → wait → SIGKILL(9) | zombie: kill parent | OOM: /proc/pid/oom_score_adj</tspan>
+  </text>
+</svg>

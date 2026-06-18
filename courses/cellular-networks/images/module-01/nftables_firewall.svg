@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 330">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.3"/>
+    </pattern>
+    <linearGradient id="grad-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="grad-red" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#be123c" stop-opacity="0.02"/>
+    </linearGradient>
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="440" height="330" fill="url(#grid)" rx="6"/>
+  <text x="15" y="22" fill="#38bdf8" font-size="8" font-family="monospace" letter-spacing="1">SEC.FIREWALL // ZONAL NFTABLES FILTER RULES</text>
+  <line x1="15" y1="26" x2="425" y2="26" stroke="#38bdf8" stroke-width="1" opacity="0.2"/>
+
+  <!-- Left: Ingress Traffic -->
+  <g transform="translate(15, 55)">
+    <rect width="90" height="34" rx="3" fill="#0b1329" stroke="#334155" stroke-width="1"/>
+    <text x="45" y="14" fill="#cbd5e1" font-size="7.5" font-weight="bold" font-family="sans-serif" text-anchor="middle">🗼 gNB Node</text>
+    <text x="45" y="24" fill="#06b6d4" font-size="6" font-family="monospace" text-anchor="middle">SCTP (N2) ➡ input</text>
+  </g>
+  <g transform="translate(15, 105)">
+    <rect width="90" height="34" rx="3" fill="#0b1329" stroke="#334155" stroke-width="1"/>
+    <text x="45" y="14" fill="#cbd5e1" font-size="7.5" font-weight="bold" font-family="sans-serif" text-anchor="middle">🤖 SMF Core</text>
+    <text x="45" y="24" fill="#06b6d4" font-size="6" font-family="monospace" text-anchor="middle">UDP 8805 ➡ input</text>
+  </g>
+  <g transform="translate(15, 155)">
+    <rect width="90" height="34" rx="3" fill="#0b1329" stroke="#334155" stroke-width="1"/>
+    <text x="45" y="14" fill="#cbd5e1" font-size="7.5" font-weight="bold" font-family="sans-serif" text-anchor="middle">💻 NOC Mgmt</text>
+    <text x="45" y="24" fill="#06b6d4" font-size="6" font-family="monospace" text-anchor="middle">TCP 22 ➡ input</text>
+  </g>
+  <g transform="translate(15, 205)">
+    <rect width="90" height="34" rx="3" fill="#0b1329" stroke="#f43f5e" stroke-width="1" opacity="0.7"/>
+    <text x="45" y="14" fill="#fecdd3" font-size="7.5" font-weight="bold" font-family="sans-serif" text-anchor="middle">🌐 Untrusted</text>
+    <text x="45" y="24" fill="#fecdd3" font-size="6" font-family="monospace" text-anchor="middle">Unknown IP ➡ input</text>
+  </g>
+
+  <!-- Center: nftables Firewall Node -->
+  <g transform="translate(145, 110)">
+    <rect width="140" height="70" rx="4" fill="url(#grad-red)" stroke="#f43f5e" stroke-width="1.5" filter="url(#glow-red)"/>
+    <text x="70" y="20" fill="#fecdd3" font-size="9" font-weight="bold" font-family="sans-serif" text-anchor="middle">nftables firewall</text>
+    <text x="70" y="34" fill="#cbd5e1" font-size="7" font-family="monospace" text-anchor="middle">table inet 5g-filter</text>
+    <text x="70" y="46" fill="#fecdd3" font-size="7.5" font-family="monospace" text-anchor="middle">chain input { policy drop }</text>
+    <text x="70" y="58" fill="#fecdd3" font-size="7.5" font-family="monospace" text-anchor="middle">chain forward { policy drop }</text>
+  </g>
+
+  <!-- Right: Egress (ogstun interface) -->
+  <g transform="translate(325, 128)">
+    <rect width="100" height="34" rx="3" fill="url(#grad-cyan)" stroke="#06b6d4" stroke-width="1.2" filter="url(#glow-cyan)"/>
+    <text x="50" y="16" fill="#e2e8f0" font-size="8" font-weight="bold" font-family="sans-serif" text-anchor="middle">ogstun device</text>
+    <text x="50" y="26" fill="#cbd5e1" font-size="6.5" font-family="monospace" text-anchor="middle">FORWARD ACCEPT</text>
+  </g>
+
+  <!-- Flows -->
+  <path d="M 105,72 L 125,72 L 125,120 L 145,120" fill="none" stroke="#06b6d4" stroke-width="1.2"/>
+  <path d="M 105,122 L 145,122" fill="none" stroke="#06b6d4" stroke-width="1.2"/>
+  <path d="M 105,172 L 145,172" fill="none" stroke="#06b6d4" stroke-width="1.2"/>
+  <path d="M 105,222 L 125,222 L 125,160 L 145,160" fill="none" stroke="#f43f5e" stroke-width="1.2"/>
+
+  <line x1="285" y1="145" x2="325" y2="145" stroke="#06b6d4" stroke-width="1.2"/>
+
+  <text x="15" y="310" fill="#475569" font-size="7" font-family="monospace">BLUEPRINT // SECURITY PROTOCOL INGRESS FIREWALL</text>
+  <text x="425" y="310" fill="#475569" font-size="7" font-family="monospace" text-anchor="end">NFTABLES KERNEL ENGINE</text>
+</svg>

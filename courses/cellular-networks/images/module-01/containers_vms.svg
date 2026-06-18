@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="gcyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8"/><stop offset="100%" style="stop-color:#0369a1"/></linearGradient>
+    <linearGradient id="ggreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399"/><stop offset="100%" style="stop-color:#047857"/></linearGradient>
+    <linearGradient id="gyellow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/><stop offset="100%" style="stop-color:#b45309"/></linearGradient>
+    <linearGradient id="gpurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#4338ca"/></linearGradient>
+    <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/></marker>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/></pattern>
+  </defs>
+  <rect width="800" height="500" fill="#0a0f1d"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <rect x="15" y="15" width="770" height="470" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.6"/>
+  <text x="400" y="42" text-anchor="middle" fill="#38bdf8" font-size="17" font-weight="bold" font-family="sans-serif">Containers &amp; Virtual Machines</text>
+  <text x="400" y="62" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="sans-serif">Podman · Docker · virsh/KVM · cgroups/namespaces | LFCS Essential</text>
+  <!-- Panel 1: Podman (cyan) -->
+  <rect x="22" y="78" width="178" height="300" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="111" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="111" dy="0">Podman (rootless)</tspan>
+    <tspan x="111" dy="15" font-size="9" font-family="monospace" fill="#e0f2fe">podman run -d nginx</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman run -it bash</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman ps -a</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman exec -it ctr sh</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman stop/rm ctr</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman images</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman build -t img .</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman pull img:tag</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman inspect ctr</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman logs -f ctr</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman network ls</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman volume create</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">podman generate systemd</tspan>
+  </text>
+  <!-- Arrow 1→2 -->
+  <line x1="200" y1="228" x2="210" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 2: Docker (green) -->
+  <rect x="212" y="78" width="178" height="300" rx="6" fill="url(#ggreen)" filter="url(#glow)" opacity="0.9"/>
+  <text x="301" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="301" dy="0">Docker</tspan>
+    <tspan x="301" dy="15" font-size="9" font-family="monospace" fill="#d1fae5">docker run -d -p 80:80</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker ps / docker ps -a</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker exec -it c1 bash</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker build -t img .</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker push user/img</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker network create</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker volume create</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker compose up -d</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker compose down</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker inspect img</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker stats (live)</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker save | load</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">docker system prune</tspan>
+  </text>
+  <!-- Arrow 2→3 -->
+  <line x1="390" y1="228" x2="400" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 3: virsh/KVM (yellow) -->
+  <rect x="402" y="78" width="178" height="300" rx="6" fill="url(#gyellow)" filter="url(#glow)" opacity="0.9"/>
+  <text x="491" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="491" dy="0">virsh / KVM / libvirt</tspan>
+    <tspan x="491" dy="15" font-size="9" font-family="monospace" fill="#fef3c7">virsh list --all</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">virsh start vmname</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">virsh shutdown vmname</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">virsh destroy (force off)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">virsh console vmname</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">virsh snapshot-create-as</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">virsh snapshot-revert</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">virt-install --vcpus 2</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">virt-install --ram 2048</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">qemu-img create -f qcow2</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">qemu-img info disk.qcow2</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">virsh net-list --all</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">virsh dumpxml vmname</tspan>
+  </text>
+  <!-- Arrow 3→4 -->
+  <line x1="580" y1="228" x2="590" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 4: cgroups+namespaces (purple) -->
+  <rect x="592" y="78" width="178" height="300" rx="6" fill="url(#gpurple)" filter="url(#glow)" opacity="0.9"/>
+  <text x="681" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="681" dy="0">cgroups v2 · namespaces</tspan>
+    <tspan x="681" dy="15" font-size="9" font-family="monospace" fill="#ede9fe">Namespaces: pid net mnt</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe"> uts ipc user cgroup</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">lsns (list namespaces)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">unshare --pid --fork sh</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">nsenter -t &lt;pid&gt; -n sh</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">/sys/fs/cgroup/ (v2)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">systemd-cgls (tree)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">MemoryMax=512M</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">CPUQuota=50%</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">BlockIOWeight=100</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">systemd-run --slice</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">cat /proc/&lt;p&gt;/cgroup</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">Overlay FS: layers</tspan>
+  </text>
+  <!-- Footer -->
+  <rect x="22" y="393" width="756" height="78" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="400" y="411" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="monospace">
+    <tspan x="400" dy="0">Container = namespace isolation + cgroup limits + overlay FS | VM = full guest OS + hypervisor</tspan>
+    <tspan x="400" dy="15">LFCS: podman run/exec/ps | virsh list/start/shutdown/snapshot | lsns | nsenter | cgroups</tspan>
+    <tspan x="400" dy="15">Rootless podman: UID namespace mapping | no daemon | Overlay FS | OCI runtime (runc/crun)</tspan>
+  </text>
+</svg>

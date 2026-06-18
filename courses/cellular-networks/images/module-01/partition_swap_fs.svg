@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="gcyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8"/><stop offset="100%" style="stop-color:#0369a1"/></linearGradient>
+    <linearGradient id="ggreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399"/><stop offset="100%" style="stop-color:#047857"/></linearGradient>
+    <linearGradient id="gyellow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/><stop offset="100%" style="stop-color:#b45309"/></linearGradient>
+    <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/></marker>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/></pattern>
+  </defs>
+  <rect width="800" height="500" fill="#0a0f1d"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <rect x="15" y="15" width="770" height="470" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.6"/>
+  <text x="400" y="42" text-anchor="middle" fill="#38bdf8" font-size="17" font-weight="bold" font-family="sans-serif">Partitioning · Filesystem · Swap</text>
+  <text x="400" y="62" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="sans-serif">fdisk/gdisk · mkfs/tune2fs/xfs · mkswap/swapon | LFCS Essential</text>
+  <!-- Panel 1: Partitioning (cyan) -->
+  <rect x="22" y="78" width="238" height="300" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="141" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="141" dy="0">Partitioning</tspan>
+    <tspan x="141" dy="15" font-size="9" font-family="monospace" fill="#e0f2fe">lsblk (block device tree)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">fdisk /dev/sda (MBR)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe"> n(new) d(del) p(print) w(write)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">gdisk /dev/sda (GPT)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">parted /dev/sda</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe"> mkpart primary 0% 20G</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">MBR: max 4 primary / 2TB</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">GPT: 128 parts / 8ZiB</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">UEFI requires GPT+ESP</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">blkid (UUID+type)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">fdisk -l (list all)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">partprobe (re-read)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">sgdisk --zap-all /dev/sda</tspan>
+  </text>
+  <!-- Arrow 1→2 -->
+  <line x1="260" y1="228" x2="270" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 2: Filesystem (green) -->
+  <rect x="280" y="78" width="238" height="300" rx="6" fill="url(#ggreen)" filter="url(#glow)" opacity="0.9"/>
+  <text x="399" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="399" dy="0">Filesystem</tspan>
+    <tspan x="399" dy="15" font-size="9" font-family="monospace" fill="#d1fae5">mkfs.ext4 /dev/sda1</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">mkfs.xfs /dev/sda2</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">mkfs.btrfs /dev/sda3</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">mount /dev/sda1 /mnt</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">umount /mnt</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">/etc/fstab (persistent)</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5"> UUID=xxx /path ext4 defaults 0 2</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">mount -a (apply fstab)</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">tune2fs -l /dev/sda1</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">tune2fs -L label /dev/sda1</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">resize2fs /dev/sda1</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">xfs_repair /dev/sda2</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">df -h / du -sh /path</tspan>
+  </text>
+  <!-- Arrow 2→3 -->
+  <line x1="518" y1="228" x2="528" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 3: Swap (yellow) -->
+  <rect x="538" y="78" width="238" height="300" rx="6" fill="url(#gyellow)" filter="url(#glow)" opacity="0.9"/>
+  <text x="657" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="657" dy="0">Swap</tspan>
+    <tspan x="657" dy="15" font-size="9" font-family="monospace" fill="#fef3c7">mkswap /dev/sda3</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">swapon /dev/sda3</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">swapoff /dev/sda3</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">swapon -s (show)</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">free -h (RAM+swap)</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">/etc/fstab swap entry:</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7"> UUID=x none swap sw 0 0</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">Swap file:</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7"> dd if=/dev/zero of=/swapfile</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">  bs=1M count=2048</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7"> chmod 600 /swapfile</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7"> mkswap /swapfile</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">vm.swappiness=10 (sysctl)</tspan>
+  </text>
+  <!-- Footer -->
+  <rect x="22" y="393" width="756" height="78" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="400" y="411" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="monospace">
+    <tspan x="400" dy="0">LFCS: lsblk | fdisk -l | mkfs.ext4 | mount -a | tune2fs | resize2fs | mkswap | swapon</tspan>
+    <tspan x="400" dy="15">fstab fields: device mountpoint fstype options dump pass | UUID=xxx recommended over /dev/</tspan>
+    <tspan x="400" dy="15">ext4 vs xfs: ext4(resize both ways) xfs(grow only, faster parallel I/O) | btrfs(snapshots,raid)</tspan>
+  </text>
+</svg>

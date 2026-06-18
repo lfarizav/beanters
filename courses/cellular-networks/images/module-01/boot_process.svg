@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="gcyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8"/><stop offset="100%" style="stop-color:#0369a1"/></linearGradient>
+    <linearGradient id="ggreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399"/><stop offset="100%" style="stop-color:#047857"/></linearGradient>
+    <linearGradient id="gyellow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/><stop offset="100%" style="stop-color:#b45309"/></linearGradient>
+    <linearGradient id="gred" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f87171"/><stop offset="100%" style="stop-color:#be123c"/></linearGradient>
+    <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/></marker>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/></pattern>
+  </defs>
+  <rect width="800" height="500" fill="#0a0f1d"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <rect x="15" y="15" width="770" height="470" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.6"/>
+  <text x="400" y="42" text-anchor="middle" fill="#38bdf8" font-size="17" font-weight="bold" font-family="sans-serif">Linux Boot Process</text>
+  <text x="400" y="62" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="sans-serif">BIOS/UEFI → GRUB2 → Kernel → initramfs → systemd | LFCS Essential</text>
+  <!-- Panel 1: BIOS/UEFI (red) -->
+  <rect x="22" y="78" width="178" height="300" rx="6" fill="url(#gred)" filter="url(#glow)" opacity="0.9"/>
+  <text x="111" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="111" dy="0">BIOS / UEFI</tspan>
+    <tspan x="111" dy="15" font-size="9" font-family="monospace" fill="#fecaca">Power-on Self-Test (POST)</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">BIOS: MBR at LBA 0</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">MBR: 446B+64B+2B</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">UEFI: GPT + ESP</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">ESP: FAT32 /boot/efi</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">Secure Boot: signature check</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">efibootmgr -v (entries)</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">efibootmgr -n &lt;num&gt;</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">mokutil --sb-state</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">Boot order: BIOS setup</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">ACPI tables: power mgmt</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">dmidecode -t bios</tspan>
+    <tspan x="111" dy="13" font-size="9" font-family="monospace" fill="#fecaca">dmesg | head -30</tspan>
+  </text>
+  <!-- Arrow 1→2 -->
+  <line x1="200" y1="228" x2="210" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 2: GRUB2 (yellow) -->
+  <rect x="212" y="78" width="178" height="300" rx="6" fill="url(#gyellow)" filter="url(#glow)" opacity="0.9"/>
+  <text x="301" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="301" dy="0">GRUB2 Bootloader</tspan>
+    <tspan x="301" dy="15" font-size="9" font-family="monospace" fill="#fef3c7">/boot/grub2/grub.cfg</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">/etc/default/grub (edit)</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">GRUB_TIMEOUT=5</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">GRUB_CMDLINE_LINUX</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">grub2-mkconfig -o cfg</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">update-grub (Debian)</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">grub2-install /dev/sda</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">grub rescue prompt</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">kernel params: ro quiet</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">init=/bin/bash (single)</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">rd.break (initramfs)</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">systemd.unit=target</tspan>
+    <tspan x="301" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">ls /boot/grub2/</tspan>
+  </text>
+  <!-- Arrow 2→3 -->
+  <line x1="390" y1="228" x2="400" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 3: Kernel+initramfs (cyan) -->
+  <rect x="402" y="78" width="178" height="300" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="491" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="491" dy="0">Kernel + initramfs</tspan>
+    <tspan x="491" dy="15" font-size="9" font-family="monospace" fill="#e0f2fe">/boot/vmlinuz-$(uname -r)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">/boot/initramfs-*.img</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">lsinitrd (inspect initrd)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">dracut -f (rebuild initrd)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">mkinitcpio (Arch)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">uname -r (kernel ver)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">/proc/cmdline (params)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">dmesg -T (kernel ring)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">lsmod (loaded modules)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">modprobe module_name</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">modprobe -r (remove)</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">/etc/modules-load.d/</tspan>
+    <tspan x="491" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">kexec -l (hot reboot)</tspan>
+  </text>
+  <!-- Arrow 3→4 -->
+  <line x1="580" y1="228" x2="590" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 4: systemd (green) -->
+  <rect x="592" y="78" width="178" height="300" rx="6" fill="url(#ggreen)" filter="url(#glow)" opacity="0.9"/>
+  <text x="681" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="681" dy="0">systemd — PID 1</tspan>
+    <tspan x="681" dy="15" font-size="9" font-family="monospace" fill="#d1fae5">systemctl list-units</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">systemctl status svc</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">systemctl start/stop/restart</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">systemctl enable/disable</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">systemctl get-default</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">systemctl set-default</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">Targets: multi-user / graphical</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">rescue.target emergency</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">journalctl -b (this boot)</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">journalctl -u unit -f</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">systemd-analyze blame</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">/etc/systemd/system/</tspan>
+    <tspan x="681" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">systemctl daemon-reload</tspan>
+  </text>
+  <!-- Footer -->
+  <rect x="22" y="393" width="756" height="78" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="400" y="411" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="monospace">
+    <tspan x="400" dy="0">Boot Sequence: Firmware(POST) → Bootloader(GRUB2) → Kernel(vmlinuz) → initramfs → /sbin/init(systemd)</tspan>
+    <tspan x="400" dy="15">LFCS: grub2-mkconfig | dracut -f | systemctl enable | journalctl -b | systemd-analyze blame</tspan>
+    <tspan x="400" dy="15">Recovery: rd.break(initramfs shell) | init=/bin/bash | systemctl rescue | grub rescue prompt</tspan>
+  </text>
+</svg>

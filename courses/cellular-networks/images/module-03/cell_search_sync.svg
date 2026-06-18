@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/>
+    </pattern>
+    
+    <!-- Glowing filters -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <linearGradient id="gA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#0369a1" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gD" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f87171" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#be123c" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gE" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#4338ca" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gF" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#0f766e" stop-opacity="0.05"/>
+    </linearGradient>
+    
+    <!-- Markers -->
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981"/>
+    </marker>
+    <marker id="arr-yellow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#fbbf24"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="450" fill="#0a0f1d"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+  <rect x="15" y="15" width="770" height="420" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Blueprint Header -->
+  <text x="35" y="48" fill="#94a3b8" font-size="13" font-family="monospace" letter-spacing="1.5">RAN.SSB // 5G NR SSB PHYSICAL RESOURCE GRID</text>
+  <line x1="35" y1="58" x2="765" y2="58" stroke="#38bdf8" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Time / Symbol Axis -->
+  <g transform="translate(60, 360)">
+    <line x1="0" y1="0" x2="680" y2="0" stroke="#475569" stroke-width="1"/>
+    <text x="85" y="16" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="monospace">Symbol 0 (PSS)</text>
+    <text x="255" y="16" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="monospace">Symbol 1 (PBCH)</text>
+    <text x="425" y="16" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="monospace">Symbol 2 (SSS/PBCH)</text>
+    <text x="595" y="16" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="monospace">Symbol 3 (PBCH)</text>
+  </g>
+
+  <!-- Frequency / Subcarrier Axis -->
+  <g transform="translate(60, 80)">
+    <line x1="0" y1="0" x2="0" y2="280" stroke="#475569" stroke-width="1"/>
+    <text x="-10" y="10" text-anchor="end" fill="#94a3b8" font-size="9" font-family="monospace">k = 239</text>
+    <text x="-10" y="140" text-anchor="end" fill="#94a3b8" font-size="9" font-family="monospace">k = 120</text>
+    <text x="-10" y="270" text-anchor="end" fill="#94a3b8" font-size="9" font-family="monospace">k = 0</text>
+  </g>
+
+  <!-- Resource Block Grid Columns -->
+  <!-- Symbol 0 (PSS) -->
+  <g transform="translate(60, 80)">
+    <!-- Subcarriers 0-55 (PBCH / Guard) -->
+    <rect x="0" y="215" width="170" height="65" rx="2" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.3"/>
+    
+    <!-- Subcarriers 56-182 (PSS) -->
+    <rect x="0" y="65" width="170" height="150" rx="3" fill="url(#gB)" stroke="#38bdf8" stroke-width="1" filter="url(#glow-cyan)"/>
+    <text x="85" y="145" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">PSS (Primary Sync)</text>
+    <text x="85" y="160" text-anchor="middle" fill="#e0f2fe" font-size="8" font-family="monospace">127 subcarriers</text>
+    
+    <!-- Subcarriers 183-239 (PBCH / Guard) -->
+    <rect x="0" y="0" width="170" height="65" rx="2" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.3"/>
+  </g>
+
+  <!-- Symbol 1 (PBCH) -->
+  <g transform="translate(230, 80)">
+    <rect x="0" y="0" width="170" height="280" rx="3" fill="url(#gA)" stroke="#fbbf24" stroke-width="1"/>
+    <text x="85" y="140" text-anchor="middle" fill="#fef3c7" font-size="11" font-weight="bold">PBCH (MIB Content)</text>
+    <text x="85" y="155" text-anchor="middle" fill="#d97706" font-size="8" font-family="monospace">240 subcarriers + DM-RS</text>
+  </g>
+
+  <!-- Symbol 2 (SSS & PBCH) -->
+  <g transform="translate(400, 80)">
+    <!-- Subcarriers 0-55 (PBCH) -->
+    <rect x="0" y="215" width="170" height="65" rx="2" fill="url(#gA)" stroke="#fbbf24" stroke-width="1"/>
+    <text x="85" y="250" text-anchor="middle" fill="#fef3c7" font-size="9">PBCH</text>
+    
+    <!-- Subcarriers 56-182 (SSS) -->
+    <rect x="0" y="65" width="170" height="150" rx="3" fill="url(#gC)" stroke="#10b981" stroke-width="1" filter="url(#glow-green)"/>
+    <text x="85" y="145" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">SSS (Secondary Sync)</text>
+    <text x="85" y="160" text-anchor="middle" fill="#d1fae5" font-size="8" font-family="monospace">127 subcarriers</text>
+    
+    <!-- Subcarriers 183-239 (PBCH) -->
+    <rect x="0" y="0" width="170" height="65" rx="2" fill="url(#gA)" stroke="#fbbf24" stroke-width="1"/>
+    <text x="85" y="35" text-anchor="middle" fill="#fef3c7" font-size="9">PBCH</text>
+  </g>
+
+  <!-- Symbol 3 (PBCH) -->
+  <g transform="translate(570, 80)">
+    <rect x="0" y="0" width="170" height="280" rx="3" fill="url(#gA)" stroke="#fbbf24" stroke-width="1"/>
+    <text x="85" y="140" text-anchor="middle" fill="#fef3c7" font-size="11" font-weight="bold">PBCH (MIB Content)</text>
+    <text x="85" y="155" text-anchor="middle" fill="#d97706" font-size="8" font-family="monospace">240 subcarriers + DM-RS</text>
+  </g>
+</svg>

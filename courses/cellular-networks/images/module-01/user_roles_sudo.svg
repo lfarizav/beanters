@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 330">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.3"/>
+    </pattern>
+    <linearGradient id="grad-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="grad-green" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="grad-red" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#be123c" stop-opacity="0.02"/>
+    </linearGradient>
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="440" height="330" fill="url(#grid)" rx="6"/>
+  <text x="15" y="22" fill="#38bdf8" font-size="8" font-family="monospace" letter-spacing="1">SEC.PRIVILEGES // USER ROLES &amp; SUDOERS PRIVILEGE MATRIX</text>
+  <line x1="15" y1="26" x2="425" y2="26" stroke="#38bdf8" stroke-width="1" opacity="0.2"/>
+
+  <!-- Level 1: Root Master -->
+  <g transform="translate(15, 120)">
+    <rect width="70" height="42" rx="4" fill="url(#grad-red)" stroke="#f43f5e" stroke-width="1.2"/>
+    <text x="30" y="18" fill="#fecdd3" font-size="8.5" font-weight="bold" font-family="sans-serif" text-anchor="middle">root</text>
+    <text x="35" y="32" fill="#64748b" font-size="6" font-family="sans-serif" text-anchor="middle">Emergency Only</text>
+  </g>
+
+  <!-- Level 2: Roles Groups -->
+  <!-- 5g-operators -->
+  <g transform="translate(145, 60)">
+    <rect width="110" height="42" rx="4" fill="url(#grad-cyan)" stroke="#06b6d4" stroke-width="1.2" filter="url(#glow-cyan)"/>
+    <text x="55" y="18" fill="#e2e8f0" font-size="8.5" font-weight="bold" font-family="sans-serif" text-anchor="middle">5g-operators</text>
+    <text x="55" y="30" fill="#cbd5e1" font-size="6.5" font-family="sans-serif" text-anchor="middle">operator5g (UID 1001)</text>
+    <text x="55" y="38" fill="#0891b2" font-size="5.5" font-family="monospace" text-anchor="middle">sudo systemctl start/stop</text>
+  </g>
+
+  <!-- 5g-readonly -->
+  <g transform="translate(145, 140)">
+    <rect width="110" height="42" rx="4" fill="url(#grad-green)" stroke="#10b981" stroke-width="1.2"/>
+    <text x="55" y="18" fill="#a7f3d0" font-size="8.5" font-weight="bold" font-family="sans-serif" text-anchor="middle">5g-readonly</text>
+    <text x="55" y="30" fill="#cbd5e1" font-size="6.5" font-family="sans-serif" text-anchor="middle">noc-eng (UID 1002)</text>
+    <text x="55" y="38" fill="#34d399" font-size="5.5" font-family="monospace" text-anchor="middle">sudo journalctl / status</text>
+  </g>
+
+  <!-- open5gs system daemon -->
+  <g transform="translate(145, 210)">
+    <rect width="110" height="42" rx="4" fill="#0b1329" stroke="#334155" stroke-width="1"/>
+    <text x="55" y="18" fill="#cbd5e1" font-size="8.5" font-weight="bold" font-family="sans-serif" text-anchor="middle">open5gs (Daemon)</text>
+    <text x="55" y="30" fill="#64748b" font-size="6.5" font-family="sans-serif" text-anchor="middle">No login allowed</text>
+    <text x="55" y="38" fill="#cbd5e1" font-size="5.5" font-family="monospace" text-anchor="middle">Runs service processes</text>
+  </g>
+
+  <!-- Connectors -->
+  <path d="M 85,141 L 115,141 L 115,81 L 145,81" fill="none" stroke="#06b6d4" stroke-width="1.2"/>
+  <path d="M 85,141 L 115,141 L 115,161 L 145,161" fill="none" stroke="#10b981" stroke-width="1.2"/>
+  <path d="M 85,141 L 115,141 L 115,231 L 145,231" fill="none" stroke="#475569" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Sudoers details card -->
+  <g transform="translate(270, 75)">
+    <rect width="150" height="110" rx="3" fill="#0b1329" stroke="#334155" stroke-width="1"/>
+    <text x="15" y="16" fill="#38bdf8" font-size="7.5" font-family="monospace">/etc/sudoers.d/5g-roles</text>
+    <line x1="15" y1="20" x2="135" y2="20" stroke="#334155" stroke-width="0.8"/>
+    <text x="15" y="32" fill="#e2e8f0" font-size="6" font-family="monospace" text-anchor="start">%5g-operators ALL=(root) \</text>
+    <text x="25" y="42" fill="#22d3ee" font-size="6" font-family="monospace" text-anchor="start">NOPASSWD: /bin/systemctl *</text>
+    <text x="15" y="58" fill="#e2e8f0" font-size="6" font-family="monospace" text-anchor="start">%5g-readonly ALL=(root) \</text>
+    <text x="25" y="68" fill="#34d399" font-size="6" font-family="monospace" text-anchor="start">NOPASSWD: /bin/journalctl *</text>
+    <text x="15" y="86" fill="#cbd5e1" font-size="6.5" font-family="sans-serif" text-anchor="start">Allows fine-grained roles without</text>
+    <text x="15" y="96" fill="#cbd5e1" font-size="6.5" font-family="sans-serif" text-anchor="start">sharing root credentials</text>
+  </g>
+
+  <text x="15" y="310" fill="#475569" font-size="7" font-family="monospace">BLUEPRINT // ROLE SEPARATION SUDOERS MANAGEMENT MATRIX</text>
+  <text x="425" y="310" fill="#475569" font-size="7" font-family="monospace" text-anchor="end">SUDO POLICIES SPEC REFERENCE</text>
+</svg>

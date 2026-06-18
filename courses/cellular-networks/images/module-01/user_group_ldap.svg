@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="gcyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8"/><stop offset="100%" style="stop-color:#0369a1"/></linearGradient>
+    <linearGradient id="ggreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399"/><stop offset="100%" style="stop-color:#047857"/></linearGradient>
+    <linearGradient id="gpurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#4338ca"/></linearGradient>
+    <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/></marker>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/></pattern>
+  </defs>
+  <rect width="800" height="500" fill="#0a0f1d"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <rect x="15" y="15" width="770" height="470" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.6"/>
+  <text x="400" y="42" text-anchor="middle" fill="#38bdf8" font-size="17" font-weight="bold" font-family="sans-serif">Users · Groups · PAM/LDAP</text>
+  <text x="400" y="62" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="sans-serif">Local Accounts · Group Mgmt · Directory Auth | LFCS Essential</text>
+  <!-- Panel 1: Users (cyan) -->
+  <rect x="22" y="78" width="238" height="300" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="141" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="141" dy="0">User Management</tspan>
+    <tspan x="141" dy="15" font-size="9" font-family="monospace" fill="#e0f2fe">useradd -m -s /bin/bash u</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">useradd -u 1001 -G dev u</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">passwd username</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">usermod -aG docker user</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">usermod -s /sbin/nologin</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">usermod -L (lock)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">usermod -U (unlock)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">userdel -r user (+ home)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">/etc/passwd: user:x:uid:gid</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">/etc/shadow: hashed pw</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">chage -l user (expiry)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">chage -E 2025-12-31 user</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">id user / who / w</tspan>
+  </text>
+  <!-- Arrow 1→2 -->
+  <line x1="260" y1="228" x2="270" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 2: Groups (green) -->
+  <rect x="280" y="78" width="238" height="300" rx="6" fill="url(#ggreen)" filter="url(#glow)" opacity="0.9"/>
+  <text x="399" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="399" dy="0">Group Management</tspan>
+    <tspan x="399" dy="15" font-size="9" font-family="monospace" fill="#d1fae5">groupadd -g 2000 devs</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">groupmod -n new old</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">groupdel groupname</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">gpasswd -a user group</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">gpasswd -d user group</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">gpasswd -A admin group</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">newgrp groupname</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">/etc/group: grp:x:gid:users</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">/etc/gshadow: group pw</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">groups user (list)</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">primary vs supplementary</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">SGID dir: inherit group</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#d1fae5">getent group groupname</tspan>
+  </text>
+  <!-- Arrow 2→3 -->
+  <line x1="518" y1="228" x2="528" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 3: PAM+LDAP (purple) -->
+  <rect x="538" y="78" width="238" height="300" rx="6" fill="url(#gpurple)" filter="url(#glow)" opacity="0.9"/>
+  <text x="657" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="657" dy="0">PAM · LDAP · sssd</tspan>
+    <tspan x="657" dy="15" font-size="9" font-family="monospace" fill="#ede9fe">/etc/pam.d/ (per service)</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">pam_tally2 --user=u</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">pam_faillock --reset</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">pam_pwquality: complexity</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">pam_limits: ulimit rules</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">/etc/nsswitch.conf</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe"> passwd: files sss ldap</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">sssd.conf: [domain/LDAP]</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">authconfig / realm join</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">ldapsearch -x -H ldap://</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">getent passwd (from ldap)</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">sssctl user-show user</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">journalctl -u sssd</tspan>
+  </text>
+  <!-- Footer -->
+  <rect x="22" y="393" width="756" height="78" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="400" y="411" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="monospace">
+    <tspan x="400" dy="0">Files: /etc/passwd(users) /etc/shadow(hashes) /etc/group(groups) /etc/gshadow</tspan>
+    <tspan x="400" dy="15">LFCS: useradd -m | usermod -aG | passwd | chage | groupadd | gpasswd | PAM | sssd</tspan>
+    <tspan x="400" dy="15">Lock: usermod -L | passwd -l | shell=/sbin/nologin | expire: chage -E 1970-01-01 user</tspan>
+  </text>
+</svg>

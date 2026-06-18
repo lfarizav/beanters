@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="gcyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8"/><stop offset="100%" style="stop-color:#0369a1"/></linearGradient>
+    <linearGradient id="gpurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#4338ca"/></linearGradient>
+    <linearGradient id="gred" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f87171"/><stop offset="100%" style="stop-color:#be123c"/></linearGradient>
+    <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/></marker>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/></pattern>
+  </defs>
+  <rect width="800" height="500" fill="#0a0f1d"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <rect x="15" y="15" width="770" height="470" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.6"/>
+  <text x="400" y="42" text-anchor="middle" fill="#38bdf8" font-size="17" font-weight="bold" font-family="sans-serif">MAC: SELinux · AppArmor · seccomp</text>
+  <text x="400" y="62" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="sans-serif">Mandatory Access Control · Kernel Security Modules | LFCS Essential</text>
+  <!-- Panel 1: SELinux (red) -->
+  <rect x="22" y="78" width="238" height="300" rx="6" fill="url(#gred)" filter="url(#glow)" opacity="0.9"/>
+  <text x="141" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="141" dy="0">SELinux — RHEL/Fedora</tspan>
+    <tspan x="141" dy="15" font-size="9" font-family="monospace" fill="#fecaca">getenforce (mode)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">setenforce 0 (permissive)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">setenforce 1 (enforcing)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">/etc/selinux/config</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">SELINUX=enforcing</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">ls -Z (context label)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">ps -Z (process context)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">chcon -t httpd_t file</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">restorecon -Rv /path</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">semanage fcontext -a</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">getsebool / setsebool</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">audit2allow -a (gen rules)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#fecaca">ausearch -m avc (denials)</tspan>
+  </text>
+  <!-- Arrow 1→2 -->
+  <line x1="260" y1="228" x2="270" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 2: AppArmor (purple) -->
+  <rect x="280" y="78" width="238" height="300" rx="6" fill="url(#gpurple)" filter="url(#glow)" opacity="0.9"/>
+  <text x="399" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="399" dy="0">AppArmor — Debian/Ubuntu</tspan>
+    <tspan x="399" dy="15" font-size="9" font-family="monospace" fill="#ede9fe">aa-status (active profiles)</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">aa-enforce /path/to/bin</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">aa-complain /path/to/bin</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">aa-disable profile</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">/etc/apparmor.d/ profiles</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">apparmor_parser -r file</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">Profile syntax:</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe"> /path/** rw,</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe"> network inet stream,</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe"> capability net_admin,</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">aa-genprof binary</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">dmesg | grep apparmor</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#ede9fe">enforce vs complain mode</tspan>
+  </text>
+  <!-- Arrow 2→3 -->
+  <line x1="518" y1="228" x2="528" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 3: seccomp+audit (cyan) -->
+  <rect x="538" y="78" width="238" height="300" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="657" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="657" dy="0">seccomp · auditd</tspan>
+    <tspan x="657" dy="15" font-size="9" font-family="monospace" fill="#e0f2fe">seccomp: syscall filter</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">SECCOMP_MODE_FILTER</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">Docker: --security-opt</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">seccomp=profile.json</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">capabilities: cap_add</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">capsh --print</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">setcap cap_net_raw+ep bin</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">auditd: kernel audit log</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">auditctl -w /etc/passwd</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">ausearch -k keyword</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">aureport --summary</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">/etc/audit/rules.d/</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">augenrules --load</tspan>
+  </text>
+  <!-- Footer -->
+  <rect x="22" y="393" width="756" height="78" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="400" y="411" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="monospace">
+    <tspan x="400" dy="0">MAC enforces policy ABOVE DAC (owner/group). Process contexts restrict even root.</tspan>
+    <tspan x="400" dy="15">LFCS: getenforce | setenforce | chcon -t | restorecon | aa-status | aa-enforce | audit2allow</tspan>
+    <tspan x="400" dy="15">SELinux: user:role:type:level | AppArmor: path-based profiles | seccomp: syscall whitelist</tspan>
+  </text>
+</svg>

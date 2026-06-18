@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="gcyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8"/><stop offset="100%" style="stop-color:#0369a1"/></linearGradient>
+    <linearGradient id="gyellow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/><stop offset="100%" style="stop-color:#b45309"/></linearGradient>
+    <linearGradient id="gred" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f87171"/><stop offset="100%" style="stop-color:#be123c"/></linearGradient>
+    <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/></marker>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/></pattern>
+  </defs>
+  <rect width="800" height="500" fill="#0a0f1d"/>
+  <rect width="800" height="500" fill="url(#grid)"/>
+  <rect x="15" y="15" width="770" height="470" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.6"/>
+  <text x="400" y="42" text-anchor="middle" fill="#38bdf8" font-size="17" font-weight="bold" font-family="sans-serif">Storage Performance · ACL · RAID</text>
+  <text x="400" y="62" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="sans-serif">I/O Tuning · Access Control Lists · RAID/LUKS | LFCS Essential</text>
+  <!-- Panel 1: Storage Performance (cyan) -->
+  <rect x="22" y="78" width="238" height="300" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="141" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="141" dy="0">Storage Performance</tspan>
+    <tspan x="141" dy="15" font-size="9" font-family="monospace" fill="#e0f2fe">iostat -xz 1 (per-dev stats)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">iotop -o (I/O by process)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">fio --name=test --bs=4k</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe"> --rw=randread --numjobs=4</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">hdparm -Tt /dev/sda</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">smartctl -a /dev/sda</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">smartctl -t short /dev/sda</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">I/O scheduler: /sys/block/</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe"> sda/queue/scheduler</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">mq-deadline / none(NVMe)</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">readahead: blockdev --setra</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">blktrace -d /dev/sda</tspan>
+    <tspan x="141" dy="13" font-size="9" font-family="monospace" fill="#e0f2fe">cat /proc/diskstats</tspan>
+  </text>
+  <!-- Arrow 1→2 -->
+  <line x1="260" y1="228" x2="270" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 2: ACL (yellow) -->
+  <rect x="280" y="78" width="238" height="300" rx="6" fill="url(#gyellow)" filter="url(#glow)" opacity="0.9"/>
+  <text x="399" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="399" dy="0">ACL Management</tspan>
+    <tspan x="399" dy="15" font-size="9" font-family="monospace" fill="#fef3c7">getfacl file</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">setfacl -m u:alice:rw file</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">setfacl -m g:devs:rx file</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">setfacl -m o::r file</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">setfacl -d -m u:x:rwx dir</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">setfacl -x u:alice file</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">setfacl -b file (remove all)</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">setfacl -k dir (rm defaults)</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">getfacl f | setfacl -M- f2</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">ls -l: + means ACL active</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">mount -o acl (enable ACL)</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">tune2fs -l | grep acl</tspan>
+    <tspan x="399" dy="13" font-size="9" font-family="monospace" fill="#fef3c7">mask: effective permission</tspan>
+  </text>
+  <!-- Arrow 2→3 -->
+  <line x1="518" y1="228" x2="528" y2="228" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arw)"/>
+  <!-- Panel 3: RAID+LUKS (red) -->
+  <rect x="538" y="78" width="238" height="300" rx="6" fill="url(#gred)" filter="url(#glow)" opacity="0.9"/>
+  <text x="657" y="98" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">
+    <tspan x="657" dy="0">RAID · LUKS encryption</tspan>
+    <tspan x="657" dy="15" font-size="9" font-family="monospace" fill="#fecaca">mdadm --create /dev/md0</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca"> --level=1 --raid-devices=2</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca"> /dev/sdb /dev/sdc</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca">cat /proc/mdstat</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca">mdadm --detail /dev/md0</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca">mdadm --add md0 /dev/sdd</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca">RAID: 0(stripe) 1(mirror)</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca"> 5(parity) 6(2parity)</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca">cryptsetup luksFormat /dev/x</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca">cryptsetup luksOpen /dev/x n</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca">mkfs.ext4 /dev/mapper/n</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca">/etc/crypttab (auto-unlock)</tspan>
+    <tspan x="657" dy="13" font-size="9" font-family="monospace" fill="#fecaca">cryptsetup luksClose n</tspan>
+  </text>
+  <!-- Footer -->
+  <rect x="22" y="393" width="756" height="78" rx="6" fill="url(#gcyan)" filter="url(#glow)" opacity="0.9"/>
+  <text x="400" y="411" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="monospace">
+    <tspan x="400" dy="0">LFCS: iostat -xz | fio | smartctl -a | setfacl -m | getfacl | mdadm | cryptsetup luksFormat</tspan>
+    <tspan x="400" dy="15">ACL mask: setfacl -m m::rx limits effective perms | default ACL: inherited by new files in dir</tspan>
+    <tspan x="400" dy="15">RAID: 0(speed, no redundancy) 1(mirror,50%) 5(min 3 disks,1 parity) 6(min 4,2 parity)</tspan>
+  </text>
+</svg>

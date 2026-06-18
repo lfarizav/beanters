@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.8" opacity="0.4"/>
+    </pattern>
+    
+    <!-- Glowing filters -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <linearGradient id="gA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#0369a1" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gD" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f87171" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#be123c" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gE" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#4338ca" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="gF" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#0f766e" stop-opacity="0.05"/>
+    </linearGradient>
+    
+    <!-- Markers -->
+    <marker id="arr-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981"/>
+    </marker>
+    <marker id="arr-yellow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#fbbf24"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="450" fill="#0a0f1d"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+  <rect x="15" y="15" width="770" height="420" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Blueprint Header -->
+  <text x="35" y="48" fill="#94a3b8" font-size="13" font-family="monospace" letter-spacing="1.5">DIGI.REV // 2G GSM DIGITAL REVOLUTION CORE INNOVATIONS</text>
+  <line x1="35" y1="58" x2="765" y2="58" stroke="#f87171" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Pillar 1: TDMA Timeslots -->
+  <g transform="translate(45, 90)">
+    <rect width="220" height="310" rx="6" fill="none" stroke="#f87171" stroke-width="1.2" opacity="0.3"/>
+    <text x="110" y="24" text-anchor="middle" fill="#f87171" font-size="12" font-weight="bold" font-family="sans-serif">1. TDMA MULTIPLEXING</text>
+    
+    <!-- 4.615ms Frame -->
+    <rect x="15" y="45" width="190" height="40" rx="3" fill="#1e293b" stroke="#f87171" stroke-width="1"/>
+    <text x="110" y="68" text-anchor="middle" fill="#fca5a5" font-size="10.5" font-weight="bold">GSM Frame (4.615 ms)</text>
+    
+    <!-- 8 Timeslots -->
+    <g transform="translate(15, 100)">
+      <rect x="0" y="0" width="20" height="40" fill="#1e293b" stroke="#475569" stroke-width="0.8"/>
+      <text x="10" y="24" text-anchor="middle" fill="#94a3b8" font-size="9">TS0</text>
+      
+      <rect x="23" y="0" width="25" height="40" fill="url(#gD)" stroke="#f87171" stroke-width="1" filter="url(#glow-cyan)"/>
+      <text x="35.5" y="24" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">TS1</text>
+      
+      <rect x="51" y="0" width="20" height="40" fill="#1e293b" stroke="#475569" stroke-width="0.8"/>
+      <text x="61" y="24" text-anchor="middle" fill="#94a3b8" font-size="9">TS2</text>
+      
+      <rect x="74" y="0" width="20" height="40" fill="#1e293b" stroke="#475569" stroke-width="0.8"/>
+      <text x="84" y="24" text-anchor="middle" fill="#94a3b8" font-size="9">TS3</text>
+      
+      <rect x="97" y="0" width="20" height="40" fill="#1e293b" stroke="#475569" stroke-width="0.8"/>
+      <text x="107" y="24" text-anchor="middle" fill="#94a3b8" font-size="9">TS4</text>
+      
+      <rect x="120" y="0" width="20" height="40" fill="#1e293b" stroke="#475569" stroke-width="0.8"/>
+      <text x="130" y="24" text-anchor="middle" fill="#94a3b8" font-size="9">TS5</text>
+      
+      <rect x="143" y="0" width="20" height="40" fill="#1e293b" stroke="#475569" stroke-width="0.8"/>
+      <text x="153" y="24" text-anchor="middle" fill="#94a3b8" font-size="9">TS6</text>
+      
+      <rect x="166" y="0" width="20" height="40" fill="#1e293b" stroke="#475569" stroke-width="0.8"/>
+      <text x="176" y="24" text-anchor="middle" fill="#94a3b8" font-size="9">TS7</text>
+    </g>
+    
+    <text x="110" y="165" text-anchor="middle" fill="#cbd5e1" font-size="9.5" font-family="monospace">Active timeslot: 576.9 µs</text>
+    <text x="110" y="185" text-anchor="middle" fill="#cbd5e1" font-size="9.5" font-family="monospace">8 users share 200 kHz</text>
+    
+    <rect x="15" y="210" width="190" height="75" rx="3" fill="#1e293b" opacity="0.5"/>
+    <text x="25" y="232" fill="#94a3b8" font-size="9.5">Modulation: GMSK</text>
+    <text x="25" y="252" fill="#94a3b8" font-size="9.5">BT Filter: 0.3 (Gauss)</text>
+    <text x="25" y="272" fill="#94a3b8" font-size="9.5">High spectral efficiency</text>
+  </g>
+
+  <!-- Pillar 2: SIM Card & Authentication -->
+  <g transform="translate(290, 90)">
+    <rect width="220" height="310" rx="6" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity="0.3"/>
+    <text x="110" y="24" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="bold" font-family="sans-serif">2. SECURITY &amp; IMSI</text>
+    
+    <!-- SIM Card shape -->
+    <path d="M 50 50 L 150 50 L 170 70 L 170 170 L 50 170 Z" fill="url(#gB)" stroke="#38bdf8" stroke-width="1.2" filter="url(#glow-cyan)"/>
+    <rect x="75" y="75" width="70" height="60" rx="4" fill="#fbbf24" stroke="#d97706" opacity="0.8"/>
+    <line x1="110" y1="75" x2="110" y2="135" stroke="#d97706" stroke-width="0.8"/>
+    <line x1="75" y1="95" x2="145" y2="95" stroke="#d97706" stroke-width="0.8"/>
+    <line x1="75" y1="115" x2="145" y2="115" stroke="#d97706" stroke-width="0.8"/>
+    
+    <text x="110" y="195" text-anchor="middle" fill="#fef3c7" font-size="11" font-weight="bold">IMSI uncoupled from device</text>
+    
+    <rect x="15" y="210" width="190" height="75" rx="3" fill="#1e293b" opacity="0.5"/>
+    <text x="25" y="232" fill="#94a3b8" font-size="9.5">Authentication: A3/A8</text>
+    <text x="25" y="252" fill="#94a3b8" font-size="9.5">Ciphering: A5/1 Voice</text>
+    <text x="25" y="272" fill="#94a3b8" font-size="9.5">Keys: Ki, RAND, SRES, Kc</text>
+  </g>
+
+  <!-- Pillar 3: SMS Store & Forward -->
+  <g transform="translate(535, 90)">
+    <rect width="220" height="310" rx="6" fill="none" stroke="#10b981" stroke-width="1.2" opacity="0.3"/>
+    <text x="110" y="24" text-anchor="middle" fill="#10b981" font-size="12" font-weight="bold" font-family="sans-serif">3. SMS TEXT MESSAGING</text>
+    
+    <!-- Flow MS -> BSC -> MSC -> SMSC -->
+    <rect x="25" y="45" width="170" height="40" rx="4" fill="url(#gC)" stroke="#10b981" stroke-width="0.8"/>
+    <text x="110" y="68" text-anchor="middle" fill="#d1fae5" font-size="11" font-weight="bold">MS (Mobile Sender)</text>
+
+    <path d="M 110 85 L 110 115" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+    <rect x="25" y="120" width="170" height="40" rx="4" fill="url(#gC)" stroke="#10b981" stroke-width="0.8"/>
+    <text x="110" y="143" text-anchor="middle" fill="#d1fae5" font-size="11" font-weight="bold">SMSC (SMS Center)</text>
+
+    <path d="M 110 160 L 110 190" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arr-green)"/>
+    
+    <rect x="25" y="195" width="170" height="40" rx="4" fill="url(#gC)" stroke="#10b981" stroke-width="0.8"/>
+    <text x="110" y="218" text-anchor="middle" fill="#d1fae5" font-size="11" font-weight="bold">MS (Mobile Receiver)</text>
+
+    <text x="110" y="255" text-anchor="middle" fill="#cbd5e1" font-size="9.5" font-weight="bold">160 Characters payload</text>
+    <text x="110" y="272" text-anchor="middle" fill="#94a3b8" font-size="8.5" font-family="monospace">Transmitted via SDCCH signaling</text>
+  </g>
+</svg>
