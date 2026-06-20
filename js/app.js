@@ -158,13 +158,7 @@ function BeantersLogo({ size = 1.25 }) {
     WebkitBackgroundClip: "text",
     backgroundClip: "text",
     WebkitTextFillColor: "transparent"
-  } }, "bean"), /* @__PURE__ */ React.createElement("span", { style: { color: "var(--text)" } }, "ters"), /* @__PURE__ */ React.createElement("span", { style: {
-    display: "inline-block",
-    color: "var(--gold)",
-    animation: "twinkle 2.5s ease-in-out infinite",
-    marginLeft: "0.15em",
-    marginTop: `-${size * 0.35}rem`
-  } }, /* @__PURE__ */ React.createElement(Sparkle, { size: size * 8, color: "var(--gold)" })));
+  } }, "bean"), /* @__PURE__ */ React.createElement("span", { style: { color: "var(--text)" } }, "ters"));
 }
 function ThemeToggle({ theme, onToggle }) {
   const isDark = theme === "dark";
@@ -395,20 +389,6 @@ function Hero() {
     const t = setTimeout(() => setStarted(true), 350);
     return () => clearTimeout(t);
   }, []);
-  const blobs = [
-    { color: "var(--aqua)", size: "720px", top: "-180px", left: "-160px", duration: "16s", anim: "float" },
-    { color: "var(--magenta)", size: "600px", top: "-80px", right: "-100px", duration: "20s", anim: "float2", delay: "-3s" },
-    { color: "var(--gold)", size: "420px", bottom: "-150px", left: "20%", duration: "18s", anim: "float3", delay: "-7s" },
-    { color: "var(--violet)", size: "380px", top: "40%", right: "30%", duration: "22s", anim: "float", delay: "-5s" }
-  ];
-  const sparkles = [
-    { top: "18%", left: "6%", color: "var(--gold)", size: 16, duration: "3.2s" },
-    { top: "12%", left: "46%", color: "var(--aqua)", size: 10, duration: "2.4s", delay: "-1s" },
-    { top: "32%", right: "8%", color: "var(--magenta)", size: 14, duration: "3.5s", delay: "-2s" },
-    { top: "64%", left: "52%", color: "var(--gold)", size: 8, duration: "2s" },
-    { top: "78%", right: "14%", color: "var(--aqua)", size: 12, duration: "3s", delay: "-1.5s", glow: true },
-    { top: "50%", left: "3%", color: "var(--magenta)", size: 9, duration: "2.6s", delay: "-0.5s" }
-  ];
   return /* @__PURE__ */ React.createElement("section", { id: "hero", style: {
     minHeight: "100vh",
     display: "flex",
@@ -416,31 +396,30 @@ function Hero() {
     padding: "8rem 2rem 5rem",
     position: "relative",
     overflow: "hidden"
-  } }, /* @__PURE__ */ React.createElement(AuroraField, { blobs }), /* @__PURE__ */ React.createElement(FloatingSparkles, { items: sparkles }), /* @__PURE__ */ React.createElement("div", { className: "container", style: { position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: {
+  } }, /* @__PURE__ */ React.createElement("div", { className: "container", style: { position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: {
     display: "inline-flex",
     alignItems: "center",
-    gap: "0.6rem",
-    background: "color-mix(in oklab, var(--surface) 70%, transparent)",
+    gap: "0.5rem",
+    background: "color-mix(in oklab, var(--surface) 80%, transparent)",
     backdropFilter: "blur(12px)",
     WebkitBackdropFilter: "blur(12px)",
     border: "1px solid var(--border-strong)",
     borderRadius: "100px",
-    padding: "0.4rem 1rem 0.4rem 0.5rem",
+    padding: "0.35rem 1rem",
     fontFamily: "var(--font-mono)",
-    fontSize: "0.72rem",
-    letterSpacing: "0.08em",
+    fontSize: "0.7rem",
+    letterSpacing: "0.1em",
     color: "var(--text-mid)",
     marginBottom: "2rem",
     textTransform: "uppercase"
   } }, /* @__PURE__ */ React.createElement("span", { style: {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "22px",
-    height: "22px",
+    display: "inline-block",
+    width: "6px",
+    height: "6px",
     borderRadius: "50%",
-    background: "linear-gradient(135deg, var(--teal), var(--magenta))"
-  } }, /* @__PURE__ */ React.createElement(Sparkle, { size: 11, color: "#fff" })), "AI-native orchestration \xB7 3GPP \xB7 open-source"), /* @__PURE__ */ React.createElement("div", { style: {
+    background: "var(--teal)",
+    flexShrink: 0
+  } }), "AI-native orchestration \xB7 3GPP \xB7 open-source"), /* @__PURE__ */ React.createElement("div", { style: {
     display: "grid",
     gridTemplateColumns: "1.05fr 1fr",
     gap: "4rem",
@@ -483,7 +462,7 @@ function Hero() {
     fontSize: "0.78rem",
     color: "var(--text-dim)",
     marginTop: "0.2rem"
-  } }, s.label))))), /* @__PURE__ */ React.createElement("div", { style: { position: "relative" } }, /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", top: "-30px", right: "20px", color: "var(--gold)", opacity: 0.8, animation: "twinkle 2.4s ease-in-out infinite" } }, /* @__PURE__ */ React.createElement(Sparkle, { size: 22, color: "var(--gold)" })), /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", bottom: "-20px", left: "-20px", color: "var(--magenta)", opacity: 0.7, animation: "twinkle 3s ease-in-out infinite", animationDelay: "-1s" } }, /* @__PURE__ */ React.createElement(Sparkle, { size: 18, color: "var(--magenta)" })), /* @__PURE__ */ React.createElement(CLIWindow, { animate: started })))), /* @__PURE__ */ React.createElement("style", null, `
+  } }, s.label))))), /* @__PURE__ */ React.createElement("div", { style: { position: "relative" } }, /* @__PURE__ */ React.createElement(CLIWindow, { animate: started })))), /* @__PURE__ */ React.createElement("style", null, `
         @media (max-width: 860px) {
           .hero-grid {
             grid-template-columns: 1fr !important;
@@ -819,10 +798,7 @@ function ProductCard({ product }) {
   );
 }
 function Products() {
-  return /* @__PURE__ */ React.createElement("section", { id: "products", style: { position: "relative" } }, /* @__PURE__ */ React.createElement(AuroraField, { blobs: [
-    { color: "var(--magenta)", size: "600px", top: "10%", right: "-200px", duration: "20s" },
-    { color: "var(--aqua)", size: "500px", bottom: "5%", left: "-150px", duration: "24s", delay: "-5s", anim: "float2" }
-  ] }), /* @__PURE__ */ React.createElement("div", { className: "container", style: { position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { marginBottom: "4rem", maxWidth: "720px" } }, /* @__PURE__ */ React.createElement("p", { className: "section-eyebrow" }, /* @__PURE__ */ React.createElement("span", { className: "num" }, "01"), "Products"), /* @__PURE__ */ React.createElement("h2", { className: "section-title" }, "One CLI. ", /* @__PURE__ */ React.createElement("span", { className: "serif" }, "every"), " 3GPP standard."), /* @__PURE__ */ React.createElement("p", { style: {
+  return /* @__PURE__ */ React.createElement("section", { id: "products", style: { position: "relative" } }, /* @__PURE__ */ React.createElement("div", { className: "container", style: { position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { marginBottom: "4rem", maxWidth: "720px" } }, /* @__PURE__ */ React.createElement("p", { className: "section-eyebrow" }, /* @__PURE__ */ React.createElement("span", { className: "num" }, "01"), "Products"), /* @__PURE__ */ React.createElement("h2", { className: "section-title" }, "One CLI. ", /* @__PURE__ */ React.createElement("span", { className: "serif" }, "every"), " 3GPP standard."), /* @__PURE__ */ React.createElement("p", { style: {
     color: "var(--text-mid)",
     fontSize: "1.1rem",
     lineHeight: 1.65,
@@ -945,7 +921,7 @@ function SolutionRow({ solution, index }) {
       display: "inline-flex",
       alignItems: "center",
       gap: "0.5rem"
-    } }, /* @__PURE__ */ React.createElement(Sparkle, { size: 11, color: accentVar }), solution.eyebrow), /* @__PURE__ */ React.createElement("h3", { style: {
+    } }, solution.eyebrow), /* @__PURE__ */ React.createElement("h3", { style: {
       fontFamily: "var(--font-head)",
       fontWeight: 700,
       fontSize: "clamp(1.7rem, 2.6vw, 2.4rem)",
@@ -1148,10 +1124,7 @@ function Mission() {
     borderTop: "1px solid var(--border)",
     position: "relative",
     overflow: "hidden"
-  } }, /* @__PURE__ */ React.createElement(AuroraField, { blobs: [
-    { color: "var(--gold)", size: "700px", top: "-100px", left: "15%", duration: "24s" },
-    { color: "var(--magenta)", size: "500px", bottom: "-80px", right: "10%", duration: "20s", delay: "-6s", anim: "float3" }
-  ] }), /* @__PURE__ */ React.createElement("div", { ref, className: "container", style: {
+  } }, /* @__PURE__ */ React.createElement("div", { ref, className: "container", style: {
     textAlign: "center",
     maxWidth: "1080px",
     position: "relative",
@@ -1211,9 +1184,8 @@ function Mission() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: "1.4rem",
       marginBottom: "1.1rem"
-    } }, c.icon), /* @__PURE__ */ React.createElement("h3", { style: {
+    } }, React.createElement(Icon, { name: c.icon, size: 20, color: accentVar })), /* @__PURE__ */ React.createElement("h3", { style: {
       fontFamily: "var(--font-head)",
       fontWeight: 700,
       fontSize: "1.05rem",
@@ -1317,9 +1289,7 @@ function TestimonialCard({ t }) {
   } }, t.author.split(" ").slice(-1)[0][0], t.author.split(" ")[0][0]), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "var(--font-head)", fontWeight: 600, fontSize: "0.92rem" } }, t.author), /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--text-dim)", letterSpacing: "0.02em" } }, t.role, " \xB7 ", t.org)))));
 }
 function Testimonials() {
-  return /* @__PURE__ */ React.createElement("section", { style: { position: "relative" } }, /* @__PURE__ */ React.createElement(AuroraField, { blobs: [
-    { color: "var(--aqua)", size: "500px", top: "5%", left: "40%", duration: "20s" }
-  ] }), /* @__PURE__ */ React.createElement("div", { className: "container", style: { position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { marginBottom: "3.5rem", maxWidth: "720px" } }, /* @__PURE__ */ React.createElement("p", { className: "section-eyebrow" }, /* @__PURE__ */ React.createElement("span", { className: "num" }, "05"), "What teams say"), /* @__PURE__ */ React.createElement("h2", { className: "section-title" }, /* @__PURE__ */ React.createElement("span", { className: "serif" }, "Trusted"), " by operators", /* @__PURE__ */ React.createElement("br", null), "shipping real networks.")), /* @__PURE__ */ React.createElement("div", { style: {
+  return /* @__PURE__ */ React.createElement("section", { style: { position: "relative" } }, /* @__PURE__ */ React.createElement("div", { className: "container", style: { position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { marginBottom: "3.5rem", maxWidth: "720px" } }, /* @__PURE__ */ React.createElement("p", { className: "section-eyebrow" }, /* @__PURE__ */ React.createElement("span", { className: "num" }, "05"), "What teams say"), /* @__PURE__ */ React.createElement("h2", { className: "section-title" }, /* @__PURE__ */ React.createElement("span", { className: "serif" }, "Trusted"), " by operators", /* @__PURE__ */ React.createElement("br", null), "shipping real networks.")), /* @__PURE__ */ React.createElement("div", { style: {
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
     gap: "1.25rem"
@@ -1348,12 +1318,6 @@ function About() {
     gap: "5rem",
     alignItems: "center"
   }, className: "about-grid" }, /* @__PURE__ */ React.createElement("div", { style: { position: "relative" } }, /* @__PURE__ */ React.createElement("div", { style: {
-    position: "absolute",
-    inset: "-30px",
-    background: "radial-gradient(circle at 30% 30%, color-mix(in oklab, var(--magenta) 30%, transparent), transparent 60%)",
-    filter: "blur(40px)",
-    pointerEvents: "none"
-  } }), /* @__PURE__ */ React.createElement("div", { style: {
     position: "relative",
     aspectRatio: "1/1",
     maxWidth: "420px",
@@ -1368,14 +1332,7 @@ function About() {
     objectFit: "cover",
     objectPosition: "center",
     display: "block"
-  } }), /* @__PURE__ */ React.createElement("div", { style: {
-    position: "absolute",
-    top: "12px",
-    right: "12px",
-    color: "var(--gold)",
-    filter: "drop-shadow(0 0 6px var(--gold))",
-    animation: "twinkle 2.6s ease-in-out infinite"
-  } }, /* @__PURE__ */ React.createElement(Sparkle, { size: 18, color: "var(--gold)" })))), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "section-eyebrow" }, /* @__PURE__ */ React.createElement("span", { className: "num" }, "06"), "About the founder"), /* @__PURE__ */ React.createElement("h2", { style: {
+  } }))), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "section-eyebrow" }, /* @__PURE__ */ React.createElement("span", { className: "num" }, "06"), "About the founder"), /* @__PURE__ */ React.createElement("h2", { style: {
     fontFamily: "var(--font-head)",
     fontWeight: 700,
     fontSize: "clamp(1.9rem, 3vw, 2.6rem)",
@@ -1650,9 +1607,7 @@ function TalkCard({ talk }) {
   );
 }
 function Speaking() {
-  return /* @__PURE__ */ React.createElement("section", { id: "speaking", style: { position: "relative" } }, /* @__PURE__ */ React.createElement(AuroraField, { blobs: [
-    { color: "var(--violet)", size: "500px", top: "5%", right: "-100px", duration: "22s" }
-  ] }), /* @__PURE__ */ React.createElement("div", { className: "container", style: { position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { marginBottom: "3.5rem", maxWidth: "740px" } }, /* @__PURE__ */ React.createElement("p", { className: "section-eyebrow" }, /* @__PURE__ */ React.createElement("span", { className: "num" }, "07"), "Public talks & events"), /* @__PURE__ */ React.createElement("h2", { className: "section-title" }, "From Bogot\xE1 to ", /* @__PURE__ */ React.createElement("span", { className: "serif" }, "Amsterdam.")), /* @__PURE__ */ React.createElement("p", { style: {
+  return /* @__PURE__ */ React.createElement("section", { id: "speaking", style: { position: "relative" } }, /* @__PURE__ */ React.createElement("div", { className: "container", style: { position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { marginBottom: "3.5rem", maxWidth: "740px" } }, /* @__PURE__ */ React.createElement("p", { className: "section-eyebrow" }, /* @__PURE__ */ React.createElement("span", { className: "num" }, "07"), "Public talks & events"), /* @__PURE__ */ React.createElement("h2", { className: "section-title" }, "From Bogot\xE1 to ", /* @__PURE__ */ React.createElement("span", { className: "serif" }, "Amsterdam.")), /* @__PURE__ */ React.createElement("p", { style: {
     color: "var(--text-mid)",
     fontSize: "1.05rem",
     lineHeight: 1.65
@@ -1742,10 +1697,7 @@ function Training() {
     { label: "Full access", amount: "$89 USD", sub: "25 modules + labs + quizzes", accent: "gold", featured: true },
     { label: "Team / University", amount: "$490 USD", sub: "10 seats \xB7 invoice available", accent: "violet" }
   ];
-  return /* @__PURE__ */ React.createElement("section", { id: "training", style: { position: "relative", background: "var(--bg-2)", borderTop: "1px solid var(--border)" } }, /* @__PURE__ */ React.createElement(AuroraField, { blobs: [
-    { color: "var(--teal)", size: "500px", top: "10%", left: "-100px", duration: "20s" },
-    { color: "var(--violet)", size: "400px", bottom: "10%", right: "-100px", duration: "18s", delay: "-5s", anim: "float2" }
-  ] }), /* @__PURE__ */ React.createElement("div", { ref, className: "container", style: {
+  return /* @__PURE__ */ React.createElement("section", { id: "training", style: { position: "relative", background: "var(--bg-2)", borderTop: "1px solid var(--border)" } }, /* @__PURE__ */ React.createElement("div", { ref, className: "container", style: {
     position: "relative",
     zIndex: 1,
     opacity: vis ? 1 : 0,
@@ -3737,10 +3689,7 @@ Message: ${form.msg || "(none)"}`;
     borderTop: "1px solid var(--border)",
     position: "relative",
     overflow: "hidden"
-  } }, /* @__PURE__ */ React.createElement(AuroraField, { blobs: [
-    { color: "var(--teal)", size: "600px", top: "-100px", left: "10%", duration: "22s" },
-    { color: "var(--magenta)", size: "400px", bottom: "5%", right: "5%", duration: "18s", delay: "-4s", anim: "float2" }
-  ] }), /* @__PURE__ */ React.createElement("div", { className: "container", style: {
+  } }, /* @__PURE__ */ React.createElement("div", { className: "container", style: {
     maxWidth: "720px",
     position: "relative",
     zIndex: 1
@@ -3935,17 +3884,7 @@ function Footer() {
     padding: "4rem 2rem 2rem",
     position: "relative",
     overflow: "hidden"
-  } }, /* @__PURE__ */ React.createElement("div", { style: {
-    position: "absolute",
-    bottom: "-200px",
-    left: "40%",
-    transform: "translateX(-50%)",
-    width: "500px",
-    height: "300px",
-    background: "radial-gradient(ellipse, color-mix(in oklab, var(--teal) 18%, transparent), transparent 70%)",
-    filter: "blur(60px)",
-    pointerEvents: "none"
-  } }), /* @__PURE__ */ React.createElement("div", { className: "container", style: { position: "relative" } }, /* @__PURE__ */ React.createElement("div", { style: {
+  } }, /* @__PURE__ */ React.createElement("div", { className: "container", style: { position: "relative" } }, /* @__PURE__ */ React.createElement("div", { style: {
     display: "grid",
     gridTemplateColumns: "1.6fr repeat(4, 1fr)",
     gap: "3rem",
