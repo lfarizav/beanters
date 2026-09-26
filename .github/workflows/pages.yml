@@ -1,0 +1,51 @@
+name: Deploy Beanters site
+
+on:
+  push:
+    branches: [main]
+  # picks up changes of the mirrored community site once a day
+  schedule:
+    - cron: "23 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the Beanters site
+        uses: actions/checkout@v7
+
+      # beanters.com/colombia-openinfra-user-group/ keeps its canonical URL (see its index.html).
+      - name: Mirror the Colombia OpenInfra User Group site
+        uses: actions/checkout@v7
+        with:
+          repository: lfarizav/colombia-openinfra-user-group
+          ref: main
+          path: _mirror/colombia-openinfra-user-group
+
+      - name: Place the mirrored site under its path
+        run: |
+          mkdir -p colombia-openinfra-user-group
+          rsync -a --exclude '.git' --exclude '.github' _mirror/colombia-openinfra-user-group/ colombia-openinfra-user-group/
+          rm -rf _mirror
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
