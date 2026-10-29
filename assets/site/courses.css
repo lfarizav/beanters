@@ -1,0 +1,134 @@
+/* Courses pages only (/courses/ and /courses/cellular-networks/). Reads tokens from site.css. */
+
+/* Aliases so the preview's modal script (which sets var(--teal) / var(--text2) inline) follows the theme. */
+:root { --teal: var(--link); --text2: var(--muted); }
+
+/* ---------- Page head ---------- */
+.chead { padding: clamp(36px, 6vw, 80px) 0 0; }
+.chead__title {
+  margin-top: 14px; font-size: clamp(38px, 5.6vw, 72px); font-weight: 650; line-height: 1.02;
+  letter-spacing: -0.04em; font-stretch: 92%; color: var(--ink); text-wrap: balance; max-width: 16ch;
+}
+.chead .lede { margin-top: 22px; }
+.chead .btn-row { margin-top: 28px; }
+
+.section--first { padding-top: clamp(40px, 6vw, 72px); }
+.section h3 { font-weight: 650; letter-spacing: -0.02em; line-height: 1.2; }
+
+/* ---------- Catalog: the course panel ---------- */
+.course__head {
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 32px;
+  padding: clamp(22px, 3.4vw, 36px);
+}
+.course__title { font-size: clamp(24px, 2.8vw, 32px); margin-top: 12px; }
+.course__head .pills { margin-top: 14px; }
+
+.mod { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 4px 16px; align-items: center; padding: 16px clamp(22px, 3.4vw, 36px); }
+.mod__n { font-size: 14px; font-weight: 650; color: var(--muted); font-variant-numeric: tabular-nums; }
+.mod__t { font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+.mod__d { display: block; margin-top: 1px; font-size: 14.5px; font-weight: 400; color: var(--muted); letter-spacing: 0; }
+.mod--locked .mod__t { color: var(--body); font-weight: 500; font-size: 15px; }
+.pill--free { background: color-mix(in oklab, var(--link) 14%, transparent); color: var(--link); }
+.pill--lock { background: transparent; box-shadow: inset 0 0 0 1px var(--hairline-2); color: var(--muted); }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; }
+.two > * { padding: clamp(22px, 3.4vw, 36px); }
+.two > * + * { border-left: 1px solid var(--hairline); }
+.two h4 { margin: 0 0 12px; font-size: 15px; font-weight: 650; letter-spacing: -0.01em; color: var(--ink); }
+.checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.checks li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; font-size: 15.5px; line-height: 1.5; color: var(--body); }
+.checks li::before { content: ""; width: 10px; height: 6px; margin-top: 6px; border-left: 2px solid var(--link); border-bottom: 2px solid var(--link); transform: rotate(-45deg) scale(.9); }
+.checks--plain li::before { width: 6px; height: 6px; margin-top: 8px; border: 0; border-radius: 50%; background: var(--hairline-2); transform: none; }
+
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.plan { padding: clamp(22px, 3.4vw, 36px); display: flex; flex-direction: column; gap: 4px; }
+.plan + .plan { border-left: 1px solid var(--hairline); }
+.plan__tag { align-self: flex-start; margin-bottom: 8px; }
+.plan__amount { font-size: clamp(28px, 3.2vw, 38px); font-weight: 650; letter-spacing: -0.035em; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.plan__name { margin-top: 6px; font-size: 16px; font-weight: 650; color: var(--ink); }
+.plan__sub { font-size: 14.5px; color: var(--muted); }
+.plan--main { background: var(--surface-2); box-shadow: inset 0 2px 0 var(--ink); }
+.pill--ink { background: var(--btn-primary-bg); color: var(--btn-primary-ink); }
+.plans-h { padding: clamp(22px, 3.4vw, 36px) clamp(22px, 3.4vw, 36px) 0; font-size: 17px; }
+
+.cta-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; padding: clamp(18px, 3vw, 28px) clamp(22px, 3.4vw, 36px); }
+.cta-foot__note { font-size: 14.5px; color: var(--muted); line-height: 1.55; }
+
+/* ---------- Catalog: programs ---------- */
+.lead-in { max-width: 62ch; }
+.who { display: flex; align-items: center; gap: 16px; margin: 0 0 22px; }
+.who img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: none; }
+.who__name { font-size: 16px; font-weight: 650; color: var(--ink); }
+.who__role { margin-top: 2px; font-size: 14.5px; color: var(--muted); }
+
+.prog { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 20px clamp(24px, 4vw, 56px); padding: clamp(22px, 3.4vw, 36px); }
+.prog__level { font-size: 14px; color: var(--muted); font-weight: 500; }
+.prog h3 { margin-top: 6px; font-size: clamp(21px, 2.3vw, 26px); }
+.prog__tag { margin-top: 6px; font-size: 16.5px; font-weight: 550; color: var(--ink-2); letter-spacing: -0.01em; }
+.prog__desc { margin-top: 12px; font-family: var(--serif); font-size: 16px; line-height: 1.8; color: var(--body); max-width: 64ch; }
+.prog .pills { margin-top: 16px; }
+.prog .btn-row { margin-top: 20px; }
+.prog__price { text-align: right; align-self: start; }
+.prog__amount { font-size: clamp(34px, 4vw, 48px); font-weight: 650; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink); }
+.prog__per { margin-top: 8px; font-size: 14.5px; color: var(--muted); }
+.prog__hours { font-size: 14.5px; color: var(--muted); }
+.btn--sm { min-height: 40px; font-size: 14.5px; padding: 0 16px; }
+
+.note { margin-top: 22px; padding: 18px clamp(18px, 3vw, 26px); border-radius: var(--r-card); background: var(--surface); box-shadow: inset 0 0 0 1px var(--hairline-2); font-size: 15.5px; line-height: 1.65; color: var(--body); max-width: 78ch; }
+.note strong { color: var(--ink); font-weight: 650; }
+
+.soon { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 3vw, 28px); }
+.soon .panel { padding: clamp(22px, 3.4vw, 36px); display: flex; flex-direction: column; gap: 12px; }
+.soon h3 { font-size: clamp(20px, 2.2vw, 24px); }
+.soon p { font-family: var(--serif); font-size: 16px; line-height: 1.8; color: var(--body); }
+.soon .pills { margin-top: auto; padding-top: 6px; }
+.soon .pill--lock { align-self: flex-start; }
+
+/* ---------- Preview page ---------- */
+.price3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: clamp(28px, 4vw, 44px); }
+.price3 .plan { padding: 22px clamp(18px, 3vw, 30px); }
+
+.mods { padding: 0; margin: 0; list-style: none; }
+.mods .mod { grid-template-columns: 64px minmax(0, 1fr) auto; }
+.mods .mod__t { font-weight: 500; font-size: 16px; }
+
+.enroll { padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 28px clamp(24px, 5vw, 64px); align-items: start; }
+.enroll h2 { font-size: clamp(26px, 3.2vw, 36px); }
+.enroll__big { margin-top: 14px; font-size: clamp(44px, 6vw, 72px); font-weight: 650; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink); }
+.enroll__note { margin-top: 10px; font-size: 15px; color: var(--muted); }
+.enroll .pills { margin-top: 20px; }
+.enroll__side .btn-row { margin-top: 0; }
+.enroll__side .btn { flex: 1 1 auto; }
+.enroll__side .note { margin-top: 16px; max-width: none; background: var(--surface-2); }
+
+/* Master-key modal (ids and onclick handlers are driven by the page script; do not rename) */
+#key-modal { position: fixed; inset: 0; z-index: 100; background: rgba(8, 14, 22, .6); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 16px; }
+.dialog { position: relative; width: min(480px, 100%); padding: clamp(24px, 4vw, 32px); background: var(--surface); border-radius: var(--r-panel); box-shadow: var(--sh-lift), inset 0 0 0 1px var(--hairline-2); }
+.dialog__x { position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border: 0; border-radius: var(--r-pill); background: transparent; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1; }
+.dialog__x:hover { background: var(--track); color: var(--ink); }
+.dialog h3 { font-size: 21px; margin-bottom: 18px; padding-right: 36px; }
+.tabs { display: flex; border-bottom: 1px solid var(--hairline-2); margin-bottom: 20px; }
+.tabs button { flex: 1; min-height: 44px; padding: 0 8px; background: none; border: 0; border-bottom: 2px solid transparent; cursor: pointer; font-size: 14.5px; transition: color .2s, border-color .2s; }
+.dialog p { font-size: 15px; line-height: 1.6; color: var(--body); }
+.dialog .small { font-size: 13.5px; color: var(--muted); margin-top: 14px; text-align: center; }
+.keyrow { display: flex; gap: 8px; margin-top: 14px; }
+.keyrow input { flex: 1; min-width: 0; min-height: 44px; padding: 0 14px; background: var(--surface-2); color: var(--ink); border: 0; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--hairline-2); font: inherit; font-size: 16px; }
+.keyrow input:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.linkbtn { background: none; border: 0; padding: 0; color: var(--link); cursor: pointer; font: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.dialog .btn--wa { width: 100%; margin-top: 18px; }
+
+@media (max-width: 860px) {
+  .prog { grid-template-columns: 1fr; }
+  .prog__price { text-align: left; order: -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+  .prog__per { margin-top: 0; }
+  .enroll { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .two, .plans, .price3, .soon { grid-template-columns: 1fr; }
+  .two > * + *, .plan + .plan { border-left: 0; border-top: 1px solid var(--hairline); }
+  .mod, .mods .mod { grid-template-columns: 44px minmax(0, 1fr); }
+  .mod .pill { grid-column: 2; justify-self: start; margin-top: 4px; }
+  .cta-foot .btn-row { width: 100%; }
+  .cta-foot .btn { flex: 1 1 auto; }
+  .keyrow { flex-direction: column; }
+}
