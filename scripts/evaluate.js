@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * evaluate.js — Automated UX + Performance evaluation for beanters.com
+ * evaluate.js: Automated UX + Performance evaluation for beanters.com
  * Usage: node scripts/evaluate.js [--url https://beanters.com] [--out reports/]
  *
  * Runs:
@@ -63,12 +63,12 @@ function parseLH(file) {
       seo:             Math.round((cat.seo?.score            ?? 0) * 100),
     },
     metrics: {
-      fcp:  a['first-contentful-paint']?.displayValue  || '—',
-      lcp:  a['largest-contentful-paint']?.displayValue || '—',
-      si:   a['speed-index']?.displayValue             || '—',
-      tti:  a['interactive']?.displayValue             || '—',
-      tbt:  a['total-blocking-time']?.displayValue     || '—',
-      cls:  a['cumulative-layout-shift']?.displayValue || '—',
+      fcp:  a['first-contentful-paint']?.displayValue  || '-',
+      lcp:  a['largest-contentful-paint']?.displayValue || '-',
+      si:   a['speed-index']?.displayValue             || '-',
+      tti:  a['interactive']?.displayValue             || '-',
+      tbt:  a['total-blocking-time']?.displayValue     || '-',
+      cls:  a['cumulative-layout-shift']?.displayValue || '-',
       fcpScore: a['first-contentful-paint']?.score    ?? 0,
       lcpScore: a['largest-contentful-paint']?.score  ?? 0,
       clsScore: a['cumulative-layout-shift']?.score   ?? 0,
@@ -154,7 +154,7 @@ const resourceSummary = desktop?.resources.map(r =>
 ).join('\n') || '';
 
 const failedDesktop = desktop?.failedAudits.slice(0, 10).map(a =>
-  `| ${a.score?.toFixed(2) ?? '—'} | ${a.id} | ${a.value || '—'} |`
+  `| ${a.score?.toFixed(2) ?? '-'} | ${a.id} | ${a.value || '-'} |`
 ).join('\n') || '';
 
 const uxRows = ux.checks?.map(c =>
@@ -162,12 +162,12 @@ const uxRows = ux.checks?.map(c =>
 ).join('\n') || '';
 
 const thirdParty = desktop?.thirdParty.map(t =>
-  `| ${t.entity||'—'} | ${Math.round((t.blockingTime||0))}ms | ${Math.round((t.transferSize||0)/1024)} KB |`
+  `| ${t.entity||'-'} | ${Math.round((t.blockingTime||0))}ms | ${Math.round((t.transferSize||0)/1024)} KB |`
 ).join('\n') || '';
 
 const date = new Date().toISOString().split('T')[0];
 
-const md = `# Automated Evaluation Report — beanters.com
+const md = `# Automated Evaluation Report: beanters.com
 
 **Date:** ${date}
 **URL:** ${URL}
@@ -180,10 +180,10 @@ const md = `# Automated Evaluation Report — beanters.com
 
 | Category | Desktop | Mobile |
 |---|---|---|
-| **Performance** | ${emoji(desktop?.scores.performance)} ${desktop?.scores.performance ?? '—'} | ${emoji(mobile?.scores.performance)} ${mobile?.scores.performance ?? '—'} |
-| **Accessibility** | ${emoji(desktop?.scores.accessibility)} ${desktop?.scores.accessibility ?? '—'} | ${emoji(mobile?.scores.accessibility)} ${mobile?.scores.accessibility ?? '—'} |
-| **Best Practices** | ${emoji(desktop?.scores.bestPractices)} ${desktop?.scores.bestPractices ?? '—'} | ${emoji(mobile?.scores.bestPractices)} ${mobile?.scores.bestPractices ?? '—'} |
-| **SEO** | ${emoji(desktop?.scores.seo)} ${desktop?.scores.seo ?? '—'} | ${emoji(mobile?.scores.seo)} ${mobile?.scores.seo ?? '—'} |
+| **Performance** | ${emoji(desktop?.scores.performance)} ${desktop?.scores.performance ?? '-'} | ${emoji(mobile?.scores.performance)} ${mobile?.scores.performance ?? '-'} |
+| **Accessibility** | ${emoji(desktop?.scores.accessibility)} ${desktop?.scores.accessibility ?? '-'} | ${emoji(mobile?.scores.accessibility)} ${mobile?.scores.accessibility ?? '-'} |
+| **Best Practices** | ${emoji(desktop?.scores.bestPractices)} ${desktop?.scores.bestPractices ?? '-'} | ${emoji(mobile?.scores.bestPractices)} ${mobile?.scores.bestPractices ?? '-'} |
+| **SEO** | ${emoji(desktop?.scores.seo)} ${desktop?.scores.seo ?? '-'} | ${emoji(mobile?.scores.seo)} ${mobile?.scores.seo ?? '-'} |
 
 ---
 
@@ -195,8 +195,8 @@ const md = `# Automated Evaluation Report — beanters.com
 |---|---|---|
 | First Contentful Paint (FCP) | ${desktop?.metrics.fcp} | ${metricEmoji(desktop?.metrics.fcpScore)} |
 | Largest Contentful Paint (LCP) | ${desktop?.metrics.lcp} | ${metricEmoji(desktop?.metrics.lcpScore)} |
-| Speed Index (SI) | ${desktop?.metrics.si} | — |
-| Time to Interactive (TTI) | ${desktop?.metrics.tti} | — |
+| Speed Index (SI) | ${desktop?.metrics.si} | - |
+| Time to Interactive (TTI) | ${desktop?.metrics.tti} | - |
 | Total Blocking Time (TBT) | ${desktop?.metrics.tbt} | ${metricEmoji(desktop?.metrics.tbtScore)} |
 | Cumulative Layout Shift (CLS) | ${desktop?.metrics.cls} | ${metricEmoji(desktop?.metrics.clsScore)} |
 
@@ -206,8 +206,8 @@ const md = `# Automated Evaluation Report — beanters.com
 |---|---|---|
 | First Contentful Paint (FCP) | ${mobile?.metrics.fcp} | ${metricEmoji(mobile?.metrics.fcpScore)} |
 | Largest Contentful Paint (LCP) | ${mobile?.metrics.lcp} | ${metricEmoji(mobile?.metrics.lcpScore)} |
-| Speed Index (SI) | ${mobile?.metrics.si} | — |
-| Time to Interactive (TTI) | ${mobile?.metrics.tti} | — |
+| Speed Index (SI) | ${mobile?.metrics.si} | - |
+| Time to Interactive (TTI) | ${mobile?.metrics.tti} | - |
 | Total Blocking Time (TBT) | ${mobile?.metrics.tbt} | ${metricEmoji(mobile?.metrics.tbtScore)} |
 | Cumulative Layout Shift (CLS) | ${mobile?.metrics.cls} | ${metricEmoji(mobile?.metrics.clsScore)} |
 
@@ -225,7 +225,7 @@ ${resourceSummary}
 
 | Entity | Blocking Time | Transfer Size |
 |---|---|---|
-${thirdParty || '| — | — | — |'}
+${thirdParty || '| - | - | - |'}
 
 ---
 
@@ -233,7 +233,7 @@ ${thirdParty || '| — | — | — |'}
 
 | Score | Audit ID | Value |
 |---|---|---|
-${failedDesktop || '| — | No failures | — |'}
+${failedDesktop || '| - | No failures | - |'}
 
 ---
 
@@ -262,7 +262,7 @@ ${(desktop?.failedAudits || [])
 const reportPath = path.join(OUT, 'full-report.md');
 fs.writeFileSync(reportPath, md);
 console.log(`\n✅  Done in ${elapsed}s`);
-console.log(`   Desktop performance : ${desktop?.scores.performance ?? '—'}`);
-console.log(`   Mobile  performance : ${mobile?.scores.performance ?? '—'}`);
+console.log(`   Desktop performance : ${desktop?.scores.performance ?? '-'}`);
+console.log(`   Mobile  performance : ${mobile?.scores.performance ?? '-'}`);
 console.log(`   UX checklist        : ${ux.passed}/${ux.total} (${ux.score}%)`);
 console.log(`   Report              : ${reportPath}\n`);
