@@ -253,11 +253,11 @@
     var css = document.getElementById("rd-css");
     if (!css) {
       css = document.createElement("link");
-      css.id = "rd-css"; css.rel = "stylesheet"; css.href = READER_BASE + "reader.css";
+      css.id = "rd-css"; css.rel = "stylesheet"; css.href = READER_BASE + "reader.css?v=20261029b";
       css._ready = new Promise(function (ok) { css.onload = css.onerror = ok; });
       document.head.appendChild(css);
     }
-    Promise.all([import(READER_BASE + "reader.js"), css._ready]).then(function (r) {
+    Promise.all([import(READER_BASE + "reader.js?v=20261029b"), css._ready]).then(function (r) {
       r[0].open({ book: b, edition: p[1], uiLang: state.lang, origin: el, kind: kind || "cover", coverSrc: COVERS + b.cover[p[1]] + ".webp",
         labels: { kindle: t("kindle"), paperback: t("paperback"), hardcover: t("hardcover"), amazonOpens: t("amazonOpens"),
           sample: t("sample"), labs: t("labs"), series: t("heroTitle"), by: t("heroBy") } });

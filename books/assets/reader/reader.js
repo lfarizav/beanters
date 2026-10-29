@@ -82,7 +82,7 @@ class Reader {
     this.pressed = false;
     this.inertEls = [];
     /* Living scene (assets/scene/): fetched during the flight, shown once the cover is open. */
-    this.livingP = import("../scene/living.js").then((m) => ({ m, ready: m.preload(this.b) })).catch(() => null);
+    this.livingP = import("../scene/living.js?v=20261029b").then((m) => ({ m, ready: m.preload(this.b) })).catch(() => null);
     this.build();
     this.lock();
     this.layout();
