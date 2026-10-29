@@ -12,9 +12,9 @@
   var READER_BASE = new URL("../reader/", document.currentScript.src).href;
   var READERS = {
     kcna: { dir: "kubernetes", pages: 28 },
-    cka: { dir: "administrar", pages: 38, w: 676, h: 1014 },
-    ckad: { dir: "desarrollar", pages: 42 },
-    cks: { dir: "asegurar", pages: 36 }
+    cka: { dir: "administrar", pages: 37, w: 676, h: 1014 },
+    ckad: { dir: "desarrollar", pages: 41 },
+    cks: { dir: "asegurar", pages: 35 }
   };
   BOOKS.forEach(function (b) { if (!b.reader && READERS[b.id]) b.reader = READERS[b.id]; });
 
