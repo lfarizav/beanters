@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Libros de Kubernetes | Beanters</title>
+<meta name="description" content="Libros de Kubernetes en lenguaje sencillo por Luis Felipe Ariza Vesga. Muestras gratuitas en PDF y enlaces a Amazon.">
+<style>
+  :root { --bg:#fbfaf7; --fg:#1d1d1b; --muted:#5d5d57; --line:#d9d6cc; --accent:#0f6b63; --card:#ffffff; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg:#171715; --fg:#ecebe6; --muted:#a6a59c; --line:#3a3935; --accent:#5fc3b8; --card:#20201d; }
+  }
+  :root[data-theme="dark"] { --bg:#171715; --fg:#ecebe6; --muted:#a6a59c; --line:#3a3935; --accent:#5fc3b8; --card:#20201d; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.9rem; margin: 0 0 4px; }
+  .lead { color: var(--muted); margin: 0 0 32px; }
+  h2 { font-size: 1.2rem; margin: 40px 0 12px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  .shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .book { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .book h3 { font-size: 1.05rem; margin: 0; }
+  .book p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+  .status { font-size: 0.85rem; color: var(--muted); }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+  a { color: var(--accent); }
+  .btn { display: inline-block; padding: 6px 10px; border: 1px solid var(--accent); border-radius: 6px; text-decoration: none; font-size: 0.9rem; }
+  .btn.primary { background: var(--accent); color: var(--bg); }
+  .pending { color: var(--muted); font-size: 0.9rem; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Libros de Kubernetes</h1>
+  <p class="lead">Libros en lenguaje sencillo por <a href="https://www.amazon.com/PhD-Luis-Felipe-Ariza-Vesga/e/B0HJT5N651">Luis Felipe Ariza Vesga</a>. Lee la muestra gratis y compra en Amazon.</p>
+
+  <h2>Kubernetes</h2>
+  <div class="shelf">
+
+    <article class="book">
+      <h3>Lo que pasa es que Kubernetes</h3>
+      <p>Guía completa de Kubernetes en lenguaje sencillo. Disponible en español e inglés, en Kindle, tapa blanda y tapa dura.</p>
+      <p class="status">Publicado en Amazon desde 2026-09-12</p>
+      <div class="links">
+        <a class="btn" href="samples/lo-que-pasa-es-que-kubernetes-es-sample.pdf">Muestra ES (PDF)</a>
+        <a class="btn" href="samples/lo-que-pasa-es-que-kubernetes-en-sample.pdf">Sample EN (PDF)</a>
+      </div>
+      <div class="links">
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HJKPLLMN">Kindle ES</a>
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HJMS76SY">Tapa blanda ES</a>
+        <a class="btn" href="https://www.amazon.com/dp/B0HJFKYX8Z">Kindle EN</a>
+        <a class="btn" href="https://www.amazon.com/dp/B0HJHZG3XJ">Paperback EN</a>
+      </div>
+    </article>
+
+    <article class="book">
+      <h3>Lo que pasa es que administrar Kubernetes</h3>
+      <p>Guía del examen CKA en lenguaje sencillo, en español e inglés.</p>
+      <p class="status">En revisión en Amazon KDP desde 2026-10-04</p>
+      <div class="links">
+        <a class="btn" href="samples/lo-que-pasa-es-que-administrar-kubernetes-es-sample.pdf">Muestra ES (PDF)</a>
+        <a class="btn" href="samples/lo-que-pasa-es-que-administrar-kubernetes-en-sample.pdf">Sample EN (PDF)</a>
+      </div>
+      <p class="pending">Enlaces de compra disponibles cuando Amazon publique el libro.</p>
+    </article>
+
+  </div>
+
+  <footer>
+    Las muestras son extractos gratuitos del libro. Compra la versión completa en Amazon.
+  </footer>
+</main>
+</body>
+</html>
