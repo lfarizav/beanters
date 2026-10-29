@@ -3,160 +3,347 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Libros de Kubernetes | Beanters</title>
+<title>Biblioteca de Kubernetes | Beanters</title>
 <meta name="description" content="Serie Lo que pasa es que de Kubernetes en lenguaje sencillo, por Luis Felipe Ariza Vesga. Muestras gratis en PDF y enlaces a Amazon.">
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300..600&family=Schibsted+Grotesk:wght@400..700&display=swap">
 <style>
-  :root { --bg:#fbfaf7; --fg:#1d1d1b; --muted:#5d5d57; --line:#d9d6cc; --accent:#0f6b63; --card:#ffffff; }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) { --bg:#171715; --fg:#ecebe6; --muted:#a6a59c; --line:#3a3935; --accent:#5fc3b8; --card:#20201d; }
+  :root {
+    --bg:#151412; --fg:#e9e3d6; --muted:#9a9488; --dim:#6f6a60; --line:#2b2924; --panel:#1d1b18; --chip:#201e1a;
+    --cream:#f1ead9; --ink:#1d1b18;
+    --serif:"Newsreader","Iowan Old Style",Georgia,serif;
+    --sans:"Schibsted Grotesk",ui-sans-serif,system-ui,sans-serif;
   }
-  :root[data-theme="dark"] { --bg:#171715; --fg:#ecebe6; --muted:#a6a59c; --line:#3a3935; --accent:#5fc3b8; --card:#20201d; }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
-  h1 { font-size: 1.9rem; margin: 0 0 4px; }
-  .lead { color: var(--muted); margin: 0 0 8px; }
-  .author { color: var(--muted); font-size: 0.95rem; margin: 0 0 24px; }
-  h2 { font-size: 1.2rem; margin: 40px 0 4px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
-  .shelf-note { color: var(--muted); font-size: 0.9rem; margin: 0 0 14px; }
-  .shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-  .book { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
-  .book .num { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
-  .book h3 { font-size: 1.02rem; margin: 0; }
-  .book p { margin: 0; color: var(--muted); font-size: 0.92rem; }
-  .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
-  a { color: var(--accent); }
-  .btn { display: inline-block; padding: 6px 10px; border: 1px solid var(--accent); border-radius: 6px; text-decoration: none; font-size: 0.88rem; }
-  .btn.primary { background: var(--accent); color: var(--bg); }
-  .nosample { color: var(--muted); font-size: 0.88rem; }
-  footer { margin-top: 48px; color: var(--muted); font-size: 0.9rem; }
+  * { box-sizing:border-box; }
+  html { background:var(--bg); }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.5 var(--sans); }
+  a { color:inherit; }
+  button { font:inherit; color:inherit; }
+  .wrap { max-width:880px; margin:0 auto; padding:0 16px; }
+  header.top { display:flex; align-items:center; justify-content:space-between; padding:18px 0; max-width:1040px; margin:0 auto; }
+  header.top .brand { font-family:var(--serif); font-size:1.15rem; letter-spacing:.01em; }
+  header.top nav a { text-decoration:none; color:var(--muted); font-size:.9rem; }
+  h1 { font:400 clamp(3rem,9vw,4.5rem)/1 var(--serif); letter-spacing:-.02em; margin:48px 0 14px; }
+  .meta { color:var(--muted); font-size:.9rem; }
+  .meta b { color:var(--fg); font-weight:500; }
+  .hero { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:16px; }
+  .author-pill { display:flex; gap:12px; align-items:center; text-decoration:none; padding:12px 16px; border:1px solid var(--line); border-radius:999px; background:var(--chip); }
+  .author-pill b { display:block; font-weight:500; font-size:.9rem; }
+  .author-pill span { color:var(--muted); font-size:.8rem; }
+
+  .bar { display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; margin:26px 0 14px; }
+  .group { display:flex; align-items:center; gap:2px; padding:3px; border:1px solid var(--line); border-radius:999px; background:var(--chip); }
+  .group button { border:0; background:transparent; padding:6px 12px; border-radius:999px; cursor:pointer; color:var(--muted); font-size:.85rem; }
+  .group button[aria-pressed="true"] { background:#2f2c26; color:var(--fg); }
+  .group .lbl { color:var(--dim); font-size:.8rem; padding:0 8px; }
+  .search { flex:1 1 220px; max-width:320px; display:flex; align-items:center; gap:8px; padding:7px 14px; border:1px solid var(--line); border-radius:999px; background:var(--chip); color:var(--muted); }
+  .search input { flex:1; min-width:0; background:transparent; border:0; outline:0; color:var(--fg); font:inherit; font-size:.85rem; }
+  .search kbd { font:inherit; font-size:.7rem; color:var(--dim); border:1px solid var(--line); border-radius:4px; padding:0 5px; }
+  .left { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+
+  .chips { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:34px; }
+  .chip { display:flex; align-items:center; gap:7px; padding:6px 12px; border:1px solid var(--line); border-radius:999px; background:var(--chip); color:var(--muted); font-size:.85rem; cursor:pointer; }
+  .chip[aria-pressed="true"] { background:var(--cream); color:var(--ink); border-color:var(--cream); }
+  .chip i { font-style:normal; opacity:.7; font-size:.8rem; }
+
+  /* Shelf */
+  .shelf-scroll { overflow-x:auto; padding-bottom:6px; }
+  .shelf { display:flex; align-items:flex-end; justify-content:center; gap:30px; min-width:max-content; padding:0 6px; min-height:290px; }
+  .shelf .gap { width:22px; }
+  .spine { position:relative; flex:none; width:var(--w); height:var(--h); border:0; border-radius:2px 2px 0 0; cursor:pointer; padding:0;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, rgba(0,0,0,.05) 1px 3px),
+      linear-gradient(90deg, rgba(0,0,0,.35), rgba(255,255,255,.14) 18%, rgba(255,255,255,0) 48%, rgba(0,0,0,.28)),
+      var(--c);
+    box-shadow: inset 0 14px 0 -12px rgba(255,255,255,.55), inset 0 -14px 0 -12px rgba(255,255,255,.4), 0 0 0 1px rgba(0,0,0,.25);
+    transition:transform .18s ease; color:#fff; }
+  .spine:hover, .spine:focus-visible { transform:translateY(-10px); outline:none; }
+  .spine:focus-visible { box-shadow: 0 0 0 2px var(--cream); }
+  .spine .t { position:absolute; inset:22px 0 44px; display:flex; align-items:center; justify-content:center; writing-mode:vertical-rl; font:500 .88rem/1.1 var(--serif); letter-spacing:.01em; text-align:center; overflow:hidden; text-shadow:0 1px 1px rgba(0,0,0,.35); }
+  .spine .l { position:absolute; left:0; right:0; bottom:8px; text-align:center; font-size:.7rem; letter-spacing:.06em; opacity:.9; }
+  .spine .plate { position:absolute; inset:34px 6px 40px; background:var(--cream); color:var(--ink); border-radius:2px; display:flex; align-items:center; justify-content:center; writing-mode:vertical-rl; font:500 .88rem/1.1 var(--serif); overflow:hidden; box-shadow:inset 0 0 0 1px rgba(0,0,0,.25); padding:4px 0; }
+  .spine.dark { color:var(--ink); }
+  .spine.dark .t { text-shadow:none; }
+  .plank { height:12px; margin:0 -2px; background:linear-gradient(#5a4a38,#3a2e22); border-radius:2px; box-shadow:0 8px 14px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.18); }
+  .legend { display:flex; flex-wrap:wrap; gap:6px 18px; justify-content:center; color:var(--muted); font-size:.82rem; margin-top:16px; }
+  .legend i { font-style:normal; color:var(--dim); margin-left:4px; }
+  .hint { text-align:center; color:var(--dim); font-size:.8rem; margin:14px 0 0; }
+  .empty { padding:60px 0; text-align:center; color:var(--muted); }
+
+  /* Topics */
+  .topics { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
+  .tcard { border:1px solid var(--line); border-radius:18px; overflow:hidden; background:var(--panel); cursor:pointer; text-align:left; padding:0; }
+  .tcard .art { height:130px; display:flex; align-items:center; justify-content:center; font-size:3.2rem; background:linear-gradient(135deg, var(--c), color-mix(in srgb, var(--c) 35%, #151412)); }
+  .tcard .body { padding:14px 16px 16px; }
+  .tcard h3 { font:400 1.3rem/1.2 var(--serif); margin:0 0 4px; }
+  .tcard p { margin:0 0 12px; color:var(--muted); font-size:.8rem; }
+  .bars { display:flex; align-items:flex-end; gap:5px; height:34px; border-bottom:2px solid #3a342b; }
+  .bars span { width:9px; background:var(--c); border-radius:2px 2px 0 0; }
+
+  /* Open book */
+  .overlay { position:fixed; inset:0; background:rgba(10,9,8,.78); display:none; align-items:center; justify-content:center; padding:16px; z-index:10; }
+  .overlay.open { display:flex; }
+  .book { width:min(760px,100%); max-height:92vh; overflow:auto; display:grid; grid-template-columns:1fr 1fr; border:3px solid var(--c); border-radius:4px; background:var(--panel); box-shadow:0 30px 80px rgba(0,0,0,.6); }
+  .page-l { background:#e8e2ea; background-image:radial-gradient(rgba(0,0,0,.14) 1px, transparent 1.2px); background-size:12px 12px; display:flex; align-items:center; justify-content:center; padding:36px 20px; }
+  .plate-card { background:var(--cream); color:var(--ink); width:100%; max-width:190px; padding:22px 14px; text-align:center; box-shadow:0 6px 18px rgba(0,0,0,.3); border:1px solid rgba(0,0,0,.1); }
+  .plate-card .e { font-size:2.6rem; }
+  .plate-card small { display:block; color:#6b655a; font-size:.72rem; margin-top:8px; }
+  .plate-card b { display:block; font:500 1.15rem/1.2 var(--serif); margin:4px 0 10px; }
+  .plate-card hr { border:0; border-top:1px solid rgba(0,0,0,.2); width:34px; margin:0 auto 8px; }
+  .page-r { padding:22px 24px; display:flex; flex-direction:column; gap:10px; }
+  .tag { align-self:flex-start; display:flex; gap:7px; align-items:center; padding:4px 10px; border:1px solid var(--line); border-radius:999px; background:var(--chip); font-size:.8rem; color:var(--muted); }
+  .page-r h2 { font:400 1.5rem/1.2 var(--serif); margin:6px 0 0; }
+  .page-r .by { font-weight:500; font-size:.88rem; }
+  .page-r .sub { color:var(--muted); font-size:.85rem; margin:0; }
+  .page-r .desc { font:400 .98rem/1.55 var(--serif); color:#cfc8b8; margin:4px 0 0; }
+  .cta { display:flex; flex-direction:column; gap:8px; margin-top:8px; padding-top:12px; border-top:1px solid var(--line); }
+  .btn { display:block; text-align:center; text-decoration:none; padding:11px 14px; border-radius:12px; font-weight:500; border:1px solid #3a352d; background:transparent; font-size:.9rem; }
+  .btn.main { background:var(--cream); color:var(--ink); border-color:var(--cream); }
+  .btn.dim { color:var(--dim); border-style:dashed; pointer-events:none; }
+  .row { display:flex; gap:8px; } .row .btn { flex:1; }
+  .foot { display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:.8rem; margin-top:4px; }
+  .foot button { background:none; border:0; cursor:pointer; color:var(--muted); }
+  .foot kbd { font:inherit; font-size:.7rem; border:1px solid var(--line); border-radius:4px; padding:0 5px; margin-left:4px; }
+  @media (max-width:640px) { .book { grid-template-columns:1fr; } .page-l { padding:22px; } }
+
+  /* Plain catalog: visible without JS, hidden when the shelf takes over */
+  #catalog { list-style:none; margin:40px 0 0; padding:0; display:grid; gap:14px; }
+  #catalog li { border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:var(--panel); }
+  #catalog h3 { font:400 1.1rem/1.3 var(--serif); margin:0 0 4px; }
+  #catalog p { margin:0 0 10px; color:var(--muted); font-size:.88rem; }
+  #catalog .links { display:flex; flex-wrap:wrap; gap:8px; }
+  #catalog .links a { padding:5px 10px; border:1px solid #3a352d; border-radius:8px; text-decoration:none; font-size:.85rem; }
+  .js #catalog { display:none; }
+  .js-only { display:none; } .js .js-only { display:block; }
+  footer { max-width:880px; margin:56px auto 40px; padding:0 16px; color:var(--dim); font-size:.82rem; }
 </style>
 </head>
 <body>
-<main>
-  <h1>Libros de Kubernetes</h1>
-  <p class="lead">Serie <em>Lo que pasa es que...</em>: Kubernetes en lenguaje sencillo, en español e inglés.</p>
-  <p class="author">Autor: <a href="https://www.amazon.com/stores/PhD-Luis-Felipe-Ariza-Vesga/author/B0HJT5N651">Luis Felipe Ariza Vesga</a></p>
+<script>document.documentElement.classList.add('js');</script>
+<header class="top">
+  <a class="brand" href="/" style="text-decoration:none">Beanters</a>
+  <nav><a href="/">Inicio</a></nav>
+</header>
 
-  <h2>Kubernetes</h2>
-  <p class="shelf-note">Los fundamentos del ecosistema.</p>
-  <div class="shelf">
-    <article class="book">
-      <span class="num">Libro 1 · ES</span>
-      <h3>Lo que pasa es que Kubernetes</h3>
-      <p>Guía completa de Kubernetes en lenguaje sencillo.</p>
-      <div class="links">
-        <a class="btn" href="samples/lo-que-pasa-es-que-kubernetes-es-sample.pdf">Muestra gratis (PDF)</a>
-      </div>
-      <div class="links">
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HJKPLLMN">Kindle</a>
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HJMS76SY">Tapa blanda</a>
-        <a class="btn" href="https://www.amazon.com/dp/B0HJMRM1Z6">Tapa dura</a>
-      </div>
-    </article>
-    <article class="book">
-      <span class="num">Libro 2 · EN</span>
-      <h3>Here's What's Actually Going On with Kubernetes</h3>
-      <p>The complete Kubernetes guide in plain language.</p>
-      <div class="links">
-        <a class="btn" href="samples/lo-que-pasa-es-que-kubernetes-en-sample.pdf">Free sample (PDF)</a>
-      </div>
-      <div class="links">
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HJFKYX8Z">Kindle</a>
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HJHZG3XJ">Paperback</a>
-        <a class="btn" href="https://www.amazon.com/dp/B0HJJFVR2N">Hardcover</a>
-      </div>
-    </article>
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1>Biblioteca</h1>
+      <div class="meta" id="counts"><b>8</b> libros · <b>4</b> temas · <b>2</b> idiomas</div>
+    </div>
+    <a class="author-pill" href="https://www.amazon.com/stores/PhD-Luis-Felipe-Ariza-Vesga/author/B0HJT5N651">
+      <div><b>Luis Felipe Ariza Vesga</b><span>Serie Lo que pasa es que... en Amazon</span></div>
+    </a>
   </div>
 
-  <h2>Administración</h2>
-  <p class="shelf-note">Operar clústeres y preparar el examen CKA.</p>
-  <div class="shelf">
-    <article class="book">
-      <span class="num">Libro 3 · ES</span>
-      <h3>Lo que pasa es que administrar Kubernetes</h3>
-      <p>Guía completa de administración de Kubernetes en lenguaje sencillo.</p>
-      <div class="links">
-        <a class="btn" href="samples/lo-que-pasa-es-que-administrar-kubernetes-es-sample.pdf">Muestra gratis (PDF)</a>
+  <div class="js-only" id="app">
+    <div class="bar">
+      <div class="left">
+        <div class="group" role="group" aria-label="Vista">
+          <button type="button" data-view="shelf" aria-pressed="true">Estante</button>
+          <button type="button" data-view="topics" aria-pressed="false">Temas</button>
+        </div>
+        <label class="search"><span aria-hidden="true">&#9906;</span><input id="q" type="search" placeholder="Buscar en la biblioteca" aria-label="Buscar en la biblioteca"><kbd>/</kbd></label>
       </div>
-      <div class="links">
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HLXX1RQJ">Kindle</a>
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HLXVJTJL">Tapa blanda</a>
-        <a class="btn" href="https://www.amazon.com/dp/B0HLXY9D88">Tapa dura</a>
+      <div class="group" role="group" aria-label="Ordenar" id="sorts">
+        <span class="lbl">Ordenar por</span>
+        <button type="button" data-sort="topic" aria-pressed="true">Tema</button>
+        <button type="button" data-sort="lang" aria-pressed="false">Idioma</button>
+        <button type="button" data-sort="series" aria-pressed="false">Serie</button>
+        <button type="button" data-sort="colour" aria-pressed="false">Color</button>
       </div>
-    </article>
-    <article class="book">
-      <span class="num">Libro 4 · EN</span>
-      <h3>Here's What's Actually Going On with Kubernetes Administration</h3>
-      <p>The complete Kubernetes administration guide in plain language.</p>
-      <div class="links">
-        <a class="btn" href="samples/lo-que-pasa-es-que-administrar-kubernetes-en-sample.pdf">Free sample (PDF)</a>
-      </div>
-      <div class="links">
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HLXXJBKW">Kindle</a>
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HLXKVPBT">Paperback</a>
-        <a class="btn" href="https://www.amazon.com/dp/B0HLXXBNSV">Hardcover</a>
-      </div>
-    </article>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div id="stage"></div>
   </div>
 
-  <h2>Desarrollo</h2>
-  <p class="shelf-note">Construir y desplegar aplicaciones en Kubernetes.</p>
-  <div class="shelf">
-    <article class="book">
-      <span class="num">Libro 5 · ES</span>
-      <h3>Lo que pasa es que desarrollar en Kubernetes</h3>
-      <p>Guía completa de desarrollo de aplicaciones en Kubernetes en lenguaje sencillo.</p>
-      <p class="nosample">Sin muestra gratis todavía.</p>
-      <div class="links">
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HMS8J1X2">Kindle</a>
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HMSD351N">Tapa blanda</a>
-        <a class="btn" href="https://www.amazon.com/dp/B0HMS2F92Q">Tapa dura</a>
-      </div>
-    </article>
-    <article class="book">
-      <span class="num">Libro 6 · EN</span>
-      <h3>Here's What's Actually Going On with Kubernetes Application Development</h3>
-      <p>The complete Kubernetes application development guide in plain language.</p>
-      <p class="nosample">Sin muestra gratis todavía.</p>
-      <div class="links">
-        <a class="btn primary" href="https://www.amazon.com/dp/B0GX2X91VP">Kindle</a>
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HMS7BQQQ">Paperback</a>
-        <a class="btn" href="https://www.amazon.com/dp/B0HMW9J5WQ">Hardcover</a>
-      </div>
-    </article>
-  </div>
-
-  <h2>Seguridad</h2>
-  <p class="shelf-note">Endurecer clústeres y cargas de trabajo.</p>
-  <div class="shelf">
-    <article class="book">
-      <span class="num">Libro 7 · ES</span>
-      <h3>Lo que pasa es que asegurar Kubernetes</h3>
-      <p>Guía completa de seguridad en Kubernetes en lenguaje sencillo.</p>
-      <p class="nosample">Sin muestra gratis todavía.</p>
-      <div class="links">
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HNR8PQ1L">Kindle</a>
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HNJ2MCXS">Tapa blanda</a>
-        <a class="btn" href="https://www.amazon.com/dp/B0HNJ2MRT5">Tapa dura</a>
-      </div>
-    </article>
-    <article class="book">
-      <span class="num">Libro 8 · EN</span>
-      <h3>Here's What's Actually Going On with Kubernetes Security</h3>
-      <p>The complete Kubernetes security guide in plain language.</p>
-      <p class="nosample">Sin muestra gratis todavía.</p>
-      <div class="links">
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HNR47KKX">Kindle</a>
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HNJ3TVKJ">Paperback</a>
-        <a class="btn" href="https://www.amazon.com/dp/B0HNJ8PJ3K">Hardcover</a>
-      </div>
-    </article>
-  </div>
-
-  <footer>
-    Las muestras son extractos gratuitos. Compra la versión completa en Amazon.
-  </footer>
+  <ul id="catalog">
+    <li data-n="1" data-topic="Kubernetes" data-lang="ES" data-date="2026-09-12" data-sample="samples/lo-que-pasa-es-que-kubernetes-es-sample.pdf">
+      <h3>Lo que pasa es que Kubernetes</h3><p>Guía completa de Kubernetes en lenguaje sencillo.</p>
+      <div class="links"><a href="samples/lo-que-pasa-es-que-kubernetes-es-sample.pdf">Muestra gratis (PDF)</a>
+        <a class="buy" data-kind="Kindle" href="https://www.amazon.com/dp/B0HJKPLLMN">Kindle</a><a class="buy" data-kind="Tapa blanda" href="https://www.amazon.com/dp/B0HJMS76SY">Tapa blanda</a><a class="buy" data-kind="Tapa dura" href="https://www.amazon.com/dp/B0HJMRM1Z6">Tapa dura</a></div></li>
+    <li data-n="2" data-topic="Kubernetes" data-lang="EN" data-date="2026-09-11" data-sample="samples/lo-que-pasa-es-que-kubernetes-en-sample.pdf">
+      <h3>Here's What's Actually Going On with Kubernetes</h3><p>The complete Kubernetes guide in plain language.</p>
+      <div class="links"><a href="samples/lo-que-pasa-es-que-kubernetes-en-sample.pdf">Free sample (PDF)</a>
+        <a class="buy" data-kind="Kindle" href="https://www.amazon.com/dp/B0HJFKYX8Z">Kindle</a><a class="buy" data-kind="Paperback" href="https://www.amazon.com/dp/B0HJHZG3XJ">Paperback</a><a class="buy" data-kind="Hardcover" href="https://www.amazon.com/dp/B0HJJFVR2N">Hardcover</a></div></li>
+    <li data-n="3" data-topic="Administración" data-lang="ES" data-date="2026-10-04" data-sample="samples/lo-que-pasa-es-que-administrar-kubernetes-es-sample.pdf">
+      <h3>Lo que pasa es que administrar Kubernetes</h3><p>Guía completa de administración de Kubernetes en lenguaje sencillo.</p>
+      <div class="links"><a href="samples/lo-que-pasa-es-que-administrar-kubernetes-es-sample.pdf">Muestra gratis (PDF)</a>
+        <a class="buy" data-kind="Kindle" href="https://www.amazon.com/dp/B0HLXX1RQJ">Kindle</a><a class="buy" data-kind="Tapa blanda" href="https://www.amazon.com/dp/B0HLXVJTJL">Tapa blanda</a><a class="buy" data-kind="Tapa dura" href="https://www.amazon.com/dp/B0HLXY9D88">Tapa dura</a></div></li>
+    <li data-n="4" data-topic="Administración" data-lang="EN" data-date="2026-10-04" data-sample="samples/lo-que-pasa-es-que-administrar-kubernetes-en-sample.pdf">
+      <h3>Here's What's Actually Going On with Kubernetes Administration</h3><p>The complete Kubernetes administration guide in plain language.</p>
+      <div class="links"><a href="samples/lo-que-pasa-es-que-administrar-kubernetes-en-sample.pdf">Free sample (PDF)</a>
+        <a class="buy" data-kind="Kindle" href="https://www.amazon.com/dp/B0HLXXJBKW">Kindle</a><a class="buy" data-kind="Paperback" href="https://www.amazon.com/dp/B0HLXKVPBT">Paperback</a><a class="buy" data-kind="Hardcover" href="https://www.amazon.com/dp/B0HLXXBNSV">Hardcover</a></div></li>
+    <li data-n="5" data-topic="Desarrollo" data-lang="ES" data-date="" data-sample="">
+      <h3>Lo que pasa es que desarrollar en Kubernetes</h3><p>Guía completa de desarrollo de aplicaciones en Kubernetes en lenguaje sencillo.</p>
+      <div class="links"><a class="buy" data-kind="Kindle" href="https://www.amazon.com/dp/B0HMS8J1X2">Kindle</a><a class="buy" data-kind="Tapa blanda" href="https://www.amazon.com/dp/B0HMSD351N">Tapa blanda</a><a class="buy" data-kind="Tapa dura" href="https://www.amazon.com/dp/B0HMS2F92Q">Tapa dura</a></div></li>
+    <li data-n="6" data-topic="Desarrollo" data-lang="EN" data-date="2026-10-12" data-sample="">
+      <h3>Here's What's Actually Going On with Kubernetes Application Development</h3><p>The complete Kubernetes application development guide in plain language.</p>
+      <div class="links"><a class="buy" data-kind="Kindle" href="https://www.amazon.com/dp/B0GX2X91VP">Kindle</a><a class="buy" data-kind="Paperback" href="https://www.amazon.com/dp/B0HMS7BQQQ">Paperback</a><a class="buy" data-kind="Hardcover" href="https://www.amazon.com/dp/B0HMW9J5WQ">Hardcover</a></div></li>
+    <li data-n="7" data-topic="Seguridad" data-lang="ES" data-date="" data-sample="">
+      <h3>Lo que pasa es que asegurar Kubernetes</h3><p>Guía completa de seguridad en Kubernetes en lenguaje sencillo.</p>
+      <div class="links"><a class="buy" data-kind="Kindle" href="https://www.amazon.com/dp/B0HNR8PQ1L">Kindle</a><a class="buy" data-kind="Tapa blanda" href="https://www.amazon.com/dp/B0HNJ2MCXS">Tapa blanda</a><a class="buy" data-kind="Tapa dura" href="https://www.amazon.com/dp/B0HNJ2MRT5">Tapa dura</a></div></li>
+    <li data-n="8" data-topic="Seguridad" data-lang="EN" data-date="2026-10-21" data-sample="">
+      <h3>Here's What's Actually Going On with Kubernetes Security</h3><p>The complete Kubernetes security guide in plain language.</p>
+      <div class="links"><a class="buy" data-kind="Kindle" href="https://www.amazon.com/dp/B0HNR47KKX">Kindle</a><a class="buy" data-kind="Paperback" href="https://www.amazon.com/dp/B0HNJ3TVKJ">Paperback</a><a class="buy" data-kind="Hardcover" href="https://www.amazon.com/dp/B0HNJ8PJ3K">Hardcover</a></div></li>
+  </ul>
 </main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="bk-title"></div>
+
+<footer>Las muestras son extractos gratuitos. Compra la versión completa en Amazon.</footer>
+
+<script>
+(function () {
+  var TOPICS = [
+    { name: 'Kubernetes',     emoji: '☸️', es: '#6f8fd6', en: '#4d6bb0', blurb: 'Los fundamentos del ecosistema.' },
+    { name: 'Administración', emoji: '🛠️', es: '#5f9d68', en: '#417a4d', blurb: 'Operar clústeres y preparar el examen CKA.' },
+    { name: 'Desarrollo',     emoji: '💻', es: '#d6a630', en: '#b3841c', blurb: 'Construir y desplegar aplicaciones.' },
+    { name: 'Seguridad',      emoji: '🔐', es: '#9b3347', en: '#742238', blurb: 'Endurecer clústeres y cargas de trabajo.' }
+  ];
+  var LANG = { ES: 'Español', EN: 'English' };
+  var norm = function (s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); };
+  var topicOf = function (name) { return TOPICS.filter(function (t) { return t.name === name; })[0]; };
+
+  var items = Array.prototype.map.call(document.querySelectorAll('#catalog > li'), function (li) {
+    var t = topicOf(li.dataset.topic);
+    var lang = li.dataset.lang;
+    return {
+      n: +li.dataset.n, topic: t, lang: lang, date: li.dataset.date, sample: li.dataset.sample,
+      title: li.querySelector('h3').textContent, sub: li.querySelector('p').textContent,
+      color: lang === 'ES' ? t.es : t.en,
+      buys: Array.prototype.map.call(li.querySelectorAll('a.buy'), function (a) { return { kind: a.dataset.kind, href: a.href }; })
+    };
+  });
+
+  var state = { view: 'shelf', topic: 'all', q: '', sort: 'topic' };
+  var stage = document.getElementById('stage');
+  var chips = document.getElementById('chips');
+  var overlay = document.getElementById('overlay');
+  var lastFocus = null;
+
+  function hue(hex) {
+    var r = parseInt(hex.slice(1, 3), 16) / 255, g = parseInt(hex.slice(3, 5), 16) / 255, b = parseInt(hex.slice(5, 7), 16) / 255;
+    var mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+    if (!d) return 0;
+    var h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    return (h * 60 + 360) % 360;
+  }
+  function isLight(hex) {
+    var r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+    return (r * 299 + g * 587 + b * 114) / 1000 > 150;
+  }
+  function visible() {
+    var q = norm(state.q);
+    var list = items.filter(function (b) {
+      return (state.topic === 'all' || b.topic.name === state.topic) && (!q || norm(b.title + ' ' + b.sub).indexOf(q) !== -1);
+    });
+    var by = {
+      topic:  function (a, b) { return TOPICS.indexOf(a.topic) - TOPICS.indexOf(b.topic) || a.n - b.n; },
+      lang:   function (a, b) { return (a.lang === b.lang ? 0 : a.lang === 'ES' ? -1 : 1) || a.n - b.n; },
+      series: function (a, b) { return a.n - b.n; },
+      colour: function (a, b) { return hue(a.color) - hue(b.color) || a.n - b.n; }
+    };
+    return list.sort(by[state.sort]);
+  }
+
+  function renderChips() {
+    var all = '<button type="button" class="chip" data-topic="all" aria-pressed="' + (state.topic === 'all') + '">Todos <i>' + items.length + '</i></button>';
+    chips.innerHTML = all + TOPICS.map(function (t) {
+      var c = items.filter(function (b) { return b.topic === t; }).length;
+      return '<button type="button" class="chip" data-topic="' + t.name + '" aria-pressed="' + (state.topic === t.name) + '"><span aria-hidden="true">' + t.emoji + '</span> ' + t.name + ' <i>' + c + '</i></button>';
+    }).join('');
+  }
+
+  function renderShelf(list) {
+    var html = '<div class="shelf-scroll"><div class="shelf" role="list">';
+    var prev = null;
+    list.forEach(function (b) {
+      if (state.sort === 'topic' && prev && prev !== b.topic) html += '<div class="gap" aria-hidden="true"></div>';
+      prev = b.topic;
+      var h = 238 + ((b.n * 7) % 5) * 8;
+      var w = 40 + (b.title.length % 4) * 6;
+      var dark = isLight(b.color);
+      var short = b.title.replace("Here's What's Actually Going On with ", '').replace('Lo que pasa es que ', '');
+      html += '<button type="button" role="listitem" class="spine' + (dark ? ' dark' : '') + '" data-n="' + b.n + '" style="--c:' + b.color + ';--h:' + h + 'px;--w:' + w + 'px" aria-label="' + b.title.replace(/"/g, '') + ', ' + LANG[b.lang] + '">' +
+        '<span class="t">' + short.charAt(0).toUpperCase() + short.slice(1) + '</span><span class="l">' + b.lang + ' ' + b.n + '</span></button>';
+    });
+    html += '</div></div><div class="plank"></div>';
+    var counts = TOPICS.map(function (t) {
+      var c = list.filter(function (b) { return b.topic === t; }).length;
+      return c ? '<span>' + t.emoji + ' ' + t.name + '<i>' + c + '</i></span>' : '';
+    }).join('');
+    html += '<div class="legend">' + counts + '</div><p class="hint">Toca un lomo para bajarlo del estante. Las flechas recorren el estante.</p>';
+    stage.innerHTML = html;
+  }
+
+  function renderTopics(list) {
+    stage.innerHTML = '<div class="topics">' + TOPICS.map(function (t) {
+      var inT = list.filter(function (b) { return b.topic === t; });
+      if (!inT.length) return '';
+      var bars = inT.map(function (b) { return '<span style="--c:' + b.color + ';height:' + (20 + (b.n % 3) * 7) + 'px"></span>'; }).join('');
+      return '<button type="button" class="tcard" data-topic="' + t.name + '" style="--c:' + t.es + '"><div class="art" aria-hidden="true">' + t.emoji + '</div><div class="body"><h3>' + t.name + '</h3><p>' + inT.length + ' libros · ES y EN · ' + t.blurb + '</p><div class="bars">' + bars + '</div></div></button>';
+    }).join('') + '</div>';
+  }
+
+  function render() {
+    renderChips();
+    var list = visible();
+    if (!list.length) { stage.innerHTML = '<div class="empty">Nada coincide con tu búsqueda.</div>'; return; }
+    if (state.view === 'topics') renderTopics(list); else renderShelf(list);
+  }
+
+  function openBook(n) {
+    var b = items.filter(function (x) { return x.n === n; })[0];
+    if (!b) return;
+    lastFocus = document.activeElement;
+    var sample = b.sample
+      ? '<a class="btn main" href="' + b.sample + '">' + (b.lang === 'ES' ? 'Leer muestra gratis' : 'Read free sample') + ' &rarr;</a>'
+      : '<span class="btn dim">Muestra gratis pendiente</span>';
+    var buys = '<div class="row">' + b.buys.map(function (x) { return '<a class="btn" href="' + x.href + '" rel="noopener">' + x.kind + '</a>'; }).join('') + '</div>';
+    overlay.innerHTML = '<div class="book" style="--c:' + b.color + '">' +
+      '<div class="page-l"><div class="plate-card"><div class="e" aria-hidden="true">' + b.topic.emoji + '</div><small>De la serie</small><b>Lo que pasa es que...</b><hr><small>Libro ' + b.n + ' de 8' + (b.date ? ' · ' + b.date : '') + '</small></div></div>' +
+      '<div class="page-r"><span class="tag"><span aria-hidden="true">' + b.topic.emoji + '</span> ' + b.topic.name + '</span>' +
+      '<h2 id="bk-title">' + b.title + '</h2><div class="by">Luis Felipe Ariza Vesga</div><p class="sub">' + LANG[b.lang] + ' · Kindle, tapa blanda y tapa dura</p>' +
+      '<p class="desc">' + b.sub + '</p><div class="cta">' + sample + buys + '</div>' +
+      '<div class="foot"><span>Amazon.com</span><button type="button" id="back">Devolver al estante <kbd>Esc</kbd></button></div></div></div>';
+    overlay.classList.add('open');
+    document.getElementById('back').focus();
+  }
+  function closeBook() {
+    if (!overlay.classList.contains('open')) return;
+    overlay.classList.remove('open');
+    overlay.innerHTML = '';
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+
+  document.addEventListener('click', function (e) {
+    var el;
+    if ((el = e.target.closest('[data-view]'))) { state.view = el.dataset.view; document.querySelectorAll('[data-view]').forEach(function (x) { x.setAttribute('aria-pressed', x === el); }); render(); return; }
+    if ((el = e.target.closest('[data-sort]'))) { state.sort = el.dataset.sort; document.querySelectorAll('[data-sort]').forEach(function (x) { x.setAttribute('aria-pressed', x === el); }); render(); return; }
+    if ((el = e.target.closest('.chip'))) { state.topic = el.dataset.topic; render(); return; }
+    if ((el = e.target.closest('.tcard'))) { state.topic = el.dataset.topic; state.view = 'shelf'; document.querySelectorAll('[data-view]').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.view === 'shelf'); }); render(); return; }
+    if ((el = e.target.closest('.spine'))) { openBook(+el.dataset.n); return; }
+    if (e.target === overlay || e.target.id === 'back') closeBook();
+  });
+  document.getElementById('q').addEventListener('input', function (e) { state.q = e.target.value; render(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { closeBook(); return; }
+    var q = document.getElementById('q');
+    if (e.key === '/' && document.activeElement !== q && !overlay.classList.contains('open')) { e.preventDefault(); q.focus(); return; }
+    if ((e.key === 'ArrowRight' || e.key === 'ArrowLeft') && !overlay.classList.contains('open') && document.activeElement !== q) {
+      var sp = Array.prototype.slice.call(document.querySelectorAll('.spine'));
+      if (!sp.length) return;
+      var i = sp.indexOf(document.activeElement);
+      i = i < 0 ? 0 : Math.max(0, Math.min(sp.length - 1, i + (e.key === 'ArrowRight' ? 1 : -1)));
+      sp[i].focus();
+    }
+  });
+
+  render();
+})();
+</script>
 </body>
 </html>
