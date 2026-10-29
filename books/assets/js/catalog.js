@@ -7,9 +7,15 @@
   var COVERS = window.COVER_PATH || "assets/covers/";
   var root = document.documentElement;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  /* 3D reader: a book gets it once its pages exist in reader/pages/<dir>/<es|en>/p-NN.webp. */
+  /* 3D reader: a book gets it once its pages exist in reader/pages/<dir>/<es|en>/p-NN.webp.
+     w/h is the page image size (trim); it defaults to 770x990 when left out. */
   var READER_BASE = new URL("../reader/", document.currentScript.src).href;
-  var READERS = { kcna: { dir: "kubernetes", pages: 28 } };
+  var READERS = {
+    kcna: { dir: "kubernetes", pages: 28 },
+    cka: { dir: "administrar", pages: 38, w: 676, h: 1014 },
+    ckad: { dir: "desarrollar", pages: 42 },
+    cks: { dir: "asegurar", pages: 36 }
+  };
   BOOKS.forEach(function (b) { if (!b.reader && READERS[b.id]) b.reader = READERS[b.id]; });
 
   var T = {

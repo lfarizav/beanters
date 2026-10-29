@@ -8,7 +8,7 @@
    (kind "cover") or a shelf spine (kind "spine"); closing flies the book back there. */
 import { PageFlip } from "./vendor/page-flip-2.0.7.module.min.js";
 
-const RATIO = 770 / 990;
+const PAGE_W = 770, PAGE_H = 990; /* default trim; a book's reader entry may set w/h */
 const EASE_OPEN = "cubic-bezier(.77,0,.175,1)";
 const STR = {
   es: {
@@ -73,6 +73,9 @@ class Reader {
     this.detail = !this.b.reader;
     this.kind = o.kind === "spine" ? "spine" : "cover";
     this.n = this.detail ? 0 : this.b.reader.pages;
+    this.pgW = (this.b.reader && this.b.reader.w) || PAGE_W;
+    this.pgH = (this.b.reader && this.b.reader.h) || PAGE_H;
+    this.ratio = this.pgW / this.pgH;
     this.total = this.n + 1; /* + end-of-sample page */
     this.base = this.detail ? "" : new URL(`pages/${this.b.reader.dir}/${this.ed}/`, import.meta.url).href;
     this.hand = { x: 0, y: 0, tx: 0, ty: 0, on: false };
@@ -142,7 +145,7 @@ class Reader {
     for (let i = 0; i < this.n; i++) {
       const p = document.createElement("div");
       p.className = "rd__pg";
-      const img = new Image(770, 990);
+      const img = new Image(this.pgW, this.pgH);
       img.alt = "";
       img.decoding = "async";
       img.draggable = false;
@@ -226,8 +229,8 @@ class Reader {
     this.single = vw < 760 || vh > vw * 1.05;
     const chrome = (small ? 56 + 68 + 10 : 64 + 76 + 28);
     const availW = vw - (this.single ? 32 : 112);
-    const pw = Math.floor(Math.max(120, Math.min(this.single ? availW : availW / 2, (vh - chrome) * RATIO)));
-    const ph = Math.floor(pw / RATIO);
+    const pw = Math.floor(Math.max(120, Math.min(this.single ? availW : availW / 2, (vh - chrome) * this.ratio)));
+    const ph = Math.floor(pw / this.ratio);
     this.pw = pw; this.ph = ph; this.W = this.single ? pw : pw * 2;
     Object.assign(this.bookEl.style, { width: this.W + "px", height: ph + "px" });
     Object.assign(this.d3.style, { left: (this.single ? 0 : pw) + "px", width: pw + "px", height: ph + "px" });
