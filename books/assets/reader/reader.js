@@ -78,6 +78,8 @@ class Reader {
     this.hand = { x: 0, y: 0, tx: 0, ty: 0, on: false };
     this.pressed = false;
     this.inertEls = [];
+    /* Living scene (assets/scene/): fetched during the flight, shown once the cover is open. */
+    this.livingP = import("../scene/living.js").then((m) => ({ m, ready: m.preload(this.b) })).catch(() => null);
     this.build();
     this.lock();
     this.layout();
@@ -403,7 +405,25 @@ class Reader {
     if (!this.detail) this.root.toggleAttribute("data-flat", true);
     this.root.dataset.phase = "open";
     this.opened = true;
-    if (!this.detail) this.hint();
+    this.mountLiving();
+  }
+
+  /* The living scene becomes the first view; "Hojear la muestra" hands back to this reader. */
+  async mountLiving() {
+    const lp = await this.livingP;
+    let lv = null;
+    if (lp && lp.ready && !this.closing) {
+      try {
+        lv = await lp.m.mount({
+          host: this.root, book: this.b, edition: this.ed, lang: this.L, ready: lp.ready,
+          onSample: () => { this.living = null; this.root.focus({ preventScroll: true }); if (!this.detail) this.hint(); },
+          onClose: () => this.close()
+        });
+      } catch (e) { lv = null; }
+    }
+    if (lv && this.closing) { lv.destroy(); lv = null; }
+    this.living = lv;
+    if (!lv && !this.detail && !this.closing) this.hint();
   }
 
   fadeIn() {
@@ -414,6 +434,8 @@ class Reader {
     } else this.root.toggleAttribute("data-flat", true);
     this.root.dataset.phase = "open";
     this.root.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "linear" });
+    this.opened = true;
+    this.mountLiving();
   }
 
   /* ---------------- First-open hint: the hand lifts the next corner and lets it fall ---------------- */
@@ -509,6 +531,7 @@ class Reader {
   }
 
   onMove(e) {
+    if (this.living) { this.setHand(false); return; }
     if (e.pointerType !== "mouse" || this.reduce || this.detail || this.closing) { this.setHand(false); return; }
     if (this.hinting) {
       const d = Math.hypot(e.movementX || 0, e.movementY || 0);
@@ -525,6 +548,7 @@ class Reader {
   }
 
   onDown(e) {
+    if (this.living) return;
     this.skipHint();
     if (e.pointerType !== "mouse" || this.detail) { this.setHand(false); return; }
     if (!this.overBook(e.clientX, e.clientY) || e.target.closest("a,button")) return;
@@ -618,6 +642,7 @@ class Reader {
     if (this.closing) return;
     this.closing = true;
     this.hintCancel = true;
+    if (this.living) { this.living.destroy(true); this.living = null; }
     this.setHand(false);
     if (!this.reduce && this.opened && this.originPose()) { this.closeBook(); return; }
     this.root.dataset.phase = "leaving";

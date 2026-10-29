@@ -4,14 +4,14 @@
    Budget: ~16 draw calls, ~5k triangles; renders only while something moves. */
 import * as THREE from "three";
 
-const PAGE = { x0: 0.07, x1: 0.83, z0: -0.51, z1: 0.51 };     /* drawing area, right page */
-const LEFT = { x0: -0.83, x1: -0.07, z0: -0.51, z1: 0.51 };   /* overlay area, left page */
+export const PAGE = { x0: 0.07, x1: 0.83, z0: -0.51, z1: 0.51 };     /* drawing area, right page */
+export const LEFT = { x0: -0.83, x1: -0.07, z0: -0.51, z1: 0.51 };   /* overlay area, left page */
 const TOP = 0.068, DIP = 0.028, DECAY = 0.035;
 
 export function stageWindow(i) { const s = 0.06 + i * 0.23; return [s, s + 0.14]; }
 
-function surfaceY(x) { const ax = Math.abs(x); return TOP - DIP * Math.exp(-(Math.max(ax, 0.02) - 0.02) / DECAY); }
-function ease(t) { t = Math.min(1, Math.max(0, t)); return t * t * (3 - 2 * t); }
+export function surfaceY(x) { const ax = Math.abs(x); return TOP - DIP * Math.exp(-(Math.max(ax, 0.02) - 0.02) / DECAY); }
+export function ease(t) { t = Math.min(1, Math.max(0, t)); return t * t * (3 - 2 * t); }
 
 function stripesTexture() {
   const c = document.createElement("canvas"); c.width = 8; c.height = 64;
@@ -23,12 +23,42 @@ function stripesTexture() {
   t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1, 10); t.colorSpace = THREE.SRGBColorSpace;
   return t;
 }
-function glowTexture() {
+export function glowTexture() {
   const c = document.createElement("canvas"); c.width = c.height = 64;
   const g = c.getContext("2d"), r = g.createRadialGradient(32, 32, 0, 32, 32, 32);
   r.addColorStop(0, "rgba(255,255,255,1)"); r.addColorStop(0.25, "rgba(255,255,255,.55)"); r.addColorStop(1, "rgba(255,255,255,0)");
   g.fillStyle = r; g.fillRect(0, 0, 64, 64);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+
+/* The open clothbound book: two boards, two curved page blocks and a round hinge.
+   Shared with the per-book living scenes (assets/scene/engine.js); 7 draw calls. */
+export function buildOpenBook(clothColor) {
+  const cloth = new THREE.MeshStandardMaterial({ color: clothColor, roughness: 0.85 });
+  const paper = new THREE.MeshStandardMaterial({ color: 0xfdfcf9, roughness: 0.92, emissive: 0xfdfcf9, emissiveIntensity: 0.08 });
+  const edges = new THREE.MeshStandardMaterial({ map: stripesTexture(), roughness: 1 });
+  const book = new THREE.Group();
+
+  [-1, 1].forEach((side) => {
+    const board = new THREE.Mesh(new THREE.BoxGeometry(0.91, 0.018, 1.2), cloth);
+    board.position.set(side * 0.465, 0.009, 0); board.castShadow = true; board.receiveShadow = true; book.add(board);
+
+    /* Page block: the curved paper profile extruded along the page depth.
+       Built per side (no negative scale) so normals face outward on both pages. */
+    const shape = new THREE.Shape(), xs = [];
+    for (let k = 0; k <= 24; k++) xs.push(0.02 + (0.86 * k) / 24);
+    shape.moveTo(side * 0.02, 0.018);
+    xs.forEach((x) => shape.lineTo(side * x, surfaceY(x)));
+    shape.lineTo(side * 0.88, 0.018); shape.closePath();
+    const g = new THREE.ExtrudeGeometry(shape, { depth: 1.15, bevelEnabled: false, curveSegments: 1 });
+    g.translate(0, 0, -0.575);
+    const block = new THREE.Mesh(g, [edges, paper]);
+    block.castShadow = true; block.receiveShadow = true;
+    book.add(block);
+  });
+  const hinge = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 1.2, 12, 1, false, Math.PI / 2, Math.PI), cloth);
+  hinge.rotation.x = Math.PI / 2; hinge.rotation.z = Math.PI; hinge.position.y = 0.018; book.add(hinge);
+  return { group: book, cloth, paper, edges };
 }
 
 export function createScene(opts) {
@@ -60,30 +90,7 @@ export function createScene(opts) {
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
 
   /* ---- The book ---- */
-  const cloth = new THREE.MeshStandardMaterial({ color: 0x17304a, roughness: 0.85 });
-  const paper = new THREE.MeshStandardMaterial({ color: 0xfdfcf9, roughness: 0.92, emissive: 0xfdfcf9, emissiveIntensity: 0.08 });
-  const edges = new THREE.MeshStandardMaterial({ map: stripesTexture(), roughness: 1 });
-  const book = new THREE.Group(); scene.add(book);
-
-  [-1, 1].forEach((side) => {
-    const board = new THREE.Mesh(new THREE.BoxGeometry(0.91, 0.018, 1.2), cloth);
-    board.position.set(side * 0.465, 0.009, 0); board.castShadow = true; board.receiveShadow = true; book.add(board);
-
-    /* Page block: the curved paper profile extruded along the page depth.
-       Built per side (no negative scale) so normals face outward on both pages. */
-    const shape = new THREE.Shape(), xs = [];
-    for (let k = 0; k <= 24; k++) xs.push(0.02 + (0.86 * k) / 24);
-    shape.moveTo(side * 0.02, 0.018);
-    xs.forEach((x) => shape.lineTo(side * x, surfaceY(x)));
-    shape.lineTo(side * 0.88, 0.018); shape.closePath();
-    const g = new THREE.ExtrudeGeometry(shape, { depth: 1.15, bevelEnabled: false, curveSegments: 1 });
-    g.translate(0, 0, -0.575);
-    const block = new THREE.Mesh(g, [edges, paper]);
-    block.castShadow = true; block.receiveShadow = true;
-    book.add(block);
-  });
-  const hinge = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 1.2, 12, 1, false, Math.PI / 2, Math.PI), cloth);
-  hinge.rotation.x = Math.PI / 2; hinge.rotation.z = Math.PI; hinge.position.y = 0.018; book.add(hinge);
+  const book = buildOpenBook(0x17304a).group; scene.add(book);
 
   /* ---- Ink layers: a flat print on the paper + a lifted 3D copy ---- */
   const box = new THREE.BoxGeometry(1, 1, 1);
