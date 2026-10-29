@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Courses &amp; Training | Beanters</title>
-<meta name="description" content="Structured courses on cellular networks, from 2G fundamentals to 6G. Built by practitioners for engineers shipping real networks.">
+<title>Cursos y formación | Beanters</title>
+<meta name="description" content="Cursos estructurados de redes celulares, de los fundamentos de 2G a 6G. Creados por profesionales para ingenieros que ponen redes reales en producción." data-i18n-attr="content:metaDesc">
 <meta name="author" content="Luis Felipe Ariza Vesga">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f3f5f8" media="(prefers-color-scheme: light)">
@@ -24,7 +24,7 @@
     var q = new URLSearchParams(location.search).get("lang");
     if (q === "en" || q === "es") l = q;
     if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
-    d.setAttribute("lang", l === "en" || l === "es" ? l : "en");
+    d.setAttribute("lang", l === "en" || l === "es" ? l : "es");
   })();
 </script>
 </head>
@@ -61,13 +61,13 @@
 </header>
 
 
-<main id="main" lang="en">
+<main id="main">
 
   <section class="chead" aria-labelledby="ch-title">
     <div class="wrap">
-      <p class="kicker">Training &amp; courses</p>
-      <h1 id="ch-title" class="chead__title">Master cellular networks. Ship real infrastructure.</h1>
-      <p class="lede">Structured courses built by the engineer who deployed Colombia's first 5G Broadcast pilot. From 2G fundamentals to 6G: practical, deep, in Spanish and English.</p>
+      <p class="kicker" data-i18n="cm1">Formación y cursos</p>
+      <h1 id="ch-title" class="chead__title" data-i18n="cm2">Domine las redes celulares. Ponga infraestructura real en producción.</h1>
+      <p class="lede" data-i18n="cm3">Cursos estructurados, creados por el ingeniero que desplegó el primer piloto de 5G Broadcast de Colombia. De los fundamentos de 2G a 6G: prácticos, profundos, en español y en inglés.</p>
     </div>
   </section>
 
@@ -75,80 +75,80 @@
     <div class="wrap">
       <div class="section__head">
         <div>
-          <p class="kicker">Available now</p>
-          <h2 id="s-cell" style="margin-top:6px">Cellular Networks: 2G → 6G</h2>
+          <p class="kicker" data-i18n="cm4">Disponible ahora</p>
+          <h2 id="s-cell" style="margin-top:6px" data-i18n="cm5">Redes celulares: 2G → 6G</h2>
         </div>
       </div>
 
       <article class="panel">
         <div class="course__head">
           <div>
-            <span class="pill pill--free">3 free starter modules</span>
-            <h3 class="course__title">Cellular Networks: 2G → 6G</h3>
-            <ul class="pills"><li class="pill">25 modules</li><li class="pill">Self-paced</li><li class="pill">Spanish &amp; English</li><li class="pill">Practical labs</li></ul>
+            <span class="pill pill--free" data-i18n="cm6">3 módulos de entrada gratuitos</span>
+            <h3 class="course__title" data-i18n="cm7">Redes celulares: 2G → 6G</h3>
+            <ul class="pills"><li class="pill" data-i18n="cm8">25 módulos</li><li class="pill" data-i18n="cm9">A su ritmo</li><li class="pill" data-i18n="cm10">Español e inglés</li><li class="pill" data-i18n="cm11">Laboratorios prácticos</li></ul>
           </div>
-          <a href="cellular-networks/slides.html" class="btn btn--primary">Open free preview</a>
+          <a href="cellular-networks/slides.html" class="btn btn--primary" data-i18n="cm12">Abrir vista previa gratuita</a>
         </div>
 
         <div class="rows" style="border-top:1px solid var(--hairline)">
-          <div class="mod"><span class="mod__n">01</span><span class="mod__t">2G/3G Networks<span class="mod__d">GSM, GPRS, EDGE, UMTS</span></span><span class="pill pill--free">Free</span></div>
-          <div class="mod"><span class="mod__n">02</span><span class="mod__t">4G LTE<span class="mod__d">EPC, eNodeB, IMS, VoLTE</span></span><span class="pill pill--free">Free</span></div>
-          <div class="mod"><span class="mod__n">03</span><span class="mod__t">5G NR<span class="mod__d">gNB, 5G Core, Network Slicing</span></span><span class="pill pill--free">Free</span></div>
-          <div class="mod mod--locked"><span class="mod__n">04–25</span><span class="mod__t">22 more modules: LTE-A MIMO, 5G SA core, Open RAN, NB-IoT, NTN, 5G Broadcast, MLOps for RAN, 6G…</span><span class="pill pill--lock">Full access</span></div>
+          <div class="mod"><span class="mod__n">01</span><span class="mod__t"><span data-i18n="cm13">Redes 2G/3G</span><span class="mod__d">GSM, GPRS, EDGE, UMTS</span></span><span class="pill pill--free" data-i18n="cm14">Gratis</span></div>
+          <div class="mod"><span class="mod__n">02</span><span class="mod__t">4G LTE<span class="mod__d">EPC, eNodeB, IMS, VoLTE</span></span><span class="pill pill--free" data-i18n="cm15">Gratis</span></div>
+          <div class="mod"><span class="mod__n">03</span><span class="mod__t">5G NR<span class="mod__d">gNB, 5G Core, Network Slicing</span></span><span class="pill pill--free" data-i18n="cm16">Gratis</span></div>
+          <div class="mod mod--locked"><span class="mod__n">04–25</span><span class="mod__t" data-i18n="cm17">22 módulos más: LTE-A MIMO, núcleo 5G SA, Open RAN, NB-IoT, NTN, 5G Broadcast, MLOps para RAN, 6G…</span><span class="pill pill--lock" data-i18n="cm18">Acceso completo</span></div>
         </div>
 
         <div class="two" style="border-top:1px solid var(--hairline)">
           <div>
-            <h4>Included in full access</h4>
+            <h4 data-i18n="cm19">Incluido en el acceso completo</h4>
             <ul class="checks">
-              <li>25 modules in Spanish &amp; English</li>
-              <li>Interactive quizzes per module</li>
-              <li>Practical labs: srsRAN, Open5GS</li>
-              <li>Downloadable Mermaid diagrams</li>
-              <li>Lifetime access + updates</li>
-              <li>Direct instructor support</li>
+              <li data-i18n="cm20">25 módulos en español e inglés</li>
+              <li data-i18n="cm21">Cuestionarios interactivos por módulo</li>
+              <li data-i18n="cm22">Laboratorios prácticos: srsRAN, Open5GS</li>
+              <li data-i18n="cm23">Diagramas Mermaid descargables</li>
+              <li data-i18n="cm24">Acceso de por vida y actualizaciones</li>
+              <li data-i18n="cm25">Soporte directo del instructor</li>
             </ul>
           </div>
           <div>
-            <h4>Who it's for</h4>
+            <h4 data-i18n="cm26">Para quién es</h4>
             <ul class="checks checks--plain">
-              <li>Telecom engineers</li>
-              <li>Electronics / comms students</li>
-              <li>DevOps / platform engineers in telco</li>
-              <li>Mobile operator technical teams</li>
-              <li>University researchers &amp; professors</li>
+              <li data-i18n="cm27">Ingenieros de telecomunicaciones</li>
+              <li data-i18n="cm28">Estudiantes de electrónica y comunicaciones</li>
+              <li data-i18n="cm29">Ingenieros DevOps y de plataforma en telco</li>
+              <li data-i18n="cm30">Equipos técnicos de operadores móviles</li>
+              <li data-i18n="cm31">Investigadores y profesores universitarios</li>
             </ul>
           </div>
         </div>
 
         <div style="border-top:1px solid var(--hairline)">
-          <h4 class="plans-h">Choose your plan</h4>
+          <h4 class="plans-h" data-i18n="cm32">Elija su plan</h4>
           <div class="plans">
             <div class="plan">
-              <p class="plan__amount">Free</p>
-              <p class="plan__name">Preview</p>
-              <p class="plan__sub">3 starter modules included</p>
+              <p class="plan__amount" data-i18n="cm33">Gratis</p>
+              <p class="plan__name" data-i18n="cm34">Vista previa</p>
+              <p class="plan__sub" data-i18n="cm35">3 módulos de entrada incluidos</p>
             </div>
             <div class="plan plan--main">
-              <span class="pill pill--ink plan__tag">Most popular</span>
+              <span class="pill pill--ink plan__tag" data-i18n="cm36">Más popular</span>
               <p class="plan__amount">$89 USD</p>
-              <p class="plan__name">Full access</p>
-              <p class="plan__sub">25 modules + labs + quizzes</p>
+              <p class="plan__name" data-i18n="cm37">Acceso completo</p>
+              <p class="plan__sub" data-i18n="cm38">25 módulos + laboratorios + cuestionarios</p>
             </div>
             <div class="plan">
               <p class="plan__amount">$490 USD</p>
-              <p class="plan__name">Team / University</p>
-              <p class="plan__sub">10 seats · invoice available</p>
+              <p class="plan__name" data-i18n="cm39">Equipos / Universidades</p>
+              <p class="plan__sub" data-i18n="cm40">10 cupos · factura disponible</p>
             </div>
           </div>
         </div>
 
         <div class="cta-foot" style="border-top:1px solid var(--hairline)">
-          <p class="cta-foot__note">Enroll by email · Luis responds in &lt;24 h<br>Accepts card, bank transfer, Nequi / Daviplata</p>
+          <p class="cta-foot__note" data-i18n="cm41">Inscripción por correo · Luis responde en menos de 24 h<br>Acepta tarjeta, transferencia bancaria, Nequi / Daviplata</p>
           <div class="btn-row">
-            <a href="cellular-networks/" class="btn btn--quiet">View full curriculum</a>
-            <a href="cellular-networks/slides.html" class="btn btn--quiet">Open free preview</a>
-            <a href="mailto:lfarizav@gmail.com?subject=Enroll%20Cellular%20Networks%20Course%3A%2089%20USD&body=Hi%20Luis%2C%0A%0AI%20would%20like%20to%20enroll%20in%20the%20full%20Cellular%20Networks%20course%20(USD%2089).%0A%0AName%3A%20%0AOrganization%3A%20%0ACountry%3A%20%0A%0AThanks." class="btn btn--primary">Enroll: $89 USD</a>
+            <a href="cellular-networks/" class="btn btn--quiet" data-i18n="cm42">Ver el plan de estudios completo</a>
+            <a href="cellular-networks/slides.html" class="btn btn--quiet" data-i18n="cm43">Abrir vista previa gratuita</a>
+            <a href="mailto:lfarizav@gmail.com?subject=Inscripci%C3%B3n%20Redes%20Celulares%3A%2089%20USD&body=Hola%20Luis%2C%0A%0AQuiero%20inscribirme%20en%20el%20curso%20completo%20de%20Redes%20Celulares%20(USD%2089).%0A%0ANombre%3A%20%0AOrganizaci%C3%B3n%3A%20%0APa%C3%ADs%3A%20%0A%0AGracias." class="btn btn--primary" data-i18n="cm44" data-i18n-attr="href:cm124">Inscribirme: $89 USD</a>
           </div>
         </div>
       </article>
@@ -159,94 +159,94 @@
     <div class="wrap">
       <div class="section__head">
         <div>
-          <p class="kicker">Training programs</p>
-          <h2 id="s-prog" style="margin-top:6px">Instructor-led training</h2>
-          <p class="section__sub lead-in">Role-based, lab-heavy programs taught live by Luis. Each includes hands-on labs, real deployment scenarios, and direct instructor access.</p>
+          <p class="kicker" data-i18n="cm45">Programas de formación</p>
+          <h2 id="s-prog" style="margin-top:6px" data-i18n="cm46">Formación dirigida por instructor</h2>
+          <p class="section__sub lead-in" data-i18n="cm47">Programas por rol, con muchos laboratorios, dictados en vivo por Luis. Todos incluyen laboratorios prácticos, escenarios de despliegue reales y acceso directo al instructor.</p>
         </div>
       </div>
 
       <div class="who">
         <img src="https://beanters.com/luis.webp" alt="Luis Felipe Ariza Vesga" width="56" height="56">
         <div>
-          <p class="who__name">Luis Felipe Ariza Vesga, instructor for all programs</p>
-          <p class="who__role">PhD Telecom · Kubestronaut · EURECOM · MinCiencias · KubeCon Amsterdam 2026 Speaker</p>
+          <p class="who__name" data-i18n="cm48">Luis Felipe Ariza Vesga, instructor de todos los programas</p>
+          <p class="who__role" data-i18n="cm49">Doctor en telecomunicaciones · Kubestronaut · EURECOM · Ponente en KubeCon Ámsterdam 2026</p>
         </div>
       </div>
 
       <div class="panel rows">
       <article class="prog">
         <div>
-          <p class="prog__level">Advanced · 66+ hours</p>
-          <h3>Agentic Engineering</h3>
-          <p class="prog__tag">Build AI agents that reason, plan, and act autonomously</p>
-          <p class="prog__desc">From LLM fundamentals to multi-agent orchestration with the AEF (Agentic Engineering Framework). Hands-on labs with VS Code + GitHub Copilot, local model inference (Ollama/vLLM), and production agent systems.</p>
-          <ul class="pills"><li class="pill">LLM Fundamentals, 8 h</li><li class="pill">Prompt Engineering, 6 h</li><li class="pill">Agent Patterns, 14 h</li><li class="pill">AEF Framework, 10 h</li><li class="pill">Multi-Agent Orchestration, 20 h</li></ul>
+          <p class="prog__level" data-i18n="cm50">Avanzado · 66+ horas</p>
+          <h3 data-i18n="cm51">Ingeniería agéntica</h3>
+          <p class="prog__tag" data-i18n="cm52">Construya agentes de IA que razonan, planifican y actúan de forma autónoma</p>
+          <p class="prog__desc" data-i18n="cm53">De los fundamentos de los LLM a la orquestación multiagente con el AEF (Agentic Engineering Framework). Laboratorios prácticos con VS Code y GitHub Copilot, inferencia local de modelos (Ollama/vLLM) y sistemas de agentes en producción.</p>
+          <ul class="pills"><li class="pill" data-i18n="cm54">Fundamentos de LLM, 8 h</li><li class="pill" data-i18n="cm55">Ingeniería de prompts, 6 h</li><li class="pill" data-i18n="cm56">Patrones de agentes, 14 h</li><li class="pill" data-i18n="cm57">Marco AEF, 10 h</li><li class="pill" data-i18n="cm58">Orquestación multiagente, 20 h</li></ul>
           <div class="btn-row">
-            <a href="mailto:lfarizav@gmail.com?subject=Agentic%20Engineering%20Training%3A%20249%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20in%20Agentic%20Engineering%20(USD%20249).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0APreferred%20start%3A%20%0A%0AThanks." class="btn btn--primary">Enroll: $249 USD</a>
-            <a href="mailto:lfarizav@gmail.com?subject=Agentic%20Engineering%3A%20Team%20pricing" class="btn btn--quiet">Team pricing</a>
+            <a href="mailto:lfarizav@gmail.com?subject=Formaci%C3%B3n%20en%20Ingenier%C3%ADa%20Ag%C3%A9ntica%3A%20249%20USD&body=Hola%20Luis%2C%0A%0AQuiero%20inscribirme%20en%20Ingenier%C3%ADa%20Ag%C3%A9ntica%20(USD%20249).%0A%0ANombre%3A%20%0AEmpresa%2FUniversidad%3A%20%0ACargo%3A%20%0AInicio%20preferido%3A%20%0A%0AGracias." class="btn btn--primary" data-i18n="cm59" data-i18n-attr="href:cm125">Inscribirme: $249 USD</a>
+            <a href="mailto:lfarizav@gmail.com?subject=Ingenier%C3%ADa%20Ag%C3%A9ntica%3A%20precios%20para%20equipos" class="btn btn--quiet" data-i18n="cm60" data-i18n-attr="href:cm126">Precios para equipos</a>
           </div>
         </div>
-        <div class="prog__price"><p class="prog__amount">$249</p><p class="prog__per">USD · individual</p><p class="prog__hours">66+ hours</p></div>
+        <div class="prog__price"><p class="prog__amount">$249</p><p class="prog__per" data-i18n="cm61">USD · individual</p><p class="prog__hours" data-i18n="cm62">66+ horas</p></div>
       </article>
       <article class="prog">
         <div>
-          <p class="prog__level">Intermediate → Advanced · 50+ hours</p>
-          <h3>Cloud-Native Kubernetes</h3>
-          <p class="prog__tag">Kubernetes, Helm, GitOps with Flux, and observability: production grade</p>
-          <p class="prog__desc">Role-based learning for developers, platform engineers, and SREs. Covers Kubernetes architecture, workloads, Helm charts, GitOps with FluxCD, and the full observability stack. Direct application to cloud-native telco and 5G/LTE private networks.</p>
-          <ul class="pills"><li class="pill">Containers + K8s Basics, 12 h</li><li class="pill">Workloads + Production, 22 h</li><li class="pill">Helm Charts, 8 h</li><li class="pill">GitOps + Flux, 10 h</li><li class="pill">Observability, 14 h</li></ul>
+          <p class="prog__level" data-i18n="cm63">Intermedio → Avanzado · 50+ horas</p>
+          <h3 data-i18n="cm64">Kubernetes cloud native</h3>
+          <p class="prog__tag" data-i18n="cm65">Kubernetes, Helm, GitOps con Flux y observabilidad: nivel producción</p>
+          <p class="prog__desc" data-i18n="cm66">Aprendizaje por roles para desarrolladores, ingenieros de plataforma y SRE. Cubre la arquitectura de Kubernetes, las cargas de trabajo, los charts de Helm, GitOps con FluxCD y toda la pila de observabilidad. Aplicación directa a telco cloud native y a redes privadas 5G/LTE.</p>
+          <ul class="pills"><li class="pill" data-i18n="cm67">Contenedores y fundamentos de K8s, 12 h</li><li class="pill" data-i18n="cm68">Cargas de trabajo y producción, 22 h</li><li class="pill" data-i18n="cm69">Charts de Helm, 8 h</li><li class="pill" data-i18n="cm70">GitOps y Flux, 10 h</li><li class="pill" data-i18n="cm71">Observabilidad, 14 h</li></ul>
           <div class="btn-row">
-            <a href="mailto:lfarizav@gmail.com?subject=Cloud-Native%20Kubernetes%20Training%3A%20199%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20199).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0A%0AThanks." class="btn btn--primary">Enroll: $199 USD</a>
-            <a href="mailto:lfarizav@gmail.com?subject=Cloud-Native%3A%20Team%20pricing" class="btn btn--quiet">Team pricing</a>
+            <a href="mailto:lfarizav@gmail.com?subject=Formaci%C3%B3n%20en%20Kubernetes%20Cloud%20Native%3A%20199%20USD&body=Hola%20Luis%2C%0A%0AQuiero%20inscribirme%20(USD%20199).%0A%0ANombre%3A%20%0AEmpresa%2FUniversidad%3A%20%0ACargo%3A%20%0A%0AGracias." class="btn btn--primary" data-i18n="cm72" data-i18n-attr="href:cm127">Inscribirme: $199 USD</a>
+            <a href="mailto:lfarizav@gmail.com?subject=Kubernetes%20Cloud%20Native%3A%20precios%20para%20equipos" class="btn btn--quiet" data-i18n="cm73" data-i18n-attr="href:cm128">Precios para equipos</a>
           </div>
         </div>
-        <div class="prog__price"><p class="prog__amount">$199</p><p class="prog__per">USD · individual</p><p class="prog__hours">50+ hours</p></div>
+        <div class="prog__price"><p class="prog__amount">$199</p><p class="prog__per" data-i18n="cm74">USD · individual</p><p class="prog__hours" data-i18n="cm75">50+ horas</p></div>
       </article>
       <article class="prog">
         <div>
-          <p class="prog__level">Certification Prep · ~30 hours per track</p>
-          <h3>CKA / CKAD / CKS Certification Prep</h3>
-          <p class="prog__tag">Pass the CNCF Kubernetes certifications with real exam scenarios</p>
-          <p class="prog__desc">Exam-focused preparation for CKA, CKAD, and CKS. Includes timed mock exams, live cluster scenarios, and common exam traps. Taught by a certified Kubestronaut who has passed all three.</p>
-          <ul class="pills"><li class="pill">CKA: Cluster Administration</li><li class="pill">CKAD: Application Development</li><li class="pill">CKS: Security Specialist</li></ul>
+          <p class="prog__level" data-i18n="cm76">Preparación para certificación · ~30 horas por ruta</p>
+          <h3 data-i18n="cm77">Preparación para las certificaciones CKA / CKAD / CKS</h3>
+          <p class="prog__tag" data-i18n="cm78">Apruebe las certificaciones de Kubernetes de la CNCF con escenarios reales de examen</p>
+          <p class="prog__desc" data-i18n="cm79">Preparación centrada en el examen para CKA, CKAD y CKS. Incluye simulacros cronometrados, escenarios con clústeres en vivo y las trampas más comunes del examen. Dictado por un Kubestronaut certificado que aprobó las tres.</p>
+          <ul class="pills"><li class="pill" data-i18n="cm80">CKA: administración de clústeres</li><li class="pill" data-i18n="cm81">CKAD: desarrollo de aplicaciones</li><li class="pill" data-i18n="cm82">CKS: especialista en seguridad</li></ul>
           <div class="btn-row">
-            <a href="mailto:lfarizav@gmail.com?subject=CKA%20Certification%20Prep%3A%20149%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20149).%0A%0AName%3A%20%0ATarget%20cert%3A%20%0ATarget%20exam%20date%3A%20%0A%0AThanks." class="btn btn--primary">Enroll: $149 USD / cert</a>
-            <a href="mailto:lfarizav@gmail.com?subject=CKA%20CKAD%20CKS%3A%20bundle%20pricing" class="btn btn--quiet">Bundle all 3</a>
+            <a href="mailto:lfarizav@gmail.com?subject=Preparaci%C3%B3n%20para%20la%20certificaci%C3%B3n%20CKA%3A%20149%20USD&body=Hola%20Luis%2C%0A%0AQuiero%20inscribirme%20(USD%20149).%0A%0ANombre%3A%20%0ACertificaci%C3%B3n%20objetivo%3A%20%0AFecha%20objetivo%20del%20examen%3A%20%0A%0AGracias." class="btn btn--primary" data-i18n="cm83" data-i18n-attr="href:cm129">Inscribirme: $149 USD / certificación</a>
+            <a href="mailto:lfarizav@gmail.com?subject=CKA%20CKAD%20CKS%3A%20precio%20del%20paquete" class="btn btn--quiet" data-i18n="cm84" data-i18n-attr="href:cm130">Paquete de las 3</a>
           </div>
         </div>
-        <div class="prog__price"><p class="prog__amount">$149</p><p class="prog__per">USD · per cert</p><p class="prog__hours">~30 h per cert</p></div>
+        <div class="prog__price"><p class="prog__amount">$149</p><p class="prog__per" data-i18n="cm85">USD · por certificación</p><p class="prog__hours" data-i18n="cm86">~30 h por certificación</p></div>
       </article>
       <article class="prog">
         <div>
-          <p class="prog__level">Advanced · 48+ hours</p>
-          <h3>AI &amp; Security for Cloud-Native Telco</h3>
-          <p class="prog__tag">Deploy AI-powered workloads on 5G and cloud-native stacks, securely</p>
-          <p class="prog__desc">Threat modeling for AI pipelines, zero-trust on Kubernetes, secure model serving for RAN optimization, adversarial ML awareness, and compliance with NIST AI RMF and 3GPP TS 33.501. For engineers operating AI-driven automation in production 4G/5G environments.</p>
-          <ul class="pills"><li class="pill">AI in Telco Operations, 8 h</li><li class="pill">Secure AI Pipelines, 10 h</li><li class="pill">Zero-Trust on Kubernetes, 10 h</li><li class="pill">Threat Modeling for AI, 8 h</li><li class="pill">3GPP Security &amp; AI, 6 h</li><li class="pill">NIST AI RMF &amp; Compliance, 6 h</li></ul>
+          <p class="prog__level" data-i18n="cm87">Avanzado · 48+ horas</p>
+          <h3 data-i18n="cm88">IA y seguridad para telco cloud native</h3>
+          <p class="prog__tag" data-i18n="cm89">Despliegue de cargas de trabajo con IA sobre 5G y pilas cloud native, de forma segura</p>
+          <p class="prog__desc" data-i18n="cm90">Modelado de amenazas para pipelines de IA, confianza cero en Kubernetes, servicio seguro de modelos para la optimización de la RAN, conciencia sobre el aprendizaje automático adversarial y cumplimiento del NIST AI RMF y de 3GPP TS 33.501. Para ingenieros que operan automatización con IA en entornos 4G/5G de producción.</p>
+          <ul class="pills"><li class="pill" data-i18n="cm91">IA en las operaciones de telco, 8 h</li><li class="pill" data-i18n="cm92">Pipelines de IA seguros, 10 h</li><li class="pill" data-i18n="cm93">Confianza cero en Kubernetes, 10 h</li><li class="pill" data-i18n="cm94">Modelado de amenazas para IA, 8 h</li><li class="pill" data-i18n="cm95">Seguridad 3GPP e IA, 6 h</li><li class="pill" data-i18n="cm96">NIST AI RMF y cumplimiento, 6 h</li></ul>
           <div class="btn-row">
-            <a href="mailto:lfarizav@gmail.com?subject=AI%20%26%20Security%20for%20Cloud-Native%20Telco%3A%20279%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20279).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0APreferred%20start%3A%20%0A%0AThanks." class="btn btn--primary">Enroll: $279 USD</a>
-            <a href="mailto:lfarizav@gmail.com?subject=AI%20%26%20Security%20Telco%3A%20Team%20pricing" class="btn btn--quiet">Team pricing</a>
+            <a href="mailto:lfarizav@gmail.com?subject=IA%20y%20seguridad%20para%20telco%20cloud%20native%3A%20279%20USD&body=Hola%20Luis%2C%0A%0AQuiero%20inscribirme%20(USD%20279).%0A%0ANombre%3A%20%0AEmpresa%2FUniversidad%3A%20%0ACargo%3A%20%0AInicio%20preferido%3A%20%0A%0AGracias." class="btn btn--primary" data-i18n="cm97" data-i18n-attr="href:cm131">Inscribirme: $279 USD</a>
+            <a href="mailto:lfarizav@gmail.com?subject=IA%20y%20seguridad%20para%20telco%3A%20precios%20para%20equipos" class="btn btn--quiet" data-i18n="cm98" data-i18n-attr="href:cm132">Precios para equipos</a>
           </div>
         </div>
-        <div class="prog__price"><p class="prog__amount">$279</p><p class="prog__per">USD · individual</p><p class="prog__hours">48+ hours</p></div>
+        <div class="prog__price"><p class="prog__amount">$279</p><p class="prog__per" data-i18n="cm99">USD · individual</p><p class="prog__hours" data-i18n="cm100">48+ horas</p></div>
       </article>
       <article class="prog">
         <div>
-          <p class="prog__level">Intermediate → Advanced · 40+ hours</p>
-          <h3>Risk Management for Telco &amp; Cloud-Native AI</h3>
-          <p class="prog__tag">Assess, quantify, and mitigate risk in AI-driven telecom infrastructure</p>
-          <p class="prog__desc">ISO 27005, NIST RMF, and 3GPP security risk frameworks; AI operational risk (model drift, hallucination in automation, bias); regulatory compliance (EU AI Act, GDPR for telco data); business continuity for cloud-native deployments; and incident response for AI-driven network failures.</p>
-          <ul class="pills"><li class="pill">Risk Frameworks (ISO 27005 / NIST RMF), 8 h</li><li class="pill">AI Operational Risk, 8 h</li><li class="pill">Network Resilience &amp; Availability, 8 h</li><li class="pill">Regulatory Compliance (EU AI Act / GDPR), 6 h</li><li class="pill">Incident Response for AI Networks, 6 h</li><li class="pill">Business Continuity for Cloud-Native, 4 h</li></ul>
+          <p class="prog__level" data-i18n="cm101">Intermedio → Avanzado · 40+ horas</p>
+          <h3 data-i18n="cm102">Gestión del riesgo para telco e IA cloud native</h3>
+          <p class="prog__tag" data-i18n="cm103">Evalúe, cuantifique y mitigue el riesgo en infraestructura de telecomunicaciones impulsada por IA</p>
+          <p class="prog__desc" data-i18n="cm104">Marcos de riesgo ISO 27005, NIST RMF y de seguridad 3GPP; riesgo operacional de la IA (deriva del modelo, alucinaciones en la automatización, sesgos); cumplimiento regulatorio (Ley de IA de la UE, GDPR para datos de telco); continuidad del negocio en despliegues cloud native; y respuesta a incidentes por fallas de red causadas por la IA.</p>
+          <ul class="pills"><li class="pill" data-i18n="cm105">Marcos de riesgo (ISO 27005 / NIST RMF), 8 h</li><li class="pill" data-i18n="cm106">Riesgo operacional de la IA, 8 h</li><li class="pill" data-i18n="cm107">Resiliencia y disponibilidad de la red, 8 h</li><li class="pill" data-i18n="cm108">Cumplimiento regulatorio (Ley de IA de la UE / GDPR), 6 h</li><li class="pill" data-i18n="cm109">Respuesta a incidentes en redes con IA, 6 h</li><li class="pill" data-i18n="cm110">Continuidad del negocio en cloud native, 4 h</li></ul>
           <div class="btn-row">
-            <a href="mailto:lfarizav@gmail.com?subject=Risk%20Management%20Telco%20%26%20Cloud-Native%20AI%3A%20229%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20229).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0APreferred%20start%3A%20%0A%0AThanks." class="btn btn--primary">Enroll: $229 USD</a>
-            <a href="mailto:lfarizav@gmail.com?subject=Risk%20Management%20Telco%3A%20Team%20pricing" class="btn btn--quiet">Team pricing</a>
+            <a href="mailto:lfarizav@gmail.com?subject=Gesti%C3%B3n%20del%20riesgo%20para%20telco%20e%20IA%20cloud%20native%3A%20229%20USD&body=Hola%20Luis%2C%0A%0AQuiero%20inscribirme%20(USD%20229).%0A%0ANombre%3A%20%0AEmpresa%2FUniversidad%3A%20%0ACargo%3A%20%0AInicio%20preferido%3A%20%0A%0AGracias." class="btn btn--primary" data-i18n="cm111" data-i18n-attr="href:cm133">Inscribirme: $229 USD</a>
+            <a href="mailto:lfarizav@gmail.com?subject=Gesti%C3%B3n%20del%20riesgo%20en%20telco%3A%20precios%20para%20equipos" class="btn btn--quiet" data-i18n="cm112" data-i18n-attr="href:cm134">Precios para equipos</a>
           </div>
         </div>
-        <div class="prog__price"><p class="prog__amount">$229</p><p class="prog__per">USD · individual</p><p class="prog__hours">40+ hours</p></div>
+        <div class="prog__price"><p class="prog__amount">$229</p><p class="prog__per" data-i18n="cm113">USD · individual</p><p class="prog__hours" data-i18n="cm114">40+ horas</p></div>
       </article>
       </div>
 
-      <p class="note"><strong>How enrollment works:</strong> Click "Enroll" to send a pre-filled email. Luis replies within 24 hours with a payment link and access credentials. Accepts card, bank transfer, and local payment methods (Colombia: Nequi / Daviplata). Corporate invoicing available.</p>
+      <p class="note" data-i18n="cm115"><strong>Cómo funciona la inscripción:</strong> pulse «Inscribirme» para enviar un correo ya redactado. Luis responde en 24 horas con un enlace de pago y las credenciales de acceso. Se aceptan tarjeta, transferencia bancaria y medios de pago locales (Colombia: Nequi / Daviplata). Facturación corporativa disponible.</p>
     </div>
   </section>
 
@@ -254,21 +254,21 @@
     <div class="wrap">
       <div class="section__head">
         <div>
-          <p class="kicker">Coming soon</p>
-          <h2 id="s-soon" style="margin-top:6px">More courses in development</h2>
+          <p class="kicker" data-i18n="cm116">Próximamente</p>
+          <h2 id="s-soon" style="margin-top:6px" data-i18n="cm117">Más cursos en desarrollo</h2>
         </div>
       </div>
       <div class="soon">
         <article class="panel">
-          <span class="pill pill--lock">Coming 2026</span>
-          <h3>Private 5G Deployment Engineering</h3>
-          <p>End-to-end deployment of a private 5G SA network, from hardware selection and spectrum planning to Kubernetes orchestration and Grafana observability. Hands-on with OAI and Open5GS.</p>
+          <span class="pill pill--lock" data-i18n="cm118">Próximamente en 2026</span>
+          <h3 data-i18n="cm119">Ingeniería de despliegue de 5G privado</h3>
+          <p data-i18n="cm120">Despliegue de principio a fin de una red 5G SA privada, desde la selección del hardware y la planificación del espectro hasta la orquestación con Kubernetes y la observabilidad con Grafana. Práctica con OAI y Open5GS.</p>
           <ul class="pills"><li class="pill">OAI gNB</li><li class="pill">Open5GS</li><li class="pill">Kubernetes</li><li class="pill">Helm</li></ul>
         </article>
         <article class="panel">
-          <span class="pill pill--lock">Coming 2026</span>
-          <h3>Cloud-Native RAN &amp; GitOps for Telco</h3>
-          <p>FluxCD, Kustomize, and Helm applied to network function lifecycle management. Zero-touch provisioning, rolling upgrades, and multi-site observability for 4G/5G workloads on Kubernetes.</p>
+          <span class="pill pill--lock" data-i18n="cm121">Próximamente en 2026</span>
+          <h3 data-i18n="cm122">RAN cloud native y GitOps para telco</h3>
+          <p data-i18n="cm123">FluxCD, Kustomize y Helm aplicados a la gestión del ciclo de vida de las funciones de red. Aprovisionamiento sin intervención, actualizaciones progresivas y observabilidad multisitio para cargas 4G/5G en Kubernetes.</p>
           <ul class="pills"><li class="pill">FluxCD</li><li class="pill">GitOps</li><li class="pill">Prometheus</li><li class="pill">Grafana</li></ul>
         </article>
       </div>
@@ -276,6 +276,7 @@
   </section>
 
 </main>
+
 
 <footer class="footer">
   <div class="wrap footer__in">
@@ -313,6 +314,141 @@
 
 <script>
   window.SITE_I18N = { en: {
+    cm1: "Training &amp; courses",
+    cm2: "Master cellular networks. Ship real infrastructure.",
+    cm3: "Structured courses built by the engineer who deployed Colombia's first 5G Broadcast pilot. From 2G fundamentals to 6G: practical, deep, in Spanish and English.",
+    cm4: "Available now",
+    cm5: "Cellular Networks: 2G → 6G",
+    cm6: "3 free starter modules",
+    cm7: "Cellular Networks: 2G → 6G",
+    cm8: "25 modules",
+    cm9: "Self-paced",
+    cm10: "Spanish &amp; English",
+    cm11: "Practical labs",
+    cm12: "Open free preview",
+    cm13: "2G/3G Networks",
+    cm14: "Free",
+    cm15: "Free",
+    cm16: "Free",
+    cm17: "22 more modules: LTE-A MIMO, 5G SA core, Open RAN, NB-IoT, NTN, 5G Broadcast, MLOps for RAN, 6G…",
+    cm18: "Full access",
+    cm19: "Included in full access",
+    cm20: "25 modules in Spanish &amp; English",
+    cm21: "Interactive quizzes per module",
+    cm22: "Practical labs: srsRAN, Open5GS",
+    cm23: "Downloadable Mermaid diagrams",
+    cm24: "Lifetime access + updates",
+    cm25: "Direct instructor support",
+    cm26: "Who it's for",
+    cm27: "Telecom engineers",
+    cm28: "Electronics / comms students",
+    cm29: "DevOps / platform engineers in telco",
+    cm30: "Mobile operator technical teams",
+    cm31: "University researchers &amp; professors",
+    cm32: "Choose your plan",
+    cm33: "Free",
+    cm34: "Preview",
+    cm35: "3 starter modules included",
+    cm36: "Most popular",
+    cm37: "Full access",
+    cm38: "25 modules + labs + quizzes",
+    cm39: "Team / University",
+    cm40: "10 seats · invoice available",
+    cm41: "Enroll by email · Luis responds in &lt;24 h<br>Accepts card, bank transfer, Nequi / Daviplata",
+    cm42: "View full curriculum",
+    cm43: "Open free preview",
+    cm44: "Enroll: $89 USD",
+    cm45: "Training programs",
+    cm46: "Instructor-led training",
+    cm47: "Role-based, lab-heavy programs taught live by Luis. Each includes hands-on labs, real deployment scenarios, and direct instructor access.",
+    cm48: "Luis Felipe Ariza Vesga, instructor for all programs",
+    cm49: "PhD Telecom · Kubestronaut · EURECOM · KubeCon Amsterdam 2026 Speaker",
+    cm50: "Advanced · 66+ hours",
+    cm51: "Agentic Engineering",
+    cm52: "Build AI agents that reason, plan, and act autonomously",
+    cm53: "From LLM fundamentals to multi-agent orchestration with the AEF (Agentic Engineering Framework). Hands-on labs with VS Code + GitHub Copilot, local model inference (Ollama/vLLM), and production agent systems.",
+    cm54: "LLM Fundamentals, 8 h",
+    cm55: "Prompt Engineering, 6 h",
+    cm56: "Agent Patterns, 14 h",
+    cm57: "AEF Framework, 10 h",
+    cm58: "Multi-Agent Orchestration, 20 h",
+    cm59: "Enroll: $249 USD",
+    cm60: "Team pricing",
+    cm61: "USD · individual",
+    cm62: "66+ hours",
+    cm63: "Intermediate → Advanced · 50+ hours",
+    cm64: "Cloud-Native Kubernetes",
+    cm65: "Kubernetes, Helm, GitOps with Flux, and observability: production grade",
+    cm66: "Role-based learning for developers, platform engineers, and SREs. Covers Kubernetes architecture, workloads, Helm charts, GitOps with FluxCD, and the full observability stack. Direct application to cloud-native telco and 5G/LTE private networks.",
+    cm67: "Containers + K8s Basics, 12 h",
+    cm68: "Workloads + Production, 22 h",
+    cm69: "Helm Charts, 8 h",
+    cm70: "GitOps + Flux, 10 h",
+    cm71: "Observability, 14 h",
+    cm72: "Enroll: $199 USD",
+    cm73: "Team pricing",
+    cm74: "USD · individual",
+    cm75: "50+ hours",
+    cm76: "Certification Prep · ~30 hours per track",
+    cm77: "CKA / CKAD / CKS Certification Prep",
+    cm78: "Pass the CNCF Kubernetes certifications with real exam scenarios",
+    cm79: "Exam-focused preparation for CKA, CKAD, and CKS. Includes timed mock exams, live cluster scenarios, and common exam traps. Taught by a certified Kubestronaut who has passed all three.",
+    cm80: "CKA: Cluster Administration",
+    cm81: "CKAD: Application Development",
+    cm82: "CKS: Security Specialist",
+    cm83: "Enroll: $149 USD / cert",
+    cm84: "Bundle all 3",
+    cm85: "USD · per cert",
+    cm86: "~30 h per cert",
+    cm87: "Advanced · 48+ hours",
+    cm88: "AI &amp; Security for Cloud-Native Telco",
+    cm89: "Deploy AI-powered workloads on 5G and cloud-native stacks, securely",
+    cm90: "Threat modeling for AI pipelines, zero-trust on Kubernetes, secure model serving for RAN optimization, adversarial ML awareness, and compliance with NIST AI RMF and 3GPP TS 33.501. For engineers operating AI-driven automation in production 4G/5G environments.",
+    cm91: "AI in Telco Operations, 8 h",
+    cm92: "Secure AI Pipelines, 10 h",
+    cm93: "Zero-Trust on Kubernetes, 10 h",
+    cm94: "Threat Modeling for AI, 8 h",
+    cm95: "3GPP Security &amp; AI, 6 h",
+    cm96: "NIST AI RMF &amp; Compliance, 6 h",
+    cm97: "Enroll: $279 USD",
+    cm98: "Team pricing",
+    cm99: "USD · individual",
+    cm100: "48+ hours",
+    cm101: "Intermediate → Advanced · 40+ hours",
+    cm102: "Risk Management for Telco &amp; Cloud-Native AI",
+    cm103: "Assess, quantify, and mitigate risk in AI-driven telecom infrastructure",
+    cm104: "ISO 27005, NIST RMF, and 3GPP security risk frameworks; AI operational risk (model drift, hallucination in automation, bias); regulatory compliance (EU AI Act, GDPR for telco data); business continuity for cloud-native deployments; and incident response for AI-driven network failures.",
+    cm105: "Risk Frameworks (ISO 27005 / NIST RMF), 8 h",
+    cm106: "AI Operational Risk, 8 h",
+    cm107: "Network Resilience &amp; Availability, 8 h",
+    cm108: "Regulatory Compliance (EU AI Act / GDPR), 6 h",
+    cm109: "Incident Response for AI Networks, 6 h",
+    cm110: "Business Continuity for Cloud-Native, 4 h",
+    cm111: "Enroll: $229 USD",
+    cm112: "Team pricing",
+    cm113: "USD · individual",
+    cm114: "40+ hours",
+    cm115: "<strong>How enrollment works:</strong> Click \"Enroll\" to send a pre-filled email. Luis replies within 24 hours with a payment link and access credentials. Accepts card, bank transfer, and local payment methods (Colombia: Nequi / Daviplata). Corporate invoicing available.",
+    cm116: "Coming soon",
+    cm117: "More courses in development",
+    cm118: "Coming 2026",
+    cm119: "Private 5G Deployment Engineering",
+    cm120: "End-to-end deployment of a private 5G SA network, from hardware selection and spectrum planning to Kubernetes orchestration and Grafana observability. Hands-on with OAI and Open5GS.",
+    cm121: "Coming 2026",
+    cm122: "Cloud-Native RAN &amp; GitOps for Telco",
+    cm123: "FluxCD, Kustomize, and Helm applied to network function lifecycle management. Zero-touch provisioning, rolling upgrades, and multi-site observability for 4G/5G workloads on Kubernetes.",
+    cm124: "mailto:lfarizav@gmail.com?subject=Enroll%20Cellular%20Networks%20Course%3A%2089%20USD&body=Hi%20Luis%2C%0A%0AI%20would%20like%20to%20enroll%20in%20the%20full%20Cellular%20Networks%20course%20(USD%2089).%0A%0AName%3A%20%0AOrganization%3A%20%0ACountry%3A%20%0A%0AThanks.",
+    cm125: "mailto:lfarizav@gmail.com?subject=Agentic%20Engineering%20Training%3A%20249%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20in%20Agentic%20Engineering%20(USD%20249).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0APreferred%20start%3A%20%0A%0AThanks.",
+    cm126: "mailto:lfarizav@gmail.com?subject=Agentic%20Engineering%3A%20Team%20pricing",
+    cm127: "mailto:lfarizav@gmail.com?subject=Cloud-Native%20Kubernetes%20Training%3A%20199%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20199).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0A%0AThanks.",
+    cm128: "mailto:lfarizav@gmail.com?subject=Cloud-Native%3A%20Team%20pricing",
+    cm129: "mailto:lfarizav@gmail.com?subject=CKA%20Certification%20Prep%3A%20149%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20149).%0A%0AName%3A%20%0ATarget%20cert%3A%20%0ATarget%20exam%20date%3A%20%0A%0AThanks.",
+    cm130: "mailto:lfarizav@gmail.com?subject=CKA%20CKAD%20CKS%3A%20bundle%20pricing",
+    cm131: "mailto:lfarizav@gmail.com?subject=AI%20%26%20Security%20for%20Cloud-Native%20Telco%3A%20279%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20279).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0APreferred%20start%3A%20%0A%0AThanks.",
+    cm132: "mailto:lfarizav@gmail.com?subject=AI%20%26%20Security%20Telco%3A%20Team%20pricing",
+    cm133: "mailto:lfarizav@gmail.com?subject=Risk%20Management%20Telco%20%26%20Cloud-Native%20AI%3A%20229%20USD&body=Hi%20Luis%2C%0A%0AI%27d%20like%20to%20enroll%20(USD%20229).%0A%0AName%3A%20%0ACompany%2FUniversity%3A%20%0ARole%3A%20%0APreferred%20start%3A%20%0A%0AThanks.",
+    cm134: "mailto:lfarizav@gmail.com?subject=Risk%20Management%20Telco%3A%20Team%20pricing",
+    metaDesc: "Structured courses on cellular networks, from 2G fundamentals to 6G. Built by practitioners for engineers shipping real networks.",
     _title: "Courses & Training | Beanters",
     skip: "Skip to content", brandHome: "Beanters, home", navMain: "Main", langGroup: "Page language",
     navHome: "Home", navCourses: "Courses", navTalks: "Presentations", navBooks: "Books",

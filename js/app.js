@@ -1350,12 +1350,12 @@ function About() {
     fontSize: "1.02rem",
     lineHeight: 1.75,
     marginBottom: "1.25rem"
-  } }, "Former researcher at ", /* @__PURE__ */ React.createElement("strong", { style: { color: "var(--text)" } }, "EURECOM (France)"), ", contributor to the ", /* @__PURE__ */ React.createElement("strong", { style: { color: "var(--text)" } }, "OpenAirInterface Software Alliance"), ", and principal researcher recognized by ", /* @__PURE__ */ React.createElement("strong", { style: { color: "var(--text)" } }, "MinCiencias (Colombia)"), ". Deep expertise in cloud-native RAN, 5G broadcast, and many-objective optimization for heterogeneous networks."), /* @__PURE__ */ React.createElement("p", { style: {
+  } }, "Former researcher at ", /* @__PURE__ */ React.createElement("strong", { style: { color: "var(--text)" } }, "EURECOM (France)"), " and contributor to the ", /* @__PURE__ */ React.createElement("strong", { style: { color: "var(--text)" } }, "OpenAirInterface Software Alliance"), ". Deep expertise in cloud-native RAN, 5G broadcast, and many-objective optimization for heterogeneous networks."), /* @__PURE__ */ React.createElement("p", { style: {
     color: "var(--text-mid)",
     fontSize: "1.02rem",
     lineHeight: 1.75,
     marginBottom: "2rem"
-  } }, "Organizer of the ", /* @__PURE__ */ React.createElement("strong", { style: { color: "var(--text)" } }, "Colombia OpenInfra User Group"), " and KCD Colombia 2025 \u2014 building a thriving community of engineers advancing open-source telecom across Latin America."), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: "0.4rem" } }, ["OpenAirInterface", "srsRAN", "Magma", "Open5GS", "Kubestronaut", "OAI Contributor", "EURECOM Alumni", "MinCiencias"].map((t) => /* @__PURE__ */ React.createElement("span", { key: t, style: {
+  } }, "Organizer of the ", /* @__PURE__ */ React.createElement("strong", { style: { color: "var(--text)" } }, "Colombia OpenInfra User Group"), " and KCD Colombia 2025 \u2014 building a thriving community of engineers advancing open-source telecom across Latin America."), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: "0.4rem" } }, ["OpenAirInterface", "srsRAN", "Magma", "Open5GS", "Kubestronaut", "OAI Contributor", "EURECOM Alumni"].map((t) => /* @__PURE__ */ React.createElement("span", { key: t, style: {
     fontFamily: "var(--font-mono)",
     fontSize: "0.7rem",
     background: "var(--surface)",
