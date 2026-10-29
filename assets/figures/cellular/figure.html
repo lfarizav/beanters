@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mástil celular</title>
+<script>
+  // Theme and language before first paint: ?theme= / ?lang=, else the embedding page, else the site keys.
+  (function () {
+    var d = document.documentElement, q = new URLSearchParams(location.search), t = q.get("theme"), l = q.get("lang");
+    try { if (!t && window.parent !== window) t = window.parent.document.documentElement.getAttribute("data-theme"); } catch (e) {}
+    try { if (!t) t = localStorage.getItem("bk-theme"); if (!l) l = localStorage.getItem("bk-lang"); } catch (e) {}
+    if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
+    if (l === "en" || l === "es") d.lang = l;
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap">
+<link rel="stylesheet" href="mast.css">
+<link rel="stylesheet" href="figure.css">
+</head>
+<body class="iso">
+<figure class="cf">
+  <div class="cf-card">
+    <div class="cf-corners" aria-hidden="true">
+      <span data-corner="fig" data-t="fig">Fig 1</span>
+      <span data-corner="title" data-t="title"></span>
+      <span data-corner="hint" data-t="hint"></span>
+      <span data-corner="readout" data-readout></span>
+    </div>
+    <div class="cf-stage"></div>
+    <img class="cf-poster" src="poster.svg" alt="" width="520" height="600">
+  </div>
+  <div class="cf-dial" role="group"></div>
+  <p class="cf-idea" aria-live="polite"></p>
+</figure>
+<script type="module" src="figure.js"></script>
+</body>
+</html>

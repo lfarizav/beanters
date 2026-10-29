@@ -22,6 +22,10 @@
 }
 .course__title { font-size: clamp(24px, 2.8vw, 32px); margin-top: 12px; }
 .course__head .pills { margin-top: 14px; }
+.course__cta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.course__fig { padding: 0 clamp(22px, 3.4vw, 36px) clamp(22px, 3.4vw, 36px); }
+.course__fig iframe { display: block; width: 100%; height: clamp(300px, 42vw, 460px); border: 0; border-radius: 18px; background: var(--ground, transparent); }
+.panel[data-stage] { cursor: pointer; }
 
 .mod { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 4px 16px; align-items: center; padding: 16px clamp(22px, 3.4vw, 36px); }
 .mod__n { font-size: 14px; font-weight: 650; color: var(--muted); font-variant-numeric: tabular-nums; }

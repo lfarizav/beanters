@@ -80,14 +80,20 @@
         </div>
       </div>
 
-      <article class="panel">
+      <article class="panel" tabindex="0" role="button" data-stage="/assets/figures/cellular/scene.js" data-stage-preview="/courses/cellular-networks/slides.html" data-stage-enroll="mailto:lfarizav@gmail.com?subject=Inscripci%C3%B3n%20Redes%20Celulares%3A%2089%20USD&body=Hola%20Luis%2C%0A%0AQuiero%20inscribirme%20en%20el%20curso%20completo%20de%20Redes%20Celulares%20(USD%2089).%0A%0ANombre%3A%20%0AOrganizaci%C3%B3n%3A%20%0APa%C3%ADs%3A%20%0A%0AGracias." data-i18n-attr="data-stage-enroll:cm124;aria-label:cm135" aria-label="Redes celulares 2G a 6G: abrir la escena 3D">
         <div class="course__head">
           <div>
             <span class="pill pill--free" data-i18n="cm6">3 módulos de entrada gratuitos</span>
             <h3 class="course__title" data-i18n="cm7">Redes celulares: 2G → 6G</h3>
             <ul class="pills"><li class="pill" data-i18n="cm8">25 módulos</li><li class="pill" data-i18n="cm9">A su ritmo</li><li class="pill" data-i18n="cm10">Español e inglés</li><li class="pill" data-i18n="cm11">Laboratorios prácticos</li></ul>
           </div>
-          <a href="cellular-networks/slides.html" class="btn btn--primary" data-i18n="cm12">Abrir vista previa gratuita</a>
+          <div class="course__cta">
+            <button type="button" class="btn btn--quiet" data-stage-open data-i18n="cm136">Explorar en 3D</button>
+            <a href="cellular-networks/slides.html" class="btn btn--primary" data-i18n="cm12">Abrir vista previa gratuita</a>
+          </div>
+        </div>
+        <div class="course__fig">
+          <iframe src="/assets/figures/cellular/figure.html" title="Mástil celular: figura interactiva de la red 2G a 6G" loading="lazy" data-i18n-attr="title:cm137"></iframe>
         </div>
 
         <div class="rows" style="border-top:1px solid var(--hairline)">
@@ -327,6 +333,9 @@
     cm10: "Spanish &amp; English",
     cm11: "Practical labs",
     cm12: "Open free preview",
+    cm135: "Cellular Networks 2G to 6G: open the 3D scene",
+    cm136: "Explore in 3D",
+    cm137: "Cell tower: interactive figure of the 2G to 6G network",
     cm13: "2G/3G Networks",
     cm14: "Free",
     cm15: "Free",
@@ -461,5 +470,6 @@
   } };
 </script>
 <script src="/assets/site/site.js"></script>
+<script type="module" src="/assets/figures/stage/stage.js"></script>
 </body>
 </html>

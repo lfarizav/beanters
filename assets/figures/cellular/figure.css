@@ -1,0 +1,24 @@
+*{box-sizing:border-box}
+html{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+body{margin:0;background:var(--anatomy-page);color:var(--anatomy-text);font:15px/1.55 "Instrument Sans",ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.cf{margin:0 auto;padding:16px;max-width:620px}
+.cf-card{position:relative;background:var(--anatomy-card);border-radius:18px;padding:44px 20px 40px;box-shadow:0 0 0 1px color-mix(in srgb,var(--anatomy-strong) 9%,transparent),0 1px 2px rgba(13,27,42,.05),0 12px 32px rgba(13,27,42,.07);--anatomy-paper:var(--anatomy-card)}
+.cf-corners{position:absolute;inset:16px 20px;pointer-events:none;font-size:11px;letter-spacing:.04em;line-height:1}
+.cf-corners span{position:absolute;white-space:nowrap;color:var(--anatomy-muted)}
+[data-corner="fig"]{top:0;left:0;color:var(--anatomy-text);font-weight:600}
+[data-corner="title"]{top:0;right:0;text-transform:uppercase;letter-spacing:.12em}
+[data-corner="hint"]{bottom:0;left:0;text-transform:uppercase;letter-spacing:.12em}
+[data-corner="readout"]{bottom:0;right:0;color:var(--anatomy-strong)!important;font-weight:600;font-variant-numeric:tabular-nums}
+.cf-stage{outline:none;border-radius:12px;user-select:none;-webkit-user-select:none}
+.cf-stage:focus-visible{outline:1px solid var(--anatomy-lit);outline-offset:6px}
+.cf-stage .iso-svg{max-height:min(78vh,640px);margin:0 auto}
+.cf-poster{display:none;width:100%;height:auto}
+.cf-card:not([data-live]) .cf-poster{display:block}
+.cf-dial{display:flex;justify-content:center;gap:6px;margin:14px 0 6px}
+.cf-dial button{font:600 13px/1 "Instrument Sans",ui-sans-serif,system-ui,sans-serif;letter-spacing:.04em;color:var(--anatomy-text);background:var(--anatomy-card);border:1px solid color-mix(in srgb,var(--anatomy-strong) 14%,transparent);border-radius:999px;padding:9px 14px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.cf-dial button:hover{border-color:var(--anatomy-lit)}
+.cf-dial button[aria-pressed="true"]{background:var(--anatomy-strong);color:var(--anatomy-card);border-color:var(--anatomy-strong)}
+.cf-dial button:focus-visible{outline:2px solid var(--anatomy-lit);outline-offset:2px}
+.cf-idea{margin:8px 0 0;text-align:center;color:var(--anatomy-strong);font-size:15px;min-height:1.6em}
+@media (max-width:639px){.cf{padding:12px}.cf-card{padding:40px 12px 36px}.cf-dial{display:none}[data-corner="hint"]{display:none}}
