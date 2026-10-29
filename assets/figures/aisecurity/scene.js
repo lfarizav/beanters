@@ -16,7 +16,7 @@ export default {
   // short ids under 640px, so six chips fit the phone capsule
   get chapters() { const narrow = matchMedia("(max-width: 639px)").matches; return CHAPTERS.map((c) => ({ id: narrow ? c.id.slice(1) : c.id })); },
   get enroll() { return ENROLL[langNow()]; },
-  preview: "/courses/#s-prog",
+  preview: null,
   async mount({ left, right, lang, mobile }) {
     const T = UI[lang];
     const K = COURSE[lang];

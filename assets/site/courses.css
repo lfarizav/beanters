@@ -72,6 +72,8 @@
 .prog__desc { margin-top: 12px; font-family: var(--serif); font-size: 16px; line-height: 1.8; color: var(--body); max-width: 64ch; }
 .prog .pills { margin-top: 16px; }
 .prog .btn-row { margin-top: 20px; }
+.prog__fig { grid-column: 1 / -1; min-width: 0; }
+.prog__fig > div { display: block; min-height: 120px; cursor: auto; }
 .prog__price { text-align: right; align-self: start; }
 .prog__amount { font-size: clamp(34px, 4vw, 48px); font-weight: 650; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink); }
 .prog__per { margin-top: 8px; font-size: 14.5px; color: var(--muted); }
@@ -122,7 +124,7 @@
 .dialog .btn--wa { width: 100%; margin-top: 18px; }
 
 @media (max-width: 860px) {
-  .prog { grid-template-columns: 1fr; }
+  .prog { grid-template-columns: minmax(0, 1fr); }
   .prog__price { text-align: left; order: -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
   .prog__per { margin-top: 0; }
   .enroll { grid-template-columns: 1fr; }

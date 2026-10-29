@@ -37,6 +37,7 @@ let current = null;
 export async function open(trigger) {
   if (current) return;
   const src = trigger.getAttribute("data-stage");
+  const opener = !trigger.hasAttribute("tabindex") && trigger.contains(document.activeElement) ? document.activeElement : trigger; // return focus to the real opener when the card itself is not focusable
   const lang = langNow();
   const T = UI[lang];
   const reduced = reducedQ.matches;
@@ -68,7 +69,7 @@ export async function open(trigger) {
         </div>
         <div class="stg-row stg-row-end">
           <span class="stg-title">${title}</span>
-          <a class="stg-link" href="${preview}">${T.preview}</a>
+          ${preview ? `<a class="stg-link" href="${preview}">${T.preview}</a>` : ""}
           <a class="stg-cta" href="${enroll}">${T.enroll}</a>
         </div>
       </nav>
@@ -143,7 +144,7 @@ export async function open(trigger) {
     root.remove();
     html.style.overflow = lock.overflow;
     document.body.style.paddingRight = lock.pad;
-    trigger.focus({ preventScroll: true });
+    (opener.isConnected ? opener : trigger).focus({ preventScroll: true });
   }
   function onKey(e) {
     if (e.key === "Escape") { e.preventDefault(); close(); return; }
