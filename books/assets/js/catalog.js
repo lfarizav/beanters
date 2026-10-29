@@ -7,6 +7,10 @@
   var COVERS = window.COVER_PATH || "assets/covers/";
   var root = document.documentElement;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  /* 3D reader: a book gets it once its pages exist in reader/pages/<dir>/<es|en>/p-NN.webp. */
+  var READER_BASE = new URL("../reader/", document.currentScript.src).href;
+  var READERS = { kcna: { dir: "kubernetes", pages: 28 } };
+  BOOKS.forEach(function (b) { if (!b.reader && READERS[b.id]) b.reader = READERS[b.id]; });
 
   var T = {
     es: {
@@ -101,7 +105,7 @@
       extra += '<a class="extra-link" href="' + b.labs + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7.5 14h9"/></svg>' + t("labs") + "</a>";
     }
     var gid = idPrefix + b.id;
-    return '<div class="item__art">' + book3d(b, lang) + '</div>' +
+    return '<div class="item__art"' + (b.reader ? ' data-reader="' + b.id + ':' + lang + '" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer" aria-label="' + esc(t("sample").replace(" (PDF)", "") + ": " + b.title[lang]) + '"' : "") + '>' + book3d(b, lang) + '</div>' +
       '<div class="item__info">' +
         '<p class="item__topic"><i aria-hidden="true">' + b.step + '</i><span class="sr-only">' + t("step") + b.step + ': </span>' + b.topic[L] + '</p>' +
         '<h3 id="' + gid + '-title" lang="' + lang + '">' + esc(b.title[lang]) + '</h3>' +
@@ -237,7 +241,28 @@
   }
 
   /* ---- Events ---- */
+  function openReader(el) {
+    var p = el.getAttribute("data-reader").split(":"), b = BOOKS.filter(function (x) { return x.id === p[0]; })[0];
+    var css = document.getElementById("rd-css");
+    if (!css) {
+      css = document.createElement("link");
+      css.id = "rd-css"; css.rel = "stylesheet"; css.href = READER_BASE + "reader.css";
+      css._ready = new Promise(function (ok) { css.onload = css.onerror = ok; });
+      document.head.appendChild(css);
+    }
+    Promise.all([import(READER_BASE + "reader.js"), css._ready]).then(function (r) {
+      r[0].open({ book: b, edition: p[1], uiLang: state.lang, origin: el,
+        labels: { kindle: t("kindle"), paperback: t("paperback"), hardcover: t("hardcover"), amazonOpens: t("amazonOpens") } });
+    });
+  }
+  document.addEventListener("keydown", function (e) {
+    var rd = (e.key === "Enter" || e.key === " ") && e.target.closest && e.target.closest("[data-reader]");
+    if (rd) { e.preventDefault(); openReader(rd); }
+  });
+
   document.addEventListener("click", function (e) {
+    var rd = e.target.closest("[data-reader]");
+    if (rd) { openReader(rd); return; }
     var l = e.target.closest("[data-set-lang]");
     if (l) { setLang(l.getAttribute("data-set-lang")); return; }
 
