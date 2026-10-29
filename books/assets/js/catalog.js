@@ -36,7 +36,7 @@
       edition: "Edición", editionGroup: "Idioma de la edición",
       kindle: "Kindle", paperback: "Tapa blanda", hardcover: "Tapa dura",
       sample: "Leer el capítulo 1 gratis (PDF)", labs: "Laboratorios del libro",
-      coverAlt: "Portada de ", step: "Paso ", amazonOpens: " (abre Amazon)"
+      coverAlt: "Portada de ", step: "Paso ", amazonOpens: " (abre Amazon)", openBook: "Abrir el libro"
     },
     en: {
       skip: "Skip to content", navMain: "Main", navHome: "Home", navCourses: "Courses", navBooks: "Books",
@@ -61,7 +61,7 @@
       edition: "Edition", editionGroup: "Edition language",
       kindle: "Kindle", paperback: "Paperback", hardcover: "Hardcover",
       sample: "Read chapter 1 free (PDF)", labs: "Book labs",
-      coverAlt: "Cover of ", step: "Step ", amazonOpens: " (opens Amazon)"
+      coverAlt: "Cover of ", step: "Step ", amazonOpens: " (opens Amazon)", openBook: "Open the book"
     }
   };
 
@@ -105,7 +105,7 @@
       extra += '<a class="extra-link" href="' + b.labs + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7.5 14h9"/></svg>' + t("labs") + "</a>";
     }
     var gid = idPrefix + b.id;
-    return '<div class="item__art"' + (b.reader ? ' data-reader="' + b.id + ':' + lang + '" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer" aria-label="' + esc(t("sample").replace(" (PDF)", "") + ": " + b.title[lang]) + '"' : "") + '>' + book3d(b, lang) + '</div>' +
+    return '<div class="item__art" data-reader="' + b.id + ':' + lang + '" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer" aria-label="' + esc((b.reader ? t("sample").replace(" (PDF)", "") : t("openBook")) + ": " + b.title[lang]) + '">' + book3d(b, lang) + '</div>' +
       '<div class="item__info">' +
         '<p class="item__topic"><i aria-hidden="true">' + b.step + '</i><span class="sr-only">' + t("step") + b.step + ': </span>' + b.topic[L] + '</p>' +
         '<h3 id="' + gid + '-title" lang="' + lang + '">' + esc(b.title[lang]) + '</h3>' +
@@ -163,7 +163,7 @@
       if (li) html.push('<span class="gap" aria-hidden="true"></span>');
       BOOKS.forEach(function (b, i) {
         var key = b.id + ":" + lang;
-        html.push('<button type="button" class="spine" style="' + hueVars(b) + ';--sh:' + (238 + i * 12) + 'px;--sw:' + (44 + (i % 2) * 6) + 'px" data-pick="' + key + '" aria-pressed="' + (shelfPick === key) + '" lang="' + lang + '">' +
+        html.push('<button type="button" class="spine" style="' + hueVars(b) + ';--sh:' + (238 + i * 12) + 'px;--sw:' + (44 + (i % 2) * 6) + 'px" data-pick="' + key + '" aria-pressed="' + (shelfPick === key) + '" aria-haspopup="dialog" lang="' + lang + '">' +
           '<span class="spine__t">' + esc(b.short[lang]) + '</span><span class="spine__l">' + lang.toUpperCase() + "</span></button>");
       });
     });
@@ -241,8 +241,9 @@
   }
 
   /* ---- Events ---- */
-  function openReader(el) {
-    var p = el.getAttribute("data-reader").split(":"), b = BOOKS.filter(function (x) { return x.id === p[0]; })[0];
+  /* Opens the 3D book from a catalog cover (data-reader) or a shelf spine (data-pick). */
+  function openReader(el, kind) {
+    var p = el.getAttribute(kind === "spine" ? "data-pick" : "data-reader").split(":"), b = BOOKS.filter(function (x) { return x.id === p[0]; })[0];
     var css = document.getElementById("rd-css");
     if (!css) {
       css = document.createElement("link");
@@ -251,8 +252,9 @@
       document.head.appendChild(css);
     }
     Promise.all([import(READER_BASE + "reader.js"), css._ready]).then(function (r) {
-      r[0].open({ book: b, edition: p[1], uiLang: state.lang, origin: el,
-        labels: { kindle: t("kindle"), paperback: t("paperback"), hardcover: t("hardcover"), amazonOpens: t("amazonOpens") } });
+      r[0].open({ book: b, edition: p[1], uiLang: state.lang, origin: el, kind: kind || "cover", coverSrc: COVERS + b.cover[p[1]] + ".webp",
+        labels: { kindle: t("kindle"), paperback: t("paperback"), hardcover: t("hardcover"), amazonOpens: t("amazonOpens"),
+          sample: t("sample"), labs: t("labs"), series: t("heroTitle"), by: t("heroBy") } });
     });
   }
   document.addEventListener("keydown", function (e) {
@@ -277,13 +279,7 @@
     }
 
     var sp = e.target.closest("[data-pick]");
-    if (sp) {
-      var k = sp.getAttribute("data-pick");
-      shelfPick = shelfPick === k ? null : k;
-      document.querySelectorAll("[data-pick]").forEach(function (s) { s.setAttribute("aria-pressed", String(s.getAttribute("data-pick") === shelfPick)); });
-      renderShelfDetail();
-      return;
-    }
+    if (sp) { openReader(sp, "spine"); return; }
 
     if (e.target.closest("#theme-toggle")) {
       var next = isDark() ? "light" : "dark";

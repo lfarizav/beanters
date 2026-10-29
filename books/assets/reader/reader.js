@@ -2,8 +2,10 @@
    Flow: the card cover flies in (FLIP + WAAPI), the 3D cover opens, then a flat
    spread takes over for page turning (StPageFlip, MIT, vendored at v2.0.7 from the
    npm tarball, see vendor/). A drawn hand follows the pointer and holds the page.
-   Data-driven: a book gets the reader when it has `reader: { dir, pages }` and
-   pages exist at pages/<dir>/<es|en>/p-NN.webp. */
+   Data-driven: a book gets the page reader when it has `reader: { dir, pages }` and
+   pages exist at pages/<dir>/<es|en>/p-NN.webp. Any other book opens to a detail
+   spread (inside cover + title, sample and formats). The origin is a catalog cover
+   (kind "cover") or a shelf spine (kind "spine"); closing flies the book back there. */
 import { PageFlip } from "./vendor/page-flip-2.0.7.module.min.js";
 
 const RATIO = 770 / 990;
@@ -51,9 +53,9 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&l
 
 let active = null;
 
-/** Open the reader. opts: { book, edition, uiLang, origin, labels }. */
+/** Open the reader. opts: { book, edition, uiLang, origin, kind, coverSrc, labels }. */
 export function open(opts) {
-  if (active || !opts || !opts.book || !opts.book.reader) return active;
+  if (active || !opts || !opts.book) return active;
   active = new Reader(opts);
   return active;
 }
@@ -68,16 +70,18 @@ class Reader {
     this.lab = o.labels || {};
     this.reduce = mq("(prefers-reduced-motion: reduce)");
     this.fine = mq("(hover: hover) and (pointer: fine)");
-    this.n = this.b.reader.pages;
+    this.detail = !this.b.reader;
+    this.kind = o.kind === "spine" ? "spine" : "cover";
+    this.n = this.detail ? 0 : this.b.reader.pages;
     this.total = this.n + 1; /* + end-of-sample page */
-    this.base = new URL(`pages/${this.b.reader.dir}/${this.ed}/`, import.meta.url).href;
+    this.base = this.detail ? "" : new URL(`pages/${this.b.reader.dir}/${this.ed}/`, import.meta.url).href;
     this.hand = { x: 0, y: 0, tx: 0, ty: 0, on: false };
     this.pressed = false;
     this.inertEls = [];
     this.build();
     this.lock();
     this.layout();
-    this.initFlip();
+    if (!this.detail) this.initFlip();
     this.bind();
     this.root.focus({ preventScroll: true });
     if (this.reduce) this.fadeIn(); else this.intro();
@@ -97,6 +101,7 @@ class Reader {
     root.style.setProperty("--hue", b.hue);
     root.style.setProperty("--spine", b.hue);
     root.dataset.phase = "out";
+    root.toggleAttribute("data-detail", this.detail);
     root.innerHTML =
       '<div class="rd__backdrop"></div>' +
       '<div class="rd__top"><p class="rd__meta" id="rd-title"><span lang="' + ed + '">' + esc(b.title[ed]) + '</span> <span>· ' + esc(s.sample) + '</span></p>' +
@@ -105,7 +110,7 @@ class Reader {
         '<div class="rd__under"><i class="rd__edge rd__edge--l"></i><i class="rd__edge rd__edge--r"></i></div>' +
         '<div class="rd__flip"></div>' +
         '<div class="rd__3d"><div class="rd__body">' +
-          '<div class="rd__f rd__back"></div><div class="rd__f rd__spine"></div>' +
+          '<div class="rd__f rd__back"></div><div class="rd__f rd__spine"><span>' + esc(b.short ? b.short[ed] : "") + '</span></div>' +
           '<div class="rd__f rd__fore"></div><div class="rd__f rd__head"></div><div class="rd__f rd__tail"></div>' +
           '<div class="rd__f rd__inside"><i class="rd__shade"></i></div>' +
           '<div class="rd__cover"><div class="rd__f rd__cover-front"><i class="rd__shade"></i></div><div class="rd__f rd__cover-back"><i class="rd__shade"></i></div></div>' +
@@ -126,6 +131,9 @@ class Reader {
       skipBtn: q(".rd__skip"), handEl: q(".rd__hand"), under: q(".rd__under")
     });
 
+    document.body.appendChild(root);
+    if (this.detail) { this.buildDetail(); return; }
+
     /* Pages: images load lazily (see onPage), plus the end-of-sample page. */
     this.imgs = [];
     this.pages = [];
@@ -142,10 +150,7 @@ class Reader {
       this.imgs.push(img);
       this.pages.push(p);
     }
-    const a = b.amazon[ed], lab = this.lab;
-    const buy = [["kindle", " rd__buy--main"], ["paperback", ""], ["hardcover", ""]].map(([k, c]) =>
-      '<a class="rd__buy' + c + '" href="' + esc(a[k]) + '" target="_blank" rel="noopener" tabindex="-1" aria-label="' +
-      esc((lab[k] || k) + ", " + b.title[ed] + (lab.amazonOpens || "")) + '">' + esc(lab[k] || k) + "</a>").join("");
+    const buy = this.buyLinks("rd__buy", "-1");
     const end = document.createElement("div");
     end.className = "rd__pg rd__end";
     end.innerHTML = '<div class="rd__end-in"><div class="rd__end-mark"></div>' +
@@ -154,8 +159,42 @@ class Reader {
       '<div class="rd__end-buy">' + buy + '</div><p class="rd__end-ed">' + esc(this.s.edition[ed]) + '</p></div>';
     this.pages.push(end);
     this.endLinks = Array.from(end.querySelectorAll("a"));
+  }
 
-    document.body.appendChild(root);
+  buyLinks(cls, tab) {
+    const b = this.b, ed = this.ed, a = b.amazon[ed], lab = this.lab;
+    return [["kindle", " " + cls + "--main"], ["paperback", ""], ["hardcover", ""]].map(([k, c]) =>
+      '<a class="' + cls + c + '" href="' + esc(a[k]) + '" target="_blank" rel="noopener"' + (tab ? ' tabindex="' + tab + '"' : "") + ' aria-label="' +
+      esc((lab[k] || k) + ", " + b.title[ed] + (lab.amazonOpens || "")) + '">' + esc(lab[k] || k) + "</a>").join("");
+  }
+
+  /* Detail spread for books without sample pages: inside cover + a title page. */
+  buildDetail() {
+    const b = this.b, ed = this.ed, lab = this.lab;
+    this.coverBack.insertAdjacentHTML("beforeend",
+      '<div class="rd__ic"><span class="rd__ic-band"></span><p class="rd__ic-series">' + esc(lab.series || "") + '</p>' +
+      '<span class="rd__ic-rule"></span><p class="rd__ic-by">' + esc(lab.by || "") + '</p></div>');
+    const sample = b.sample && b.sample[ed]
+      ? '<a class="rd__d-sample" href="' + esc(b.sample[ed]) + '" type="application/pdf"><span aria-hidden="true"></span>' + esc(lab.sample || "") + '</a>' : "";
+    const labs = b.labs ? '<a class="rd__d-labs" href="' + esc(b.labs) + '" target="_blank" rel="noopener">' + esc(lab.labs || "") + '</a>' : "";
+    const html =
+      '<div class="rd__d">' +
+        '<p class="rd__d-topic"><i aria-hidden="true">' + esc(b.step) + '</i>' + esc(b.topic ? b.topic[this.L] : "") + '</p>' +
+        '<h3 class="rd__d-title" lang="' + ed + '">' + esc(b.title[ed]) + '</h3>' +
+        '<p class="rd__d-sub" lang="' + ed + '">' + esc(b.subtitle ? b.subtitle[ed] : "") + '</p>' +
+        sample + '<div class="rd__d-buy">' + this.buyLinks("rd__buy") + '</div>' + labs +
+        '<p class="rd__d-ed">' + esc(this.s.edition[ed]) + '</p>' +
+      '</div>';
+    /* The 3D copy is only seen during the flight; once open, a flat copy aligned on top
+       takes pointer and keyboard input (hit-testing inside preserve-3d is unreliable). */
+    this.inside.insertAdjacentHTML("beforeend", html);
+    const ghost = this.inside.querySelector(".rd__d");
+    ghost.setAttribute("aria-hidden", "true");
+    ghost.querySelectorAll("a").forEach((a) => { a.tabIndex = -1; });
+    this.dpage = document.createElement("div");
+    this.dpage.className = "rd__dpage";
+    this.dpage.innerHTML = html;
+    this.bookEl.appendChild(this.dpage);
   }
 
   /* Scroll lock + inert background. A mobile nav menu left open is closed first,
@@ -190,7 +229,9 @@ class Reader {
     this.pw = pw; this.ph = ph; this.W = this.single ? pw : pw * 2;
     Object.assign(this.bookEl.style, { width: this.W + "px", height: ph + "px" });
     Object.assign(this.d3.style, { left: (this.single ? 0 : pw) + "px", width: pw + "px", height: ph + "px" });
-    this.d3.style.setProperty("--t", Math.max(10, Math.round(pw * 0.07)) + "px");
+    if (this.dpage) Object.assign(this.dpage.style, { left: (this.single ? 0 : pw) + "px", width: pw + "px", height: ph + "px" });
+    this.d3.style.setProperty("--t", (this.tSpine || Math.max(10, Math.round(pw * 0.07))) + "px");
+    this.root.style.setProperty("--pw", pw + "px");
     this.root.toggleAttribute("data-single", this.single);
     this.root.style.setProperty("--hs", Math.min(2, Math.max(1.3, pw / 300)).toFixed(2));
   }
@@ -259,11 +300,13 @@ class Reader {
   }
 
   next() {
+    if (!this.pf) return;
     if (this.reduce) { this.pf.turnToNextPage(); this.onPage(this.pf.getCurrentPageIndex()); }
     else this.pf.flipNext("bottom");
   }
 
   prev() {
+    if (!this.pf) return;
     if (this.reduce) { this.pf.turnToPrevPage(); this.onPage(this.pf.getCurrentPageIndex()); }
     else this.pf.flipPrev("bottom");
   }
@@ -274,8 +317,9 @@ class Reader {
     const cardImg = this.o.origin && this.o.origin.querySelector(".book__front img");
     const front = new Image();
     front.alt = "";
-    front.src = (cardImg && cardImg.currentSrc) || this.url(0);
+    front.src = (cardImg && cardImg.currentSrc) || this.o.coverSrc || this.url(0);
     this.coverFront.prepend(front);
+    if (this.detail) return Promise.race([front.decode ? front.decode().catch(() => {}) : Promise.resolve(), wait(1200)]);
     const insideIdx = 2;
     this.load(insideIdx); this.load(1);
     const inside = new Image(); inside.alt = ""; inside.src = this.url(insideIdx);
@@ -285,28 +329,63 @@ class Reader {
     return Promise.race([Promise.all(ready), wait(1200)]);
   }
 
-  async intro() {
-    const ready = this.setFaces();
-    const origin = this.o.origin && this.o.origin.querySelector(".book");
+  /* The element the book leaves from and returns to: the card's 3D book or the spine. */
+  originEl() {
+    const o = this.o.origin;
+    if (!o) return null;
+    return this.kind === "spine" ? o : (o.querySelector(".book") || o);
+  }
+
+  /* Transform that puts the 3D book exactly over its origin, in the stage frame.
+     Cover: the card pose (rotateX 4, rotateY -24). Spine: rotateY 90, spine to the viewer. */
+  originPose(z) {
+    const el = this.originEl();
+    const r = el && el.getBoundingClientRect();
     const pw = this.pw, ph = this.ph, shift = this.single ? 0 : -pw / 2;
     const br = this.bookEl.getBoundingClientRect();
     const cx = br.left + (this.single ? 0 : pw) + pw / 2 + shift, cy = br.top + ph / 2;
+    if (!r || !r.width || r.bottom < 0 || r.top > window.innerHeight) return null;
+    let s, dx, dy, rot;
+    if (this.kind === "spine") {
+      s = r.height / ph;
+      const t = this.tSpine || Math.round(pw * 0.07);
+      dx = r.left + r.width / 2 - cx + (t * s) / 2; dy = r.top + r.height / 2 - cy;
+      rot = "rotateX(0deg) rotateY(90deg) rotateZ(0deg)";
+    } else {
+      s = r.width / pw;
+      dx = r.left + r.width / 2 - cx; dy = r.top + r.height / 2 - cy;
+      rot = "rotateX(4deg) rotateY(-24deg) rotateZ(0deg)";
+    }
+    return { dx, dy, s, k: `translate3d(${(dx + shift).toFixed(1)}px,${dy.toFixed(1)}px,${z || 0}px) scale(${s.toFixed(4)}) ${rot}` };
+  }
+
+  async intro() {
+    const ready = this.setFaces();
+    const pw = this.pw, shift = this.single ? 0 : -pw / 2;
+    if (this.kind === "spine") {
+      /* A shelf spine is wider than a page block would be at that scale: thicken the book. */
+      const el = this.originEl(), r = el && el.getBoundingClientRect();
+      if (r && r.height) { this.tSpine = Math.round(Math.min(r.width / (r.height / this.ph), pw * 0.13)); this.d3.style.setProperty("--t", this.tSpine + "px"); }
+    }
+    const pose = this.originPose();
     let k0, dx = 0, dy = 0;
-    const r0 = origin && origin.getBoundingClientRect();
-    if (r0 && r0.width) {
-      dx = r0.left + r0.width / 2 - cx; dy = r0.top + r0.height / 2 - cy;
-      k0 = `translate3d(${dx + shift}px,${dy}px,0) scale(${(r0.width / pw).toFixed(4)}) rotateX(4deg) rotateY(-24deg) rotateZ(0deg)`;
-      this.hiddenOrigin = origin;
-      origin.style.visibility = "hidden";
+    if (pose) {
+      ({ dx, dy } = pose); k0 = pose.k;
+      this.hiddenOrigin = this.originEl();
+      this.hiddenOrigin.style.visibility = "hidden";
     } else {
       k0 = `translate3d(${shift}px,60px,-600px) scale(.5) rotateX(4deg) rotateY(-24deg) rotateZ(0deg)`;
     }
-    const kMid = `translate3d(${shift + dx * 0.1}px,${dy * 0.1 - 18}px,140px) scale(.86) rotateX(-7deg) rotateY(26deg) rotateZ(-2.5deg)`;
+    const spine = this.kind === "spine";
+    const kMid = spine
+      ? `translate3d(${shift + dx * 0.3}px,${dy * 0.3 - 30}px,220px) scale(.8) rotateX(-6deg) rotateY(48deg) rotateZ(-2deg)`
+      : `translate3d(${shift + dx * 0.1}px,${dy * 0.1 - 18}px,140px) scale(.86) rotateX(-7deg) rotateY(26deg) rotateZ(-2.5deg)`;
     const kEnd = `translate3d(${shift}px,0,40px) scale(.94) rotateX(-5deg) rotateY(14deg) rotateZ(-1.5deg)`;
     const kRest = "translate3d(0,0,0) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg)";
+    this.kEnd = kEnd; this.kRest = kRest;
     this.root.dataset.phase = "out";
-    const fly = this.body.animate([{ transform: k0 }, { transform: kMid, offset: 0.55 }, { transform: kEnd }],
-      { duration: 840, easing: "cubic-bezier(.22,.8,.24,1)", fill: "both" });
+    const fly = this.body.animate([{ transform: k0 }, { transform: kMid, offset: spine ? 0.5 : 0.55 }, { transform: kEnd }],
+      { duration: spine ? 960 : 840, easing: "cubic-bezier(.22,.8,.24,1)", fill: "both" });
     this.anims = [fly];
     try { await fly.finished; await ready; } catch (e) { return; }
     if (this.closing) return;
@@ -321,13 +400,18 @@ class Reader {
     this.anims = [settle, open, sF, sB, sI].concat(extra);
     try { await open.finished; } catch (e) { return; }
     if (this.closing) return;
-    this.root.toggleAttribute("data-flat", true);
+    if (!this.detail) this.root.toggleAttribute("data-flat", true);
     this.root.dataset.phase = "open";
-    this.hint();
+    this.opened = true;
+    if (!this.detail) this.hint();
   }
 
   fadeIn() {
-    this.root.toggleAttribute("data-flat", true);
+    if (this.detail) {
+      this.setFaces();
+      this.cover.style.transform = "rotateY(-180deg)";
+      if (this.single) this.cover.style.opacity = "0";
+    } else this.root.toggleAttribute("data-flat", true);
     this.root.dataset.phase = "open";
     this.root.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "linear" });
   }
@@ -425,7 +509,7 @@ class Reader {
   }
 
   onMove(e) {
-    if (e.pointerType !== "mouse" || this.reduce) { this.setHand(false); return; }
+    if (e.pointerType !== "mouse" || this.reduce || this.detail || this.closing) { this.setHand(false); return; }
     if (this.hinting) {
       const d = Math.hypot(e.movementX || 0, e.movementY || 0);
       if (d > 3) this.skipHint(); else return;
@@ -442,7 +526,7 @@ class Reader {
 
   onDown(e) {
     this.skipHint();
-    if (e.pointerType !== "mouse") { this.setHand(false); return; }
+    if (e.pointerType !== "mouse" || this.detail) { this.setHand(false); return; }
     if (!this.overBook(e.clientX, e.clientY) || e.target.closest("a,button")) return;
     this.pressed = true;
     const r = this.bookEl.getBoundingClientRect(), edge = Math.max(36, this.pw * 0.16);
@@ -471,7 +555,7 @@ class Reader {
     on(window, "pointercancel", () => this.onUp(), true);
     on(window, "resize", () => { clearTimeout(this.rzT); this.rzT = setTimeout(() => this.onResize(), 160); });
     on(this.root.querySelector(".rd__backdrop"), "click", () => this.close());
-    if (!this.reduce) {
+    if (this.detail) { /* no page turning */ } else if (!this.reduce) {
       /* StPageFlip picks the turn direction from the first drag sample, not from where
          the finger landed; seed the fold at the landing point (pinned v2.0.7 internals). */
       on(window, "touchmove", () => {
@@ -522,6 +606,7 @@ class Reader {
   onResize() {
     if (this.closing) return;
     this.layout();
+    if (!this.pf) return;
     const s = this.pf.getSettings();
     s.width = this.pw; s.height = this.ph;
     this.pf.update();
@@ -533,10 +618,51 @@ class Reader {
     if (this.closing) return;
     this.closing = true;
     this.hintCancel = true;
+    this.setHand(false);
+    if (!this.reduce && this.opened && this.originPose()) { this.closeBook(); return; }
     this.root.dataset.phase = "leaving";
     (this.anims || []).forEach((a) => { try { a.pause(); } catch (e) { /* noop */ } });
     if (this.reduce) this.root.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: "forwards" });
     setTimeout(() => this.destroy(), this.reduce ? 210 : 430);
+  }
+
+  /* Reverse of the intro: the book closes on the pages in view, flies back and lands
+     on its origin (sliding into the slot for a shelf spine). */
+  async closeBook() {
+    const root = this.root, single = this.single, n = this.n;
+    if (!this.detail) {
+      const [a, b] = this.spread || [1, 2];
+      const img = (host, i) => { let im = host.querySelector("img"); if (!im) { im = new Image(); im.alt = ""; host.prepend(im); } im.src = this.url(Math.max(0, Math.min(i, n - 1))); };
+      if (single) img(this.inside, a); else { img(this.coverBack, a); img(this.inside, b); }
+      root.removeAttribute("data-flat");
+    }
+    root.setAttribute("data-return", "");
+    root.dataset.phase = "leaving";
+    (this.anims || []).forEach((x) => { try { x.cancel(); } catch (e) { /* noop */ } });
+    const kRest = this.kRest, kEnd = this.kEnd.replace("rotateY(14deg)", "rotateY(-10deg)").replace("rotateX(-5deg)", "rotateX(3deg)");
+    const t = { duration: 700, easing: EASE_OPEN, fill: "both" };
+    const shades = (sel, a, b) => this[sel].querySelector(".rd__shade").animate([{ opacity: a }, { opacity: b }], t);
+    const shut = [
+      this.cover.animate([{ transform: "rotateY(-180deg)" }, { transform: "rotateY(0deg)" }], t),
+      this.body.animate([{ transform: kRest }, { transform: kEnd }], t),
+      shades("coverFront", 0.9, 0), shades("coverBack", 0, 0.75), shades("inside", 0, 0.85)
+    ];
+    if (single) shut.push(this.cover.animate([{ opacity: 0 }, { opacity: 1, offset: 0.55 }, { opacity: 1 }], t));
+    this.anims = shut;
+    try { await shut[0].finished; } catch (e) { /* noop */ }
+    const pose = this.originPose();
+    if (!pose) { this.destroy(); return; }
+    const spine = this.kind === "spine", shift = single ? 0 : -this.pw / 2;
+    const mid = spine
+      ? `translate3d(${shift + pose.dx * 0.55}px,${pose.dy * 0.55 - 40}px,200px) scale(${((pose.s + 0.9) / 2).toFixed(3)}) rotateX(-4deg) rotateY(60deg) rotateZ(-1deg)`
+      : `translate3d(${shift + pose.dx * 0.5}px,${pose.dy * 0.5 - 24}px,120px) scale(${((pose.s + 0.94) / 2).toFixed(3)}) rotateX(-3deg) rotateY(-30deg) rotateZ(-1.5deg)`;
+    const frames = [{ transform: kEnd }, { transform: mid, offset: 0.5 }];
+    if (spine) frames.push({ transform: this.originPose(90).k, offset: 0.8 });
+    frames.push({ transform: pose.k });
+    const fly = this.body.animate(frames, { duration: spine ? 900 : 760, easing: "cubic-bezier(.55,0,.25,1)", fill: "both" });
+    this.anims.push(fly);
+    try { await fly.finished; } catch (e) { /* noop */ }
+    this.destroy();
   }
 
   destroy() {
