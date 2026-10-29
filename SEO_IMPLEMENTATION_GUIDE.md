@@ -31,7 +31,7 @@
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "Sales",
-    "telephone": "+57-311-386-3080",
+    "telephone": "+57-313-398-0338",
     "email": "luis@beanters.com",
     "url": "https://beanters.com/#contact"
   },
@@ -371,4 +371,4 @@
 
 See `/README.md` for full documentation.
 
-Contact: luis@beanters.com | WhatsApp: +57 311-386-3080
+Contact: luis@beanters.com | WhatsApp: +57 313-398-0338

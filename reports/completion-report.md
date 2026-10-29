@@ -85,7 +85,7 @@ All P0, P1 and P2 issues identified in the UX and performance audits were resolv
 | Task | How Solved | Files Changed |
 |---|---|---|
 | Fix footer links (all pointed to `#contact`) | Refactored footer `cols` data from `string[]` to `{label, href}[]`; wired Products→`#products`, Solutions→`#solutions`, Speaking→`#speaking`, Mission→`#mission`, Courses→`/courses/`, GitHub→real URL | `js/app.js` |
-| Fix phone number link | Changed `+57 311 386 3080` footer link from `href="#contact"` to `href="tel:+573113863080"` | `js/app.js` |
+| Fix phone number link | Changed `+57 313 398 0338` footer link from `href="#contact"` to `href="tel:+573133980338"` | `js/app.js` |
 | Wire LinkedIn to real URL | Footer LinkedIn link now points to `https://linkedin.com/in/lfarizav` | `js/app.js` |
 | Wire Privacy & Terms | Bottom bar Privacy/Terms links updated from `href="#"` to `/privacy.html` and `/terms.html` | `js/app.js` |
 | Add CSS hover for footer links | Added `.footer-link:hover` CSS class; removed `onMouseEnter`/`onMouseLeave` inline JS handlers on footer links | `index.html`, `js/app.js` |

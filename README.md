@@ -102,7 +102,7 @@ graph TB
     
     B -->|Section Links| C["Page Sections<br/>Hero CLI Window<br/>Product Cards<br/>Solutions Tabs<br/>Technology Pillars<br/>Global South Mission<br/>Founder Profile<br/>Contact Form"]
     
-    C -->|Form Submission| D["WhatsApp Web API<br/>wa.me/573113863080"]
+    C -->|Form Submission| D["WhatsApp Web API<br/>wa.me/573133980338"]
     
     E["🖼️ Static Assets<br/>luis.webp / luis.jpg<br/>Google Fonts<br/>React CDN"] -->|Load| A
     
@@ -264,7 +264,7 @@ Insert into `<head>`:
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "Sales",
-    "telephone": "+57-311-386-3080",
+    "telephone": "+57-313-398-0338",
     "url": "https://beanters.com/#contact"
   }
 }
@@ -497,7 +497,7 @@ MIT License — Feel free to use, modify, and distribute this code.
 ## Contact & Social
 
 - 📧 **Email**: [luis@beanters.com](mailto:luis@beanters.com)
-- 💬 **WhatsApp**: [+57 311-386-3080](https://wa.me/573113863080)
+- 💬 **WhatsApp**: [+57 313-398-0338](https://wa.me/573133980338)
 - 🐙 **GitHub**: [@lfarizav](https://github.com/lfarizav)
 - 💼 **LinkedIn**: [Luis Felipe Ariza Vesga](https://linkedin.com/in/lfarizav)
 - 🎥 **YouTube**: [@beanters](https://youtube.com/@beanters)

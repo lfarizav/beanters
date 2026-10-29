@@ -3669,7 +3669,7 @@ Org: ${form.org || "N/A"}
 Email: ${form.email || "N/A"}
 Use case: ${form.usecase || "N/A"}
 Message: ${form.msg || "(none)"}`;
-      const waUrl = `https://wa.me/573113863080?text=${encodeURIComponent(wa)}`;
+      const waUrl = `https://wa.me/573133980338?text=${encodeURIComponent(wa)}`;
       const popup = window.open(waUrl, "_blank");
       if (!popup || popup.closed) {
         const mailtoUrl = `mailto:lfarizav@gmail.com?subject=Demo+Request+-+${encodeURIComponent(form.usecase || "General")}&body=${encodeURIComponent(wa)}`;
@@ -3737,7 +3737,7 @@ Message: ${form.msg || "(none)"}`;
     fontSize: "1.4rem",
     marginBottom: "0.5rem",
     position: "relative"
-  } }, "Message sent."), /* @__PURE__ */ React.createElement("p", { style: { color: "var(--text-mid)", fontSize: "0.95rem", marginBottom: "0.5rem", position: "relative" } }, "WhatsApp is opening with your booking details."), /* @__PURE__ */ React.createElement("p", { style: { color: "var(--text-dim)", fontSize: "0.78rem", marginBottom: "1.5rem", position: "relative" } }, "If it doesn't open, message us directly: +57 311-386-3080"), /* @__PURE__ */ React.createElement("button", { onClick: () => setSent(false), className: "btn btn-ghost", style: { position: "relative" } }, "Send another \u2192")) : /* @__PURE__ */ React.createElement("form", { onSubmit: handle, style: {
+  } }, "Message sent."), /* @__PURE__ */ React.createElement("p", { style: { color: "var(--text-mid)", fontSize: "0.95rem", marginBottom: "0.5rem", position: "relative" } }, "WhatsApp is opening with your booking details."), /* @__PURE__ */ React.createElement("p", { style: { color: "var(--text-dim)", fontSize: "0.78rem", marginBottom: "1.5rem", position: "relative" } }, "If it doesn't open, message us directly: +57 313-398-0338"), /* @__PURE__ */ React.createElement("button", { onClick: () => setSent(false), className: "btn btn-ghost", style: { position: "relative" } }, "Send another \u2192")) : /* @__PURE__ */ React.createElement("form", { onSubmit: handle, style: {
     background: "var(--surface)",
     border: "1px solid var(--border-strong)",
     borderRadius: "var(--radius-lg)",
@@ -3875,7 +3875,7 @@ function Footer() {
       { label: "Book a demo", href: "#contact" },
       { label: "LinkedIn \u2197", href: "https://linkedin.com/in/lfarizav" },
       { label: "Email", href: "mailto:lfarizav@gmail.com" },
-      { label: "+57 311 386 3080", href: "tel:+573113863080" }
+      { label: "+57 313 398 0338", href: "tel:+573133980338" }
     ] }
   ];
   return /* @__PURE__ */ React.createElement("footer", { style: {
