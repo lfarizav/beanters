@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Libros de Kubernetes | Beanters</title>
-<meta name="description" content="Libros de Kubernetes en lenguaje sencillo por Luis Felipe Ariza Vesga. Muestras gratuitas en PDF y enlaces a Amazon.">
+<meta name="description" content="Serie Lo que pasa es que de Kubernetes en lenguaje sencillo, por Luis Felipe Ariza Vesga. Muestras gratis en PDF y enlaces a Amazon.">
 <style>
   :root { --bg:#fbfaf7; --fg:#1d1d1b; --muted:#5d5d57; --line:#d9d6cc; --accent:#0f6b63; --card:#ffffff; }
   @media (prefers-color-scheme: dark) {
@@ -15,60 +15,147 @@
   body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
   main { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
   h1 { font-size: 1.9rem; margin: 0 0 4px; }
-  .lead { color: var(--muted); margin: 0 0 32px; }
-  h2 { font-size: 1.2rem; margin: 40px 0 12px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  .lead { color: var(--muted); margin: 0 0 8px; }
+  .author { color: var(--muted); font-size: 0.95rem; margin: 0 0 24px; }
+  h2 { font-size: 1.2rem; margin: 40px 0 4px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  .shelf-note { color: var(--muted); font-size: 0.9rem; margin: 0 0 14px; }
   .shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
   .book { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
-  .book h3 { font-size: 1.05rem; margin: 0; }
-  .book p { margin: 0; color: var(--muted); font-size: 0.95rem; }
-  .status { font-size: 0.85rem; color: var(--muted); }
+  .book .num { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .book h3 { font-size: 1.02rem; margin: 0; }
+  .book p { margin: 0; color: var(--muted); font-size: 0.92rem; }
   .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
   a { color: var(--accent); }
-  .btn { display: inline-block; padding: 6px 10px; border: 1px solid var(--accent); border-radius: 6px; text-decoration: none; font-size: 0.9rem; }
+  .btn { display: inline-block; padding: 6px 10px; border: 1px solid var(--accent); border-radius: 6px; text-decoration: none; font-size: 0.88rem; }
   .btn.primary { background: var(--accent); color: var(--bg); }
-  .pending { color: var(--muted); font-size: 0.9rem; }
+  .nosample { color: var(--muted); font-size: 0.88rem; }
   footer { margin-top: 48px; color: var(--muted); font-size: 0.9rem; }
 </style>
 </head>
 <body>
 <main>
   <h1>Libros de Kubernetes</h1>
-  <p class="lead">Libros en lenguaje sencillo por <a href="https://www.amazon.com/PhD-Luis-Felipe-Ariza-Vesga/e/B0HJT5N651">Luis Felipe Ariza Vesga</a>. Lee la muestra gratis y compra en Amazon.</p>
+  <p class="lead">Serie <em>Lo que pasa es que...</em>: Kubernetes en lenguaje sencillo, en español e inglés.</p>
+  <p class="author">Autor: <a href="https://www.amazon.com/stores/PhD-Luis-Felipe-Ariza-Vesga/author/B0HJT5N651">Luis Felipe Ariza Vesga</a></p>
 
   <h2>Kubernetes</h2>
+  <p class="shelf-note">Los fundamentos del ecosistema.</p>
   <div class="shelf">
-
     <article class="book">
+      <span class="num">Libro 1 · ES</span>
       <h3>Lo que pasa es que Kubernetes</h3>
-      <p>Guía completa de Kubernetes en lenguaje sencillo. Disponible en español e inglés, en Kindle, tapa blanda y tapa dura.</p>
-      <p class="status">Publicado en Amazon desde 2026-09-12</p>
+      <p>Guía completa de Kubernetes en lenguaje sencillo.</p>
       <div class="links">
-        <a class="btn" href="samples/lo-que-pasa-es-que-kubernetes-es-sample.pdf">Muestra ES (PDF)</a>
-        <a class="btn" href="samples/lo-que-pasa-es-que-kubernetes-en-sample.pdf">Sample EN (PDF)</a>
+        <a class="btn" href="samples/lo-que-pasa-es-que-kubernetes-es-sample.pdf">Muestra gratis (PDF)</a>
       </div>
       <div class="links">
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HJKPLLMN">Kindle ES</a>
-        <a class="btn primary" href="https://www.amazon.com/dp/B0HJMS76SY">Tapa blanda ES</a>
-        <a class="btn" href="https://www.amazon.com/dp/B0HJFKYX8Z">Kindle EN</a>
-        <a class="btn" href="https://www.amazon.com/dp/B0HJHZG3XJ">Paperback EN</a>
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HJKPLLMN">Kindle</a>
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HJMS76SY">Tapa blanda</a>
+        <a class="btn" href="https://www.amazon.com/dp/B0HJMRM1Z6">Tapa dura</a>
       </div>
     </article>
-
     <article class="book">
-      <h3>Lo que pasa es que administrar Kubernetes</h3>
-      <p>Guía del examen CKA en lenguaje sencillo, en español e inglés.</p>
-      <p class="status">En revisión en Amazon KDP desde 2026-10-04</p>
+      <span class="num">Libro 2 · EN</span>
+      <h3>Here's What's Actually Going On with Kubernetes</h3>
+      <p>The complete Kubernetes guide in plain language.</p>
       <div class="links">
-        <a class="btn" href="samples/lo-que-pasa-es-que-administrar-kubernetes-es-sample.pdf">Muestra ES (PDF)</a>
-        <a class="btn" href="samples/lo-que-pasa-es-que-administrar-kubernetes-en-sample.pdf">Sample EN (PDF)</a>
+        <a class="btn" href="samples/lo-que-pasa-es-que-kubernetes-en-sample.pdf">Free sample (PDF)</a>
       </div>
-      <p class="pending">Enlaces de compra disponibles cuando Amazon publique el libro.</p>
+      <div class="links">
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HJFKYX8Z">Kindle</a>
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HJHZG3XJ">Paperback</a>
+        <a class="btn" href="https://www.amazon.com/dp/B0HJJFVR2N">Hardcover</a>
+      </div>
     </article>
+  </div>
 
+  <h2>Administración</h2>
+  <p class="shelf-note">Operar clústeres y preparar el examen CKA.</p>
+  <div class="shelf">
+    <article class="book">
+      <span class="num">Libro 3 · ES</span>
+      <h3>Lo que pasa es que administrar Kubernetes</h3>
+      <p>Guía completa de administración de Kubernetes en lenguaje sencillo.</p>
+      <div class="links">
+        <a class="btn" href="samples/lo-que-pasa-es-que-administrar-kubernetes-es-sample.pdf">Muestra gratis (PDF)</a>
+      </div>
+      <div class="links">
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HLXX1RQJ">Kindle</a>
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HLXVJTJL">Tapa blanda</a>
+        <a class="btn" href="https://www.amazon.com/dp/B0HLXY9D88">Tapa dura</a>
+      </div>
+    </article>
+    <article class="book">
+      <span class="num">Libro 4 · EN</span>
+      <h3>Here's What's Actually Going On with Kubernetes Administration</h3>
+      <p>The complete Kubernetes administration guide in plain language.</p>
+      <div class="links">
+        <a class="btn" href="samples/lo-que-pasa-es-que-administrar-kubernetes-en-sample.pdf">Free sample (PDF)</a>
+      </div>
+      <div class="links">
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HLXXJBKW">Kindle</a>
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HLXKVPBT">Paperback</a>
+        <a class="btn" href="https://www.amazon.com/dp/B0HLXXBNSV">Hardcover</a>
+      </div>
+    </article>
+  </div>
+
+  <h2>Desarrollo</h2>
+  <p class="shelf-note">Construir y desplegar aplicaciones en Kubernetes.</p>
+  <div class="shelf">
+    <article class="book">
+      <span class="num">Libro 5 · ES</span>
+      <h3>Lo que pasa es que desarrollar en Kubernetes</h3>
+      <p>Guía completa de desarrollo de aplicaciones en Kubernetes en lenguaje sencillo.</p>
+      <p class="nosample">Sin muestra gratis todavía.</p>
+      <div class="links">
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HMS8J1X2">Kindle</a>
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HMSD351N">Tapa blanda</a>
+        <a class="btn" href="https://www.amazon.com/dp/B0HMS2F92Q">Tapa dura</a>
+      </div>
+    </article>
+    <article class="book">
+      <span class="num">Libro 6 · EN</span>
+      <h3>Here's What's Actually Going On with Kubernetes Application Development</h3>
+      <p>The complete Kubernetes application development guide in plain language.</p>
+      <p class="nosample">Sin muestra gratis todavía.</p>
+      <div class="links">
+        <a class="btn primary" href="https://www.amazon.com/dp/B0GX2X91VP">Kindle</a>
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HMS7BQQQ">Paperback</a>
+        <a class="btn" href="https://www.amazon.com/dp/B0HMW9J5WQ">Hardcover</a>
+      </div>
+    </article>
+  </div>
+
+  <h2>Seguridad</h2>
+  <p class="shelf-note">Endurecer clústeres y cargas de trabajo.</p>
+  <div class="shelf">
+    <article class="book">
+      <span class="num">Libro 7 · ES</span>
+      <h3>Lo que pasa es que asegurar Kubernetes</h3>
+      <p>Guía completa de seguridad en Kubernetes en lenguaje sencillo.</p>
+      <p class="nosample">Sin muestra gratis todavía.</p>
+      <div class="links">
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HNR8PQ1L">Kindle</a>
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HNJ2MCXS">Tapa blanda</a>
+        <a class="btn" href="https://www.amazon.com/dp/B0HNJ2MRT5">Tapa dura</a>
+      </div>
+    </article>
+    <article class="book">
+      <span class="num">Libro 8 · EN</span>
+      <h3>Here's What's Actually Going On with Kubernetes Security</h3>
+      <p>The complete Kubernetes security guide in plain language.</p>
+      <p class="nosample">Sin muestra gratis todavía.</p>
+      <div class="links">
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HNR47KKX">Kindle</a>
+        <a class="btn primary" href="https://www.amazon.com/dp/B0HNJ3TVKJ">Paperback</a>
+        <a class="btn" href="https://www.amazon.com/dp/B0HNJ8PJ3K">Hardcover</a>
+      </div>
+    </article>
   </div>
 
   <footer>
-    Las muestras son extractos gratuitos del libro. Compra la versión completa en Amazon.
+    Las muestras son extractos gratuitos. Compra la versión completa en Amazon.
   </footer>
 </main>
 </body>
