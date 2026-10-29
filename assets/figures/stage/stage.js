@@ -167,6 +167,7 @@ export const close = () => current?.close();
 document.addEventListener("click", (e) => {
   const t = e.target.closest("[data-stage]");
   if (!t || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey) return;
+  if (e.target.closest("[data-stage-ignore]")) return; // an embedded live figure handles its own clicks
   const inner = e.target.closest("a[href],button");
   if (inner && inner !== t && !inner.hasAttribute("data-stage-open")) return; // let real links inside a card work
   e.preventDefault();

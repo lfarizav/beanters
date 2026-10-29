@@ -126,6 +126,7 @@ export function mountMast(host, opts = {}) {
 
   // input: keys, drag, clicks on parts
   const onKey = (e) => {
+    lastInput = performance.now();
     let to = null;
     const i = Math.round(st.target);
     if (e.key === "ArrowRight" || e.key === "ArrowUp") to = i + 1;
@@ -138,7 +139,7 @@ export function mountMast(host, opts = {}) {
     set(to);
   };
   let drag = null;
-  const onDown = (e) => { if (e.button !== 0) return; drag = { x: e.clientX, y: e.clientY, from: st.target, moved: false, id: e.pointerId }; };
+  const onDown = (e) => { lastInput = performance.now(); if (e.button !== 0) return; drag = { x: e.clientX, y: e.clientY, from: st.target, moved: false, id: e.pointerId }; };
   const onMove = (e) => {
     if (!drag) return;
     const dx = e.clientX - drag.x;
@@ -165,6 +166,27 @@ export function mountMast(host, opts = {}) {
   stage.addEventListener("pointercancel", () => { drag = null; });
   const io = new IntersectionObserver((entries) => { visible = entries[entries.length - 1].isIntersecting; if (visible) run(); }, { rootMargin: "120px 0px" });
   io.observe(stage);
+  // Idle tour (opt-in): when nobody has touched the figure for a while, step to the next generation,
+  // so the figure never looks frozen. It waits while hovered, focused, offscreen, hidden or still.
+  let lastInput = performance.now(), hovered = false;
+  const touched = () => { lastInput = performance.now(); };
+  const onEnter = () => { hovered = true; touched(); };
+  const onLeave = () => { hovered = false; touched(); };
+  stage.addEventListener("pointerenter", onEnter);
+  stage.addEventListener("pointerleave", onLeave);
+  stage.addEventListener("focusin", touched);
+  const idleTimer = opts.idle ? setInterval(() => {
+    if (tour || hovered || !visible || document.hidden || calm() || drag) return;
+    if (!stage.closest(".stg") && document.querySelector(".stg")) return; // a fullscreen stage covers the page
+    if (stage.contains(document.activeElement) && document.activeElement !== document.body) return;
+    if (performance.now() - lastInput < 6000) return;
+    if (st.g !== st.target) return;
+    set((Math.round(st.target) + 1) % 5, { fromTour: true });
+    lastInput = performance.now() - 6000 + (Math.round(st.target) === 3 ? 6500 : 3800); // linger on 5G while the beam sweeps
+  }, 500) : 0;
+  // A hidden tab pauses requestAnimationFrame; restart cleanly when it comes back.
+  const onVis = () => { if (!document.hidden) { last = 0; if (frame) { cancelAnimationFrame(frame); frame = 0; } run(); } };
+  document.addEventListener("visibilitychange", onVis);
   const onMotion = () => { if (still.matches) { st.g = st.target; draw(); } run(); };
   still.addEventListener("change", onMotion);
 
@@ -172,19 +194,29 @@ export function mountMast(host, opts = {}) {
   function ink() {
     if (still.matches) return Promise.resolve();
     const lines = [...svg.querySelectorAll(".iso-line:not([data-dotted])")];
-    lines.forEach((el, n) => { el.setAttribute("pathLength", "1"); el.style.transitionDelay = `${((n / lines.length) * 0.9).toFixed(3)}s`; });
+    const STAGGER = 0.9, DRAW = 1.5;
+    lines.forEach((el, n) => { el.setAttribute("pathLength", "1"); el.style.transitionDelay = `${((n / lines.length) * STAGGER).toFixed(3)}s`; });
     svg.setAttribute("data-ink", "");
-    svg.getBoundingClientRect();
-    svg.setAttribute("data-inking", "");
-    requestAnimationFrame(() => requestAnimationFrame(() => lines.forEach((el) => { el.style.strokeDashoffset = "0"; })));
     return new Promise((done) => {
-      setTimeout(() => { svg.setAttribute("data-filling", ""); svg.removeAttribute("data-ink"); }, 2300);
-      setTimeout(() => {
+      let timers = [];
+      const finish = () => {
+        timers.forEach(clearTimeout); timers = [];
+        document.removeEventListener("visibilitychange", onHide);
         lines.forEach((el) => { el.removeAttribute("pathLength"); el.style.transitionDelay = ""; el.style.strokeDashoffset = ""; });
-        svg.removeAttribute("data-inking");
-        svg.removeAttribute("data-filling");
+        svg.removeAttribute("data-ink"); svg.removeAttribute("data-inking"); svg.removeAttribute("data-filling");
         done();
-      }, 3300);
+      };
+      const onHide = () => { if (document.hidden) finish(); }; // never leave a half-drawn figure behind a hidden tab
+      document.addEventListener("visibilitychange", onHide);
+      if (document.hidden) { finish(); return; }
+      // start only once a frame has painted the hidden-ink state, then time everything from that moment
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        svg.setAttribute("data-inking", "");
+        lines.forEach((el) => { el.style.strokeDashoffset = "0"; });
+        const drawn = (STAGGER + DRAW) * 1000 + 120; // the last stroke is complete before the fills arrive
+        timers.push(setTimeout(() => { svg.setAttribute("data-filling", ""); svg.removeAttribute("data-ink"); }, drawn));
+        timers.push(setTimeout(finish, drawn + 1000));
+      }));
     });
   }
 
@@ -196,6 +228,6 @@ export function mountMast(host, opts = {}) {
     get part() { return st.part; },
     get svg() { return svg; },
     on(name, fn) { listeners[name] = fn; },
-    destroy() { stopDemo(); cancelAnimationFrame(frame); io.disconnect(); still.removeEventListener("change", onMotion); stage.removeEventListener("keydown", onKey); stage.removeEventListener("pointerdown", onDown); stage.removeEventListener("pointermove", onMove); stage.removeEventListener("pointerup", onUp); host.innerHTML = ""; },
+    destroy() { stopDemo(); clearInterval(idleTimer); document.removeEventListener("visibilitychange", onVis); stage.removeEventListener("pointerenter", onEnter); stage.removeEventListener("pointerleave", onLeave); stage.removeEventListener("focusin", touched); cancelAnimationFrame(frame); io.disconnect(); still.removeEventListener("change", onMotion); stage.removeEventListener("keydown", onKey); stage.removeEventListener("pointerdown", onDown); stage.removeEventListener("pointermove", onMove); stage.removeEventListener("pointerup", onUp); host.innerHTML = ""; },
   };
 }
