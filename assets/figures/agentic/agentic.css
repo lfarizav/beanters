@@ -1,0 +1,19 @@
+/* agentic workbench: scene tokens and states (kit palette from ../cellular/mast.css) */
+.iso{--ag-spark:#00D9FF;--ag-flow:#00708a;--ag-lamp:#00D9FF}
+:root[data-theme="dark"] .iso{--ag-flow:#00D9FF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .iso{--ag-flow:#00D9FF}}
+[data-hit]{--hl:var(--anatomy-lit)}
+.ag-flow{fill:none;stroke:var(--ag-flow);stroke-width:1.2;stroke-dasharray:2 5;stroke-linecap:round;opacity:0;animation:iso-flow .9s linear infinite}
+.ag-spark{fill:var(--ag-spark);opacity:0}
+[data-pulse-ring] circle{fill:var(--ag-spark);opacity:.95}
+[data-pulse-ring]{opacity:0}
+[data-lamp][data-lit] .iso-top{fill:var(--ag-lamp)}
+[data-lamp][data-lit] .iso-shade{fill:color-mix(in srgb,var(--ag-lamp) 45%,var(--anatomy-shade-2))}
+[data-lamp][data-lit] .iso-edge{stroke:var(--anatomy-lit)}
+[data-eye][data-lit] .iso-top{fill:color-mix(in srgb,var(--ag-lamp) 55%,var(--anatomy-top))}
+[data-tool][data-cur] .iso-edge,[data-cradle][data-cur] .iso-edge{stroke:var(--anatomy-lit)}
+[data-tool][data-cur] .iso-top{fill:var(--anatomy-lit-top)}
+[data-tool][data-cur] .iso-shade{fill:var(--anatomy-lit-shade)}
+[data-tool][data-cur] .iso-dots circle{fill:var(--anatomy-lit);opacity:.9}
+[data-agent-lamp] circle{fill:var(--ag-spark)}
+.iso-svg[data-ink] .ag-spark,.iso-svg[data-ink] [data-pulse-ring],.iso-svg[data-ink] .ag-flow{opacity:0!important}

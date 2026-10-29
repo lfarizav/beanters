@@ -1,0 +1,21 @@
+/* kubernetes model: scene tokens and states (kit palette from ../cellular/mast.css) */
+.iso{--k8-spark:#00D9FF;--k8-flow:#00708a}
+:root[data-theme="dark"] .iso{--k8-flow:#00D9FF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .iso{--k8-flow:#00D9FF}}
+[data-hit]{--hl:var(--anatomy-lit)}
+.k8-flow,.k8-metric{fill:none;stroke:var(--k8-flow);stroke-width:1.1;stroke-dasharray:2 5;stroke-linecap:round;opacity:0;animation:iso-flow .9s linear infinite}
+.k8-metric{stroke-width:.9;animation-duration:1.4s}
+.k8-spark{fill:var(--k8-spark);opacity:0}
+[data-node][data-down] .iso-line{stroke:var(--anatomy-faint);transition:stroke .5s}
+[data-node][data-down] .iso-top{fill:var(--anatomy-shade-3)}[data-node][data-down] .iso-shade{fill:var(--anatomy-shade-1)}
+[data-node][data-down] .iso-dots{opacity:.3}
+[data-node-lamp] .iso-top{fill:var(--k8-spark)}
+[data-node][data-down] [data-node-lamp] .iso-top{fill:var(--anatomy-shade-0)}
+[data-beacon][data-lit] .iso-top,[data-beacon][data-lit] .iso-shade{fill:color-mix(in srgb,var(--k8-spark) 70%,var(--anatomy-top))}
+[data-cp-led] circle{fill:var(--k8-spark)}
+[data-cur] .iso-edge{stroke:var(--anatomy-lit)}
+[data-cur] .iso-top{fill:var(--anatomy-lit-top)}
+[data-cur] .iso-shade{fill:var(--anatomy-lit-shade)}
+[data-release] .iso-top{fill:color-mix(in srgb,var(--k8-spark) 16%,var(--anatomy-top))}
+[data-release] .iso-edge{stroke:var(--anatomy-lit)}
+.iso-svg[data-ink] .k8-spark,.iso-svg[data-ink] .k8-flow,.iso-svg[data-ink] .k8-metric{opacity:0!important}

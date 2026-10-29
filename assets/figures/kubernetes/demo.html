@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kubernetes scene demo</title>
+<meta name="robots" content="noindex">
+<script>
+  (function () {
+    var d = document.documentElement, q = new URLSearchParams(location.search), t = q.get("theme"), l = q.get("lang");
+    try { if (!t) t = localStorage.getItem("bk-theme"); if (!l) l = localStorage.getItem("bk-lang"); } catch (e) {}
+    if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
+    if (l === "en" || l === "es") d.lang = l;
+  })();
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap">
+<style>
+  :root{--ground:#f3f5f8;--surface:#fff;--ink:#0d1b2a;--muted:#5b6b7d;--line:rgba(13,27,42,.1)}
+  :root[data-theme="dark"]{--ground:#0a1420;--surface:#111f2e;--ink:#eaf0f6;--muted:#9aabbf;--line:rgba(234,240,246,.12);color-scheme:dark}
+  body{margin:0;background:var(--ground);color:var(--ink);font:16px/1.5 "Instrument Sans",system-ui,sans-serif;padding:24px;box-sizing:border-box}
+  main{max-width:720px;margin:0 auto;display:grid;gap:28px;justify-items:center}
+  .card{width:min(360px,100%);background:var(--surface);border-radius:20px;padding:22px;box-shadow:0 0 0 1px var(--line),0 12px 32px rgba(13,27,42,.08);cursor:pointer;transition:transform .3s,box-shadow .3s}
+  .card:hover{transform:translateY(-2px)}
+  .card:focus-visible{outline:2px solid #00708a;outline-offset:3px}
+  .card img{width:100%;height:230px;object-fit:contain;display:block;border-radius:12px;background:var(--ground)}
+  .card h3{margin:14px 0 4px;font-size:20px;letter-spacing:-.01em}
+  .card p{margin:0;color:var(--muted);font-size:14px}
+  .card span{display:inline-block;margin-top:12px;font-weight:600;font-size:14px;color:#1a5276}
+  :root[data-theme="dark"] .card span{color:#a9c7e3}
+  .embed{width:100%}
+</style>
+</head>
+<body>
+<main>
+  <article class="card" tabindex="0" role="button" data-stage="/assets/figures/kubernetes/scene.js" aria-label="Kubernetes cloud native: abrir la escena del programa">
+    <img src="/assets/figures/kubernetes/poster.svg" alt="" width="600" height="480">
+    <h3>Kubernetes cloud native</h3>
+    <p>Kubernetes, Helm, GitOps con Flux y observabilidad: nivel producción.</p>
+    <span>Abrir escena</span>
+  </article>
+  <div class="embed"><div data-kubernetes-embed role="figure" aria-label="Un clúster a escala: figura interactiva"></div></div>
+</main>
+<script type="module" src="/assets/figures/stage/stage.js"></script>
+<script type="module" src="/assets/figures/kubernetes/embed.js"></script>
+</body>
+</html>

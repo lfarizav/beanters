@@ -1,0 +1,16 @@
+/* certprep vault: scene tokens and states (kit palette from ../cellular/mast.css) */
+.iso{--cp-glow:#00D9FF;--cp-arc:#00708a}
+:root[data-theme="dark"] .iso{--cp-arc:#00D9FF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .iso{--cp-arc:#00D9FF}}
+[data-hit]{--hl:var(--anatomy-lit)}
+.cp-dot{fill:var(--anatomy-mid)}
+.cp-key-back{fill:var(--anatomy-shade-0)}
+.cp-arc{fill:color-mix(in srgb,var(--cp-glow) 28%,transparent);stroke:var(--cp-arc);stroke-width:.8}
+[data-led][data-lit] .iso-top,[data-led][data-lit] .iso-shade{fill:var(--cp-glow)}
+[data-lock][data-cur] .iso-edge,[data-lock][data-cur] [data-tone="mid"]{stroke:var(--anatomy-lit)}
+[data-lock][data-cur] .cp-key{fill:color-mix(in srgb,var(--cp-glow) 18%,var(--anatomy-paper))}
+[data-drawer][data-cur] > .iso-solid .iso-edge{stroke:var(--anatomy-lit)}
+[data-card][data-lit] .iso-top{fill:color-mix(in srgb,var(--cp-glow) 40%,var(--anatomy-top))}
+[data-card][data-lit] .iso-edge,[data-card][data-lit] .iso-line{stroke:var(--anatomy-lit)}
+[data-hit="timer"][data-cur] .iso-edge{stroke:var(--anatomy-lit)}
+.iso-svg[data-ink] .cp-arc{opacity:0}
