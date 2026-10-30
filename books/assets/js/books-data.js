@@ -7,7 +7,7 @@ window.BOOKS = [
     id: "kcna",
     anchor: "kubernetes",
     step: 1,
-    topic: { es: "Fundamentos", en: "Basics" },
+    topic: { es: "Fundamentos · KCNA y KCSA", en: "Basics · KCNA and KCSA" },
     hue: "#a3472a", hueLight: "#e08a62",
     title: {
       es: "Lo que pasa es que Kubernetes",
@@ -36,7 +36,7 @@ window.BOOKS = [
     id: "cka",
     anchor: "administrar",
     step: 2,
-    topic: { es: "Administrar", en: "Administer" },
+    topic: { es: "Administrar · CKA", en: "Administer · CKA" },
     hue: "#2f6a9a", hueLight: "#7fb2de",
     title: {
       es: "Lo que pasa es que administrar Kubernetes",
@@ -62,7 +62,7 @@ window.BOOKS = [
     id: "ckad",
     anchor: "desarrollar",
     step: 3,
-    topic: { es: "Desarrollar", en: "Develop" },
+    topic: { es: "Desarrollar · CKAD", en: "Develop · CKAD" },
     hue: "#8c6420", hueLight: "#d9a650",
     title: {
       es: "Lo que pasa es que desarrollar en Kubernetes",
@@ -88,7 +88,7 @@ window.BOOKS = [
     id: "cks",
     anchor: "asegurar",
     step: 4,
-    topic: { es: "Asegurar", en: "Secure" },
+    topic: { es: "Asegurar · CKS", en: "Secure · CKS" },
     hue: "#5b7535", hueLight: "#9cbc6c",
     title: {
       es: "Lo que pasa es que asegurar Kubernetes",
