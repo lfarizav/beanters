@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
 <link rel="stylesheet" href="/assets/site/site.css?v=20261030a">
 <link rel="stylesheet" href="/assets/site/home.css?v=20261030a">
+<link rel="stylesheet" href="/assets/figures/areas/areas.css?v=20261030b">
 
 <script>
   /* Theme and language before first paint, so nothing flashes. Same keys as /books/. */
@@ -193,16 +194,25 @@
       </div>
       <div class="panel pillars">
         <article class="pillar">
+          <div class="ar" data-area data-src="/assets/figures/area-cloud/live.js?v=20261030b" data-poster="/assets/figures/area-cloud/poster.svg?v=20261030b">
+            <img class="ar-poster" src="/assets/figures/area-cloud/poster.svg?v=20261030b" width="400" height="300" loading="lazy" decoding="async" alt="Modelo isométrico de un clúster de Kubernetes como un barco: el timón es el plano de control, las cubiertas son los nodos worker con contenedores (pods), un repositorio Git y un chart de Helm alimentan el ciclo de Flux y una lupa observa los pods." data-i18n-attr="alt:arCloud">
+          </div>
           <h3>Cloud-native</h3>
           <p data-i18n="p2Body">Kubestronaut: tiene vigentes a la vez las cinco certificaciones de Kubernetes de la CNCF. Opera funciones de red celular con Helm, Flux y GitOps, el tema de su charla en KubeCon Europe 2026, en Ámsterdam.</p>
           <ul class="pills" aria-label="Temas" data-i18n-attr="aria-label:topics"><li class="pill">Kubernetes</li><li class="pill">Helm</li><li class="pill">Flux</li><li class="pill">GitOps</li></ul>
         </article>
         <article class="pillar">
+          <div class="ar" data-area data-src="/assets/figures/area-ai/live.js?v=20261030b" data-poster="/assets/figures/area-ai/poster.svg?v=20261030b">
+            <img class="ar-poster" src="/assets/figures/area-ai/poster.svg?v=20261030b" width="400" height="300" loading="lazy" decoding="async" alt="Modelo isométrico de IA local: un servidor con GPU ejecuta el modelo, un agente usa herramientas MCP para desplegar la red celular, una banda de MLOps lleva modelos a la red de acceso radio, y un dron y un robot obedecen a la IA local, sin nube." data-i18n-attr="alt:arAi">
+          </div>
           <h3 data-i18n="p3Title">AI-native</h3>
           <p data-i18n="p3Body">IA aplicada a las telecomunicaciones: despliegue de redes celulares con instrucciones en lenguaje natural, MLOps para la red de acceso radio y formación en ingeniería agéntica para equipos de software. En Physical AI diseña y construye desde cero drones y robots controlados con IA local.</p>
           <ul class="pills" aria-label="Temas" data-i18n-attr="aria-label:topics"><li class="pill">LLM</li><li class="pill">MCP</li><li class="pill">MLOps</li><li class="pill" data-i18n="pillAgents">Agentes</li><li class="pill">Physical AI</li><li class="pill" data-i18n="pillDrones">Drones</li><li class="pill" data-i18n="pillRobots">Robots</li></ul>
         </article>
         <article class="pillar">
+          <div class="ar" data-area data-src="/assets/figures/area-telco/live.js?v=20261030b" data-poster="/assets/figures/area-telco/poster.svg?v=20261030b">
+            <img class="ar-poster" src="/assets/figures/area-telco/poster.svg?v=20261030b" width="400" height="300" loading="lazy" decoding="async" alt="Modelo isométrico de una red 4G y 5G: núcleo de red en un gabinete con software abierto OpenAirInterface, estaciones base eNB y gNB que irradian ondas a los celulares, y una torre de 5G Broadcast que llega a todos a la vez." data-i18n-attr="alt:arTelco">
+          </div>
           <h3 data-i18n="p1Title">Telco</h3>
           <p data-i18n="p1Body">Redes 4G y 5G con despliegues reales, no solo maquetas de laboratorio. Diseñó el primer piloto de 5G Broadcast sobre LTE en América Latina y trabajó en EURECOM, en Francia, con OpenAirInterface.</p>
           <ul class="pills" aria-label="Temas" data-i18n-attr="aria-label:topics"><li class="pill">5G</li><li class="pill">LTE</li><li class="pill">5G Broadcast</li><li class="pill">OpenAirInterface</li></ul>
@@ -467,6 +477,9 @@
     p3Title: "AI-native",
     p3Body: "AI applied to telecommunications: deploying cellular networks from natural-language instructions, MLOps for the radio access network, and agentic engineering training for software teams. In physical AI he designs and builds drones and robots from scratch, controlled by local AI.",
     pillAgents: "Agents", pillDrones: "Drones", pillRobots: "Robots",
+    arCloud: "Isometric model of a Kubernetes cluster as a ship: the helm wheel is the control plane, the decks are worker nodes carrying containers (pods), a Git repository and a Helm chart feed the Flux loop, and a magnifier watches the pods.",
+    arAi: "Isometric model of local AI: a GPU server runs the model, an agent uses MCP tools to deploy the cellular network, an MLOps conveyor carries models to the radio access network, and a drone and a robot follow the local AI, with no cloud.",
+    arTelco: "Isometric model of a 4G and 5G network: the core network in a cabinet running open-source OpenAirInterface software, eNB and gNB base stations radiating to the phones, and a 5G Broadcast tower that reaches them all at once.",
     trainTitle: "Training",
     trainSub: "Self-paced courses and live programs with labs, in Spanish and English.",
     a1Title: "Companies and teams", a1Body: "Live, role-based programs with hands-on labs, real deployment scenarios and direct access to the instructor.",
@@ -512,5 +525,6 @@
   } };
 </script>
 <script src="/assets/site/site.js?v=20261030a"></script>
+<script type="module" src="/assets/figures/areas/areas.js?v=20261030b"></script>
 </body>
 </html>

@@ -1,0 +1,25 @@
+/* areas of action (home cards): scene tokens and states, shared by area-cloud, area-ai and area-telco.
+   Kit palette from ../cellular/mast.css. Cyan only as an accent; teal and ink carry the drawing. */
+.iso{--ar-spark:#00D9FF;--ar-flow:#00708a;--ar-glow:#00b8d9;--ar-wave:#00a8c6;--anatomy-weight:.8px}
+:root[data-theme="dark"] .iso{--ar-flow:#00D9FF;--ar-glow:#00D9FF;--ar-wave:#00D9FF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .iso{--ar-flow:#00D9FF;--ar-glow:#00D9FF;--ar-wave:#00D9FF}}
+.ar-flow{fill:none;stroke:var(--ar-flow);stroke-width:1.4;stroke-dasharray:2 5;stroke-linecap:round;opacity:0;animation:iso-flow .9s linear infinite}
+.ar-spark{fill:var(--ar-spark);stroke:var(--anatomy-hi);stroke-width:.6;opacity:0}
+.ar-screen{fill:var(--anatomy-shade-1);stroke:none;transition:fill .4s}
+.ar-screen[data-on]{fill:color-mix(in srgb,var(--ar-glow) 45%,var(--anatomy-top))}
+.ar-unit{fill:var(--anatomy-shade-2);stroke:none}
+.ar-led{fill:var(--anatomy-lo);stroke:none}.ar-led[data-on]{fill:var(--ar-spark)}
+.ar-ring{fill:none;stroke:var(--ar-wave);stroke-width:1.2;opacity:0}
+.ar-air{fill:none;stroke:var(--ar-wave);stroke-width:1.2;stroke-dasharray:3 3;opacity:0}
+.ar-lens{fill:color-mix(in srgb,var(--ar-glow) 16%,transparent);stroke:none}
+.ar-bold{fill:none;stroke:var(--anatomy-hi);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ar-bold[data-tone="lit"]{stroke:var(--anatomy-lit)}
+.ar-bold[data-tone="mid"]{stroke:var(--anatomy-mid)}
+.ar-knob{fill:var(--anatomy-paper);stroke:var(--anatomy-hi);stroke-width:1.1}
+.ar-hub{fill:var(--ar-spark);stroke:var(--anatomy-hi);stroke-width:1}
+.ar-blade{fill:none;stroke:var(--anatomy-mid);stroke-width:1.2;stroke-linecap:round}
+.ar-text{fill:var(--anatomy-mid);stroke:none}
+[data-cur] .iso-edge{stroke:var(--anatomy-lit)}
+[data-cur] .iso-top{fill:var(--anatomy-lit-top)}
+[data-cur] .iso-shade{fill:var(--anatomy-lit-shade)}
+.iso-svg[data-ink] .ar-spark,.iso-svg[data-ink] .ar-flow,.iso-svg[data-ink] .ar-ring,.iso-svg[data-ink] .ar-air,.iso-svg[data-ink] .ar-screen,.iso-svg[data-ink] .ar-unit,.iso-svg[data-ink] .ar-lens{opacity:0!important}
