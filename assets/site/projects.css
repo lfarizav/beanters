@@ -1,0 +1,70 @@
+/* Projects page (/projects/). Loads after site.css and pages.css; the figure reads the kit palette
+   from /assets/figures/cellular/mast.css and its own tokens from /assets/figures/projects/projects.css. */
+
+.pj { padding-top: clamp(28px, 4vw, 44px); }
+.pj__grid { display: grid; grid-template-columns: minmax(0, .68fr) minmax(0, 1.32fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
+.pj__text .prose { max-width: 52ch; }
+.pj__text .prose + .prose { margin-top: 14px; }
+.pj__note {
+  margin-top: 22px; display: flex; gap: 10px; align-items: flex-start; max-width: 52ch;
+  padding: 12px 14px; border-radius: var(--r-thumb); background: var(--surface);
+  box-shadow: inset 3px 0 0 var(--gold), inset 0 0 0 1px var(--hairline-2);
+  font-size: 14px; line-height: 1.55; color: var(--body);
+}
+.pj__note b { color: var(--ink); }
+.pj__note svg { flex: none; width: 18px; height: 18px; margin-top: 1px; fill: none; stroke: var(--gold); stroke-width: 1.8; stroke-linecap: round; }
+
+/* ---------- figure ---------- */
+.pj-fig { min-width: 0; }
+.pj-card { position: relative; background: var(--surface); border-radius: var(--r-panel); box-shadow: var(--sh-panel); padding: clamp(6px, 1.4vw, 16px); }
+.pj-stage { position: relative; width: 100%; outline-offset: 4px; border-radius: 14px; }
+.pj-stage svg { display: block; width: 100%; height: auto; }
+.pj-poster { display: block; width: 100%; height: auto; border-radius: 14px; }
+.pj-pins { position: absolute; inset: clamp(6px, 1.4vw, 16px); pointer-events: none; }
+.pj-pin { position: absolute; transform: translate(-50%, -100%); display: flex; flex-direction: column; align-items: center; gap: 2px; opacity: 0; transition: opacity .35s var(--ease-out-quart), transform .35s var(--ease-out-quart); }
+.pj-pin em {
+  font-style: normal; font-size: 12px; font-weight: 600; line-height: 1.25; white-space: nowrap;
+  padding: 4px 9px; border-radius: var(--r-pill); color: var(--ink);
+  background: color-mix(in srgb, var(--surface) 88%, transparent); box-shadow: 0 0 0 1px var(--hairline-2), 0 4px 12px rgba(13, 27, 42, .08);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.pj-pin i { order: 2; width: 1px; height: 10px; background: var(--hairline-2); }
+.pj-pin[data-on] { opacity: 1; z-index: 2; }
+.pj-pin[data-on] em { background: var(--btn-primary-bg); color: var(--btn-primary-ink); box-shadow: var(--sh-lift); }
+.pj-pin[data-on] i { background: var(--link); }
+.pj-pin[data-pin="hardware"] { transform: translate(-50%, 0); }
+.pj-pin[data-pin="hardware"] i { order: 0; }
+/* pins near the right edge open to the left so they never leave the card */
+.pj-pin[data-pin="ane"] { transform: translate(-86%, -100%); align-items: flex-end; }
+.pj-pin[data-pin="ane"] i { margin-right: 14%; }
+.pj-pin[data-pin="offline"] { transform: translate(-86%, 0); align-items: flex-end; }
+.pj-pin[data-pin="offline"] i { order: 0; margin-right: 14%; }
+.pj-pin[data-pin="sena"] { transform: translate(-30%, -100%); align-items: flex-start; }
+.pj-pin[data-pin="sena"] i { margin-left: 30%; }
+
+.pj-bar { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.pj-dial { display: inline-flex; padding: 3px; gap: 2px; background: var(--track); border-radius: var(--r-pill); }
+.pj-dial button, .pj-pause {
+  border: 0; background: transparent; cursor: pointer; color: var(--muted); font-size: 14px; font-weight: 600;
+  min-width: 44px; min-height: 44px; border-radius: var(--r-pill); transition: background-color .25s, color .25s, box-shadow .25s;
+}
+.pj-dial button:hover, .pj-pause:hover { color: var(--ink); }
+.pj-dial button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(13, 27, 42, .14); }
+.pj-pause { display: grid; place-items: center; background: var(--track); }
+.pj-pause svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.pj-pause .i-play { display: none; fill: currentColor; stroke-width: 1.2; }
+.pj-pause[aria-pressed="true"] .i-play { display: block; }
+.pj-pause[aria-pressed="true"] .i-pause { display: none; }
+.pj-cap { margin-top: 10px; min-height: 3.2em; font-size: 15px; line-height: 1.55; color: var(--body); }
+.pj-cap b { color: var(--ink); font-weight: 650; }
+
+@media (max-width: 960px) {
+  .pj__grid { grid-template-columns: 1fr; }
+  .pj__text .prose, .pj__note { max-width: 68ch; }
+}
+/* Only the labels of the current phase show, so they never pile up. */
+@media (max-width: 700px) {
+  .pj-pin em { font-size: 11px; padding: 3px 7px; white-space: normal; max-width: 150px; text-align: center; }
+  .pj-cap { font-size: 14.5px; }
+}
+@media (prefers-reduced-motion: reduce) { .pj-pin { transition: none; } }
