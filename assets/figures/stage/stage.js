@@ -1,5 +1,6 @@
 // Course stage: a full-viewport scene that opens from a course card (FLIP flight), with a glass capsule.
 // Usage: <article data-stage="/assets/figures/cellular/scene.js" data-stage-enroll="..." data-stage-preview="...">.
+// A second scene in the same card: <button data-stage-open data-stage="/assets/figures/cellular5g/scene.js">.
 // A scene module default-exports { title: {es, en}, chapters: [{ id }], enroll, preview, mount(ctx) }.
 // mount({ left, right, lang, reduced, mobile }) returns { go(i), demo(on), hold(on), reveal(), destroy(), on(name, fn) }.
 const UI = {
@@ -46,6 +47,8 @@ export async function open(trigger) {
   const enroll = trigger.getAttribute("data-stage-enroll") || scene.enroll;
   const preview = trigger.getAttribute("data-stage-preview") || scene.preview;
   const title = scene.title[lang];
+  // A data-stage-open button that names its own scene flies the sheet from its card, not from the button.
+  const shape = (trigger.hasAttribute("data-stage-open") && trigger.parentElement?.closest("[data-stage]")) || trigger;
 
   const root = document.createElement("div");
   root.className = "stg";
@@ -107,10 +110,10 @@ export async function open(trigger) {
   if (reduced) { root.setAttribute("data-still", ""); api.hold(true); }
 
   // FLIP flight from the card
-  const from = trigger.getBoundingClientRect();
+  const from = shape.getBoundingClientRect();
   const to = sheet.getBoundingClientRect();
   const flight = (forward) => {
-    const r = trigger.isConnected ? trigger.getBoundingClientRect() : from;
+    const r = shape.isConnected ? shape.getBoundingClientRect() : from;
     const sx = r.width / to.width, sy = r.height / to.height;
     const tx = r.left - to.left, ty = r.top - to.top;
     const card = `translate(${tx}px, ${ty}px) scale(${sx}, ${sy})`;

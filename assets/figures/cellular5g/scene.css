@@ -1,0 +1,42 @@
+/* Left page and figure card of the 5G core and RAN stage scene. Tokens come from core.css (.iso.c5). */
+.c5-card{position:relative;width:100%;max-width:980px;margin:0 auto;padding:34px 8px 8px}
+.c5-corners{position:absolute;inset:6px 10px auto 10px;height:16px;pointer-events:none;font-size:11px;letter-spacing:.04em;line-height:1}
+.c5-corners span{position:absolute;white-space:nowrap;color:var(--anatomy-muted)}
+.c5-card [data-corner="fig"]{top:0;left:0;color:var(--anatomy-text);font-weight:600}
+.c5-card [data-corner="title"]{top:0;right:0;text-transform:uppercase;letter-spacing:.12em}
+.c5-card [data-corner="hint"]{display:none}
+.c5-card [data-corner="readout"]{top:18px;right:0;color:var(--anatomy-strong);font-weight:600;font-variant-numeric:tabular-nums}
+.c5-host{outline:none;border-radius:12px;user-select:none;-webkit-user-select:none}
+.c5-host:focus-visible{outline:1px solid color-mix(in srgb,var(--anatomy-lit) 60%,transparent);outline-offset:4px}
+.c5-host .iso-svg{margin:0 auto}
+.c5-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:8px;font-size:12.5px;color:var(--anatomy-muted)}
+.c5-legend span{display:inline-flex;align-items:center;gap:7px}
+.c5-legend svg{width:26px;height:6px;overflow:visible}
+.c5-legend path{fill:none;stroke-linecap:round}
+.c5-legend [data-k="cp"] path{stroke:var(--c5-cp);stroke-width:1.4;stroke-dasharray:3.5 4}
+.c5-legend [data-k="up"] path{stroke:var(--c5-up);stroke-width:2;stroke-dasharray:10 3.5}
+.c5-legend [data-k="n1"] path{stroke:var(--c5-n1);stroke-width:2.2;stroke-dasharray:.01 5}
+.c5-legend [data-k="radio"] path{stroke:var(--c5-radio);stroke-width:1.6;stroke-dasharray:2 4}
+.c5-label{margin:0;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--s-muted,var(--anatomy-muted))}
+.c5-ho{letter-spacing:.04em;text-transform:none;color:var(--s-ink,var(--anatomy-strong))}
+.c5-note{margin:0;font-size:14px;line-height:1.5;padding-left:12px;box-shadow:inset 2px 0 0 var(--s-teal,var(--c5-cp))}
+.c5-steps{list-style:none;margin:-8px 0 0;padding:0;display:grid;gap:2px}
+.c5-steps button{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;font:inherit;font-size:14px;line-height:1.42;color:var(--s-body,var(--anatomy-text));background:transparent;border:0;border-radius:10px;padding:6px 8px;cursor:pointer;transition:background .25s,color .25s}
+.c5-steps button:hover{background:color-mix(in srgb,var(--c5-cp) 6%,transparent)}
+.c5-steps button:focus-visible{outline:2px solid var(--c5-cp);outline-offset:1px}
+.c5-steps button[data-now]{background:color-mix(in srgb,var(--c5-cp) 11%,transparent);color:var(--s-ink,var(--anatomy-strong))}
+.c5-steps small{color:var(--s-muted,var(--anatomy-muted));font-size:11.5px;white-space:nowrap}
+.c5-n{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:600;box-shadow:inset 0 0 0 1.2px var(--s-line,var(--anatomy-faint));margin-top:-1px}
+.c5-steps button[data-now] .c5-n{background:var(--c5-cp);color:var(--anatomy-card);box-shadow:none}
+.c5-group{display:grid;gap:8px}
+.c5-parts button[data-plane="up"],.c5-parts button[data-plane="dn"]{--hue:var(--c5-up)}
+.c5-parts button{--hue:var(--c5-cp)}
+.c5-parts button[data-plane="ran"],.c5-parts button[data-plane="ue"]{--hue:var(--c5-ran)}
+.c5-info{--hue:var(--c5-cp)}
+.c5-info[data-plane="up"],.c5-info[data-plane="dn"],.c5-info[data-plane="radio"]{--hue:var(--c5-up)}
+.c5-info[data-plane="ran"],.c5-info[data-plane="ue"]{--hue:var(--c5-ran)}
+.c5-info small{display:block;margin-top:6px;font-size:11.5px;color:var(--s-muted,var(--anatomy-muted))}
+.c5-src{margin:auto 0 0;font-size:11.5px;line-height:1.5;color:var(--s-muted,var(--anatomy-muted))}
+@media (max-width:639px){.c5-card{padding:30px 0 4px}.c5-corners{inset:4px 6px auto 6px}.c5-card [data-corner="title"]{display:none}.c5-card [data-corner="readout"]{top:0}.c5-legend{gap:4px 12px;font-size:11.5px}.c5-steps button{font-size:13.5px}}
+.c5 .stg-chip{white-space:nowrap}
+@media (max-width:639px){.c5 .stg-capsule .stg-row:first-child{width:100%;min-width:0}.c5 .stg-chapters{flex:1;min-width:0;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x proximity}.c5 .stg-chapters::-webkit-scrollbar{display:none}.c5 .stg-chip{scroll-snap-align:center;padding:0 10px}}
