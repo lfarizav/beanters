@@ -1,7 +1,7 @@
 /* projects model: scene tokens and states (kit palette from ../cellular/mast.css) */
-.iso{--pj-spark:#00D9FF;--pj-flow:#00708a;--pj-ane:#b45309;--pj-glow:#00b8d9;--pj-wave:#00a8c6}
-:root[data-theme="dark"] .iso{--pj-flow:#00D9FF;--pj-ane:#f59e0b;--pj-glow:#00D9FF;--pj-wave:#00D9FF}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .iso{--pj-flow:#00D9FF;--pj-ane:#f59e0b;--pj-glow:#00D9FF;--pj-wave:#00D9FF}}
+.iso{--pj-spark:#00D9FF;--pj-flow:#00708a;--pj-ane:#b45309;--pj-glow:#00b8d9;--pj-wave:#00a8c6;--pj-net:#4f46e5}
+:root[data-theme="dark"] .iso{--pj-flow:#00D9FF;--pj-ane:#f59e0b;--pj-glow:#00D9FF;--pj-wave:#00D9FF;--pj-net:#a5b4fc}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .iso{--pj-flow:#00D9FF;--pj-ane:#f59e0b;--pj-glow:#00D9FF;--pj-wave:#00D9FF;--pj-net:#a5b4fc}}
 [data-hit]{--hl:var(--anatomy-lit)}
 .pj-flow{fill:none;stroke:var(--pj-flow);stroke-width:1.2;stroke-dasharray:2 5;stroke-linecap:round;opacity:0;animation:iso-flow .9s linear infinite}
 .pj-flow--ane{stroke:var(--pj-ane)}
@@ -22,4 +22,11 @@
 [data-site][data-alert] circle{fill:#dc2626;opacity:1}
 [data-site][data-ok] circle{fill:var(--pj-spark);opacity:1}
 [data-backhaul][data-cur] .iso-line{stroke:var(--anatomy-mid)}
-.iso-svg[data-ink] .pj-spark,.iso-svg[data-ink] .pj-flow,.iso-svg[data-ink] .pj-ripple,.iso-svg[data-ink] .pj-air,.iso-svg[data-ink] .pj-screen,.iso-svg[data-ink] .pj-window,.iso-svg[data-ink] .pj-unit{opacity:0!important}
+.pj-link{fill:none;stroke:var(--pj-wave);stroke-width:1;stroke-dasharray:2 4;stroke-linecap:round;opacity:0;animation:iso-flow 1.2s linear infinite}
+.pj-bridge{stroke:var(--pj-flow);stroke-width:1.4;opacity:0}
+.pj-flow--net{stroke:var(--pj-net)}.pj-spark--net{fill:var(--pj-net)}
+.pj-svc[data-on] .iso-top{fill:color-mix(in srgb,var(--pj-glow) 30%,var(--anatomy-top))}
+.pj-svc[data-on] .iso-shade{fill:color-mix(in srgb,var(--pj-glow) 18%,var(--anatomy-shade-2))}
+.pj-svc[data-on] .iso-edge{stroke:var(--anatomy-lit)}
+[data-panel][data-on] .iso-top,[data-panel][data-on] .iso-shade{fill:color-mix(in srgb,var(--pj-glow) 22%,var(--anatomy-top))}
+.iso-svg[data-ink] .pj-spark,.iso-svg[data-ink] .pj-flow,.iso-svg[data-ink] .pj-ripple,.iso-svg[data-ink] .pj-air,.iso-svg[data-ink] .pj-screen,.iso-svg[data-ink] .pj-window,.iso-svg[data-ink] .pj-unit,.iso-svg[data-ink] .pj-link,.iso-svg[data-ink] .pj-bridge{opacity:0!important}

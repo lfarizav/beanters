@@ -32,13 +32,13 @@
 .pj-pin[data-on] { opacity: 1; z-index: 2; }
 .pj-pin[data-on] em { background: var(--btn-primary-bg); color: var(--btn-primary-ink); box-shadow: var(--sh-lift); }
 .pj-pin[data-on] i { background: var(--link); }
-.pj-pin[data-pin="hardware"] { transform: translate(-50%, 0); }
-.pj-pin[data-pin="hardware"] i { order: 0; }
+.pj-pin[data-pin="hardware"], .pj-pin[data-pin="phones"] { transform: translate(-50%, 0); }
+.pj-pin[data-pin="hardware"] i, .pj-pin[data-pin="phones"] i { order: 0; }
 /* pins near the right edge open to the left so they never leave the card */
 .pj-pin[data-pin="ane"] { transform: translate(-86%, -100%); align-items: flex-end; }
 .pj-pin[data-pin="ane"] i { margin-right: 14%; }
-.pj-pin[data-pin="offline"] { transform: translate(-86%, 0); align-items: flex-end; }
-.pj-pin[data-pin="offline"] i { order: 0; margin-right: 14%; }
+.pj-pin[data-pin="offline"] { transform: translate(-90%, 0); align-items: flex-end; }
+.pj-pin[data-pin="offline"] i { order: 0; margin-right: 10%; }
 .pj-pin[data-pin="sena"] { transform: translate(-30%, -100%); align-items: flex-start; }
 .pj-pin[data-pin="sena"] i { margin-left: 30%; }
 

@@ -2,7 +2,7 @@
 // HTML labels pinned to the parts (bilingual, re-rendered when the page language changes).
 // Markup: <div data-projects-figure> with an <img class="pj-poster"> fallback inside. Shared runtime: ../agentic/engine.js.
 import { mountFigure, langNow, darkNow } from "../agentic/engine.js";
-import { PINS } from "./content.js";
+import { PINS } from "./content.js?v=20261030c";
 
 const W = 760, H = 580;
 const root = document.querySelector("[data-projects-figure]");
@@ -14,7 +14,7 @@ if (root) {
   let def = null, ctl = null, lang = null, ch = 0, paused = still.matches, inked = false;
 
   async function setup() {
-    def = def || (await import("./live.js")).default;
+    def = def || (await import("./live.js?v=20261030c")).default;
     if (ctl) { ch = ctl.chapter; ctl.destroy(); ctl = null; }
     lang = langNow();
     const C = def.copy[lang];
@@ -29,7 +29,7 @@ if (root) {
       </div>
       <p class="pj-cap" aria-live="polite"><b></b> <span></span></p>`;
     const pins = root.querySelector(".pj-pins");
-    const { DATA } = await import("./art.js");
+    const { DATA } = await import("./art.js?v=20261030c");
     pins.innerHTML = Object.entries(DATA.pins).map(([name, [x, y]]) => `<span class="pj-pin" data-pin="${name}" style="left:${((x / W) * 100).toFixed(2)}%;top:${((y / H) * 100).toFixed(2)}%"><i></i><em>${PINS[name][lang]}</em></span>`).join("");
     // a chip click counts as input, so the idle tour waits before it moves on (the engine listens for focusin)
     root.querySelectorAll(".pj-dial button").forEach((b) => b.addEventListener("click", () => { if (!ctl) return; ctl.set(+b.dataset.i); root.querySelector(".pj-stage").dispatchEvent(new Event("focusin")); }));

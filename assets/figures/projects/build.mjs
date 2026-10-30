@@ -1,12 +1,13 @@
-// Build the community radio and TV network model: node build.mjs  (writes art.js, projects.css and poster.svg)
+// Build the community cellular network model: node build.mjs  (writes art.js, projects.css and poster.svg)
 // Built with the Anatomy kit (../cellular/iso-kit.mjs, MIT, (c) 2026 Ryan) through ../agentic/bench.mjs.
 //
 // Truth notes. The model follows the author's CRC 2026 article on open-source community cellular networks
-// in the 900 MHz band: a community site on free software and general-purpose hardware with an SDR (p. 5, p. 7),
-// a core and local content that run inside the community, so the internet link is optional (p. 8), community
-// radio and TV by local multicast as a regulatory recommendation, not an authorized use today (p. 11), training
-// via SENA (p. 10, p. 12) and remote spectrum verification by the ANE (p. 10, p. 12). Central control of every
-// site from the ministry (MinTIC) is the author's proposal and is labelled so on the page. No numbers are drawn.
+// in the 900 MHz band: a private LTE/5G base station on free software and general-purpose hardware with an SDR
+// (p. 5, p. 7); the core (EPC/5GC and IMS) runs inside the community, so community radio and TV as IPTV by local
+// multicast, SMS and voice need no internet link; a backhaul, when it exists, adds internet access (p. 8). Those
+// local services are a regulatory recommendation, not an authorized use today (p. 11). IPTV for training via SENA
+// (p. 10). Local video conferences are the author's addition. Remote spectrum verification by the ANE (p. 10,
+// p. 12). Central control of every site from the ministry (MinTIC) is the author's proposal, labelled so.
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { k, kitFor, plinth, writeScene } from "../agentic/bench.mjs";
@@ -15,7 +16,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 export const W = 760, H = 580;
 const PLATE = { x: -132, y: -108, w: 264, d: 216, r: 10 };
 const TOWER = [26, -46];
-const TOWER_TOP = 128;
+const TOWER_TOP = 122;
 const MIN = { x: -120, y: -98, w: 56, d: 36, r: 1.5 }; // ministry control centre
 const MIN_H = 40;
 const MAP = { x: -116, y: -50, w: 34, d: 22, r: 1.5 }; // map table with the sites
@@ -24,13 +25,15 @@ const ANE_H = 18;
 const ANE_MAST = [68, -100];
 const CAB = { x: 40, y: -32, w: 28, d: 18, r: 1 }; // general-purpose hardware cabinet
 const CAB_H = 30;
-const SDR = { x: 44, y: -29, w: 16, d: 10, r: 0.8 };
+const SDR = { x: 54, y: -31.5, w: 12, d: 6, r: 0.6 };
+const SVC = { x: 41, y: -23.4, w: 21, d: 8.4, r: 0.5 }; // the services stacked on the core
+export const SERVICES = ["web", "sena", "video", "voice", "iptv"]; // bottom to top
+const SVC_TEXT = { iptv: "IPTV", voice: "VoLTE", video: "VIDEO", sena: "SENA", web: "WEB" };
 const CLASS = { x: -118, y: 6, w: 64, d: 50, r: 1 }; // SENA classroom, cut away
 const WALL_H = 26;
 const HOUSES = [[64, 34], [104, 26], [86, 76]];
 const HOUSE = { w: 26, d: 18, h: 14, roof: 10 };
-const PHONE = [44, 84];
-const RADIO = [118, 58];
+const PHONES = [[44, 84], [-30, 78], [-10, 40]];
 
 const extremes = [...k.boxCorners(PLATE, -14, 0), [TOWER[0], TOWER[1], TOWER_TOP + 22], [ANE_MAST[0], ANE_MAST[1], 74], [MIN.x, MIN.y, MIN_H + 16]];
 const P = k.fitProjection(extremes, W, H, { pad: 14, azimuth: 45, elevation: 32 });
@@ -122,7 +125,7 @@ function aneMast() {
   return out.join("");
 }
 
-/* ---------- transmission site: pole, antennas, broadcast whip ---------- */
+/* ---------- cellular base station: pole, sector antennas, lightning rod ---------- */
 const POLE = [{ r: 4.6, z0: 2, z1: 52 }, { r: 3.8, z0: 53.5, z1: 96 }, { r: 3, z0: 97.5, z1: TOWER_TOP }];
 function towerBase() {
   const [x, y] = TOWER;
@@ -137,7 +140,7 @@ function sectorAt(deg) {
   const cx = x + Math.cos(a) * R, cy = y + Math.sin(a) * R;
   const ux = Math.cos(a), uy = Math.sin(a), tx = -uy, ty = ux, w = 7, d = 2.4;
   const ringPts = [[d / 2, -w / 2], [d / 2, w / 2], [-d / 2, w / 2], [-d / 2, -w / 2]].map(([p, q]) => [cx + ux * p + tx * q, cy + uy * p + ty * q]);
-  return S(k.extrude(ringPts, 100, 18, P, { bevel: 0.3 }), { tone: "hi", crease: "lo" });
+  return `<g data-panel="">${S(k.extrude(ringPts, 100, 18, P, { bevel: 0.3 }), { tone: "hi", crease: "lo" })}</g>`;
 }
 function tower() {
   const [x, y] = TOWER;
@@ -158,10 +161,10 @@ function tower() {
   for (const a of sectors) if (!frontSectors.includes(a)) out.push(sectorAt(a));
   out.push(S(cyl(x, y, 3, 97.5, TOWER_TOP - 97.5, 32), { tone: "mid", crease: "none" }));
   for (const a of frontSectors) out.push(sectorAt(a));
-  // broadcast whip on top: the subject
+  // cap and a lightning rod on top
   out.push(S(cyl(x, y, 2.2, TOWER_TOP, 2, 20, 0.3), { tone: "mid" }));
-  out.push(`<g data-whip="">${S(cyl(x, y, 1, TOWER_TOP + 2, 18, 14), { tone: "hi", crease: "none" })}${S(cyl(x, y, 1.8, TOWER_TOP + 9, 1.4, 16, 0.2), { tone: "hi" })}</g>`);
-  out.push(`<g data-tip="">${S(cyl(x, y, 1.4, TOWER_TOP + 20, 1.4, 14, 0.3), { tone: "hi", crease: "lo" })}</g>`);
+  out.push(S(cyl(x, y, 0.5, TOWER_TOP + 2, 10, 10), { tone: "mid", crease: "none" }));
+  out.push(D([at([x, y, TOWER_TOP + 12])], { size: 0.6, tone: "hi" }));
   return out.join("");
 }
 
@@ -184,13 +187,26 @@ function cabinet() {
   // the SDR on top: a flat box with two antenna ports and a lamp
   out.push(`<g data-sdr="">${S(slab(SDR, CAB_H, 4, 3, 0.4), { tone: "hi", crease: "lo", inner: L(k.sideSeam(SDR, CAB_H + 2.4, P, 3), { tone: "faint" }) })}</g>`);
   const sy = SDR.y + SDR.d + 0.05;
-  for (const px of [SDR.x + 4, SDR.x + 8]) out.push(S(k.cylinder(px, SDR.y + 2, 0.9, CAB_H + 4, 1.6, P, 12), { tone: "mid" }));
-  out.push(`<g data-ink-skip="">${textY(SDR.x + SDR.w / 2 - 1, sy, CAB_H + 2.9, "SDR", 2.4, "mid")}</g>`);
-  out.push(`<circle class="pj-led" data-led="sdr" cx="${at([SDR.x + 13.6, sy, CAB_H + 2])[0].toFixed(1)}" cy="${at([SDR.x + 13.6, sy, CAB_H + 2])[1].toFixed(1)}" r=".8"/>`);
+  for (const px of [SDR.x + 3, SDR.x + 6.4]) out.push(S(k.cylinder(px, SDR.y + 2, 0.9, CAB_H + 4, 1.6, P, 12), { tone: "mid" }));
+  out.push(`<g data-ink-skip="">${textY(SDR.x + 5, sy, CAB_H + 2.9, "SDR", 2.2, "mid")}</g>`);
+  out.push(`<circle class="pj-led" data-led="sdr" cx="${at([SDR.x + 10, sy, CAB_H + 2])[0].toFixed(1)}" cy="${at([SDR.x + 10, sy, CAB_H + 2])[1].toFixed(1)}" r=".7"/>`);
+  out.push(services());
+  return out.join("");
+}
+// the services, stacked on the core like blocks on a shelf: each block is one service of the same network
+const SVC_H = 5;
+function services() {
+  const out = [];
+  SERVICES.forEach((name, i) => {
+    const z = CAB_H + i * (SVC_H + 0.4);
+    const pl = k.insetPlan(SVC, i % 2 ? 0.4 : 0);
+    const yF = pl.y + pl.d + 0.05;
+    out.push(`<g class="pj-svc" data-svc="${name}">${S(slab(pl, z, SVC_H, 3, 0.3), { tone: "hi", crease: "lo" })}<g data-ink-skip="">${textY(pl.x + pl.w / 2, yF, z + 1, SVC_TEXT[name], 3.8, "hi")}</g></g>`);
+  });
   return out.join("");
 }
 // feeder from the SDR ports up the pole to the platform
-const FEED = [[SDR.x + 4, SDR.y + 2, CAB_H + 5.6], [SDR.x + 4, SDR.y + 2, CAB_H + 10], [TOWER[0] + 4.2, TOWER[1] + 3.2, 52], [TOWER[0] + 3.6, TOWER[1] + 2.6, 95]];
+const FEED = [[SDR.x + 3, SDR.y + 2, CAB_H + 5.6], [SDR.x + 3, SDR.y + 2, CAB_H + 10], [TOWER[0] + 4.2, TOWER[1] + 3.2, 52], [TOWER[0] + 3.6, TOWER[1] + 2.6, 95]];
 function feeder() {
   const pts = FEED.map(at);
   return k.wireSvg(pts[0], pts[pts.length - 1], { via: pts.slice(1, -1), tone: "mid", size: 0.8 }) + `<path class="iso-line pj-flow" data-ink-skip="" data-feed="" d="${k.pathOf(pts)}"/>`;
@@ -207,6 +223,8 @@ function floorLines() {
     w(ORCH, "mid"), `<path class="iso-line pj-flow" data-ink-skip="" data-orch="" d="${k.pathOf(ORCH.map(at))}"/>`,
     w(VERIFY, "mid"), `<path class="iso-line pj-flow pj-flow--ane" data-ink-skip="" data-verify="" d="${k.pathOf(VERIFY.map(at))}"/>`,
     `<g data-backhaul="">${(() => { const a = BACK_A.map(at), b = BACK_B.map(at); return k.wireSvg(a[0], a[1], { tone: "lo", dashed: true, size: 0.8 }) + k.wireSvg(b[0], b[1], { tone: "faint", dashed: true, size: 0.8 }); })()}</g>`,
+    `<path class="iso-line pj-bridge" data-ink-skip="" data-bridge="" d="${k.pathOf([BACK_A[1], BACK_B[0]].map(at))}"/>`,
+    `<path class="iso-line pj-flow pj-flow--net" data-ink-skip="" data-net="" d="${k.pathOf([BACK_B[1], BACK_A[0]].map(at))}"/>`,
   ].join("");
 }
 
@@ -281,31 +299,34 @@ function house(i) {
   out.push(`<g data-rx="${i}">${D([at([ax, cy, az + 12])], { size: 0.8, tone: "hi" })}</g>`);
   return out.join("");
 }
-function phone() {
-  const [x, y] = PHONE;
+function phone(i) {
+  const [x, y] = PHONES[i];
   const out = [S(slab(plan(x, y, 10, 7, 1), 0, 1.6, 3, 0.3), { tone: "lo" })];
   const pl = plan(x, y, 6, 1.6, 0.4);
   out.push(S(slab(pl, 1.6, 11, 3, 0.2), { tone: "hi", crease: "lo" }));
   const yF = pl.y + pl.d + 0.05;
-  out.push(`<path class="pj-window" data-window="phone" d="${rectY(yF, x - 2.3, x + 2.3, 3.4, 11.4)}"/>`);
+  out.push(`<path class="pj-window" data-window="phone-${i}" d="${rectY(yF, x - 2.3, x + 2.3, 3.4, 11.4)}"/>`);
   out.push(L(rectY(yF, x - 2.3, x + 2.3, 3.4, 11.4), { tone: "mid" }));
+  out.push(D([at([x, yF, 2.6])], { size: 0.5, tone: "mid" }));
   return out.join("");
 }
-function radio() {
-  const [x, y] = RADIO;
-  const pl = plan(x, y, 14, 7, 1);
-  const out = [S(slab(pl, 0, 8, 3, 0.4), { tone: "hi", crease: "lo" })];
-  const yF = pl.y + pl.d + 0.05;
-  out.push(L(rectY(yF, x - 6, x - 0.5, 2, 6.4), { tone: "mid" }));
-  out.push(L([0, 1, 2, 3].map((j) => k.segment([x - 5.4 + j * 1.4, yF, 2.6], [x - 5.4 + j * 1.4, yF, 5.8], P)).join(""), { tone: "faint" }));
-  out.push(`<g data-window="radio-dial"><path class="pj-window" data-window="radio" d="${rectY(yF, x + 1, x + 5.6, 4.4, 6.4)}"/></g>`);
-  out.push(L(rectY(yF, x + 1, x + 5.6, 4.4, 6.4), { tone: "mid" }));
-  out.push(D([at([x + 2.4, yF, 2.6]), at([x + 4.6, yF, 2.6])], { size: 0.6, tone: "hi" }));
-  out.push(L(k.segment([x + 5, y - 2, 8], [x + 9, y - 2, 20], P), { tone: "hi" }));
-  return out.join("");
+// radio links from the sector panels to every device (drawn over the scene, shown per phase)
+const PANEL = [TOWER[0] + 4, TOWER[1] + 4, 108];
+const RX = {
+  "phone-0": [PHONES[0][0], PHONES[0][1] + 0.9, 8], "phone-1": [PHONES[1][0], PHONES[1][1] + 0.9, 8], "phone-2": [PHONES[2][0], PHONES[2][1] + 0.9, 8],
+  house: [HOUSES[0][0] + 5, HOUSES[0][1] + HOUSE.d / 2, 8], house1: [HOUSES[1][0] + 5, HOUSES[1][1] + HOUSE.d / 2, 8], house2: [HOUSES[2][0] + 5, HOUSES[2][1] + HOUSE.d / 2, 8],
+  classroom: [CLASS.x + 32, CLASS.y + 3, 15],
+};
+function links() {
+  const a = at(PANEL);
+  return `<g data-ink-skip="">${Object.entries(RX).map(([name, p]) => { const b = at(p); return `<path class="pj-link" data-link="${name}" d="M${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}"/>`; }).join("")}</g>`;
+}
+// the 900 MHz mark engraved on the floor in front of the pole
+function bandMark() {
+  return `<g data-ink-skip="">${k.faceTextSvg(K.top(-6, -4, 0.1), "900 MHz", { size: 6, tone: "hi" })}</g>`;
 }
 
-/* ---------- broadcast waves: floor ripples (clipped to the plate) and rings round the whip ---------- */
+/* ---------- radio coverage: floor ripples (clipped to the plate) and rings round the sector antennas ---------- */
 const RIPPLES = 4, AIRS = 3;
 function waves(where) {
   if (where === "floor") {
@@ -313,7 +334,7 @@ function waves(where) {
     const c = at([TOWER[0], TOWER[1], 0.2]);
     return `<defs><clipPath id="pj-plate"><path d="${top}"/></clipPath></defs><g clip-path="url(#pj-plate)" data-ink-skip="">${Array.from({ length: RIPPLES }, (_, i) => `<ellipse class="pj-ripple" data-ripple="${i}" cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" rx="0" ry="0"/>`).join("")}</g>`;
   }
-  const c = at([TOWER[0], TOWER[1], TOWER_TOP + 12]);
+  const c = at(PANEL);
   return `<g data-ink-skip="">${Array.from({ length: AIRS }, (_, i) => `<ellipse class="pj-air" data-air="${i}" cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" rx="0" ry="0"/>`).join("")}</g>`;
 }
 
@@ -328,43 +349,49 @@ const items = [
   { d: depth([CAB.x + CAB.w / 2, CAB.y + CAB.d / 2]), s: `<g data-hit="hardware" data-part="cabinet">${cabinet()}${feeder()}</g>` },
   { d: depth([CLASS.x + CLASS.w / 2, CLASS.y]), s: `<g data-hit="sena" data-part="classroom">${classroom()}</g>` },
   ...HOUSES.map((h, i) => ({ d: depth(h), s: `<g data-hit="homes" data-part="house">${house(i)}</g>` })),
-  { d: depth(PHONE), s: `<g data-hit="homes" data-part="phone">${phone()}</g>` },
-  { d: depth(RADIO), s: `<g data-hit="homes" data-part="radio">${radio()}</g>` },
+  ...PHONES.map((ph, i) => ({ d: depth(ph), s: `<g data-hit="phones" data-part="phone">${phone(i)}</g>` })),
 ].sort((a, b) => a.d - b.d);
 
 const body = [
   plinth(K, PLATE, { strip: { x: -66, y: PLATE.y + PLATE.d - 14, w: 132, d: 6, r: 1 }, label: { x: 96, y: PLATE.y + PLATE.d - 26, w: 24, d: 12, r: 1.2 } }),
   waves("floor"),
+  bandMark(),
   floorLines(),
   ...items.map((i) => i.s),
   waves("air"),
-  `<circle class="pj-spark" data-spark="orch" r="2" cx="0" cy="0"/><circle class="pj-spark pj-spark--ane" data-spark="verify" r="2" cx="0" cy="0"/>`,
+  links(),
+  `<circle class="pj-spark" data-spark="a" r="2" cx="0" cy="0"/><circle class="pj-spark" data-spark="b" r="2" cx="0" cy="0"/><circle class="pj-spark pj-spark--net" data-spark="net" r="2" cx="0" cy="0"/><circle class="pj-spark" data-spark="orch" r="2" cx="0" cy="0"/><circle class="pj-spark pj-spark--ane" data-spark="verify" r="2" cx="0" cy="0"/>`,
 ];
-const LABEL = "Isometric model of an offline community radio and TV network on a plinth: a ministry control centre with a wall of screens and a map table (the author's proposal), an ANE spectrum monitoring station, a transmission pole with a broadcast whip, a cabinet of general-purpose computers with an SDR, a SENA classroom with a screen and learners, and three rural homes with a phone and a radio. The internet cable is cut: it is optional.";
+const LABEL = "Isometric model of a community cellular network in the 900 MHz band on a plinth: a cellular base station fed by a cabinet of general-purpose computers with an SDR and the open-source core, with a stack of service blocks on it (IPTV, VoLTE, video, SENA, web); phones, rural homes and a SENA classroom receive the services; a ministry control centre with a map table (the author's proposal) and an ANE spectrum monitoring station. The internet cable is optional.";
 const svg = k.figureSvg({ width: W, height: H, label: LABEL, body });
 
 const DATA = {
   orch: ORCH.map(at).map(r2),
   verify: [...VERIFY].reverse().map(at).map(r2),
   tower: r2(at([TOWER[0], TOWER[1], 0.2])),
-  whip: r2(at([TOWER[0], TOWER[1], TOWER_TOP + 12])),
+  whip: r2(at(PANEL)),
+  rx: Object.fromEntries(Object.entries(RX).map(([n, p]) => [n, r2(at(p))])),
+  sdr: r2(at([SDR.x + 3, SDR.y + 2, CAB_H + 6])),
+  net: [BACK_B[1], BACK_A[0]].map(at).map(r2),
   k: +(KK).toFixed(4), sinE: +sinE.toFixed(4),
   // pin anchors for the HTML labels, in viewBox units
   pins: {
     ministry: r2(at([MIN.x + MIN.w / 2, MIN.y + MIN.d / 2, MIN_H + 14])),
     ane: r2(at([ANE_MAST[0], ANE_MAST[1], 66])),
-    site: r2(at([TOWER[0], TOWER[1], TOWER_TOP + 24])),
-    hardware: r2(at([CAB.x + CAB.w, CAB.y + CAB.d, CAB_H - 6])),
+    site: r2(at([TOWER[0], TOWER[1], TOWER_TOP + 16])),
+    services: r2(at([SVC.x, SVC.y + SVC.d, CAB_H + 10])),
+    phones: r2(at([PHONES[1][0], PHONES[1][1] + 6, 0])),
+    hardware: r2(at([CAB.x + CAB.w, CAB.y + CAB.d, 4])),
     homes: r2(at([HOUSES[0][0], HOUSES[0][1], HOUSE.h + HOUSE.roof + 16])),
     sena: r2(at([CLASS.x + 10, CLASS.y + 2, WALL_H + 6])),
-    offline: r2(at([104, -18, 0.4])),
+    offline: r2(at([122, -18, 0.4])),
   },
 };
 
 const SCENE_CSS = `/* projects model: scene tokens and states (kit palette from ../cellular/mast.css) */
-.iso{--pj-spark:#00D9FF;--pj-flow:#00708a;--pj-ane:#b45309;--pj-glow:#00b8d9;--pj-wave:#00a8c6}
-:root[data-theme="dark"] .iso{--pj-flow:#00D9FF;--pj-ane:#f59e0b;--pj-glow:#00D9FF;--pj-wave:#00D9FF}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .iso{--pj-flow:#00D9FF;--pj-ane:#f59e0b;--pj-glow:#00D9FF;--pj-wave:#00D9FF}}
+.iso{--pj-spark:#00D9FF;--pj-flow:#00708a;--pj-ane:#b45309;--pj-glow:#00b8d9;--pj-wave:#00a8c6;--pj-net:#4f46e5}
+:root[data-theme="dark"] .iso{--pj-flow:#00D9FF;--pj-ane:#f59e0b;--pj-glow:#00D9FF;--pj-wave:#00D9FF;--pj-net:#a5b4fc}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .iso{--pj-flow:#00D9FF;--pj-ane:#f59e0b;--pj-glow:#00D9FF;--pj-wave:#00D9FF;--pj-net:#a5b4fc}}
 [data-hit]{--hl:var(--anatomy-lit)}
 .pj-flow{fill:none;stroke:var(--pj-flow);stroke-width:1.2;stroke-dasharray:2 5;stroke-linecap:round;opacity:0;animation:iso-flow .9s linear infinite}
 .pj-flow--ane{stroke:var(--pj-ane)}
@@ -385,14 +412,22 @@ const SCENE_CSS = `/* projects model: scene tokens and states (kit palette from 
 [data-site][data-alert] circle{fill:#dc2626;opacity:1}
 [data-site][data-ok] circle{fill:var(--pj-spark);opacity:1}
 [data-backhaul][data-cur] .iso-line{stroke:var(--anatomy-mid)}
-.iso-svg[data-ink] .pj-spark,.iso-svg[data-ink] .pj-flow,.iso-svg[data-ink] .pj-ripple,.iso-svg[data-ink] .pj-air,.iso-svg[data-ink] .pj-screen,.iso-svg[data-ink] .pj-window,.iso-svg[data-ink] .pj-unit{opacity:0!important}
+.pj-link{fill:none;stroke:var(--pj-wave);stroke-width:1;stroke-dasharray:2 4;stroke-linecap:round;opacity:0;animation:iso-flow 1.2s linear infinite}
+.pj-bridge{stroke:var(--pj-flow);stroke-width:1.4;opacity:0}
+.pj-flow--net{stroke:var(--pj-net)}.pj-spark--net{fill:var(--pj-net)}
+.pj-svc[data-on] .iso-top{fill:color-mix(in srgb,var(--pj-glow) 30%,var(--anatomy-top))}
+.pj-svc[data-on] .iso-shade{fill:color-mix(in srgb,var(--pj-glow) 18%,var(--anatomy-shade-2))}
+.pj-svc[data-on] .iso-edge{stroke:var(--anatomy-lit)}
+[data-panel][data-on] .iso-top,[data-panel][data-on] .iso-shade{fill:color-mix(in srgb,var(--pj-glow) 22%,var(--anatomy-top))}
+.iso-svg[data-ink] .pj-spark,.iso-svg[data-ink] .pj-flow,.iso-svg[data-ink] .pj-ripple,.iso-svg[data-ink] .pj-air,.iso-svg[data-ink] .pj-screen,.iso-svg[data-ink] .pj-window,.iso-svg[data-ink] .pj-unit,.iso-svg[data-ink] .pj-link,.iso-svg[data-ink] .pj-bridge{opacity:0!important}
 `;
 import { writeFileSync } from "node:fs";
 writeFileSync(HERE + "/projects.css", SCENE_CSS);
 
-// poster: the broadcast pose, windows and screens lit, two rings on the floor
+// poster: the IPTV pose, services, windows and screens lit, links and two rings on the floor
 function posterOf(s) {
   for (const [i, r] of [[0, 60], [1, 110]]) s = s.replace(new RegExp(`(data-ripple="${i}" cx="[^"]*" cy="[^"]*") rx="0" ry="0"`), `$1 rx="${(r * KK).toFixed(1)}" ry="${(r * KK * sinE).toFixed(1)}" style="opacity:.45"`);
+  s = s.replace(/class="pj-svc" /g, 'class="pj-svc" data-on="" ').replace(/class="pj-link" /g, 'class="pj-link" style="opacity:.4" ');
   s = s.replace(/class="pj-window" /g, 'class="pj-window" data-on="" ').replace(/class="pj-screen" /g, 'class="pj-screen" data-on="" ').replace(/class="pj-led" /g, 'class="pj-led" data-on="" ');
   return s;
 }
