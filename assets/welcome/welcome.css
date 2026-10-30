@@ -1,0 +1,69 @@
+/* Home welcome: a round window in the hero where a small robot climbs in, greets the
+   visitor and is carried off by a drone. Part of the page, not a modal: everything here
+   is pointer-events none except the close button. Loaded by welcome.js on demand. */
+
+.bw { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 10; pointer-events: none; }
+
+/* The window: a card-like disc with a sill at the bottom (the plank tokens of the site). */
+.bw-port {
+  position: absolute; border-radius: 50%;
+  background:
+    linear-gradient(to bottom, transparent 0 77.5%, var(--plank-top) 77.5% 80.5%, var(--plank-face) 80.5%),
+    radial-gradient(circle at 50% 38%, var(--surface) 0 46%, var(--ground) 100%);
+  box-shadow: var(--sh-card), 0 0 0 1px var(--hairline), inset 0 10px 22px rgba(13, 27, 42, 0.05);
+  transform: scale(.2); opacity: 0;
+  transition: transform .7s var(--ease-spring), opacity .45s var(--ease-out-quart);
+}
+.bw-port::after { /* the sill's front lip, one hairline */
+  content: ""; position: absolute; left: 0; right: 0; top: 80.5%; height: 1px; background: var(--hairline-2);
+}
+.bw.is-open .bw-port { transform: none; opacity: 1; }
+.bw.is-closing .bw-port { transform: scale(.06); opacity: 0; transition-duration: .65s, .55s; }
+
+.bw-canvas { position: absolute; display: block; opacity: 0; transition: opacity .4s var(--ease-out-quart); }
+.bw.is-open .bw-canvas { opacity: 1; }
+.bw.is-closing .bw-canvas { opacity: 0; }
+
+/* Speech: the site's own surface, radius and hairline. The tail points at the speaker. */
+.bw-bubble {
+  position: absolute; left: 0; top: 0; box-sizing: border-box;
+  padding: 9px 13px; border-radius: var(--r-thumb);
+  background: var(--surface); color: var(--ink);
+  font: 500 14.5px/1.38 var(--sans); letter-spacing: -0.005em; text-wrap: pretty;
+  box-shadow: var(--sh-card), 0 0 0 1px var(--hairline);
+  opacity: 0; transform: translateX(6px) scale(.96); transform-origin: 100% 50%;
+  transition: opacity .28s var(--ease-out-quart), transform .38s var(--ease-spring);
+}
+.bw-bubble.is-on { opacity: 1; transform: none; }
+.bw-bubble::after {
+  content: ""; position: absolute; right: -5px; top: var(--tail, 50%); width: 10px; height: 10px; margin-top: -5px;
+  background: var(--surface); transform: rotate(45deg);
+  box-shadow: 1px -1px 0 0 var(--hairline);
+}
+.bw-bubble[data-who="drone"] { font-weight: 600; }
+
+.bw-close {
+  position: absolute; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer; pointer-events: auto;
+  background: var(--surface); color: var(--muted);
+  box-shadow: var(--sh-card), 0 0 0 1px var(--hairline);
+  opacity: 0; transition: opacity .3s var(--ease-out-quart), color .2s;
+}
+.bw.is-open .bw-close { opacity: 1; }
+.bw.is-closing .bw-close { opacity: 0; pointer-events: none; }
+.bw-close:hover { color: var(--ink); }
+.bw-close:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.bw-close svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2; stroke-linecap: round; fill: none; }
+
+/* Reduced motion: no flight, one small static note that leaves by itself. */
+.bw-note {
+  position: absolute; box-sizing: border-box; pointer-events: auto;
+  padding: 14px 40px 14px 16px; border-radius: var(--r-card);
+  background: var(--surface); color: var(--ink);
+  box-shadow: var(--sh-card), 0 0 0 1px var(--hairline);
+  font: 400 14.5px/1.45 var(--sans);
+  opacity: 0; transition: opacity .3s;
+}
+.bw-note.is-on { opacity: 1; }
+.bw-note strong { display: block; font-weight: 650; margin-bottom: 2px; }
+.bw-note .bw-close { top: 8px; right: 8px; opacity: 1; box-shadow: none; }
