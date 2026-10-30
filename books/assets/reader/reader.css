@@ -52,6 +52,9 @@
   transition: background .2s ease, transform .2s ease, opacity .2s ease;
 }
 .rd__btn:hover { background: var(--rd-glass-2); }
+.rd__3dbtn { width: auto; padding: 0 16px 0 13px; gap: 8px; display: inline-flex; align-items: center; font: 600 14px/1 var(--sans, system-ui, sans-serif); letter-spacing: -.005em; white-space: nowrap; }
+.rd__3dbtn[hidden] { display: none; }
+.rd__3dbtn[aria-busy="true"] { opacity: .6; cursor: progress; }
 .rd__btn:active { transform: scale(.94); }
 .rd__btn:disabled { opacity: .3; cursor: default; transform: none; }
 .rd__btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }

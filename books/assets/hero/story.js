@@ -204,7 +204,7 @@
     onScroll();
     var canvas = stage.querySelector("canvas");
     var load = function () {
-      import("./scene.js?v=20261029c").then(function (mod) {
+      import("./scene.js?v=20261030d").then(function (mod) {
         scene = mod.createScene({
           canvas: canvas, host: stage, ink: INK, books: BOOKS, onFrame: onFrame,
           safeRect: safeRect,

@@ -16,6 +16,7 @@ const STR = {
     page: (x, n) => `Página ${x} de ${n}`, pages: (a, b, n) => `Páginas ${a} y ${b} de ${n}`,
     cover: "Portada", end: "Fin de la muestra", endTitle: "Fin de la muestra: capítulo 1",
     endText: "El libro completo continúa en Amazon.", skip: "Saltar la demostración",
+    view3d: "Ver en 3D", view3dLabel: "Ver la escena del capítulo 1 en 3D",
     edition: { es: "Edición en español", en: "Edición en inglés" }
   },
   en: {
@@ -23,13 +24,15 @@ const STR = {
     page: (x, n) => `Page ${x} of ${n}`, pages: (a, b, n) => `Pages ${a} and ${b} of ${n}`,
     cover: "Cover", end: "End of the sample", endTitle: "End of the sample: chapter 1",
     endText: "The full book continues on Amazon.", skip: "Skip the demo",
+    view3d: "View in 3D", view3dLabel: "View the chapter 1 scene in 3D",
     edition: { es: "Spanish edition", en: "English edition" }
   }
 };
 const ICON = {
   close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   prev: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
-  next: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>'
+  next: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
+  cube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg>'
 };
 /* Line-art hand, two poses (point, pinch). Coordinates are px; each pose has its own hotspot. */
 const HAND =
@@ -81,8 +84,6 @@ class Reader {
     this.hand = { x: 0, y: 0, tx: 0, ty: 0, on: false };
     this.pressed = false;
     this.inertEls = [];
-    /* Living scene (assets/scene/): fetched during the flight, shown once the cover is open. */
-    this.livingP = import("../scene/living.js?v=20261029c").then((m) => ({ m, ready: m.preload(this.b) })).catch(() => null);
     this.build();
     this.lock();
     this.layout();
@@ -110,6 +111,7 @@ class Reader {
     root.innerHTML =
       '<div class="rd__backdrop"></div>' +
       '<div class="rd__top"><p class="rd__meta" id="rd-title"><span lang="' + ed + '">' + esc(b.title[ed]) + '</span> <span>· ' + esc(s.sample) + '</span></p>' +
+        '<button type="button" class="rd__btn rd__3dbtn" aria-label="' + esc(s.view3dLabel) + '">' + ICON.cube + '<span aria-hidden="true">' + esc(s.view3d) + '</span></button>' +
         '<button type="button" class="rd__btn rd__close" aria-label="' + esc(s.close) + '">' + ICON.close + '</button></div>' +
       '<div class="rd__stage"><div class="rd__book">' +
         '<div class="rd__under"><i class="rd__edge rd__edge--l"></i><i class="rd__edge rd__edge--r"></i></div>' +
@@ -132,7 +134,7 @@ class Reader {
     Object.assign(this, {
       root, bookEl: q(".rd__book"), flipEl: q(".rd__flip"), d3: q(".rd__3d"), body: q(".rd__body"),
       cover: q(".rd__cover"), coverFront: q(".rd__cover-front"), coverBack: q(".rd__cover-back"), inside: q(".rd__inside"),
-      count: q(".rd__count"), prevBtn: q(".rd__prev"), nextBtn: q(".rd__next"), closeBtn: q(".rd__close"),
+      count: q(".rd__count"), prevBtn: q(".rd__prev"), nextBtn: q(".rd__next"), closeBtn: q(".rd__close"), btn3d: q(".rd__3dbtn"),
       skipBtn: q(".rd__skip"), handEl: q(".rd__hand"), under: q(".rd__under")
     });
 
@@ -436,25 +438,34 @@ class Reader {
     if (!this.detail) this.root.toggleAttribute("data-flat", true);
     this.root.dataset.phase = "open";
     this.opened = true;
-    this.mountLiving();
+    if (!this.detail) this.hint();
   }
 
-  /* The living scene becomes the first view; "Hojear la muestra" hands back to this reader. */
-  async mountLiving() {
-    const lp = await this.livingP;
+  /* Optional living 3D scene (assets/scene/), loaded only when "Ver en 3D" is pressed.
+     It lies over the pages, so "Hojear la muestra" (onSample) returns to the same page. */
+  async openLiving() {
+    if (this.living || this.livingBusy || this.closing) return;
+    this.skipHint();
+    this.livingBusy = true;
+    this.btn3d.setAttribute("aria-busy", "true");
     let lv = null;
-    if (lp && lp.ready && !this.closing) {
-      try {
-        lv = await lp.m.mount({
-          host: this.root, book: this.b, edition: this.ed, lang: this.L, ready: lp.ready,
-          onSample: () => { this.living = null; this.root.focus({ preventScroll: true }); if (!this.detail) this.hint(); },
+    try {
+      const m = await (this.livingMod = this.livingMod || import("../scene/living.js?v=20261030d"));
+      const ready = m.preload(this.b);
+      if (ready && !this.closing) {
+        lv = await m.mount({
+          host: this.root, book: this.b, edition: this.ed, lang: this.L, ready,
+          onSample: () => { this.living = null; this.btn3d.focus({ preventScroll: true }); },
           onClose: () => this.close()
         });
-      } catch (e) { lv = null; }
-    }
+      }
+    } catch (e) { lv = null; }
+    this.livingBusy = false;
+    this.btn3d.removeAttribute("aria-busy");
     if (lv && this.closing) { lv.destroy(); lv = null; }
+    if (!lv) { if (!this.closing) { this.btn3d.hidden = true; this.root.focus({ preventScroll: true }); } return; }
+    this.setHand(false);
     this.living = lv;
-    if (!lv && !this.detail && !this.closing) this.hint();
   }
 
   fadeIn() {
@@ -466,7 +477,6 @@ class Reader {
     this.root.dataset.phase = "open";
     this.root.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "linear" });
     this.opened = true;
-    this.mountLiving();
   }
 
   /* ---------------- First-open hint: the hand lifts the next corner and lets it fall ---------------- */
@@ -600,6 +610,7 @@ class Reader {
   bind() {
     const on = (t, ev, fn, o) => { t.addEventListener(ev, fn, o); (this.offs = this.offs || []).push(() => t.removeEventListener(ev, fn, o)); };
     on(this.closeBtn, "click", () => this.close());
+    on(this.btn3d, "click", () => this.openLiving());
     on(this.prevBtn, "click", () => this.prev());
     on(this.nextBtn, "click", () => this.next());
     on(this.skipBtn, "click", () => this.skipHint());
@@ -620,10 +631,26 @@ class Reader {
       /* It also counts a swipe only inside 250 ms; a slower flick became a tap where the
          finger lifted. Re-time quick flicks (and taps that never curled) so the
          library's own swipe test decides the direction. */
-      on(window, "touchstart", () => { this.touchT = performance.now(); }, { capture: true, passive: true });
+      on(window, "touchstart", () => { this.touchT = performance.now(); this.forcedTurn = false; }, { capture: true, passive: true });
       on(window, "touchend", () => {
         const ui = this.pf.getUI(), flick = performance.now() - (this.touchT || 0) < 500;
+        if (this.forcedTurn) { this.forcedTurn = false; if (ui) ui.touchPoint = null; return; }
         if (ui && ui.touchPoint && (flick || this.pf.getState() !== "user_fold")) ui.touchPoint.time = Date.now();
+      }, true);
+      /* Single page: the library only finishes a turn once the corner passes the page's far
+         edge. Like a real page, finish it once it is pulled more than about halfway across.
+         pointerup runs before the library's mouseup/touchend. */
+      on(window, "pointerup", () => {
+        const pf = this.pf;
+        if (this.landscape() || pf.getState() !== "user_fold") return;
+        const fc = pf.getFlipController(), c = fc && fc.calc;
+        if (!c) return;
+        const pos = c.getPosition(), rect = fc.getBoundsRect();
+        if (pos.x > 0 && pos.x < rect.pageWidth * 0.55) {
+          pf.isUserTouch = false; /* the library's own release handler now does nothing */
+          this.forcedTurn = true;
+          fc.animateFlippingTo(pos, { x: -rect.pageWidth, y: c.getCorner() === "bottom" ? rect.height : 0 }, true);
+        }
       }, true);
     } else {
       this.bindReduced(on);

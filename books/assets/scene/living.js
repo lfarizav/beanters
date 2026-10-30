@@ -5,7 +5,7 @@
    - SVG (narrower, reduced motion, no WebGL, or the CDN failed): a static ink drawing of the
      same objects with the same text and buttons; three.js is never requested.
    "Hojear la muestra" hands over to the reader underneath (page reader or detail spread). */
-import { buildObject, flat } from "./shapes.js?v=20261029c";
+import { buildObject, flat } from "./shapes.js?v=20261030d";
 
 const STR = {
   es: {
@@ -64,8 +64,8 @@ export function preload(book) {
   if (!DATA[book.id]) return null;
   const webgl = mq("(min-width: 640px)") && !mq("(prefers-reduced-motion: reduce)") && hasWebGL2();
   return Promise.all([
-    import(`./books/${DATA[book.id]}.js?v=20261029c`).then((m) => m.default),
-    webgl ? import("./engine.js?v=20261029c").catch(() => null) : Promise.resolve(null),
+    import(`./books/${DATA[book.id]}.js?v=20261030d`).then((m) => m.default),
+    webgl ? import("./engine.js?v=20261030d").catch(() => null) : Promise.resolve(null),
     loadCSS()
   ]);
 }
