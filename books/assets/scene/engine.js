@@ -6,8 +6,8 @@
    Budget per book: about 20 draw calls at rest, 33 with the busiest object lit; under
    15k triangles. The loop runs only while something moves (setAnimationLoop(null) at rest). */
 import * as THREE from "three";
-import { buildOpenBook, surfaceY, ease, glowTexture, PAGE, LEFT } from "../hero/scene.js?v=20261029b";
-import { PW, OBL, buildObject } from "./shapes.js?v=20261029b";
+import { buildOpenBook, surfaceY, ease, glowTexture, PAGE, LEFT } from "../hero/scene.js?v=20261029c";
+import { PW, OBL, buildObject } from "./shapes.js?v=20261029c";
 
 const S = (PAGE.x1 - PAGE.x0) / PW;               /* page unit -> world */
 const wx = (u) => PAGE.x0 + u * S;

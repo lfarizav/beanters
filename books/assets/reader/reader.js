@@ -82,7 +82,7 @@ class Reader {
     this.pressed = false;
     this.inertEls = [];
     /* Living scene (assets/scene/): fetched during the flight, shown once the cover is open. */
-    this.livingP = import("../scene/living.js?v=20261029b").then((m) => ({ m, ready: m.preload(this.b) })).catch(() => null);
+    this.livingP = import("../scene/living.js?v=20261029c").then((m) => ({ m, ready: m.preload(this.b) })).catch(() => null);
     this.build();
     this.lock();
     this.layout();
@@ -233,7 +233,7 @@ class Reader {
     const ph = Math.floor(pw / this.ratio);
     this.pw = pw; this.ph = ph; this.W = this.single ? pw : pw * 2;
     Object.assign(this.bookEl.style, { width: this.W + "px", height: ph + "px" });
-    Object.assign(this.d3.style, { left: (this.single ? 0 : pw) + "px", width: pw + "px", height: ph + "px" });
+    this.setBox(this.boxState === "cover" ? this.coverBox() : this.pageBox());
     if (this.dpage) Object.assign(this.dpage.style, { left: (this.single ? 0 : pw) + "px", width: pw + "px", height: ph + "px" });
     this.d3.style.setProperty("--t", (this.tSpine || Math.max(10, Math.round(pw * 0.07))) + "px");
     this.root.style.setProperty("--pw", pw + "px");
@@ -317,6 +317,21 @@ class Reader {
   }
 
   /* ---------------- Intro: FLIP flight, then the Gloss-style cover opening ---------------- */
+  /* Board sizes of the 3D book. While it flies (and until the cover is half open) it is
+     cover-shaped: the cover image's own ratio, a touch taller than the page block, so the
+     whole cover shows. It morphs to the page size while only the cover's blank back is in
+     view, and back again when the book closes. */
+  slot() { return this.single ? 0 : this.pw; }
+  pageBox() { return { left: this.slot(), top: 0, width: this.pw, height: this.ph }; }
+  coverBox() {
+    const h = Math.round(this.ph * 1.015), w = Math.round(h * (this.coverRatio || 0.625));
+    return { left: this.slot(), top: Math.round((this.ph - h) / 2), width: w, height: h };
+  }
+  boxFrame(b) { return { left: b.left + "px", top: b.top + "px", width: b.width + "px", height: b.height + "px" }; }
+  setBox(b) { Object.assign(this.d3.style, this.boxFrame(b)); }
+  /* Translation that centers the closed (cover-shaped) book in the stage. */
+  closedShift() { return (this.single ? this.pw : this.pw * 2) / 2 - this.slot() - this.coverBox().width / 2; }
+
   setFaces() {
     const single = this.single;
     const cardImg = this.o.origin && this.o.origin.querySelector(".book__front img");
@@ -324,6 +339,10 @@ class Reader {
     front.alt = "";
     front.src = (cardImg && cardImg.currentSrc) || this.o.coverSrc || this.url(0);
     this.coverFront.prepend(front);
+    const ratioOf = (im) => (im && im.naturalWidth && im.naturalHeight ? im.naturalWidth / im.naturalHeight : 0);
+    this.coverRatio = ratioOf(cardImg && cardImg.complete ? cardImg : null) || ratioOf(front.complete ? front : null) || 0;
+    this.coverKnown = this.coverRatio ? Promise.resolve() : Promise.race([
+      (front.decode ? front.decode() : Promise.resolve()).then(() => { this.coverRatio = ratioOf(front); }).catch(() => {}), wait(450)]);
     if (this.detail) return Promise.race([front.decode ? front.decode().catch(() => {}) : Promise.resolve(), wait(1200)]);
     const insideIdx = 2;
     this.load(insideIdx); this.load(1);
@@ -346,18 +365,18 @@ class Reader {
   originPose(z) {
     const el = this.originEl();
     const r = el && el.getBoundingClientRect();
-    const pw = this.pw, ph = this.ph, shift = this.single ? 0 : -pw / 2;
+    const pw = this.pw, cb = this.coverBox(), shift = this.closedShift();
     const br = this.bookEl.getBoundingClientRect();
-    const cx = br.left + (this.single ? 0 : pw) + pw / 2 + shift, cy = br.top + ph / 2;
+    const cx = br.left + cb.left + cb.width / 2 + shift, cy = br.top + cb.top + cb.height / 2;
     if (!r || !r.width || r.bottom < 0 || r.top > window.innerHeight) return null;
     let s, dx, dy, rot;
     if (this.kind === "spine") {
-      s = r.height / ph;
+      s = r.height / cb.height;
       const t = this.tSpine || Math.round(pw * 0.07);
       dx = r.left + r.width / 2 - cx + (t * s) / 2; dy = r.top + r.height / 2 - cy;
       rot = "rotateX(0deg) rotateY(90deg) rotateZ(0deg)";
     } else {
-      s = r.width / pw;
+      s = r.width / cb.width;
       dx = r.left + r.width / 2 - cx; dy = r.top + r.height / 2 - cy;
       rot = "rotateX(4deg) rotateY(-24deg) rotateZ(0deg)";
     }
@@ -366,11 +385,16 @@ class Reader {
 
   async intro() {
     const ready = this.setFaces();
-    const pw = this.pw, shift = this.single ? 0 : -pw / 2;
+    await this.coverKnown;
+    if (this.closing) return;
+    this.boxState = "cover";
+    const cb = this.coverBox(), pb = this.pageBox();
+    this.setBox(cb);
+    const pw = this.pw, shift = this.closedShift();
     if (this.kind === "spine") {
       /* A shelf spine is wider than a page block would be at that scale: thicken the book. */
       const el = this.originEl(), r = el && el.getBoundingClientRect();
-      if (r && r.height) { this.tSpine = Math.round(Math.min(r.width / (r.height / this.ph), pw * 0.13)); this.d3.style.setProperty("--t", this.tSpine + "px"); }
+      if (r && r.height) { this.tSpine = Math.round(Math.min(r.width / (r.height / cb.height), pw * 0.13)); this.d3.style.setProperty("--t", this.tSpine + "px"); }
     }
     const pose = this.originPose();
     let k0, dx = 0, dy = 0;
@@ -402,8 +426,12 @@ class Reader {
     const sB = this.coverBack.querySelector(".rd__shade").animate([{ opacity: 0.75 }, { opacity: 0 }], t);
     const sI = this.inside.querySelector(".rd__shade").animate([{ opacity: 0.85 }, { opacity: 0.3, offset: 0.4 }, { opacity: 0 }], t);
     const extra = this.single ? [this.cover.animate([{ opacity: 1 }, { opacity: 1, offset: 0.35 }, { opacity: 0 }], t)] : [];
-    this.anims = [settle, open, sF, sB, sI].concat(extra);
+    /* Cover board to page size, only once the cover front has turned away. */
+    const morph = this.d3.animate([this.boxFrame(cb), Object.assign(this.boxFrame(cb), { offset: 0.5 }), this.boxFrame(pb)], t);
+    this.anims = [settle, open, sF, sB, sI, morph].concat(extra);
     try { await open.finished; } catch (e) { return; }
+    this.boxState = "page";
+    this.setBox(this.pageBox());
     if (this.closing) return;
     if (!this.detail) this.root.toggleAttribute("data-flat", true);
     this.root.dataset.phase = "open";
@@ -670,17 +698,22 @@ class Reader {
     const kRest = this.kRest, kEnd = this.kEnd.replace("rotateY(14deg)", "rotateY(-10deg)").replace("rotateX(-5deg)", "rotateX(3deg)");
     const t = { duration: 700, easing: EASE_OPEN, fill: "both" };
     const shades = (sel, a, b) => this[sel].querySelector(".rd__shade").animate([{ opacity: a }, { opacity: b }], t);
+    this.setBox(this.pageBox());
     const shut = [
       this.cover.animate([{ transform: "rotateY(-180deg)" }, { transform: "rotateY(0deg)" }], t),
+      /* page size back to the cover board while only the cover's blank back is in view */
+      this.d3.animate([this.boxFrame(this.pageBox()), Object.assign(this.boxFrame(this.coverBox()), { offset: 0.5 }), this.boxFrame(this.coverBox())], t),
       this.body.animate([{ transform: kRest }, { transform: kEnd }], t),
       shades("coverFront", 0.9, 0), shades("coverBack", 0, 0.75), shades("inside", 0, 0.85)
     ];
     if (single) shut.push(this.cover.animate([{ opacity: 0 }, { opacity: 1, offset: 0.55 }, { opacity: 1 }], t));
     this.anims = shut;
     try { await shut[0].finished; } catch (e) { /* noop */ }
+    this.boxState = "cover";
+    this.setBox(this.coverBox());
     const pose = this.originPose();
     if (!pose) { this.destroy(); return; }
-    const spine = this.kind === "spine", shift = single ? 0 : -this.pw / 2;
+    const spine = this.kind === "spine", shift = this.closedShift();
     const mid = spine
       ? `translate3d(${shift + pose.dx * 0.55}px,${pose.dy * 0.55 - 40}px,200px) scale(${((pose.s + 0.9) / 2).toFixed(3)}) rotateX(-4deg) rotateY(60deg) rotateZ(-1deg)`
       : `translate3d(${shift + pose.dx * 0.5}px,${pose.dy * 0.5 - 24}px,120px) scale(${((pose.s + 0.94) / 2).toFixed(3)}) rotateX(-3deg) rotateY(-30deg) rotateZ(-1.5deg)`;
