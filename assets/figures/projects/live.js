@@ -5,7 +5,7 @@
 // between the classroom and a home, 5 the internet link connects and web traffic flows too, 6 the ANE reads
 // the spectrum. Writes attributes on refs only, through the engine's writer (no re-render per frame).
 import { P, DATA, SVG } from "./art.js?v=20261030c";
-import { CHAPTERS, PARTS, COPY } from "./content.js?v=20261030c";
+import { CHAPTERS, PARTS, COPY, PINS } from "./content.js?v=20261030c";
 import { smooth, lerp, f1 } from "../agentic/engine.js";
 
 const PERIOD = [7, 8, 8, 8, 7, 7];
@@ -144,6 +144,6 @@ function live(svg, st, { write }) {
 }
 
 export default {
-  svg: SVG, P, chapters: CHAPTERS, parts: PARTS, copy: COPY, live,
+  svg: SVG, P, chapters: CHAPTERS, parts: PARTS, copy: COPY, live, pins: PINS, data: DATA, size: [760, 580],
   dwell: (i) => PERIOD[i] * 1000,
 };

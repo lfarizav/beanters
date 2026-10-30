@@ -15,9 +15,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
 <link rel="stylesheet" href="/assets/site/site.css?v=20261030a">
 <link rel="stylesheet" href="/assets/site/pages.css?v=20261030a">
-<link rel="stylesheet" href="/assets/site/projects.css?v=20261030c">
+<link rel="stylesheet" href="/assets/site/projects.css?v=20261030h">
 <link rel="stylesheet" href="/assets/figures/cellular/mast.css?v=20261030a">
 <link rel="stylesheet" href="/assets/figures/projects/projects.css?v=20261030c">
+<link rel="stylesheet" href="/assets/figures/agentic-network/agentic-network.css?v=20261030h">
 <script>
   /* Theme and language before first paint, so nothing flashes. Same keys as /books/. */
   (function () {
@@ -66,7 +67,7 @@
 <main id="main">
   <section class="page-head">
     <div class="wrap">
-      <p class="kicker" data-i18n="pj1">PROYECTOS</p>
+      <p class="kicker" data-i18n="pj1">PROYECTO 1</p>
       <h1 data-i18n="pj2">Una red celular en la banda de 900 MHz, muchos servicios: radio, TV, llamadas y videoconferencias sin internet</h1>
     </div>
   </section>
@@ -79,8 +80,25 @@
         <p class="prose" data-i18n="pj5">Como propuesta del autor, el Estado controla y supervisa todos los sitios desde el ministerio (MinTIC), y la ANE verifica el uso del espectro.</p>
       </div>
       <figure class="pj-fig" style="margin:0">
-        <div data-projects-figure data-poster="/assets/figures/projects/poster.svg?v=20261030c" role="group" aria-label="Modelo 3D de la red celular comunitaria" data-i18n-attr="aria-label:pj7">
+        <div data-projects-figure data-live="/assets/figures/projects/live.js?v=20261030h" data-poster="/assets/figures/projects/poster.svg?v=20261030c" role="group" aria-label="Modelo 3D de la red celular comunitaria" data-i18n-attr="aria-label:pj7">
           <div class="pj-card"><img class="pj-poster" src="/assets/figures/projects/poster.svg?v=20261030c" width="760" height="580" alt="Modelo isométrico de la red celular comunitaria en 900 MHz: estación base, núcleo de software libre con SDR y bloques de servicio, celulares, hogares, aula SENA, centro de control del MinTIC (propuesta del autor) y estación de la ANE." data-i18n-attr="alt:pj8"></div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap pj pj--next" aria-labelledby="pj2-title">
+    <p class="kicker" data-i18n="pk1">PROYECTO 2</p>
+    <h2 class="pj__title" id="pj2-title" data-i18n="pk2">IA agéntica en redes 4G y 5G: servicios de red pedidos en lenguaje natural</h2>
+    <div class="pj__grid">
+      <div class="pj__text">
+        <p class="prose" data-i18n="pk3">Un agente de IA ofrece servicios sobre redes 4G y 5G que se configuran y despliegan con lenguaje natural, usando las APIs de red de CAMARA: alertas cuando un adulto mayor o un niño sale de un área autorizada, pagos autorizados solo si el celular se verifica dentro de una zona permitida, calidad bajo demanda para una videollamada y datos de densidad de población para emergencias o eventos.</p>
+        <p class="prose" data-i18n="pk4">En el diseño del proyecto, el agente y las APIs corren sobre una nube telco que sigue las pautas de Sylva (Linux Foundation Europe): clústeres Kubernetes gestionados con Cluster API, cambios en Git que Flux aplica y funciones de red como contenedores.</p>
+        <p class="pj__fine" data-i18n="pk5">Seguir la ubicación de una persona requiere su consentimiento (en CAMARA, la autorización del titular de la línea). Es un diseño propuesto: no afirma que estos servicios estén disponibles hoy en Colombia ni que algún operador despliegue redes 4G o 5G desde lenguaje natural.</p>
+      </div>
+      <figure class="pj-fig" style="margin:0">
+        <div data-projects-figure data-live="/assets/figures/agentic-network/live.js?v=20261030h" data-poster="/assets/figures/agentic-network/poster.svg?v=20261030h" role="group" aria-label="Modelo 3D de la IA agéntica en redes 4G y 5G" data-i18n-attr="aria-label:pk6">
+          <div class="pj-card"><img class="pj-poster" src="/assets/figures/agentic-network/poster.svg?v=20261030h" width="760" height="580" alt="Modelo isométrico: una persona hace un pedido a un agente de IA, que usa las APIs de red CAMARA sobre una nube telco con clústeres Kubernetes; abajo, estaciones base 4G y 5G, una geocerca, un terminal de pago, una videollamada con calidad reservada y una cuadrícula de densidad." data-i18n-attr="alt:pk7"></div>
         </div>
       </figure>
     </div>
@@ -125,7 +143,14 @@
 
 <script>
   window.SITE_I18N = { en: {
-    pj1: "PROJECTS",
+    pj1: "PROJECT 1",
+    pk1: "PROJECT 2",
+    pk2: "Agentic AI on 4G and 5G networks: network services requested in natural language",
+    pk3: "An AI agent offers services on 4G and 5G networks that are configured and deployed with natural language, using the CAMARA network APIs: alerts when an older person or a child leaves an authorized area, payments authorized only when the phone is verified inside an allowed zone, quality on demand for a video call, and population density data for emergencies or events.",
+    pk4: "In the project's design, the agent and the APIs run on a telco cloud that follows the Sylva guidelines (Linux Foundation Europe): Kubernetes clusters managed with Cluster API, Git changes that Flux applies, and network functions as containers.",
+    pk5: "Tracking a person's location requires their consent (in CAMARA, the line holder's authorization). This is a proposed design: it does not claim these services are available in Colombia today, or that any operator deploys 4G or 5G networks from natural language.",
+    pk6: "3D model of agentic AI on 4G and 5G networks",
+    pk7: "Isometric model: a person makes a request to an AI agent, which uses the CAMARA network APIs on a telco cloud of Kubernetes clusters; below, 4G and 5G base stations, a geofence, a payment terminal, a video call with reserved quality and a density grid.",
     pj2: "One cellular network on the 900 MHz band, many services: radio, TV, calls and video conferences without internet",
     pj3: "What the system does",
     pj4: "This project extends what a community cellular network can do by offering many services on it, all in the 900 MHz band. Inside the community and without internet, the same network delivers radio and TV as IPTV, local calls, local video conferences and SENA training content; when there is an internet link, it also gives full internet access. It is built with free software and general-purpose hardware with a software-defined radio (SDR).",
@@ -143,6 +168,6 @@
   } };
 </script>
 <script src="/assets/site/site.js?v=20261030a"></script>
-<script type="module" src="/assets/figures/projects/figure.js?v=20261030c"></script>
+<script type="module" src="/assets/figures/projects/figure.js?v=20261030h"></script>
 </body>
 </html>

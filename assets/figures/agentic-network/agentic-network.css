@@ -1,0 +1,34 @@
+/* agentic network model: scene tokens and states (kit palette from ../cellular/mast.css) */
+.iso{--an-spark:#00D9FF;--an-flow:#00708a;--an-glow:#00b8d9;--an-alert:#dc2626;--an-ok:#16a34a;--an-heat:#f59e0b;--an-lane:#7c3aed;--an-zone:rgba(0,112,138,.07)}
+:root[data-theme="dark"] .iso{--an-flow:#00D9FF;--an-glow:#00D9FF;--an-alert:#f87171;--an-ok:#4ade80;--an-heat:#fbbf24;--an-lane:#a78bfa;--an-zone:rgba(0,217,255,.07)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .iso{--an-flow:#00D9FF;--an-glow:#00D9FF;--an-alert:#f87171;--an-ok:#4ade80;--an-heat:#fbbf24;--an-lane:#a78bfa;--an-zone:rgba(0,217,255,.07)}}
+[data-hit]{--hl:var(--anatomy-lit)}
+.an-flow{fill:none;stroke:var(--an-flow);stroke-width:1.2;stroke-dasharray:2 5;stroke-linecap:round;opacity:0;animation:iso-flow .9s linear infinite}
+.an-spark{fill:var(--an-spark);opacity:0}.an-spark--alert{fill:var(--an-alert)}
+.an-screen{fill:var(--anatomy-shade-1);stroke:none;transition:fill .4s}
+.an-screen[data-on]{fill:color-mix(in srgb,var(--an-glow) 45%,var(--anatomy-top))}
+.an-screen[data-alert]{fill:color-mix(in srgb,var(--an-alert) 55%,var(--anatomy-top))}
+.an-screen[data-okay]{fill:color-mix(in srgb,var(--an-ok) 50%,var(--anatomy-top))}
+.an-chat{stroke:var(--anatomy-hi);stroke-width:1.1;stroke-dasharray:1 1;stroke-dashoffset:1}
+.an-api{fill:var(--anatomy-shade-2);stroke:none;transition:fill .4s}
+[data-api][data-on] .an-api{fill:color-mix(in srgb,var(--an-glow) 40%,var(--anatomy-top))}
+.an-led{fill:var(--anatomy-lo)}.an-led[data-on]{fill:var(--an-spark)}
+.an-core{fill:var(--anatomy-lo)}.an-core[data-on]{fill:var(--an-spark)}
+[data-agent-ring][data-on] .iso-top,[data-agent-ring][data-on] .iso-shade{fill:color-mix(in srgb,var(--an-glow) 40%,var(--anatomy-top))}
+[data-mic][data-on] .iso-top,[data-mic][data-on] .iso-shade{fill:color-mix(in srgb,var(--an-glow) 40%,var(--anatomy-top))}
+.an-pod{opacity:0}
+.an-pod .iso-top{fill:color-mix(in srgb,var(--an-glow) 22%,var(--anatomy-top))}
+.an-zone{fill:var(--an-zone);stroke:none}
+.an-zone-edge{stroke:var(--an-flow);stroke-width:1;stroke-dasharray:3 3;fill:none}
+[data-zone-edge][data-alert]{stroke:var(--an-alert)}
+.an-zone-edge--pay{stroke:var(--anatomy-mid)}
+.an-cell{fill:var(--an-heat);stroke:none;opacity:0}
+.an-ok{fill:var(--anatomy-lo)}.an-ok[data-on]{fill:var(--an-ok)}
+.an-no{fill:var(--anatomy-lo)}.an-no[data-on]{fill:var(--an-alert)}
+.an-lane{fill:none;stroke:var(--an-lane);stroke-width:6;stroke-linecap:round;opacity:0}
+.an-lane-core{fill:none;stroke:var(--an-lane);stroke-width:1.4;stroke-dasharray:3 4;stroke-linecap:round;opacity:0;animation:iso-flow .7s linear infinite}
+[data-panel][data-on] .iso-top,[data-panel][data-on] .iso-shade{fill:color-mix(in srgb,var(--an-glow) 22%,var(--anatomy-top))}
+[data-cur] .iso-edge{stroke:var(--anatomy-lit)}
+[data-cur] .iso-top{fill:var(--anatomy-lit-top)}
+[data-cur] .iso-shade{fill:var(--anatomy-lit-shade)}
+.iso-svg[data-ink] .an-spark,.iso-svg[data-ink] .an-flow,.iso-svg[data-ink] .an-zone,.iso-svg[data-ink] .an-cell,.iso-svg[data-ink] .an-lane,.iso-svg[data-ink] .an-lane-core,.iso-svg[data-ink] .an-screen,.iso-svg[data-ink] .an-api{opacity:0!important}
