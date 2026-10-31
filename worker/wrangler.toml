@@ -1,5 +1,5 @@
 # Beanters anonymous counters (page visits, books opened).
-# database_id is a PLACEHOLDER: the owner pastes the real id printed by `wrangler d1 create`.
+# database_id is the D1 id of beanters-counter in the beantagecoffeeroaster Cloudflare account (an identifier, not a secret).
 # See README-DEPLOY.md. This file holds no secrets.
 name = "beanters-counter"
 main = "index.mjs"
@@ -15,4 +15,4 @@ zone_name = "beanters.com"
 [[d1_databases]]
 binding = "DB"
 database_name = "beanters-counter"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "9e63d132-bd54-472e-9bbb-00f114e604b3"
