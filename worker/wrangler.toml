@@ -1,0 +1,18 @@
+# Beanters anonymous counters (page visits, books opened).
+# database_id is a PLACEHOLDER: the owner pastes the real id printed by `wrangler d1 create`.
+# See README-DEPLOY.md. This file holds no secrets.
+name = "beanters-counter"
+main = "index.mjs"
+compatibility_date = "2026-10-01"
+
+# Served only through the route below, not on a workers.dev address.
+workers_dev = false
+
+[[routes]]
+pattern = "beanters.com/api/counter/*"
+zone_name = "beanters.com"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "beanters-counter"
+database_id = "00000000-0000-0000-0000-000000000000"

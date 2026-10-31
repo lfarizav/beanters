@@ -41,6 +41,10 @@ jobs:
           rsync -a --exclude '.git' --exclude '.github' _mirror/colombia-openinfra-user-group/ colombia-openinfra-user-group/
           rm -rf _mirror
 
+      # The counter Worker source is deployed with wrangler, never published as a page.
+      - name: Keep the Worker source out of the published site
+        run: rm -rf worker
+
       - name: Upload the site
         uses: actions/upload-pages-artifact@v5
         with:

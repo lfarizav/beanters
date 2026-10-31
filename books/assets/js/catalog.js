@@ -250,6 +250,8 @@
   /* Opens the 3D book from a catalog cover (data-reader) or a shelf spine (data-pick). */
   function openReader(el, kind) {
     var p = el.getAttribute(kind === "spine" ? "data-pick" : "data-reader").split(":"), b = BOOKS.filter(function (x) { return x.id === p[0]; })[0];
+    /* Anonymous "book opened" count: once per open action (cover or spine), never per page turn. */
+    if (b && window.BeantersCounter) window.BeantersCounter.book(b.id);
     var css = document.getElementById("rd-css");
     if (!css) {
       css = document.createElement("link");
