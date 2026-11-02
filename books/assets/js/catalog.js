@@ -1,4 +1,4 @@
-/* Catalog: language, theme, collection rows, reading order, shelf of covers, votes, 3D tilt.
+/* Catalog: language, theme, collection rows, reading order, shelf of spines, votes, 3D tilt.
    Reads window.BOOKS and window.GHOSTS. Exposes window.Catalog for the hero module. */
 (function () {
   "use strict";
@@ -30,7 +30,7 @@
       ctaCollection: "Ver la colección", ctaSample: "Leer el capítulo 1 gratis (PDF)",
       colTitle: "La colección", colSub: "Los libros en color ya están en Amazon, en español y en inglés. Los demás se publicarán más adelante.",
       viewGroup: "Vista de la colección", tabList: "Colección", tabShelf: "Estante",
-      shelfHint: "Elija una portada. Las de color ya están en Amazon; las pálidas se publicarán más adelante, y usted puede votar por la que quiere ver pronto.",
+      shelfHint: "Los lomos de color ya están en Amazon; los pálidos se publicarán más adelante. Elija un lomo para ver su portada y su edición.",
       orderTitle: "Orden de lectura", orderSub: "Un recorrido sugerido para convertirte en Kubestronaut, de los fundamentos a la seguridad.",
       authorTitle: "Sobre el autor",
       authorBio1: "Ingeniero de telecomunicaciones con doctorado y autor de libros técnicos sobre Kubernetes, GitOps, seguridad, redes 5G privadas y Linux.",
@@ -44,7 +44,7 @@
       kindle: "Kindle", paperback: "Tapa blanda", hardcover: "Tapa dura",
       sample: "Leer el capítulo 1 gratis (PDF)", labs: "Laboratorios del libro",
       coverAlt: "Portada de ", step: "Paso ", amazonOpens: " (abre Amazon)", openBook: "Abrir el libro",
-      statePublished: "publicado en Amazon", stateGhost: "aún no publicado", ghostTag: "Próximamente", ghostState: "Aún no publicado",
+      statePublished: "publicado en Amazon", stateGhost: "aún no publicado", langRowes: "Edición en español", langRowen: "Edición en inglés", ghostTag: "Próximamente", ghostState: "Aún no publicado",
       ghostMsg: "Este libro se publicará más adelante. Vote por el que quiere ver pronto en Amazon.",
       noSample: "Sin muestra disponible por ahora",
       vote: "Votar", voted: "Voto registrado", voteBusy: "Enviando…",
@@ -63,7 +63,7 @@
       ctaCollection: "See the collection", ctaSample: "Read chapter 1 free (PDF)",
       colTitle: "The collection", colSub: "The books in color are on Amazon, in Spanish and English. The others will be published later.",
       viewGroup: "Collection view", tabList: "Collection", tabShelf: "Shelf",
-      shelfHint: "Pick a cover. The ones in color are on Amazon; the pale ones will be published later, and you can vote for the one you want to see soon.",
+      shelfHint: "The colored spines are on Amazon; the pale ones will be published later. Pick a spine to see its cover and edition.",
       orderTitle: "Reading order", orderSub: "A suggested path to become a Kubestronaut, from the basics to security.",
       authorTitle: "About the author",
       authorBio1: "Telecommunications engineer with a doctorate and author of technical books on Kubernetes, GitOps, security, private 5G networks and Linux.",
@@ -77,7 +77,7 @@
       kindle: "Kindle", paperback: "Paperback", hardcover: "Hardcover",
       sample: "Read chapter 1 free (PDF)", labs: "Book labs",
       coverAlt: "Cover of ", step: "Step ", amazonOpens: " (opens Amazon)", openBook: "Open the book",
-      statePublished: "published on Amazon", stateGhost: "not yet published", ghostTag: "Coming soon", ghostState: "Not yet published",
+      statePublished: "published on Amazon", stateGhost: "not yet published", langRowes: "Spanish edition", langRowen: "English edition", ghostTag: "Coming soon", ghostState: "Not yet published",
       ghostMsg: "This book will be published later. Vote for the one you want to see soon on Amazon.",
       noSample: "No sample available yet",
       vote: "Vote", voted: "Vote recorded", voteBusy: "Sending…",
@@ -151,7 +151,10 @@
     host.innerHTML = BOOKS.map(function (b) {
       return '<article class="item" id="' + b.anchor + '" style="' + hueVars(b) + '" aria-labelledby="c-' + b.id + '-title">' +
         itemHTML(b, state.edition[b.id], "c-") + "</article>";
+    }).join("") + GHOSTS.map(function (g) {
+      return '<article class="item item--ghost" aria-labelledby="c-' + g.id + '-title">' + ghostHTML(g, state.lang, "c-") + "</article>";
     }).join("");
+    GHOSTS.forEach(function (g) { syncVote(g.id); });
     bindTilt(host);
   }
 
@@ -177,7 +180,8 @@
     }).join("");
   }
 
-  /* ---- Shelf: every title as a cover, published first. shelfPick is "<id>:<edition>". ---- */
+  /* ---- Shelf: one group of boards per language, published spines first, then ghosts.
+     shelfPick is "<id>:<edition>"; a spine chooses the edition. ---- */
   var GHOST_W = 400, GHOST_H = 514;
   var shelfPick = null;
   function findBook(id) { return BOOKS.filter(function (x) { return x.id === id; })[0]; }
@@ -186,30 +190,26 @@
   function renderShelf() {
     var host = document.getElementById("shelf");
     if (!host) return;
-    var L = state.lang, picked = shelfPick && shelfPick.split(":")[0];
-    function cell(b, ghost) {
-      var title = b.title[L];
-      return '<li class="sb' + (ghost ? " sb--ghost" : "") + '" style="' + (ghost ? "" : hueVars(b)) + '">' +
-        '<div class="sb__slot"><button type="button" class="sb__cover" data-pick="' + b.id + '" aria-pressed="' + (picked === b.id) + '" aria-controls="shelf-detail"' +
-          ' title="' + esc(title) + '" aria-label="' + esc(title + ", " + t(ghost ? "stateGhost" : "statePublished")) + '">' +
-          (ghost ? '<span class="sb__tag" aria-hidden="true">' + t("ghostTag") + "</span>" : "") +
-          picture(b.cover[L], "", "sb__art", false, ghost ? GHOST_W : 600, ghost ? GHOST_H : 960) +
-        '</button></div><p class="sb__title" lang="' + L + '">' + esc(title) + "</p></li>";
-    }
-    host.innerHTML = BOOKS.map(function (b) { return cell(b, false); }).join("") +
-      GHOSTS.map(function (g) { return cell(g, true); }).join("");
+    host.innerHTML = ["es", "en"].map(function (lang) {
+      return '<div class="shelf__row" role="group" aria-label="' + esc(t("langRow" + lang)) + '">' +
+        BOOKS.concat(GHOSTS).map(function (b, i) {
+          var key = b.id + ":" + lang, ghost = i >= BOOKS.length;
+          return '<button type="button" class="spine' + (ghost ? " spine--ghost" : "") + '" style="' + (ghost ? "" : hueVars(b) + ";") + "--sh:" + (238 + (i % 4) * 12) + "px;--sw:" + (44 + (i % 2) * 6) + 'px" data-pick="' + key + '" aria-pressed="' + (shelfPick === key) + '" aria-controls="shelf-detail" lang="' + lang + '"' +
+            ' title="' + esc(b.title[lang]) + '" aria-label="' + esc(b.title[lang] + ", " + t(ghost ? "stateGhost" : "statePublished") + ", " + t("langRow" + lang)) + '">' +
+            '<span class="spine__t">' + esc(b.short[lang]) + '</span><span class="spine__l">' + lang.toUpperCase() + "</span></button>";
+        }).join("") + "</div>";
+    }).join("");
     renderShelfDetail();
   }
 
-  function ghostHTML(g) {
-    var L = state.lang;
-    return '<div class="item item--ghost">' +
-      '<div class="item__art"><div class="ghost-art"><span class="sb__tag" aria-hidden="true">' + t("ghostTag") + "</span>" +
-        picture(g.cover[L], t("coverAlt") + g.title[L], "sb__art", false, GHOST_W, GHOST_H) + "</div></div>" +
+  /* Cover, message and vote of a book not yet published: list row and shelf detail. */
+  function ghostHTML(g, lang, idPrefix) {
+    return '<div class="item__art"><div class="ghost-art"><span class="ghost-art__tag" aria-hidden="true">' + t("ghostTag") + "</span>" +
+        picture(g.cover[lang], t("coverAlt") + g.title[lang], "", false, GHOST_W, GHOST_H) + "</div></div>" +
       '<div class="item__info">' +
         '<p class="item__topic">' + t("ghostState") + "</p>" +
-        '<h3 lang="' + L + '" tabindex="-1">' + esc(g.title[L]) + "</h3>" +
-        '<p class="item__sub" lang="' + L + '">' + esc(g.subtitle[L]) + "</p>" +
+        '<h3 id="' + idPrefix + g.id + '-title" lang="' + lang + '" tabindex="-1">' + esc(g.title[lang]) + "</h3>" +
+        '<p class="item__sub" lang="' + lang + '">' + esc(g.subtitle[lang]) + "</p>" +
         '<p class="ghost__msg">' + t("ghostMsg") + "</p>" +
         '<div class="vote" data-vote-box="' + g.id + '">' +
           '<button type="button" class="buy buy--main vote__btn" data-vote="' + g.id + '"></button>' +
@@ -217,7 +217,7 @@
         "</div>" +
         '<p class="vote__status" role="status"></p>' +
         '<p class="ghost__nosample">' + t("noSample") + "</p>" +
-      "</div></div>";
+      "</div>";
   }
 
   function renderShelfDetail(moveFocus) {
@@ -228,11 +228,13 @@
     var close = '<button type="button" class="shelf__close" data-close-detail aria-label="' + esc(t("closeDetail")) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>';
     if (b) {
       host.innerHTML = close + '<div class="item" style="' + hueVars(b) + '">' + itemHTML(b, p[1], "s-") + "</div>";
-      bindTilt(host);
+      var seg = host.querySelector(".seg");
+      if (seg) seg.parentNode.remove(); /* the spine already chose the edition */
       var h = host.querySelector("h3");
       if (h) h.setAttribute("tabindex", "-1");
+      bindTilt(host);
     } else if (g) {
-      host.innerHTML = close + ghostHTML(g);
+      host.innerHTML = close + '<div class="item item--ghost">' + ghostHTML(g, p[1], "s-") + "</div>";
       syncVote(g.id);
       loadVotes();
     }
@@ -243,22 +245,21 @@
     }
   }
 
-  function pickShelf(id) {
-    shelfPick = id + ":" + state.lang;
+  function pickShelf(key) {
+    shelfPick = key;
     document.querySelectorAll("#shelf [data-pick]").forEach(function (el) {
-      el.setAttribute("aria-pressed", String(el.getAttribute("data-pick") === id));
+      el.setAttribute("aria-pressed", String(el.getAttribute("data-pick") === key));
     });
     renderShelfDetail(true);
   }
 
   function closeDetail() {
-    var id = shelfPick && shelfPick.split(":")[0];
+    var key = shelfPick;
     shelfPick = null;
     renderShelfDetail();
     document.querySelectorAll("#shelf [data-pick]").forEach(function (el) {
-      var on = el.getAttribute("data-pick") === id;
       el.setAttribute("aria-pressed", "false");
-      if (on) el.focus();
+      if (el.getAttribute("data-pick") === key) el.focus();
     });
   }
 
@@ -288,18 +289,19 @@
     try { f = new Intl.NumberFormat(state.lang === "en" ? "en-US" : "es-CO").format(n); } catch (e) { f = String(n); }
     return f + t("votesMany");
   }
+  /* The same book can be open in the list and in the shelf detail: keep both in step. */
   function syncVote(id) {
-    var box = document.querySelector('[data-vote-box="' + id + '"]');
-    if (!box) return;
-    var btn = box.querySelector("[data-vote]"), count = box.querySelector(".vote__count");
-    var status = box.parentNode.querySelector(".vote__status");
-    var done = votedCount(id) > 0, st = voteState[id], n = shownCount(id);
-    btn.textContent = done ? t("voted") : st === "busy" ? t("voteBusy") : t("vote");
-    btn.classList.toggle("is-voted", done);
-    btn.setAttribute("aria-disabled", String(done || st === "busy"));
-    count.hidden = n === null;
-    count.textContent = n === null ? "" : votesText(n);
-    status.textContent = st === "fail" ? t("voteFail") : st === "thanks" ? t("voteThanks") : "";
+    document.querySelectorAll('[data-vote-box="' + id + '"]').forEach(function (box) {
+      var btn = box.querySelector("[data-vote]"), count = box.querySelector(".vote__count");
+      var status = box.parentNode.querySelector(".vote__status");
+      var done = votedCount(id) > 0, st = voteState[id], n = shownCount(id);
+      btn.textContent = done ? t("voted") : st === "busy" ? t("voteBusy") : t("vote");
+      btn.classList.toggle("is-voted", done);
+      btn.setAttribute("aria-disabled", String(done || st === "busy"));
+      count.hidden = n === null;
+      count.textContent = n === null ? "" : votesText(n);
+      status.textContent = st === "fail" ? t("voteFail") : st === "thanks" ? t("voteThanks") : "";
+    });
   }
   function loadVotes() {
     if (votesAsked) return;
@@ -313,8 +315,7 @@
       .then(function (j) {
         if (!j || typeof j.by_vote !== "object" || j.by_vote === null) return;
         votes = j.by_vote;
-        var open = shelfPick && findGhost(shelfPick.split(":")[0]);
-        if (open) syncVote(open.id);
+        GHOSTS.forEach(function (g) { syncVote(g.id); });
       })
       .catch(function () { votesAsked = false; });
   }
@@ -356,7 +357,6 @@
   function setLang(lang) {
     state.lang = lang;
     BOOKS.forEach(function (b) { state.edition[b.id] = lang; });
-    if (shelfPick) shelfPick = shelfPick.split(":")[0] + ":" + lang;
     store("bk-lang", lang);
     applyStatic(); renderCollection(); renderSteps(); renderShelf();
     document.dispatchEvent(new CustomEvent("catalog:lang", { detail: { lang: lang } }));
@@ -429,13 +429,6 @@
     var ed = e.target.closest("[data-edition]");
     if (ed) {
       var id = ed.parentNode.getAttribute("data-book");
-      if (ed.closest("#shelf-detail")) {
-        shelfPick = id + ":" + ed.getAttribute("data-edition");
-        renderShelfDetail();
-        var inDetail = document.querySelector('#shelf-detail [data-edition="' + ed.getAttribute("data-edition") + '"]');
-        if (inDetail) inDetail.focus();
-        return;
-      }
       state.edition[id] = ed.getAttribute("data-edition");
       renderOne(id);
       var again = document.querySelector('#' + BOOKS.filter(function (x) { return x.id === id; })[0].anchor + ' [data-edition="' + state.edition[id] + '"]');
@@ -470,6 +463,7 @@
       x.tabIndex = on ? 0 : -1;
       document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
     });
+    if (tab.id === "tab-list") loadVotes();
     if (focus) tab.focus();
   }
   function showListFor(id) {
