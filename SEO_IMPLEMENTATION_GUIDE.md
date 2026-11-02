@@ -45,7 +45,6 @@
     "4G LTE",
     "NB-IoT",
     "Cloud-Native Infrastructure",
-    "Open-Source Telco",
     "Kubernetes",
     "Docker",
     "Helm Charts",
@@ -65,7 +64,7 @@
       "name": "What is Beanters?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Beanters is an open-source orchestration platform that enables anyone to deploy production-grade 4G/5G/NB-IoT cellular networks with a single CLI command, without vendor lock-in or expensive proprietary hardware."
+        "text": "Beanters is a cloud-native orchestration platform that enables anyone to deploy production-grade 4G/5G/NB-IoT cellular networks with a single CLI command, without vendor lock-in or expensive proprietary hardware."
       }
     },
     {
@@ -73,15 +72,7 @@
       "name": "Who is Beanters for?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Beanters is designed for universities, enterprises, governments, NGOs, and telecom operators in the Global South—Latin America, Africa, and Southeast Asia."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is Beanters open-source?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Beanters is built on 100% open-source components: Docker, Kubernetes, Helm, Open5GS, OpenAirInterface, srsRAN, and Magma."
+        "text": "Beanters is designed for universities, enterprises, governments, NGOs, and telecom operators in the Global South: Latin America, Africa, and Southeast Asia."
       }
     }
   ]
@@ -105,8 +96,8 @@
 **Code to add**:
 ```html
 <!-- Open Graph (for social media & messaging apps) -->
-<meta property="og:title" content="Beanters — Cloud-Native Cellular Networks for the Global South">
-<meta property="og:description" content="Deploy 5G/4G/NB-IoT networks with one command. No vendor lock-in, no proprietary hardware. Open-source infrastructure for Latin America, Africa, Southeast Asia.">
+<meta property="og:title" content="Beanters: Cloud-Native Cellular Networks for the Global South">
+<meta property="og:description" content="Deploy 5G/4G/NB-IoT networks with one command. No vendor lock-in, no proprietary hardware. Cloud-native infrastructure for Latin America, Africa, Southeast Asia.">
 <meta property="og:image" content="https://beanters.com/og-image.png">
 <meta property="og:url" content="https://beanters.com">
 <meta property="og:type" content="website">
@@ -114,13 +105,13 @@
 <!-- Twitter Card (for tweets and replies) -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Beanters">
-<meta name="twitter:description" content="Open-source cloud-native cellular networks for the Global South">
+<meta name="twitter:description" content="Cloud-native cellular networks for the Global South">
 <meta name="twitter:image" content="https://beanters.com/og-image.png">
 <meta name="twitter:creator" content="@beanters_io">
 <meta name="twitter:site" content="@beanters_io">
 
 <!-- Additional SEO meta tags -->
-<meta name="keywords" content="5G,4G LTE,NB-IoT,cloud-native,cellular networks,open-source,telco,3GPP,private network,telecommunications">
+<meta name="keywords" content="5G,4G LTE,NB-IoT,cloud-native,cellular networks,telco,3GPP,private network,telecommunications">
 <meta name="author" content="Luis Felipe Ariza Vesga">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 

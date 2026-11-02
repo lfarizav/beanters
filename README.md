@@ -1,8 +1,8 @@
-# Beanters — Cloud-Native Cellular Networks
+# Beanters: Cloud-Native Cellular Networks
 
 [![Deployed](https://img.shields.io/badge/deployed-live-teal?style=flat-square)](https://beanters.com) [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE) [![3GPP](https://img.shields.io/badge/3GPP-compliant-orange?style=flat-square)]() 
 
-**Beanters** is an open-source orchestration platform for deploying cloud-native cellular networks (4G/5G/NB-IoT) with a single CLI command. This repository contains the official marketing website and documentation.
+**Beanters** is an orchestration platform for deploying cloud-native cellular networks (4G/5G/NB-IoT) with a single CLI command. This repository contains the official marketing website and documentation.
 
 ---
 
@@ -25,7 +25,7 @@
 
 **What is Beanters?**
 
-Beanters democratizes telecom infrastructure by enabling anyone—universities, enterprises, governments, NGOs—to deploy production-grade cellular networks without:
+Beanters democratizes telecom infrastructure by enabling anyone (universities, enterprises, governments, NGOs) to deploy production-grade cellular networks without:
 - ❌ Multi-million-dollar vendor contracts
 - ❌ Proprietary hardware requirements
 - ❌ Vendor lock-in
@@ -33,14 +33,14 @@ Beanters democratizes telecom infrastructure by enabling anyone—universities, 
 
 **Why Beanters?**
 
-Billions of people in Latin America, Africa, and Southeast Asia lack reliable cellular connectivity. Open-source software + commodity hardware can solve this. Beanters is built by telecommunications researchers, for operators and communities in the Global South.
+Billions of people in Latin America, Africa, and Southeast Asia lack reliable cellular connectivity. Cloud-native software and commodity hardware can solve this. Beanters is built by telecommunications researchers, for operators and communities in the Global South.
 
 **Key Products:**
-- 🚀 **ngntelco CLI** — Orchestrate Docker Compose, Helm, Kustomize, FluxCD to deploy any 3GPP network
-- 📡 **5G SA / 4G LTE Private Networks** — Industrial-grade private cellular for campuses, factories, universities
-- 📺 **5G Terrestrial Broadcast (MBS)** — Point-to-multipoint 5G for TV, emergency alerts, firmware updates
-- 🌐 **NB-IoT & LTE-M** — Low-power IoT connectivity at massive scale
-- 🛰️ **NTN (Non-Terrestrial Networks)** — 5G for satellite and UAV backhaul
+- 🚀 **ngntelco CLI**: Orchestrate Docker Compose, Helm, Kustomize, FluxCD to deploy any 3GPP network
+- 📡 **5G SA / 4G LTE Private Networks**: Industrial-grade private cellular for campuses, factories, universities
+- 📺 **5G Terrestrial Broadcast (MBS)**: Point-to-multipoint 5G for TV, emergency alerts, firmware updates
+- 🌐 **NB-IoT & LTE-M**: Low-power IoT connectivity at massive scale
+- 🛰️ **NTN (Non-Terrestrial Networks)**: 5G for satellite and UAV backhaul
 
 ---
 
@@ -276,8 +276,8 @@ Insert into `<head>`:
 #### 2. **Add Open Graph Meta Tags** [HIGH]
 Insert into `<head>`:
 ```html
-<meta property="og:title" content="Beanters — Cloud-Native Cellular Networks for the Global South">
-<meta property="og:description" content="Deploy 5G/4G/NB-IoT networks with a single command. No vendor lock-in, no proprietary hardware. Open-source infrastructure for Latin America, Africa, Southeast Asia.">
+<meta property="og:title" content="Beanters: Cloud-Native Cellular Networks for the Global South">
+<meta property="og:description" content="Deploy 5G/4G/NB-IoT networks with a single command. No vendor lock-in, no proprietary hardware. Cloud-native infrastructure for Latin America, Africa, Southeast Asia.">
 <meta property="og:image" content="https://beanters.com/og-image.png">
 <meta property="og:url" content="https://beanters.com">
 <meta property="og:type" content="website">
@@ -341,8 +341,8 @@ Sitemap: https://beanters.com/sitemap.xml
 
 <!-- Additional meta tags for AI indexing -->
 <meta name="author" content="Luis Felipe Ariza Vesga">
-<meta name="keywords" content="5G,4G LTE,NB-IoT,cloud-native,cellular networks,open-source,telco,3GPP">
-<meta name="description" content="Deploy production-grade 5G, 4G LTE, NB-IoT, and satellite networks with a single command. No vendor lock-in. Open-source infrastructure for the Global South.">
+<meta name="keywords" content="5G,4G LTE,NB-IoT,cloud-native,cellular networks,telco,3GPP">
+<meta name="description" content="Deploy production-grade 5G, 4G LTE, NB-IoT, and satellite networks with a single command. No vendor lock-in. Cloud-native infrastructure for the Global South.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
 <!-- Canonical URL (prevents duplicate content issues) -->
@@ -392,32 +392,32 @@ This gives AI/LLM systems more content to reference and cite.
 ### 🎯 Roadmap for Enterprise-Grade Website
 
 #### Phase 1: Credibility & Trust (Weeks 1-2)
-- [ ] **Testimonials/Case Studies** — Add customer logos + quotes
-- [ ] **Trust Badges** — 3GPP compliance, open-source certifications
-- [ ] **Security Headers** — Content-Security-Policy, X-Frame-Options
-- [ ] **Privacy Policy + Terms** — Legal pages (privacy-policy.html, terms.html)
-- [ ] **HTTPS Enforcement** — GitHub Pages (automatic)
+- [ ] **Testimonials/Case Studies**: Add customer logos + quotes
+- [ ] **Trust Badges**: 3GPP compliance, industry certifications
+- [ ] **Security Headers**: Content-Security-Policy, X-Frame-Options
+- [ ] **Privacy Policy + Terms**: Legal pages (privacy-policy.html, terms.html)
+- [ ] **HTTPS Enforcement**: GitHub Pages (automatic)
 
 #### Phase 2: Content & SEO (Weeks 3-4)
-- [ ] **Blog/Resources** — Case studies, tutorials, research
-- [ ] **Video Demo** — YouTube embedded demo (CLI walkthrough)
-- [ ] **Pricing Page** — (if monetizing: academic pricing, enterprise tiers)
-- [ ] **Structured Data** — Full schema.org JSON-LD (Organization, Product, FAQPage)
+- [ ] **Blog/Resources**: Case studies, tutorials, research
+- [ ] **Video Demo**: YouTube embedded demo (CLI walkthrough)
+- [ ] **Pricing Page**: (if monetizing: academic pricing, enterprise tiers)
+- [ ] **Structured Data**: Full schema.org JSON-LD (Organization, Product, FAQPage)
 - [ ] **XML Sitemap + robots.txt**
 
 #### Phase 3: Analytics & Performance (Weeks 5-6)
-- [ ] **Google Analytics 4** — Track user behavior, conversion funnels
-- [ ] **Vercel Analytics** — Web Vitals (LCP, CLS, FID)
-- [ ] **Sentry.io** — JavaScript error tracking
-- [ ] **CDN** — CloudFlare (free tier) for faster global delivery
-- [ ] **Image Optimization** — WebP format + responsive images
+- [ ] **Google Analytics 4**: Track user behavior, conversion funnels
+- [ ] **Vercel Analytics**: Web Vitals (LCP, CLS, FID)
+- [ ] **Sentry.io**: JavaScript error tracking
+- [ ] **CDN**: CloudFlare (free tier) for faster global delivery
+- [ ] **Image Optimization**: WebP format + responsive images
 
 #### Phase 4: Community & Growth (Weeks 7+)
-- [ ] **Newsletter Signup** — Substack or ConvertKit
-- [ ] **GitHub Discussions** — Community Q&A
-- [ ] **Twitter/LinkedIn Integration** — Auto-share new blog posts
-- [ ] **Community Showcase** — User deployments, success stories
-- [ ] **Affiliate Program** — Partner with cloud providers (AWS, DigitalOcean)
+- [ ] **Newsletter Signup**: Substack or ConvertKit
+- [ ] **GitHub Discussions**: Community Q&A
+- [ ] **Twitter/LinkedIn Integration**: Auto-share new blog posts
+- [ ] **Community Showcase**: User deployments, success stories
+- [ ] **Affiliate Program**: Partner with cloud providers (AWS, DigitalOcean)
 
 ### Code Quality & Maintenance
 ```mermaid
@@ -430,11 +430,11 @@ graph LR
 ```
 
 ### Security Best Practices
-1. **Content Security Policy (CSP)** — Prevent XSS attacks
-2. **CORS Headers** — Control cross-origin requests
-3. **Subresource Integrity (SRI)** — Verify CDN scripts (React, Babel)
-4. **Secrets Management** — No API keys in code (use environment variables)
-5. **GDPR Compliance** — Cookie consent (if using analytics)
+1. **Content Security Policy (CSP)**: Prevent XSS attacks
+2. **CORS Headers**: Control cross-origin requests
+3. **Subresource Integrity (SRI)**: Verify CDN scripts (React, Babel)
+4. **Secrets Management**: No API keys in code (use environment variables)
+5. **GDPR Compliance**: Cookie consent (if using analytics)
 
 ---
 
@@ -490,7 +490,7 @@ graph LR
 
 ## License
 
-MIT License — Feel free to use, modify, and distribute this code.
+MIT License. Feel free to use, modify, and distribute this code.
 
 ---
 

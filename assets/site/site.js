@@ -2,7 +2,9 @@
    Storage keys match /books/ (bk-theme, bk-lang) so choices carry across the site.
    Translations: the page's HTML is the Spanish source. Elements carry data-i18n="key"
    (innerHTML) and/or data-i18n-attr="attr:key;attr:key". English strings come from
-   window.SITE_I18N.en, defined by the page before this script loads. */
+   window.SITE_I18N.en, defined by the page before this script loads.
+   English also has real URLs: /en/... pages are built from the same strings by
+   scripts/build-en.py, and the ES/EN buttons follow the hreflang alternates. */
 (function () {
   "use strict";
 
@@ -79,6 +81,12 @@
     if (l) {
       var v = l.getAttribute("data-set-lang");
       store("bk-lang", v);
+      /* Pages with a real URL per language (/ and /en/) navigate; others translate in place. */
+      var alt = document.querySelector('link[rel="alternate"][hreflang="' + v + '"]');
+      if (alt && v !== lang()) {
+        var u = new URL(alt.href, location.href);
+        if (u.pathname !== location.pathname) { location.assign(u.pathname + u.search + location.hash); return; }
+      }
       applyLang(v);
       return;
     }
