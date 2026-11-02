@@ -2,7 +2,7 @@
 // 1 the core's units come up and light flows down the fibre to every radio, 2 the eNB and gNB radiate and
 // their phones light one by one, 3 the broadcast tower radiates and every phone lights at the same moment.
 import { P, DATA, SVG } from "./art.js?v=20261030b";
-import { CHAPTERS, WORDS, COPY } from "./content.js?v=20261030b";
+import { CHAPTERS, WORDS, COPY } from "./content.js?v=20261101b";
 import { smooth, grow, flag } from "../areas/kit.js?v=20261030b";
 
 const PERIOD = [7, 8, 8];

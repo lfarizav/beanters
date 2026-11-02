@@ -1,6 +1,6 @@
 # Beanters: Cloud-Native Cellular Networks
 
-[![Deployed](https://img.shields.io/badge/deployed-live-teal?style=flat-square)](https://beanters.com) [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE) [![3GPP](https://img.shields.io/badge/3GPP-compliant-orange?style=flat-square)]() 
+[![Deployed](https://img.shields.io/badge/deployed-live-teal?style=flat-square)](https://beanters.com) [![3GPP](https://img.shields.io/badge/3GPP-compliant-orange?style=flat-square)]() 
 
 **Beanters** is an orchestration platform for deploying cloud-native cellular networks (4G/5G/NB-IoT) with a single CLI command. This repository contains the official marketing website and documentation.
 
@@ -17,7 +17,6 @@
 - [SEO & AI/LLM Integration](#seo--aillm-integration)
 - [Professional Improvements](#professional-improvements)
 - [Contributing](#contributing)
-- [License](#license)
 
 ---
 
@@ -488,11 +487,6 @@ graph LR
 
 ---
 
-## License
-
-MIT License. Feel free to use, modify, and distribute this code.
-
----
 
 ## Contact & Social
 
