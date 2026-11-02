@@ -1,9 +1,10 @@
 # Beanters counters: deploy guide
 
-Two anonymous counters (page visits, books opened) served by a Cloudflare Worker with a D1 database
-on `beanters.com/api/counter/*`. The site works without it: if the API is missing the counters stay hidden.
+Anonymous counters (page visits, books opened, votes for unpublished books) served by a Cloudflare Worker with a
+D1 database on `beanters.com/api/counter/*`. The site works without it: if the API is missing the counters and
+vote counts stay hidden, and a vote shows a calm message instead of being marked as done.
 
-What is stored: one integer per key in D1 (`visits`, `books_opened`, `book:<id>`). No IP, User-Agent,
+What is stored: one integer per key in D1 (`visits`, `books_opened`, `book:<id>`, `vote:<id>`). No IP, User-Agent,
 cookie or identifier. This folder is removed from the GitHub Pages artifact by `.github/workflows/pages.yml`
 and holds no secrets (the `database_id` in `wrangler.toml` is a placeholder until you paste yours).
 
@@ -38,7 +39,7 @@ prefer the dashboard: Workers & Pages > beanters-counter > Settings > Domains & 
 
 ```bash
 curl -i https://beanters.com/api/counter/stats
-# 200, JSON {"visits":0,"books_opened":0,"by_book":{}}
+# 200, JSON {"visits":0,"books_opened":0,"by_book":{},"by_vote":{}}
 
 curl -i -X POST https://beanters.com/api/counter/hit -d '{"t":"visit"}' -A "Mozilla/5.0 Chrome/120"
 # 204
@@ -48,6 +49,12 @@ curl -i -X POST https://beanters.com/api/counter/hit -d '{"t":"book","id":"cka"}
 
 curl -i -X POST https://beanters.com/api/counter/hit -d '{"t":"book","id":"nope"}' -A "Mozilla/5.0 Chrome/120"
 # 400 (id not on the allow-list)
+
+curl -i -X POST https://beanters.com/api/counter/hit -d '{"t":"vote","id":"lfcs-comico"}' -A "Mozilla/5.0 Chrome/120"
+# 204 (increments vote:lfcs-comico only, never visits or books_opened)
+
+curl -i -X POST https://beanters.com/api/counter/hit -d '{"t":"vote","id":"cka"}' -A "Mozilla/5.0 Chrome/120"
+# 400 (published books are not on the vote allow-list)
 
 curl -s https://beanters.com/api/counter/stats   # Cloudflare may cache it up to 30 s
 ```
@@ -72,6 +79,16 @@ node test-keys.mjs                    # unit tests of the validation logic
 
 The id must match `^[a-z0-9-]{1,40}$`.
 
+## Add or publish an unpublished book (votes)
+
+1. Unpublished books live in `window.GHOSTS` in `books/assets/js/books-data.js`; their ids are in `GHOST_IDS` at the top
+   of `worker/index.mjs`. `node test-keys.mjs` fails if the two lists differ, and the same for `window.BOOKS` and `BOOK_IDS`.
+2. To add a book, add it to both lists. To publish one, move it to `window.BOOKS` and `BOOK_IDS`.
+3. `npx wrangler deploy` again. No schema change is needed: the key `vote:<id>` is created on the first vote.
+
+The Worker cannot tell who voted, by design. The one vote per browser rule lives only in the visitor's `localStorage`
+(`bk-vote-<id>`, which holds the count shown after voting). `/stats` stays cached for 30 s, so the page adds the visitor's own vote locally.
+
 ## Reset or inspect
 
 ```bash
@@ -84,3 +101,7 @@ npx wrangler d1 execute beanters-counter --remote --command "UPDATE counters SET
 - Increments are one atomic SQL statement (`INSERT ... ON CONFLICT DO UPDATE SET n = n + 1`), safe under concurrency.
 - `wrangler d1 execute` needs an explicit `--local` or `--remote`; this guide always passes one.
 - No rate limit is implemented. If abuse appears, add a Cloudflare WAF rate-limiting rule on `/api/counter/hit`.
+
+---
+
+_Hecho con ❤️ por Luis Felipe Ariza Vesga._

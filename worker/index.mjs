@@ -2,13 +2,19 @@
    Stores only integers per key (see schema.sql). No IP, User-Agent, cookie or any
    identifier is read into storage or logged.
 
-   POST /api/counter/hit    body {"t":"visit"} or {"t":"book","id":"<book id>"}  -> 204
-   GET  /api/counter/stats  -> {"visits":N,"books_opened":N,"by_book":{"id":N}}
+   POST /api/counter/hit    body {"t":"visit"}, {"t":"book","id":"<book id>"} or {"t":"vote","id":"<ghost id>"}  -> 204
+   GET  /api/counter/stats  -> {"visits":N,"books_opened":N,"by_book":{"id":N},"by_vote":{"id":N}}
 
-   BOOK_IDS is the allow-list. Keep it equal to the ids in books/assets/js/books-data.js
-   (the `id:` of each entry in window.BOOKS). README-DEPLOY.md explains how to add one. */
+   BOOK_IDS and GHOST_IDS are the allow-lists. Keep them equal to the ids in
+   books/assets/js/books-data.js (the `id:` of each entry in window.BOOKS and window.GHOSTS).
+   README-DEPLOY.md explains how to add one. */
 
 export const BOOK_IDS = ["kcna", "cka", "ckad", "cks"];
+export const GHOST_IDS = [
+  "aef-comico", "afcn-comico", "aft-comico", "aiko-comico", "atr-comico", "canonical-telco-comico",
+  "capa-comico", "cba-comico", "cca-comico", "cgoa-comico", "iac-comico", "ica-comico", "kca-comico",
+  "lfcs-comico", "otca-comico", "pca-comico", "specialty-coffee-seed-to-cup",
+];
 
 const ID_RE = /^[a-z0-9-]{1,40}$/;
 const BOT_RE = /bot|crawl|spider|slurp|headless|lighthouse|preview|fetch|curl|wget|python|java\/|go-http|httpclient|okhttp|axios|node/i;
@@ -42,6 +48,10 @@ export function keysFor(body) {
   if (body.t === "book" && typeof body.id === "string" && ID_RE.test(body.id) && BOOK_IDS.includes(body.id)) {
     return ["books_opened", "book:" + body.id];
   }
+  /* A vote touches only its own key, never visits or books_opened. */
+  if (body.t === "vote" && typeof body.id === "string" && ID_RE.test(body.id) && GHOST_IDS.includes(body.id)) {
+    return ["vote:" + body.id];
+  }
   return null;
 }
 
@@ -67,11 +77,12 @@ async function handleHit(request, env, headers) {
 
 async function handleStats(env, headers) {
   const { results } = await env.DB.prepare("SELECT key, n FROM counters").all();
-  const out = { visits: 0, books_opened: 0, by_book: {} };
+  const out = { visits: 0, books_opened: 0, by_book: {}, by_vote: {} };
   for (const r of results) {
     if (r.key === "visits") out.visits = r.n;
     else if (r.key === "books_opened") out.books_opened = r.n;
     else if (r.key.startsWith("book:")) out.by_book[r.key.slice(5)] = r.n;
+    else if (r.key.startsWith("vote:")) out.by_vote[r.key.slice(5)] = r.n;
   }
   return new Response(JSON.stringify(out), {
     status: 200,
