@@ -252,3 +252,43 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .item, :root:not([data-theme="light"]) .step { --hue-text: var(--hue-l); }
 }
+
+/* ---------- Reader reviews (collection rows only) ---------- */
+.rv { grid-column: 1 / -1; min-width: 0; border-top: 1px solid var(--hairline); padding-top: 20px; }
+.rv__h { font-size: 15px; font-weight: 650; color: var(--ink); }
+.rv__list { margin-top: 10px; }
+.rv__none, .rv__note { margin-top: 10px; font-size: 14.5px; color: var(--muted); }
+.rv__avg { font-size: 15px; color: var(--ink); }
+.rv__n, .rv__date { color: var(--muted); font-size: 13px; }
+.rv__stars { color: var(--gold); letter-spacing: 1px; }
+.rv__items { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 14px; }
+.rv__meta { font-size: 14px; color: var(--ink); }
+.rv__text { margin-top: 4px; font-size: 15px; line-height: 1.55; color: var(--body); white-space: pre-wrap; overflow-wrap: anywhere; }
+.rv__open, .rv__send {
+  margin-top: 14px; min-height: 44px; padding: 0 18px; border: 0; border-radius: var(--r-pill); cursor: pointer;
+  font: 600 14.5px var(--sans); color: var(--ink); background: var(--surface); box-shadow: inset 0 0 0 1px var(--hairline-2);
+}
+.rv__open:hover { background: var(--surface-2); }
+.rv__send { margin-top: 0; background: var(--hue); color: #fff; box-shadow: none; }
+.rv__send[aria-disabled="true"] { opacity: .6; cursor: progress; }
+.rv__open:focus-visible, .rv__send:focus-visible, .rv__form textarea:focus-visible, .rv__form input[type=text]:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.rv__form { margin-top: 14px; max-width: 560px; min-width: 0; display: grid; gap: 8px; }
+.rv__form[hidden], .rv__list[hidden] { display: none; }
+.rv__stars:is(fieldset) { border: 0; margin: 0; padding: 0; min-width: 0; }
+fieldset.rv__stars legend { padding: 0; font-size: 14px; color: var(--ink); }
+.rv__radios { margin-top: 4px; display: flex; gap: 2px; }
+.rv__opt { position: relative; display: inline-block; }
+.rv__radio { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.rv__star { display: inline-grid; place-items: center; width: 44px; height: 44px; cursor: pointer; font-size: 28px; line-height: 1; color: var(--hairline-2); border-radius: 8px; }
+.rv__star.on { color: var(--gold); }
+.rv__radio:focus-visible + .rv__star { outline: 2px solid var(--link); outline-offset: 1px; }
+.rv__lab { margin-top: 6px; font-size: 14px; color: var(--ink); }
+.rv__form textarea, .rv__form input[type=text] {
+  width: 100%; max-width: 100%; box-sizing: border-box; padding: 10px 12px; border: 0; border-radius: 10px;
+  font: 16px/1.5 var(--sans); color: var(--ink); background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--hairline-2);
+}
+.rv__form textarea { resize: vertical; }
+.rv__count { font-size: 12.5px; color: var(--muted); text-align: right; }
+.rv__hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.rv__row { margin-top: 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.rv__msg { font-size: 14px; color: var(--body); min-width: 0; flex: 1 1 200px; }

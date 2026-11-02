@@ -96,6 +96,25 @@ npx wrangler d1 execute beanters-counter --remote --command "SELECT key, n FROM 
 npx wrangler d1 execute beanters-counter --remote --command "UPDATE counters SET n = 0"
 ```
 
+## Reviews (stars and comments)
+
+Visitors can rate the 4 published books (1 to 5 stars) with a comment and an optional name. Every review is stored as
+`pending` and appears on the site only after you approve it. Stored: book, stars, name, comment, status and the date
+(no time, no IP, User-Agent, cookie or other identifier). `GET /api/counter/reviews` returns approved rows only.
+
+```bash
+# Create the table once in the REMOTE database (run before deploying the new Worker).
+npx wrangler d1 execute beanters-counter --remote --file=migrations/0002_reviews.sql
+npx wrangler deploy
+
+# Moderation (no admin endpoint, no secret; uses your wrangler login):
+./moderate.sh list            # pending reviews
+./moderate.sh approve 12      # publish review 12
+./moderate.sh delete 12       # remove review 12 (also for removal requests)
+```
+
+Without the table or the new Worker the site keeps working: the review list stays hidden and a submit shows a calm message.
+
 ## Notes
 
 - Increments are one atomic SQL statement (`INSERT ... ON CONFLICT DO UPDATE SET n = n + 1`), safe under concurrency.

@@ -21,6 +21,13 @@
 
   var T = {
     es: {
+      rvTitle: "Opiniones de lectores", rvNone: "Aún no hay comentarios.", rvWrite: "Escribir un comentario",
+      rvLegend: "Su puntuación (1 es la más baja, 5 la mejor)", rvStar1: "1 estrella", rvStarN: " estrellas",
+      rvComment: "Su comentario", rvName: "Su nombre (opcional)", rvSend: "Enviar", rvSending: "Enviando",
+      rvMore: "Más recientes primero", rvAnon: "Anónimo", rvAvgOf: " de 5", rvOne: " opinión", rvMany: " opiniones",
+      rvNeedStars: "Elija de 1 a 5 estrellas.", rvNeedText: "Escriba un comentario de al menos 3 caracteres.",
+      rvFail: "No pudimos enviar su comentario ahora. Su texto sigue aquí; intente de nuevo en unos minutos.",
+      rvThanks: "Gracias. Su comentario se publicará cuando sea revisado.", rvChars: " de 1000",
       skip: "Saltar al contenido", navMain: "Principal", navHome: "Inicio", navCourses: "Cursos", navBooks: "Libros",
       langGroup: "Idioma de la página", themeToDark: "Cambiar a tema oscuro", themeToLight: "Cambiar a tema claro",
       heroBy: "Una serie de Luis Felipe Ariza Vesga",
@@ -54,6 +61,13 @@
       closeDetail: "Cerrar el detalle"
     },
     en: {
+      rvTitle: "Reader reviews", rvNone: "No comments yet.", rvWrite: "Write a comment",
+      rvLegend: "Your rating (1 is lowest, 5 is best)", rvStar1: "1 star", rvStarN: " stars",
+      rvComment: "Your comment", rvName: "Your name (optional)", rvSend: "Send", rvSending: "Sending",
+      rvMore: "Newest first", rvAnon: "Anonymous", rvAvgOf: " out of 5", rvOne: " review", rvMany: " reviews",
+      rvNeedStars: "Please choose 1 to 5 stars.", rvNeedText: "Please write a comment of at least 3 characters.",
+      rvFail: "We could not send your comment right now. Your text is still here; please try again in a few minutes.",
+      rvThanks: "Thank you. Your comment will be published once it has been reviewed.", rvChars: " of 1000",
       skip: "Skip to content", navMain: "Main", navHome: "Home", navCourses: "Courses", navBooks: "Books",
       langGroup: "Page language", themeToDark: "Switch to dark theme", themeToLight: "Switch to light theme",
       heroBy: "A series by Luis Felipe Ariza Vesga",
@@ -148,13 +162,15 @@
   function renderCollection() {
     var host = document.getElementById("collection");
     if (!host) return;
+    snapDrafts();
     host.innerHTML = BOOKS.map(function (b) {
       return '<article class="item" id="' + b.anchor + '" style="' + hueVars(b) + '" aria-labelledby="c-' + b.id + '-title">' +
-        itemHTML(b, state.edition[b.id], "c-") + "</article>";
+        itemHTML(b, state.edition[b.id], "c-") + reviewsHTML(b) + "</article>";
     }).join("") + GHOSTS.map(function (g) {
       return '<article class="item item--ghost" aria-labelledby="c-' + g.id + '-title">' + ghostHTML(g, state.lang, "c-") + "</article>";
     }).join("");
     GHOSTS.forEach(function (g) { syncVote(g.id); });
+    BOOKS.forEach(function (b) { syncReviews(b.id); });
     bindTilt(host);
   }
 
@@ -162,7 +178,9 @@
     var b = BOOKS.filter(function (x) { return x.id === id; })[0];
     var el = document.getElementById(b.anchor);
     if (!el) return;
-    el.innerHTML = itemHTML(b, state.edition[id], "c-");
+    snapDrafts();
+    el.innerHTML = itemHTML(b, state.edition[id], "c-") + reviewsHTML(b);
+    syncReviews(id);
     bindTilt(el);
   }
 
@@ -337,6 +355,139 @@
     }).then(function () { syncVote(id); });
   }
 
+  /* ---- Reviews: only the 4 published books in the collection list. Held for approval by the owner,
+     so nothing shows until the Worker returns it as approved. Names and comments go through esc() only. ---- */
+  var reviews = null;      /* null = not loaded or unavailable (list hidden) */
+  var reviewsAsked = false;
+  var drafts = {};         /* typed text survives a re-render (language toggle, edition switch) */
+  var rvBusy = {};
+  function rvDone(id) { try { return localStorage.getItem("bk-review-" + id) === "1"; } catch (e) { return false; } }
+  function rvNum(n) {
+    try { return new Intl.NumberFormat(state.lang === "en" ? "en-US" : "es-CO", { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(n); } catch (e) { return String(n); }
+  }
+  function rvStars(n) { return "★★★★★".slice(0, Math.round(n)) + "☆☆☆☆☆".slice(0, 5 - Math.round(n)); }
+  function reviewsHTML(b) {
+    var id = b.id, p = "rv-" + id, radios = "";
+    for (var i = 1; i <= 5; i++) {
+      radios += '<span class="rv__opt"><input type="radio" class="rv__radio" name="stars" id="' + p + '-s' + i + '" value="' + i + '">' +
+        '<label class="rv__star" for="' + p + '-s' + i + '"><span class="sr-only">' + (i === 1 ? t("rvStar1") : i + t("rvStarN")) + '</span><span aria-hidden="true">★</span></label></span>';
+    }
+    var done = rvDone(id);
+    return '<section class="rv" data-rv="' + id + '" aria-labelledby="' + p + '-h">' +
+      '<h4 class="rv__h" id="' + p + '-h">' + t("rvTitle") + '</h4>' +
+      '<div class="rv__list" data-rv-list="' + id + '" hidden></div>' +
+      (done ? '<p class="rv__note">' + t("rvThanks") + '</p>' :
+      '<button type="button" class="rv__open" data-rv-open="' + id + '" aria-expanded="false" aria-controls="' + p + '-form">' + t("rvWrite") + '</button>' +
+      '<form class="rv__form" id="' + p + '-form" data-rv-form="' + id + '" hidden novalidate>' +
+        '<fieldset class="rv__stars"><legend>' + t("rvLegend") + '</legend><div class="rv__radios">' + radios + '</div></fieldset>' +
+        '<label class="rv__lab" for="' + p + '-c">' + t("rvComment") + '</label>' +
+        '<textarea id="' + p + '-c" name="comment" rows="4" maxlength="1000" required></textarea>' +
+        '<p class="rv__count" data-rv-count aria-hidden="true">0' + t("rvChars") + '</p>' +
+        '<label class="rv__lab" for="' + p + '-n">' + t("rvName") + '</label>' +
+        '<input type="text" id="' + p + '-n" name="name" maxlength="40" autocomplete="off">' +
+        '<div class="rv__hp" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>' +
+        '<div class="rv__row"><button type="submit" class="rv__send">' + t("rvSend") + '</button>' +
+        '<p class="rv__msg" data-rv-msg role="status" aria-live="polite"></p></div>' +
+      '</form>') +
+      '</section>';
+  }
+  function syncReviews(id) {
+    var box = document.querySelector('[data-rv-list="' + id + '"]');
+    if (!box) return;
+    var d = reviews && reviews[id], h;
+    if (!reviews) { box.hidden = true; box.innerHTML = ""; }
+    else if (!d || !d.count) { box.hidden = false; box.innerHTML = '<p class="rv__none">' + esc(t("rvNone")) + "</p>"; }
+    else {
+      h = '<p class="rv__avg"><span class="rv__stars" aria-hidden="true">' + rvStars(d.avg) + '</span> <strong>' + rvNum(d.avg) + '</strong>' +
+        '<span class="sr-only">' + t("rvAvgOf") + '</span> <span class="rv__n">(' + d.count + (d.count === 1 ? t("rvOne") : t("rvMany")) + ")</span></p><ul class=\"rv__items\">";
+      (d.items || []).forEach(function (r) {
+        h += '<li class="rv__item"><p class="rv__meta"><span class="rv__stars" aria-hidden="true">' + rvStars(r.stars) + '</span>' +
+          '<span class="sr-only">' + esc(r.stars + t("rvAvgOf")) + '</span> <strong>' + esc(r.name || t("rvAnon")) + '</strong> <span class="rv__date">' + esc(r.date) + '</span></p>' +
+          '<p class="rv__text">' + esc(r.comment) + "</p></li>";
+      });
+      box.hidden = false; box.innerHTML = h + "</ul>";
+    }
+    restoreDraft(id);
+  }
+  function snapDrafts() {
+    document.querySelectorAll("[data-rv-form]").forEach(function (f) {
+      var id = f.getAttribute("data-rv-form"), r = f.querySelector("input[name=stars]:checked");
+      drafts[id] = { open: !f.hidden, stars: r ? r.value : "", comment: f.elements.comment.value, name: f.elements.name.value };
+    });
+  }
+  function restoreDraft(id) {
+    var f = document.querySelector('[data-rv-form="' + id + '"]'), d = drafts[id];
+    if (!f || !d || f.getAttribute("data-restored")) return;
+    f.setAttribute("data-restored", "1");
+    f.hidden = !d.open;
+    var o = document.querySelector('[data-rv-open="' + id + '"]');
+    if (o) o.setAttribute("aria-expanded", String(d.open));
+    if (d.stars) { var r = f.querySelector("input[name=stars][value='" + d.stars + "']"); if (r) { r.checked = true; paintStars(f); } }
+    f.elements.comment.value = d.comment; f.elements.name.value = d.name;
+    f.querySelector("[data-rv-count]").textContent = d.comment.length + t("rvChars");
+  }
+  function paintStars(f) {
+    var r = f.querySelector("input[name=stars]:checked"), v = r ? Number(r.value) : 0;
+    f.querySelectorAll(".rv__star").forEach(function (l, i) { l.classList.toggle("on", i < v); });
+  }
+  function loadReviews() {
+    if (reviewsAsked || !counterOk) return;
+    reviewsAsked = true;
+    fetch(COUNTER_API + "reviews", { credentials: "omit", headers: { Accept: "application/json" } })
+      .then(function (r) {
+        var ct = r.headers.get("content-type") || "";
+        if (!r.ok || ct.indexOf("json") < 0) throw new Error("reviews unavailable");
+        return r.json();
+      })
+      .then(function (j) {
+        if (!j || typeof j !== "object" || Array.isArray(j)) return;
+        reviews = j;
+        BOOKS.forEach(function (b) { syncReviews(b.id); });
+      })
+      .catch(function () { reviewsAsked = false; });
+  }
+  function sendReview(f) {
+    var id = f.getAttribute("data-rv-form"), msg = f.querySelector("[data-rv-msg]"), btn = f.querySelector(".rv__send");
+    var r = f.querySelector("input[name=stars]:checked"), comment = f.elements.comment.value.trim();
+    if (rvBusy[id]) return;
+    if (!r) { msg.textContent = t("rvNeedStars"); return; }
+    if (comment.length < 3) { msg.textContent = t("rvNeedText"); return; }
+    rvBusy[id] = true; btn.setAttribute("aria-disabled", "true"); msg.textContent = t("rvSending");
+    var sent = counterOk
+      ? fetch(COUNTER_API + "review", { method: "POST", credentials: "omit",
+          body: JSON.stringify({ book: id, stars: Number(r.value), comment: comment, name: f.elements.name.value.trim(), website: f.elements.website.value }) })
+      : Promise.reject(new Error("counter off"));
+    sent.then(function (res) {
+      if (res.status !== 204) throw new Error("review refused");
+      try { localStorage.setItem("bk-review-" + id, "1"); } catch (e) {}
+      delete drafts[id];
+      var sec = f.closest(".rv"), note = document.createElement("p");
+      note.className = "rv__note"; note.setAttribute("role", "status"); note.textContent = t("rvThanks");
+      sec.querySelector("[data-rv-open]").remove(); f.replaceWith(note);
+    }).catch(function () {
+      msg.textContent = t("rvFail");
+    }).then(function () { rvBusy[id] = false; btn.removeAttribute("aria-disabled"); });
+  }
+  document.addEventListener("click", function (e) {
+    var o = e.target.closest("[data-rv-open]");
+    if (!o) return;
+    var f = document.querySelector('[data-rv-form="' + o.getAttribute("data-rv-open") + '"]');
+    f.hidden = !f.hidden;
+    o.setAttribute("aria-expanded", String(!f.hidden));
+    if (!f.hidden) f.querySelector("input[name=stars]").focus();
+  });
+  document.addEventListener("submit", function (e) {
+    var f = e.target.closest("[data-rv-form]");
+    if (!f) return;
+    e.preventDefault(); sendReview(f);
+  });
+  document.addEventListener("input", function (e) {
+    var f = e.target.closest && e.target.closest("[data-rv-form]");
+    if (!f) return;
+    if (e.target.name === "comment") f.querySelector("[data-rv-count]").textContent = e.target.value.length + t("rvChars");
+    if (e.target.name === "stars") { paintStars(f); f.querySelector("[data-rv-msg]").textContent = ""; }
+  });
+
   function applyStatic() {
     root.setAttribute("lang", state.lang);
     document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = t(el.getAttribute("data-i18n")); });
@@ -468,7 +619,7 @@
       x.tabIndex = on ? 0 : -1;
       document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
     });
-    if (tab.id === "tab-list") loadVotes();
+    if (tab.id === "tab-list") { loadVotes(); loadReviews(); }
     if (focus) tab.focus();
   }
   function showListFor(id) {
