@@ -1,5 +1,6 @@
 /* Series data: the single source the catalog, shelf and hero read from.
-   Every value comes from the verified books.json (2026-10-29).
+   window.BOOKS holds the published titles; every value comes from the verified
+   books.json (2026-10-29).
    To publish a new chapter-1 sample, add its path under `sample`; the button
    appears by itself. Leave `labs` null when a book has no public labs repo. */
 window.BOOKS = [
@@ -109,6 +110,116 @@ window.BOOKS = [
       en: "samples/lo-que-pasa-es-que-asegurar-kubernetes-en-sample.pdf"
     },
     labs: "https://github.com/lfarizav/lo-que-pasa-es-que-asegurar-kubernetes"
+  }
+];
+
+/* Books not yet on Amazon. The shelf shows them as ghost covers with a vote button;
+   they have no Amazon links and no samples, and they stay out of window.BOOKS so the
+   hero, the reader, the list and the reading order never see them.
+   Keep the ids equal to GHOST_IDS in worker/index.mjs. When a book is published,
+   move it to window.BOOKS. Each cover has its own edition image (400 x 514). */
+window.GHOSTS = [
+  {
+    id: "aef-comico",
+    title: { es: "Lo que pasa es que la ingeniería agéntica", en: "Here’s What’s Actually Going On with Agentic Engineering" },
+    subtitle: { es: "Guía completa de la ingeniería agéntica en lenguaje sencillo", en: "The complete agentic engineering guide in plain language" },
+    cover: { es: "aef-comico-es", en: "aef-comico-en" }
+  },
+  {
+    id: "afcn-comico",
+    title: { es: "Lo que pasa es que la IA en la nube nativa", en: "Here’s What’s Actually Going On with AI in Cloud Native" },
+    subtitle: { es: "Guía completa de la IA en la nube nativa en lenguaje sencillo", en: "The complete AI in Cloud Native guide in plain language" },
+    cover: { es: "afcn-comico-es", en: "afcn-comico-en" }
+  },
+  {
+    id: "aft-comico",
+    title: { es: "Lo que pasa es que la IA en telco", en: "Here’s What’s Actually Going On with AI in Telco" },
+    subtitle: { es: "Guía completa de la IA en telco en lenguaje sencillo", en: "The complete AI in Telco guide in plain language" },
+    cover: { es: "aft-comico-es", en: "aft-comico-en" }
+  },
+  {
+    id: "aiko-comico",
+    title: { es: "Lo que pasa es que la IA que opera Kubernetes", en: "Here’s What’s Actually Going On with the AI That Operates Kubernetes" },
+    subtitle: { es: "Guía completa de la IA que opera Kubernetes en lenguaje sencillo", en: "The complete AI That Operates Kubernetes guide in plain language" },
+    cover: { es: "aiko-comico-es", en: "aiko-comico-en" }
+  },
+  {
+    id: "atr-comico",
+    title: { es: "Lo que pasa es que los Agentes Telco", en: "Here’s What’s Actually Going On with Telco Agents" },
+    subtitle: { es: "Guía completa de Agentes Telco en lenguaje sencillo", en: "The complete Telco Agents guide in plain language" },
+    cover: { es: "atr-comico-es", en: "atr-comico-en" }
+  },
+  {
+    id: "canonical-telco-comico",
+    title: { es: "Lo que pasa es que la nube privada de telco", en: "Here’s What’s Actually Going On with Telco Private Clouds" },
+    subtitle: { es: "Guía completa de la nube privada de telco en lenguaje sencillo", en: "The complete Telco Private Cloud guide in plain language" },
+    cover: { es: "canonical-telco-comico-es", en: "canonical-telco-comico-en" }
+  },
+  {
+    id: "capa-comico",
+    title: { es: "Lo que pasa es que Argo", en: "Here’s What’s Actually Going On with Argo" },
+    subtitle: { es: "Guía completa de Argo en lenguaje sencillo", en: "The complete Argo guide in plain language" },
+    cover: { es: "capa-comico-es", en: "capa-comico-en" }
+  },
+  {
+    id: "cba-comico",
+    title: { es: "Lo que pasa es que Backstage", en: "Here’s What’s Actually Going On with Backstage" },
+    subtitle: { es: "Guía completa de Backstage en lenguaje sencillo", en: "The complete Backstage guide in plain language" },
+    cover: { es: "cba-comico-es", en: "cba-comico-en" }
+  },
+  {
+    id: "cca-comico",
+    title: { es: "Lo que pasa es que Cilium", en: "Here’s What’s Actually Going On with Cilium" },
+    subtitle: { es: "Guía completa de Cilium en lenguaje sencillo", en: "The complete Cilium guide in plain language" },
+    cover: { es: "cca-comico-es", en: "cca-comico-en" }
+  },
+  {
+    id: "cgoa-comico",
+    title: { es: "Lo que pasa es que GitOps", en: "Here’s What’s Actually Going On with GitOps" },
+    subtitle: { es: "Guía completa de GitOps en lenguaje sencillo", en: "The complete GitOps guide in plain language" },
+    cover: { es: "cgoa-comico-es", en: "cgoa-comico-en" }
+  },
+  {
+    id: "iac-comico",
+    title: { es: "Lo que pasa es que la infraestructura como código", en: "Here’s What’s Actually Going On with Infrastructure as Code" },
+    subtitle: { es: "Guía completa de la infraestructura como código en lenguaje sencillo", en: "The complete Infrastructure as Code guide in plain language" },
+    cover: { es: "iac-comico-es", en: "iac-comico-en" }
+  },
+  {
+    id: "ica-comico",
+    title: { es: "Lo que pasa es que Istio", en: "Here’s What’s Actually Going On with Istio" },
+    subtitle: { es: "Guía completa de Istio en lenguaje sencillo", en: "The complete Istio guide in plain language" },
+    cover: { es: "ica-comico-es", en: "ica-comico-en" }
+  },
+  {
+    id: "kca-comico",
+    title: { es: "Lo que pasa es que Kyverno", en: "Here’s What’s Actually Going On with Kyverno" },
+    subtitle: { es: "Guía completa de Kyverno en lenguaje sencillo", en: "The complete Kyverno guide in plain language" },
+    cover: { es: "kca-comico-es", en: "kca-comico-en" }
+  },
+  {
+    id: "lfcs-comico",
+    title: { es: "Lo que pasa es que Linux", en: "Here’s What’s Actually Going On with Linux" },
+    subtitle: { es: "Guía completa de Linux en lenguaje sencillo", en: "The complete Linux guide in plain language" },
+    cover: { es: "lfcs-comico-es", en: "lfcs-comico-en" }
+  },
+  {
+    id: "otca-comico",
+    title: { es: "Lo que pasa es que OpenTelemetry", en: "Here’s What’s Actually Going On with OpenTelemetry" },
+    subtitle: { es: "Guía completa de OpenTelemetry en lenguaje sencillo", en: "The complete OpenTelemetry guide in plain language" },
+    cover: { es: "otca-comico-es", en: "otca-comico-en" }
+  },
+  {
+    id: "pca-comico",
+    title: { es: "Lo que pasa es que Prometheus", en: "Here’s What’s Actually Going On with Prometheus" },
+    subtitle: { es: "Guía completa de Prometheus en lenguaje sencillo", en: "The complete Prometheus guide in plain language" },
+    cover: { es: "pca-comico-es", en: "pca-comico-en" }
+  },
+  {
+    id: "specialty-coffee-seed-to-cup",
+    title: { es: "Café de especialidad: de la semilla a la taza", en: "Specialty Coffee: From Seed to Cup" },
+    subtitle: { es: "Historia, planta, procesos, tueste y catación del café de especialidad", en: "History, plant, processing, roasting and cupping of specialty coffee" },
+    cover: { es: "specialty-coffee-seed-to-cup-es", en: "specialty-coffee-seed-to-cup-en" }
   }
 ];
 

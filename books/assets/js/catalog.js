@@ -1,9 +1,10 @@
-/* Catalog: language, theme, collection rows, reading order, shelf, 3D tilt.
-   Reads window.BOOKS. Exposes window.Catalog for the hero module. */
+/* Catalog: language, theme, collection rows, reading order, shelf of covers, votes, 3D tilt.
+   Reads window.BOOKS and window.GHOSTS. Exposes window.Catalog for the hero module. */
 (function () {
   "use strict";
 
   var BOOKS = window.BOOKS || [];
+  var GHOSTS = window.GHOSTS || [];
   var COVERS = window.COVER_PATH || "assets/covers/";
   var root = document.documentElement;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -25,24 +26,32 @@
       heroBy: "Una serie de Luis Felipe Ariza Vesga",
       heroTitle: "«Lo que pasa es que…»",
       heroLede: "Kubernetes explicado con analogías de la vida cotidiana. Cada concepto técnico se cuenta con una historia que cualquiera reconoce, y cada mecanismo se contrasta con la documentación oficial.",
-      heroFacts: "Cuatro libros, en español y en inglés: fundamentos, administración, desarrollo y seguridad.",
+      heroFacts: "Cuatro libros publicados, en español y en inglés: fundamentos, administración, desarrollo y seguridad.",
       ctaCollection: "Ver la colección", ctaSample: "Leer el capítulo 1 gratis (PDF)",
-      colTitle: "La colección", colSub: "Elija la edición en español o en inglés de cada libro. Los enlaces llevan a Amazon.",
+      colTitle: "La colección", colSub: "Los libros en color ya están en Amazon, en español y en inglés. Los demás se publicarán más adelante.",
       viewGroup: "Vista de la colección", tabList: "Colección", tabShelf: "Estante",
-      shelfHint: "Ocho lomos: cada libro en español y en inglés. Elija uno para ver su edición.",
+      shelfHint: "Elija una portada. Las de color ya están en Amazon; las pálidas se publicarán más adelante, y usted puede votar por la que quiere ver pronto.",
       orderTitle: "Orden de lectura", orderSub: "Un recorrido sugerido para convertirte en Kubestronaut, de los fundamentos a la seguridad.",
       authorTitle: "Sobre el autor",
       authorBio1: "Ingeniero de telecomunicaciones con doctorado y autor de libros técnicos sobre Kubernetes, GitOps, seguridad, redes 5G privadas y Linux.",
       authorBio2: "Su método es el mismo en toda la serie: contar cada concepto con una historia cotidiana, publicarlo a la vez en español y en inglés, y contrastar cada comportamiento con la documentación oficial. La analogía nunca reemplaza el rigor.",
-      authorBio3: "Cada libro está dedicado a una especie extinguida por la actividad humana; por eso hay un animal en cada portada.",
+      authorBio3: "Cada libro de la serie «Lo que pasa es que…» está dedicado a una especie extinguida por la actividad humana; por eso hay un animal en cada una de esas portadas.",
       authorLink: "Página del autor en Amazon",
-      footNote: "Las muestras gratuitas contienen solo el capítulo 1. Los libros completos se venden en Amazon.",
+      footNote: "Las muestras gratuitas contienen solo el capítulo 1. Los libros publicados se venden completos en Amazon; los demás aún no están a la venta.",
       footSite: "Sitio", footAuthor: "Autor", footAmazon: "Página en Amazon", footPrivacy: "Privacidad", footTerms: "Términos",
       footCopy: "© 2026 Luis Felipe Ariza Vesga. Todos los derechos reservados.",
       edition: "Edición", editionGroup: "Idioma de la edición",
       kindle: "Kindle", paperback: "Tapa blanda", hardcover: "Tapa dura",
       sample: "Leer el capítulo 1 gratis (PDF)", labs: "Laboratorios del libro",
-      coverAlt: "Portada de ", step: "Paso ", amazonOpens: " (abre Amazon)", openBook: "Abrir el libro"
+      coverAlt: "Portada de ", step: "Paso ", amazonOpens: " (abre Amazon)", openBook: "Abrir el libro",
+      statePublished: "publicado en Amazon", stateGhost: "aún no publicado", ghostTag: "Próximamente", ghostState: "Aún no publicado",
+      ghostMsg: "Este libro se publicará más adelante. Vote por el que quiere ver pronto en Amazon.",
+      noSample: "Sin muestra disponible por ahora",
+      vote: "Votar", voted: "Voto registrado", voteBusy: "Enviando…",
+      voteThanks: "Gracias. Su voto quedó registrado.",
+      voteFail: "No pudimos registrar su voto en este momento. Inténtelo de nuevo más tarde.",
+      votesNone: "Aún sin votos", votesOne: "1 voto", votesMany: " votos",
+      closeDetail: "Cerrar el detalle"
     },
     en: {
       skip: "Skip to content", navMain: "Main", navHome: "Home", navCourses: "Courses", navBooks: "Books",
@@ -50,24 +59,32 @@
       heroBy: "A series by Luis Felipe Ariza Vesga",
       heroTitle: "Here’s What’s Actually Going On…",
       heroLede: "Kubernetes explained through everyday analogies. Every technical concept is told as a story anyone recognizes, and every mechanism is checked against the official documentation.",
-      heroFacts: "Four books, in Spanish and English: basics, administration, development and security.",
+      heroFacts: "Four published books, in Spanish and English: basics, administration, development and security.",
       ctaCollection: "See the collection", ctaSample: "Read chapter 1 free (PDF)",
-      colTitle: "The collection", colSub: "Choose the Spanish or English edition of each book. Links go to Amazon.",
+      colTitle: "The collection", colSub: "The books in color are on Amazon, in Spanish and English. The others will be published later.",
       viewGroup: "Collection view", tabList: "Collection", tabShelf: "Shelf",
-      shelfHint: "Eight spines: each book in Spanish and English. Pick one to see its edition.",
+      shelfHint: "Pick a cover. The ones in color are on Amazon; the pale ones will be published later, and you can vote for the one you want to see soon.",
       orderTitle: "Reading order", orderSub: "A suggested path to become a Kubestronaut, from the basics to security.",
       authorTitle: "About the author",
       authorBio1: "Telecommunications engineer with a doctorate and author of technical books on Kubernetes, GitOps, security, private 5G networks and Linux.",
       authorBio2: "His method is the same across the series: tell every concept through an everyday story, publish it in Spanish and English at the same time, and check every behavior against the official documentation. The analogy never replaces rigor.",
-      authorBio3: "Each book is dedicated to a species driven extinct by human activity, which is why every cover carries an animal.",
+      authorBio3: "Each book in the “Here’s What’s Actually Going On…” series is dedicated to a species driven extinct by human activity, which is why each of those covers carries an animal.",
       authorLink: "Author page on Amazon",
-      footNote: "The free samples contain chapter 1 only. The complete books are sold on Amazon.",
+      footNote: "The free samples contain chapter 1 only. The published books are sold complete on Amazon; the others are not on sale yet.",
       footSite: "Site", footAuthor: "Author", footAmazon: "Amazon page", footPrivacy: "Privacy", footTerms: "Terms",
       footCopy: "© 2026 Luis Felipe Ariza Vesga. All rights reserved.",
       edition: "Edition", editionGroup: "Edition language",
       kindle: "Kindle", paperback: "Paperback", hardcover: "Hardcover",
       sample: "Read chapter 1 free (PDF)", labs: "Book labs",
-      coverAlt: "Cover of ", step: "Step ", amazonOpens: " (opens Amazon)", openBook: "Open the book"
+      coverAlt: "Cover of ", step: "Step ", amazonOpens: " (opens Amazon)", openBook: "Open the book",
+      statePublished: "published on Amazon", stateGhost: "not yet published", ghostTag: "Coming soon", ghostState: "Not yet published",
+      ghostMsg: "This book will be published later. Vote for the one you want to see soon on Amazon.",
+      noSample: "No sample available yet",
+      vote: "Vote", voted: "Vote recorded", voteBusy: "Sending…",
+      voteThanks: "Thank you. Your vote was recorded.",
+      voteFail: "We could not record your vote right now. Please try again later.",
+      votesNone: "No votes yet", votesOne: "1 vote", votesMany: " votes",
+      closeDetail: "Close the details"
     }
   };
 
@@ -78,9 +95,9 @@
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
-  function picture(base, alt, cls, eager) {
+  function picture(base, alt, cls, eager, w, h) {
     return '<picture class="' + (cls || "") + '"><source type="image/webp" srcset="' + COVERS + base + '.webp">' +
-      '<img src="' + COVERS + base + '.jpg" alt="' + esc(alt) + '" width="600" height="960"' +
+      '<img src="' + COVERS + base + '.jpg" alt="' + esc(alt) + '" width="' + (w || 600) + '" height="' + (h || 960) + '"' +
       (eager ? ' fetchpriority="high"' : ' loading="lazy"') + ' decoding="async"></picture>';
   }
 
@@ -160,31 +177,163 @@
     }).join("");
   }
 
+  /* ---- Shelf: every title as a cover, published first. shelfPick is "<id>:<edition>". ---- */
+  var GHOST_W = 400, GHOST_H = 514;
   var shelfPick = null;
+  function findBook(id) { return BOOKS.filter(function (x) { return x.id === id; })[0]; }
+  function findGhost(id) { return GHOSTS.filter(function (x) { return x.id === id; })[0]; }
+
   function renderShelf() {
     var host = document.getElementById("shelf");
     if (!host) return;
-    var html = [];
-    ["es", "en"].forEach(function (lang, li) {
-      if (li) html.push('<span class="gap" aria-hidden="true"></span>');
-      BOOKS.forEach(function (b, i) {
-        var key = b.id + ":" + lang;
-        html.push('<button type="button" class="spine" style="' + hueVars(b) + ';--sh:' + (238 + i * 12) + 'px;--sw:' + (44 + (i % 2) * 6) + 'px" data-pick="' + key + '" aria-pressed="' + (shelfPick === key) + '" aria-haspopup="dialog" lang="' + lang + '">' +
-          '<span class="spine__t">' + esc(b.short[lang]) + '</span><span class="spine__l">' + lang.toUpperCase() + "</span></button>");
-      });
-    });
-    host.innerHTML = html.join("");
+    var L = state.lang, picked = shelfPick && shelfPick.split(":")[0];
+    function cell(b, ghost) {
+      var title = b.title[L];
+      return '<li class="sb' + (ghost ? " sb--ghost" : "") + '" style="' + (ghost ? "" : hueVars(b)) + '">' +
+        '<div class="sb__slot"><button type="button" class="sb__cover" data-pick="' + b.id + '" aria-pressed="' + (picked === b.id) + '" aria-controls="shelf-detail"' +
+          ' title="' + esc(title) + '" aria-label="' + esc(title + ", " + t(ghost ? "stateGhost" : "statePublished")) + '">' +
+          (ghost ? '<span class="sb__tag" aria-hidden="true">' + t("ghostTag") + "</span>" : "") +
+          picture(b.cover[L], "", "sb__art", false, ghost ? GHOST_W : 600, ghost ? GHOST_H : 960) +
+        '</button></div><p class="sb__title" lang="' + L + '">' + esc(title) + "</p></li>";
+    }
+    host.innerHTML = BOOKS.map(function (b) { return cell(b, false); }).join("") +
+      GHOSTS.map(function (g) { return cell(g, true); }).join("");
     renderShelfDetail();
   }
-  function renderShelfDetail() {
+
+  function ghostHTML(g) {
+    var L = state.lang;
+    return '<div class="item item--ghost">' +
+      '<div class="item__art"><div class="ghost-art"><span class="sb__tag" aria-hidden="true">' + t("ghostTag") + "</span>" +
+        picture(g.cover[L], t("coverAlt") + g.title[L], "sb__art", false, GHOST_W, GHOST_H) + "</div></div>" +
+      '<div class="item__info">' +
+        '<p class="item__topic">' + t("ghostState") + "</p>" +
+        '<h3 lang="' + L + '" tabindex="-1">' + esc(g.title[L]) + "</h3>" +
+        '<p class="item__sub" lang="' + L + '">' + esc(g.subtitle[L]) + "</p>" +
+        '<p class="ghost__msg">' + t("ghostMsg") + "</p>" +
+        '<div class="vote" data-vote-box="' + g.id + '">' +
+          '<button type="button" class="buy buy--main vote__btn" data-vote="' + g.id + '"></button>' +
+          '<span class="vote__count" hidden></span>' +
+        "</div>" +
+        '<p class="vote__status" role="status"></p>' +
+        '<p class="ghost__nosample">' + t("noSample") + "</p>" +
+      "</div></div>";
+  }
+
+  function renderShelfDetail(moveFocus) {
     var host = document.getElementById("shelf-detail");
     if (!host) return;
     if (!shelfPick) { host.innerHTML = ""; return; }
-    var p = shelfPick.split(":"), b = BOOKS.filter(function (x) { return x.id === p[0]; })[0];
-    host.innerHTML = '<div class="item" style="' + hueVars(b) + '">' + itemHTML(b, p[1], "s-") + "</div>";
-    var seg = host.querySelector(".seg");
-    if (seg) seg.parentNode.remove(); /* the spine already chose the edition */
-    bindTilt(host);
+    var p = shelfPick.split(":"), b = findBook(p[0]), g = !b && findGhost(p[0]);
+    var close = '<button type="button" class="shelf__close" data-close-detail aria-label="' + esc(t("closeDetail")) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>';
+    if (b) {
+      host.innerHTML = close + '<div class="item" style="' + hueVars(b) + '">' + itemHTML(b, p[1], "s-") + "</div>";
+      bindTilt(host);
+      var h = host.querySelector("h3");
+      if (h) h.setAttribute("tabindex", "-1");
+    } else if (g) {
+      host.innerHTML = close + ghostHTML(g);
+      syncVote(g.id);
+      loadVotes();
+    }
+    if (moveFocus) {
+      var head = host.querySelector("h3");
+      host.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "nearest" });
+      if (head) head.focus({ preventScroll: true });
+    }
+  }
+
+  function pickShelf(id) {
+    shelfPick = id + ":" + state.lang;
+    document.querySelectorAll("#shelf [data-pick]").forEach(function (el) {
+      el.setAttribute("aria-pressed", String(el.getAttribute("data-pick") === id));
+    });
+    renderShelfDetail(true);
+  }
+
+  function closeDetail() {
+    var id = shelfPick && shelfPick.split(":")[0];
+    shelfPick = null;
+    renderShelfDetail();
+    document.querySelectorAll("#shelf [data-pick]").forEach(function (el) {
+      var on = el.getAttribute("data-pick") === id;
+      el.setAttribute("aria-pressed", "false");
+      if (on) el.focus();
+    });
+  }
+
+  /* ---- Votes: one per browser and book. localStorage keeps only "bk-vote-<id>" = the count
+     shown right after voting, so a cached /stats (30 s) never takes the visible number back.
+     Sent only to the Worker; on localhost only with ?counter=test, like counter.js.
+     Anything but a 204 leaves the book unvoted and shows a calm message. ---- */
+  var COUNTER_API = "/api/counter/";
+  var counterOk = !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) || /[?&]counter=test(&|$)/.test(location.search);
+  var votes = null;      /* by_vote from /stats, or null while unknown or unavailable */
+  var votesAsked = false;
+  var votedNow = {};     /* same session, in case localStorage is blocked */
+  var voteState = {};    /* id -> "busy" | "fail" | "thanks" */
+
+  function votedCount(id) {
+    if (votedNow[id]) return votedNow[id];
+    try { return Number(localStorage.getItem("bk-vote-" + id)) || 0; } catch (e) { return 0; }
+  }
+  function shownCount(id) {
+    if (!votes) return null;
+    return Math.max(Number(votes[id]) || 0, votedCount(id));
+  }
+  function votesText(n) {
+    if (n === 0) return t("votesNone");
+    if (n === 1) return t("votesOne");
+    var f;
+    try { f = new Intl.NumberFormat(state.lang === "en" ? "en-US" : "es-CO").format(n); } catch (e) { f = String(n); }
+    return f + t("votesMany");
+  }
+  function syncVote(id) {
+    var box = document.querySelector('[data-vote-box="' + id + '"]');
+    if (!box) return;
+    var btn = box.querySelector("[data-vote]"), count = box.querySelector(".vote__count");
+    var status = box.parentNode.querySelector(".vote__status");
+    var done = votedCount(id) > 0, st = voteState[id], n = shownCount(id);
+    btn.textContent = done ? t("voted") : st === "busy" ? t("voteBusy") : t("vote");
+    btn.classList.toggle("is-voted", done);
+    btn.setAttribute("aria-disabled", String(done || st === "busy"));
+    count.hidden = n === null;
+    count.textContent = n === null ? "" : votesText(n);
+    status.textContent = st === "fail" ? t("voteFail") : st === "thanks" ? t("voteThanks") : "";
+  }
+  function loadVotes() {
+    if (votesAsked) return;
+    votesAsked = true;
+    fetch(COUNTER_API + "stats", { credentials: "omit", headers: { Accept: "application/json" } })
+      .then(function (r) {
+        var ct = r.headers.get("content-type") || "";
+        if (!r.ok || ct.indexOf("json") < 0) throw new Error("stats unavailable");
+        return r.json();
+      })
+      .then(function (j) {
+        if (!j || typeof j.by_vote !== "object" || j.by_vote === null) return;
+        votes = j.by_vote;
+        var open = shelfPick && findGhost(shelfPick.split(":")[0]);
+        if (open) syncVote(open.id);
+      })
+      .catch(function () { votesAsked = false; });
+  }
+  function castVote(id) {
+    if (votedCount(id) || voteState[id] === "busy") return;
+    voteState[id] = "busy";
+    syncVote(id);
+    var sent = counterOk
+      ? fetch(COUNTER_API + "hit", { method: "POST", body: JSON.stringify({ t: "vote", id: id }), credentials: "omit" })
+      : Promise.reject(new Error("counter off"));
+    sent.then(function (r) {
+      if (r.status !== 204) throw new Error("vote refused");
+      var n = (votes ? Number(votes[id]) || 0 : 0) + 1;
+      votedNow[id] = n;
+      try { localStorage.setItem("bk-vote-" + id, String(n)); } catch (e) {}
+      voteState[id] = "thanks";
+    }).catch(function () {
+      voteState[id] = "fail";
+    }).then(function () { syncVote(id); });
   }
 
   function applyStatic() {
@@ -207,6 +356,7 @@
   function setLang(lang) {
     state.lang = lang;
     BOOKS.forEach(function (b) { state.edition[b.id] = lang; });
+    if (shelfPick) shelfPick = shelfPick.split(":")[0] + ":" + lang;
     store("bk-lang", lang);
     applyStatic(); renderCollection(); renderSteps(); renderShelf();
     document.dispatchEvent(new CustomEvent("catalog:lang", { detail: { lang: lang } }));
@@ -247,10 +397,10 @@
   }
 
   /* ---- Events ---- */
-  /* Opens the 3D book from a catalog cover (data-reader) or a shelf spine (data-pick). */
-  function openReader(el, kind) {
-    var p = el.getAttribute(kind === "spine" ? "data-pick" : "data-reader").split(":"), b = BOOKS.filter(function (x) { return x.id === p[0]; })[0];
-    /* Anonymous "book opened" count: once per open action (cover or spine), never per page turn. */
+  /* Opens the 3D book from a cover in the list or in the shelf detail (data-reader). */
+  function openReader(el) {
+    var p = el.getAttribute("data-reader").split(":"), b = BOOKS.filter(function (x) { return x.id === p[0]; })[0];
+    /* Anonymous "book opened" count: once per open action, never per page turn. */
     if (b && window.BeantersCounter) window.BeantersCounter.book(b.id);
     var css = document.getElementById("rd-css");
     if (!css) {
@@ -260,7 +410,7 @@
       document.head.appendChild(css);
     }
     Promise.all([import(READER_BASE + "reader.js?v=20261030d"), css._ready]).then(function (r) {
-      r[0].open({ book: b, edition: p[1], uiLang: state.lang, origin: el, kind: kind || "cover", coverSrc: COVERS + b.cover[p[1]] + ".webp",
+      r[0].open({ book: b, edition: p[1], uiLang: state.lang, origin: el, kind: "cover", coverSrc: COVERS + b.cover[p[1]] + ".webp",
         labels: { kindle: t("kindle"), paperback: t("paperback"), hardcover: t("hardcover"), amazonOpens: t("amazonOpens"),
           sample: t("sample"), labs: t("labs"), series: t("heroTitle"), by: t("heroBy") } });
     });
@@ -279,6 +429,13 @@
     var ed = e.target.closest("[data-edition]");
     if (ed) {
       var id = ed.parentNode.getAttribute("data-book");
+      if (ed.closest("#shelf-detail")) {
+        shelfPick = id + ":" + ed.getAttribute("data-edition");
+        renderShelfDetail();
+        var inDetail = document.querySelector('#shelf-detail [data-edition="' + ed.getAttribute("data-edition") + '"]');
+        if (inDetail) inDetail.focus();
+        return;
+      }
       state.edition[id] = ed.getAttribute("data-edition");
       renderOne(id);
       var again = document.querySelector('#' + BOOKS.filter(function (x) { return x.id === id; })[0].anchor + ' [data-edition="' + state.edition[id] + '"]');
@@ -287,7 +444,14 @@
     }
 
     var sp = e.target.closest("[data-pick]");
-    if (sp) { openReader(sp, "spine"); return; }
+    if (sp) { pickShelf(sp.getAttribute("data-pick")); return; }
+    if (e.target.closest("[data-close-detail]")) { closeDetail(); return; }
+    var vb = e.target.closest("[data-vote]");
+    if (vb) { castVote(vb.getAttribute("data-vote")); return; }
+
+    /* A link to a book row (reading order, for instance) shows the list panel first. */
+    var hashLink = e.target.closest('a[href^="#"]');
+    if (hashLink) showListFor(hashLink.getAttribute("href").slice(1));
 
     if (e.target.closest("#theme-toggle")) {
       var next = isDark() ? "light" : "dark";
@@ -307,6 +471,10 @@
       document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
     });
     if (focus) tab.focus();
+  }
+  function showListFor(id) {
+    var el = id && document.getElementById(id), list = document.getElementById("panel-list");
+    if (el && list && list.hidden && list.contains(el)) selectTab(document.getElementById("tab-list"));
   }
   tabs.forEach(function (tab, i) {
     tab.addEventListener("click", function () { selectTab(tab); });
@@ -339,6 +507,7 @@
 
   applyStatic(); renderCollection(); renderSteps(); renderShelf();
   if (location.hash) {
+    showListFor(location.hash.slice(1));
     var target = document.getElementById(location.hash.slice(1));
     if (target) target.scrollIntoView();
   }
