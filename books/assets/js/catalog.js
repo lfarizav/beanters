@@ -398,8 +398,8 @@
 
   /* ---- Events ---- */
   /* Opens the 3D book from a cover in the list or in the shelf detail (data-reader). */
-  function openReader(el) {
-    var p = el.getAttribute("data-reader").split(":"), b = BOOKS.filter(function (x) { return x.id === p[0]; })[0];
+  function openReader(el, kind) {
+    var p = el.getAttribute(kind === "spine" ? "data-pick" : "data-reader").split(":"), b = BOOKS.filter(function (x) { return x.id === p[0]; })[0];
     /* Anonymous "book opened" count: once per open action, never per page turn. */
     if (b && window.BeantersCounter) window.BeantersCounter.book(b.id);
     var css = document.getElementById("rd-css");
@@ -410,7 +410,7 @@
       document.head.appendChild(css);
     }
     Promise.all([import(READER_BASE + "reader.js?v=20261030d"), css._ready]).then(function (r) {
-      r[0].open({ book: b, edition: p[1], uiLang: state.lang, origin: el, kind: "cover", coverSrc: COVERS + b.cover[p[1]] + ".webp",
+      r[0].open({ book: b, edition: p[1], uiLang: state.lang, origin: el, kind: kind || "cover", coverSrc: COVERS + b.cover[p[1]] + ".webp",
         labels: { kindle: t("kindle"), paperback: t("paperback"), hardcover: t("hardcover"), amazonOpens: t("amazonOpens"),
           sample: t("sample"), labs: t("labs"), series: t("heroTitle"), by: t("heroBy") } });
     });
@@ -437,7 +437,12 @@
     }
 
     var sp = e.target.closest("[data-pick]");
-    if (sp) { pickShelf(sp.getAttribute("data-pick")); return; }
+    if (sp) {
+      /* Published spine: the 3D book flies out and back. Ghost spine: its detail panel. */
+      if (sp.classList.contains("spine--ghost")) pickShelf(sp.getAttribute("data-pick"));
+      else openReader(sp, "spine");
+      return;
+    }
     if (e.target.closest("[data-close-detail]")) { closeDetail(); return; }
     var vb = e.target.closest("[data-vote]");
     if (vb) { castVote(vb.getAttribute("data-vote")); return; }
