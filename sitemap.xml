@@ -2,75 +2,286 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://beanters.com/</loc>
+    <lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/"/>
   </url>
   <url>
     <loc>https://beanters.com/en/</loc>
+    <lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/"/>
   </url>
   <url>
     <loc>https://beanters.com/courses/</loc>
+    <lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/courses/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/courses/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/courses/"/>
   </url>
   <url>
     <loc>https://beanters.com/en/courses/</loc>
+    <lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/courses/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/courses/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/courses/"/>
   </url>
   <url>
     <loc>https://beanters.com/courses/cellular-networks/</loc>
+    <lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/courses/cellular-networks/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/courses/cellular-networks/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/courses/cellular-networks/"/>
   </url>
   <url>
     <loc>https://beanters.com/en/courses/cellular-networks/</loc>
+    <lastmod>2026-11-03</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/courses/cellular-networks/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/courses/cellular-networks/"/>
-  </url>
-  <url>
-    <loc>https://beanters.com/presentations/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/"/>
-  </url>
-  <url>
-    <loc>https://beanters.com/en/presentations/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/"/>
-  </url>
-  <url>
-    <loc>https://beanters.com/projects/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/projects/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/projects/"/>
-  </url>
-  <url>
-    <loc>https://beanters.com/en/projects/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/projects/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/projects/"/>
-  </url>
-  <url>
-    <loc>https://beanters.com/privacy.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/privacy.html"/>
-  </url>
-  <url>
-    <loc>https://beanters.com/en/privacy.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/privacy.html"/>
-  </url>
-  <url>
-    <loc>https://beanters.com/terms.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/terms.html"/>
-  </url>
-  <url>
-    <loc>https://beanters.com/en/terms.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/terms.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/courses/cellular-networks/"/>
   </url>
   <url>
     <loc>https://beanters.com/books/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/books/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/books/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/books/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/books/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/books/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/books/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/books/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/presentations/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/presentations/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/presentations/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/presentations/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/projects/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/projects/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/projects/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/projects/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/projects/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/projects/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/projects/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/projects/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/privacy.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/privacy.html"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/privacy.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/privacy.html"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/terms.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/terms.html"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/terms.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/terms.html"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/books/kubernetes/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/books/kubernetes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/books/kubernetes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/books/kubernetes/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/books/kubernetes/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/books/kubernetes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/books/kubernetes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/books/kubernetes/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/books/administrar/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/books/administrar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/books/administrar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/books/administrar/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/books/administrar/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/books/administrar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/books/administrar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/books/administrar/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/books/desarrollar/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/books/desarrollar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/books/desarrollar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/books/desarrollar/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/books/desarrollar/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/books/desarrollar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/books/desarrollar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/books/desarrollar/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/books/asegurar/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/books/asegurar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/books/asegurar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/books/asegurar/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/books/asegurar/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/books/asegurar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/books/asegurar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/books/asegurar/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/presentations/from-chaos-to-control/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/from-chaos-to-control/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/from-chaos-to-control/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/presentations/from-chaos-to-control/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/presentations/from-chaos-to-control/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/from-chaos-to-control/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/from-chaos-to-control/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/presentations/from-chaos-to-control/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/presentations/cloud-native-platforms/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/cloud-native-platforms/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/cloud-native-platforms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/presentations/cloud-native-platforms/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/presentations/cloud-native-platforms/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/cloud-native-platforms/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/cloud-native-platforms/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/presentations/cloud-native-platforms/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/presentations/kcd-colombia-2025/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/kcd-colombia-2025/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/kcd-colombia-2025/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/presentations/kcd-colombia-2025/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/presentations/kcd-colombia-2025/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/kcd-colombia-2025/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/kcd-colombia-2025/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/presentations/kcd-colombia-2025/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/presentations/5g-broadcast-colombia/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/5g-broadcast-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/5g-broadcast-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/presentations/5g-broadcast-colombia/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/presentations/5g-broadcast-colombia/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/presentations/5g-broadcast-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/presentations/5g-broadcast-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/presentations/5g-broadcast-colombia/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/projects/red-celular-900mhz/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/projects/red-celular-900mhz/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/projects/red-celular-900mhz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/projects/red-celular-900mhz/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/projects/red-celular-900mhz/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/projects/red-celular-900mhz/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/projects/red-celular-900mhz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/projects/red-celular-900mhz/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/projects/ia-agentica-redes/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/projects/ia-agentica-redes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/projects/ia-agentica-redes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/projects/ia-agentica-redes/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/projects/ia-agentica-redes/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/projects/ia-agentica-redes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/projects/ia-agentica-redes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/projects/ia-agentica-redes/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/about/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/about/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/about/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/about/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/faq/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/faq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/faq/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/en/faq/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beanters.com/faq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beanters.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://beanters.com/faq/"/>
+  </url>
+  <url>
+    <loc>https://beanters.com/colombia-openinfra-user-group/</loc>
+    <lastmod>2026-06-15</lastmod>
   </url>
 </urlset>
