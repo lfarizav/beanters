@@ -5,3 +5,9 @@ Disallow: /.github
 Disallow: /node_modules
 
 Sitemap: https://beanters.com/sitemap.xml
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
