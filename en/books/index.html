@@ -34,14 +34,12 @@
 <link rel="stylesheet" href="/assets/site/detail.css?v=20261103b">
 
 <script>
-  /* Theme before first paint. The language is fixed by the URL: this page is Spanish whatever is stored. */
+  /* English page: theme before first paint. The language is fixed by the URL (/en/). */
   (function () {
     var d = document.documentElement, t = null;
     try { t = localStorage.getItem("bk-theme"); } catch (e) {}
-    /* Old links: /books/?lang=en goes to the real English page. */
-    if (new URLSearchParams(location.search).get("lang") === "en") { location.replace("/en/books/" + location.hash); return; }
     if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
-    d.setAttribute("lang", "es");
+    d.setAttribute("lang", "en");
   })();
 </script>
 

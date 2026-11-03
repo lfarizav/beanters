@@ -21,15 +21,14 @@
 <link rel="stylesheet" href="/assets/site/site.css?v=20261031a">
 <link rel="stylesheet" href="/assets/site/courses.css?v=20261030a">
 <script>
-  /* Theme before first paint. The language is fixed by the URL: this page is Spanish whatever is stored. */
+  /* English page: theme before first paint. The language is fixed by the URL (/en/). */
   (function () {
     var d = document.documentElement, t = null;
     try { t = localStorage.getItem("bk-theme"); } catch (e) {}
     if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
-    d.setAttribute("lang", "es");
+    d.setAttribute("lang", "en");
   })();
-</script>
-</head>
+</script></head>
 <body class="site">
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 

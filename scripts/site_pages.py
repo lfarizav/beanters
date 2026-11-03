@@ -845,7 +845,7 @@ def build_books():
     en = en.replace("kcna-kcsa-cloud-native-and-security-associate-es.jpg", "kcna-kcsa-cloud-native-and-security-associate-en.jpg")
     en = books_head(en, "en")
     # language: fixed by the URL
-    en = re.sub(r"<script>\s*/\* Theme and language before first paint.*?</script>", lambda m: BEN.PREPAINT_EN, en, count=1, flags=re.S)
+    en = re.sub(r"<script>\s*/\* Theme (?:and language )?before first paint.*?</script>", lambda m: BEN.PREPAINT_EN, en, count=1, flags=re.S)
     # toggle
     en = en.replace('data-set-lang="es" aria-pressed="true"', 'data-set-lang="es" aria-pressed="false"').replace('data-set-lang="en" aria-pressed="false"', 'data-set-lang="en" aria-pressed="true"')
     # story steps in raw HTML

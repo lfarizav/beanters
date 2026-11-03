@@ -240,7 +240,7 @@ def swap_scripts(s):
     # replace the language pre-paint script and drop the dictionary; keep everything else
     def one(m):
         body = m.group(1)
-        if "bk-lang" in body:
+        if "documentElement" in body and "bk-theme" in body:
             return PREPAINT_EN
         if "window.SITE_I18N" in body:
             return ""
