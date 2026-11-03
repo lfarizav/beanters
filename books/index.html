@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Libros de Kubernetes | Beanters</title>
+<title>Libros de Kubernetes: Lo que pasa es que… | Beanters</title>
 <meta name="description" content="Serie «Lo que pasa es que…» de Luis Felipe Ariza Vesga: Kubernetes explicado con analogías cotidianas, en español y en inglés. Fundamentos, administración, desarrollo y seguridad.">
 <meta name="author" content="Luis Felipe Ariza Vesga">
 <meta name="color-scheme" content="light dark">
@@ -11,7 +11,8 @@
 <meta name="theme-color" content="#0a1420" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://beanters.com/books/">
 <link rel="alternate" hreflang="es" href="https://beanters.com/books/">
-<link rel="alternate" hreflang="en" href="https://beanters.com/books/?lang=en">
+<link rel="alternate" hreflang="en" href="https://beanters.com/en/books/">
+<link rel="alternate" hreflang="x-default" href="https://beanters.com/books/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
 <meta property="og:type" content="website">
@@ -28,8 +29,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
 <link rel="stylesheet" href="/assets/site/site.css?v=20261031a">
-<link rel="stylesheet" href="assets/css/books.css?v=20261101e">
-<link rel="stylesheet" href="assets/hero/story.css?v=20261030d">
+<link rel="stylesheet" href="/books/assets/css/books.css?v=20261101e">
+<link rel="stylesheet" href="/books/assets/hero/story.css?v=20261030d">
+<link rel="stylesheet" href="/assets/site/detail.css?v=20261103b">
 
 <script>
   /* Theme and language before first paint, so nothing flashes. */
@@ -37,7 +39,9 @@
     var d = document.documentElement, t = null, l = null;
     try { t = localStorage.getItem("bk-theme"); l = localStorage.getItem("bk-lang"); } catch (e) {}
     var q = new URLSearchParams(location.search).get("lang");
-    if (q === "en" || q === "es") l = q;
+    /* Old links: /books/?lang=en now goes to the real English page. */
+    if (q === "en") { location.replace("/en/books/" + location.hash); return; }
+    if (q === "es") l = q;
     if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
     if (l === "en") d.setAttribute("lang", "en");
   })();
@@ -62,84 +66,260 @@
       "url": "https://www.amazon.com/stores/PhD-Luis-Felipe-Ariza-Vesga/author/B0HJT5N651",
       "jobTitle": "Telecommunications engineer, PhD in Electrical Engineering",
       "image": "https://beanters.com/luis.jpg",
-      "sameAs": ["https://github.com/lfarizav", "https://linkedin.com/in/lfarizav"]
+      "sameAs": [
+        "https://github.com/lfarizav",
+        "https://linkedin.com/in/lfarizav"
+      ]
     },
     {
       "@type": "BookSeries",
       "@id": "https://beanters.com/books/#series",
       "name": "Lo que pasa es que",
       "alternateName": "Here's What's Actually Going On",
-      "author": {"@id": "https://beanters.com/books/#author"},
-      "inLanguage": ["es", "en"],
+      "author": {
+        "@id": "https://beanters.com/books/#author"
+      },
+      "inLanguage": [
+        "es",
+        "en"
+      ],
       "hasPart": [
-        {"@id": "https://beanters.com/books/#kcna"},
-        {"@id": "https://beanters.com/books/#cka"},
-        {"@id": "https://beanters.com/books/#ckad"},
-        {"@id": "https://beanters.com/books/#cks"}
+        {
+          "@id": "https://beanters.com/books/#kcna"
+        },
+        {
+          "@id": "https://beanters.com/books/#cka"
+        },
+        {
+          "@id": "https://beanters.com/books/#ckad"
+        },
+        {
+          "@id": "https://beanters.com/books/#cks"
+        }
       ]
     },
     {
-      "@type": "Book", "@id": "https://beanters.com/books/#kcna",
+      "@type": "Book",
+      "@id": "https://beanters.com/books/#kcna",
       "name": "Lo que pasa es que Kubernetes",
       "alternativeHeadline": "Guía completa de Kubernetes en lenguaje sencillo",
-      "author": {"@id": "https://beanters.com/books/#author"},
-      "isPartOf": {"@id": "https://beanters.com/books/#series"}, "position": 1,
+      "url": "https://beanters.com/books/kubernetes/",
+      "author": {
+        "@id": "https://beanters.com/books/#author"
+      },
+      "isPartOf": {
+        "@id": "https://beanters.com/books/#series"
+      },
+      "position": 1,
       "image": "https://beanters.com/books/assets/covers/kcna-kcsa-cloud-native-and-security-associate-es.jpg",
       "workExample": [
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/EBook", "url": "https://www.amazon.com/dp/B0HJKPLLMN"},
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/Paperback", "url": "https://www.amazon.com/dp/B0HJMS76SY"},
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/Hardcover", "url": "https://www.amazon.com/dp/B0HJMRM1Z6"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes", "inLanguage": "en", "bookFormat": "https://schema.org/EBook", "url": "https://www.amazon.com/dp/B0HJFKYX8Z"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes", "inLanguage": "en", "bookFormat": "https://schema.org/Paperback", "url": "https://www.amazon.com/dp/B0HJHZG3XJ"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes", "inLanguage": "en", "bookFormat": "https://schema.org/Hardcover", "url": "https://www.amazon.com/dp/B0HJJFVR2N"}
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/EBook",
+          "url": "https://www.amazon.com/dp/B0HJKPLLMN"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/Paperback",
+          "url": "https://www.amazon.com/dp/B0HJMS76SY"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/Hardcover",
+          "url": "https://www.amazon.com/dp/B0HJMRM1Z6"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/EBook",
+          "url": "https://www.amazon.com/dp/B0HJFKYX8Z",
+          "name": "Here's What's Actually Going On with Kubernetes"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/Paperback",
+          "url": "https://www.amazon.com/dp/B0HJHZG3XJ",
+          "name": "Here's What's Actually Going On with Kubernetes"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/Hardcover",
+          "url": "https://www.amazon.com/dp/B0HJJFVR2N",
+          "name": "Here's What's Actually Going On with Kubernetes"
+        }
       ]
     },
     {
-      "@type": "Book", "@id": "https://beanters.com/books/#cka",
+      "@type": "Book",
+      "@id": "https://beanters.com/books/#cka",
       "name": "Lo que pasa es que administrar Kubernetes",
       "alternativeHeadline": "Guía completa de administración de Kubernetes en lenguaje sencillo",
-      "author": {"@id": "https://beanters.com/books/#author"},
-      "isPartOf": {"@id": "https://beanters.com/books/#series"}, "position": 2,
+      "url": "https://beanters.com/books/administrar/",
+      "author": {
+        "@id": "https://beanters.com/books/#author"
+      },
+      "isPartOf": {
+        "@id": "https://beanters.com/books/#series"
+      },
+      "position": 2,
       "image": "https://beanters.com/books/assets/covers/cka-comico-es.jpg",
       "workExample": [
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/EBook", "url": "https://www.amazon.com/dp/B0HLXX1RQJ"},
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/Paperback", "url": "https://www.amazon.com/dp/B0HLXVJTJL"},
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/Hardcover", "url": "https://www.amazon.com/dp/B0HLXY9D88"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes Administration", "inLanguage": "en", "bookFormat": "https://schema.org/EBook", "url": "https://www.amazon.com/dp/B0HLXXJBKW"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes Administration", "inLanguage": "en", "bookFormat": "https://schema.org/Paperback", "url": "https://www.amazon.com/dp/B0HLXKVPBT"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes Administration", "inLanguage": "en", "bookFormat": "https://schema.org/Hardcover", "url": "https://www.amazon.com/dp/B0HLXXBNSV"}
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/EBook",
+          "url": "https://www.amazon.com/dp/B0HLXX1RQJ"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/Paperback",
+          "url": "https://www.amazon.com/dp/B0HLXVJTJL"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/Hardcover",
+          "url": "https://www.amazon.com/dp/B0HLXY9D88"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/EBook",
+          "url": "https://www.amazon.com/dp/B0HLXXJBKW",
+          "name": "Here's What's Actually Going On with Kubernetes Administration"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/Paperback",
+          "url": "https://www.amazon.com/dp/B0HLXKVPBT",
+          "name": "Here's What's Actually Going On with Kubernetes Administration"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/Hardcover",
+          "url": "https://www.amazon.com/dp/B0HLXXBNSV",
+          "name": "Here's What's Actually Going On with Kubernetes Administration"
+        }
       ]
     },
     {
-      "@type": "Book", "@id": "https://beanters.com/books/#ckad",
+      "@type": "Book",
+      "@id": "https://beanters.com/books/#ckad",
       "name": "Lo que pasa es que desarrollar en Kubernetes",
       "alternativeHeadline": "Guía completa de desarrollo de aplicaciones en Kubernetes en lenguaje sencillo",
-      "author": {"@id": "https://beanters.com/books/#author"},
-      "isPartOf": {"@id": "https://beanters.com/books/#series"}, "position": 3,
+      "url": "https://beanters.com/books/desarrollar/",
+      "author": {
+        "@id": "https://beanters.com/books/#author"
+      },
+      "isPartOf": {
+        "@id": "https://beanters.com/books/#series"
+      },
+      "position": 3,
       "image": "https://beanters.com/books/assets/covers/ckad-comico-es.jpg",
       "workExample": [
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/EBook", "url": "https://www.amazon.com/dp/B0HMS8J1X2"},
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/Paperback", "url": "https://www.amazon.com/dp/B0HMSD351N"},
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/Hardcover", "url": "https://www.amazon.com/dp/B0HMS2F92Q"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes Application Development", "inLanguage": "en", "bookFormat": "https://schema.org/EBook", "url": "https://www.amazon.com/dp/B0GX2X91VP"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes Application Development", "inLanguage": "en", "bookFormat": "https://schema.org/Paperback", "url": "https://www.amazon.com/dp/B0HMS7BQQQ"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes Application Development", "inLanguage": "en", "bookFormat": "https://schema.org/Hardcover", "url": "https://www.amazon.com/dp/B0HMW9J5WQ"}
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/EBook",
+          "url": "https://www.amazon.com/dp/B0HMS8J1X2"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/Paperback",
+          "url": "https://www.amazon.com/dp/B0HMSD351N"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/Hardcover",
+          "url": "https://www.amazon.com/dp/B0HMS2F92Q"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/EBook",
+          "url": "https://www.amazon.com/dp/B0GX2X91VP",
+          "name": "Here's What's Actually Going On with Kubernetes Application Development"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/Paperback",
+          "url": "https://www.amazon.com/dp/B0HMS7BQQQ",
+          "name": "Here's What's Actually Going On with Kubernetes Application Development"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/Hardcover",
+          "url": "https://www.amazon.com/dp/B0HMW9J5WQ",
+          "name": "Here's What's Actually Going On with Kubernetes Application Development"
+        }
       ]
     },
     {
-      "@type": "Book", "@id": "https://beanters.com/books/#cks",
+      "@type": "Book",
+      "@id": "https://beanters.com/books/#cks",
       "name": "Lo que pasa es que asegurar Kubernetes",
       "alternativeHeadline": "Guía completa de seguridad en Kubernetes en lenguaje sencillo",
-      "author": {"@id": "https://beanters.com/books/#author"},
-      "isPartOf": {"@id": "https://beanters.com/books/#series"}, "position": 4,
+      "url": "https://beanters.com/books/asegurar/",
+      "author": {
+        "@id": "https://beanters.com/books/#author"
+      },
+      "isPartOf": {
+        "@id": "https://beanters.com/books/#series"
+      },
+      "position": 4,
       "image": "https://beanters.com/books/assets/covers/cks-comico-es.jpg",
       "workExample": [
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/EBook", "url": "https://www.amazon.com/dp/B0HNR8PQ1L"},
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/Paperback", "url": "https://www.amazon.com/dp/B0HNJ2MCXS"},
-        {"@type": "Book", "inLanguage": "es", "bookFormat": "https://schema.org/Hardcover", "url": "https://www.amazon.com/dp/B0HNJ2MRT5"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes Security", "inLanguage": "en", "bookFormat": "https://schema.org/EBook", "url": "https://www.amazon.com/dp/B0HNR47KKX"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes Security", "inLanguage": "en", "bookFormat": "https://schema.org/Paperback", "url": "https://www.amazon.com/dp/B0HNJ3TVKJ"},
-        {"@type": "Book", "name": "Here's What's Actually Going On with Kubernetes Security", "inLanguage": "en", "bookFormat": "https://schema.org/Hardcover", "url": "https://www.amazon.com/dp/B0HNJ8PJ3K"}
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/EBook",
+          "url": "https://www.amazon.com/dp/B0HNR8PQ1L"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/Paperback",
+          "url": "https://www.amazon.com/dp/B0HNJ2MCXS"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "es",
+          "bookFormat": "https://schema.org/Hardcover",
+          "url": "https://www.amazon.com/dp/B0HNJ2MRT5"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/EBook",
+          "url": "https://www.amazon.com/dp/B0HNR47KKX",
+          "name": "Here's What's Actually Going On with Kubernetes Security"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/Paperback",
+          "url": "https://www.amazon.com/dp/B0HNJ3TVKJ",
+          "name": "Here's What's Actually Going On with Kubernetes Security"
+        },
+        {
+          "@type": "Book",
+          "inLanguage": "en",
+          "bookFormat": "https://schema.org/Hardcover",
+          "url": "https://www.amazon.com/dp/B0HNJ8PJ3K",
+          "name": "Here's What's Actually Going On with Kubernetes Security"
+        }
       ]
     }
   ]
@@ -218,7 +398,7 @@
       <p class="hero__facts" data-i18n="heroFacts">Cuatro libros publicados, en español y en inglés: fundamentos, administración, desarrollo y seguridad.</p>
       <div class="hero__cta">
         <a class="btn btn--primary" href="#coleccion" data-i18n="ctaCollection">Ver la colección</a>
-        <a class="btn btn--quiet" id="hero-sample" href="samples/lo-que-pasa-es-que-kubernetes-es-sample.pdf" data-i18n="ctaSample">Leer el capítulo 1 gratis (PDF)</a>
+        <a class="btn btn--quiet" id="hero-sample" href="/books/samples/lo-que-pasa-es-que-kubernetes-es-sample.pdf" data-i18n="ctaSample">Leer el capítulo 1 gratis (PDF)</a>
       </div>
     </div>
     <div class="story__track">
@@ -274,6 +454,20 @@
     </div>
   </section>
 
+  <!-- book-pages:start -->
+  <section class="section" id="paginas" aria-labelledby="pages-title">
+    <div class="wrap">
+      <div class="section__head">
+        <div>
+          <h2 id="pages-title" data-i18n="pagesTitle">Una página por libro</h2>
+          <p class="section__sub" data-i18n="pagesSub">Cada libro tiene su propia página, con el tema, las ediciones y los enlaces de compra.</p>
+        </div>
+      </div>
+      <ul class="dt-cards"><li class="dt-card"><a href="/books/kubernetes/"><picture><source type="image/webp" srcset="/books/assets/covers/kcna-kcsa-cloud-native-and-security-associate-es.webp"><img src="/books/assets/covers/kcna-kcsa-cloud-native-and-security-associate-es.jpg" alt="Portada de Lo que pasa es que Kubernetes" width="600" height="960" loading="lazy" decoding="async"></picture><span class="dt-card__topic">Fundamentos · KCNA y KCSA</span><span class="dt-card__title">Lo que pasa es que Kubernetes</span><span class="dt-card__sub">Guía completa de Kubernetes en lenguaje sencillo</span></a></li><li class="dt-card"><a href="/books/administrar/"><picture><source type="image/webp" srcset="/books/assets/covers/cka-comico-es.webp"><img src="/books/assets/covers/cka-comico-es.jpg" alt="Portada de Lo que pasa es que administrar Kubernetes" width="600" height="960" loading="lazy" decoding="async"></picture><span class="dt-card__topic">Administrar · CKA</span><span class="dt-card__title">Lo que pasa es que administrar Kubernetes</span><span class="dt-card__sub">Guía completa de administración de Kubernetes en lenguaje sencillo</span></a></li><li class="dt-card"><a href="/books/desarrollar/"><picture><source type="image/webp" srcset="/books/assets/covers/ckad-comico-es.webp"><img src="/books/assets/covers/ckad-comico-es.jpg" alt="Portada de Lo que pasa es que desarrollar en Kubernetes" width="600" height="960" loading="lazy" decoding="async"></picture><span class="dt-card__topic">Desarrollar · CKAD</span><span class="dt-card__title">Lo que pasa es que desarrollar en Kubernetes</span><span class="dt-card__sub">Guía completa de desarrollo de aplicaciones en Kubernetes en lenguaje sencillo</span></a></li><li class="dt-card"><a href="/books/asegurar/"><picture><source type="image/webp" srcset="/books/assets/covers/cks-comico-es.webp"><img src="/books/assets/covers/cks-comico-es.jpg" alt="Portada de Lo que pasa es que asegurar Kubernetes" width="600" height="960" loading="lazy" decoding="async"></picture><span class="dt-card__topic">Asegurar · CKS</span><span class="dt-card__title">Lo que pasa es que asegurar Kubernetes</span><span class="dt-card__sub">Guía completa de seguridad en Kubernetes en lenguaje sencillo</span></a></li></ul>
+    </div>
+  </section>
+  <!-- book-pages:end -->
+
   <section class="section" id="orden" aria-labelledby="order-title">
     <div class="wrap">
       <div class="section__head">
@@ -290,8 +484,8 @@
     <div class="wrap">
       <div class="author">
         <picture class="author__photo">
-          <source type="image/webp" srcset="../luis.webp">
-          <img src="../luis.jpg" alt="Luis Felipe Ariza Vesga" width="220" height="220" loading="lazy" decoding="async">
+          <source type="image/webp" srcset="/luis.webp">
+          <img src="/luis.jpg" alt="Luis Felipe Ariza Vesga" width="220" height="220" loading="lazy" decoding="async">
         </picture>
         <div class="author__body">
           <h2 id="author-title" data-i18n="authorTitle">Sobre el autor</h2>
@@ -320,6 +514,8 @@
       <a href="/" data-i18n="navHome">Inicio</a>
       <a href="/courses/" data-i18n="navCourses">Cursos</a>
       <a href="/books/" data-i18n="navBooks">Libros</a>
+      <a href="/about/" data-i18n="footAbout">Sobre Luis</a>
+      <a href="/faq/" data-i18n="footFaq">Preguntas frecuentes</a>
     </nav>
     <nav class="footer__col" aria-label="Autor" data-i18n-attr="aria-label:footAuthor">
       <h2 data-i18n="footAuthor">Autor</h2>
@@ -337,10 +533,10 @@
   </div>
 </footer>
 
-<script src="assets/js/books-data.js?v=20261101b"></script>
-<script src="assets/js/catalog.js?v=20261101e"></script>
+<script src="/books/assets/js/books-data.js?v=20261103a"></script>
+<script src="/books/assets/js/catalog.js?v=20261103a"></script>
 <script src="/assets/site/counter.js?v=20261031a" defer></script>
-<script src="assets/hero/geometry.js"></script>
-<script src="assets/hero/story.js?v=20261030d"></script>
+<script src="/books/assets/hero/geometry.js"></script>
+<script src="/books/assets/hero/story.js?v=20261030d"></script>
 </body>
 </html>

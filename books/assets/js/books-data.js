@@ -1,6 +1,7 @@
 /* Series data: the single source the catalog, shelf and hero read from.
    window.BOOKS holds the published titles; every value comes from the verified
    books.json (2026-10-29).
+   Paths are absolute so the same data serves /books/ and /en/books/.
    To publish a new chapter-1 sample, add its path under `sample`; the button
    appears by itself. Leave `labs` null when a book has no public labs repo. */
 window.BOOKS = [
@@ -28,8 +29,8 @@ window.BOOKS = [
       en: { kindle: "https://www.amazon.com/dp/B0HJFKYX8Z", paperback: "https://www.amazon.com/dp/B0HJHZG3XJ", hardcover: "https://www.amazon.com/dp/B0HJJFVR2N" }
     },
     sample: {
-      es: "samples/lo-que-pasa-es-que-kubernetes-es-sample.pdf",
-      en: "samples/lo-que-pasa-es-que-kubernetes-en-sample.pdf"
+      es: "/books/samples/lo-que-pasa-es-que-kubernetes-es-sample.pdf",
+      en: "/books/samples/lo-que-pasa-es-que-kubernetes-en-sample.pdf"
     },
     labs: null
   },
@@ -54,8 +55,8 @@ window.BOOKS = [
       en: { kindle: "https://www.amazon.com/dp/B0HLXXJBKW", paperback: "https://www.amazon.com/dp/B0HLXKVPBT", hardcover: "https://www.amazon.com/dp/B0HLXXBNSV" }
     },
     sample: {
-      es: "samples/lo-que-pasa-es-que-administrar-kubernetes-es-sample.pdf",
-      en: "samples/lo-que-pasa-es-que-administrar-kubernetes-en-sample.pdf"
+      es: "/books/samples/lo-que-pasa-es-que-administrar-kubernetes-es-sample.pdf",
+      en: "/books/samples/lo-que-pasa-es-que-administrar-kubernetes-en-sample.pdf"
     },
     labs: "https://github.com/lfarizav/lo-que-pasa-es-que-administrar-kubernetes"
   },
@@ -80,8 +81,8 @@ window.BOOKS = [
       en: { kindle: "https://www.amazon.com/dp/B0GX2X91VP", paperback: "https://www.amazon.com/dp/B0HMS7BQQQ", hardcover: "https://www.amazon.com/dp/B0HMW9J5WQ" }
     },
     sample: {
-      es: "samples/lo-que-pasa-es-que-desarrollar-en-kubernetes-es-sample.pdf",
-      en: "samples/lo-que-pasa-es-que-desarrollar-en-kubernetes-en-sample.pdf"
+      es: "/books/samples/lo-que-pasa-es-que-desarrollar-en-kubernetes-es-sample.pdf",
+      en: "/books/samples/lo-que-pasa-es-que-desarrollar-en-kubernetes-en-sample.pdf"
     },
     labs: null
   },
@@ -106,8 +107,8 @@ window.BOOKS = [
       en: { kindle: "https://www.amazon.com/dp/B0HNR47KKX", paperback: "https://www.amazon.com/dp/B0HNJ3TVKJ", hardcover: "https://www.amazon.com/dp/B0HNJ8PJ3K" }
     },
     sample: {
-      es: "samples/lo-que-pasa-es-que-asegurar-kubernetes-es-sample.pdf",
-      en: "samples/lo-que-pasa-es-que-asegurar-kubernetes-en-sample.pdf"
+      es: "/books/samples/lo-que-pasa-es-que-asegurar-kubernetes-es-sample.pdf",
+      en: "/books/samples/lo-que-pasa-es-que-asegurar-kubernetes-en-sample.pdf"
     },
     labs: "https://github.com/lfarizav/lo-que-pasa-es-que-asegurar-kubernetes"
   }
@@ -240,4 +241,4 @@ window.GHOSTS = [
   }
 ];
 
-window.COVER_PATH = "assets/covers/";
+window.COVER_PATH = "/books/assets/covers/";

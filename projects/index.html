@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Proyectos | Beanters</title>
+<title>Proyectos de redes celulares e IA | Beanters</title>
 <meta name="description" content="Proyecto: extender la capacidad de una red celular comunitaria en 900 MHz con muchos servicios sobre ella, como radio y TV por IPTV, llamadas y videoconferencias locales y formación del SENA, sin internet. Modelo 3D interactivo." data-i18n-attr="content:metaDesc">
 <link rel="canonical" href="https://beanters.com/projects/">
 <link rel="alternate" hreflang="es" href="https://beanters.com/projects/">
@@ -82,6 +82,7 @@
         <h2 class="sr-only" id="pj-desc" data-i18n="pj3">Qué hace el sistema</h2>
         <p class="prose" data-i18n="pj4">Este proyecto extiende la capacidad de una red celular comunitaria ofreciendo muchos servicios sobre ella, todos en la banda de 900 MHz. Dentro de la comunidad y sin internet, la misma red entrega radio y TV como IPTV, llamadas locales, videoconferencias locales y contenidos de formación del SENA; si hay un enlace a internet, también da acceso completo a internet. Se construye con software libre y hardware de propósito general con una radio definida por software (SDR).</p>
         <p class="prose" data-i18n="pj5">Como propuesta del autor, el Estado controla y supervisa todos los sitios desde el ministerio (MinTIC), y la ANE verifica el uso del espectro.</p>
+        <p><a class="text-link" href="/projects/red-celular-900mhz/" data-i18n="pjMore">Ver la página del proyecto</a></p>
       </div>
       <figure class="pj-fig" style="margin:0">
         <div data-projects-figure data-live="/assets/figures/projects/live.js?v=20261030h" data-poster="/assets/figures/projects/poster.svg?v=20261030c" role="group" aria-label="Modelo 3D de la red celular comunitaria" data-i18n-attr="aria-label:pj7">
@@ -99,6 +100,7 @@
         <p class="prose" data-i18n="pk3">Un agente de IA ofrece servicios sobre redes 4G y 5G que se configuran y despliegan con lenguaje natural, usando las APIs de red de CAMARA: alertas cuando un adulto mayor o un niño sale de un área autorizada, pagos autorizados solo si el celular se verifica dentro de una zona permitida, calidad bajo demanda para una videollamada y datos de densidad de población para emergencias o eventos.</p>
         <p class="prose" data-i18n="pk4">En el diseño del proyecto, el agente y las APIs corren sobre una nube telco que sigue las pautas de Sylva (Linux Foundation Europe): clústeres Kubernetes gestionados con Cluster API, cambios en Git que Flux aplica y funciones de red como contenedores.</p>
         <p class="pj__fine" data-i18n="pk5">Seguir la ubicación de una persona requiere su consentimiento (en CAMARA, la autorización del titular de la línea). Es un diseño propuesto: no afirma que estos servicios estén disponibles hoy en Colombia ni que algún operador despliegue redes 4G o 5G desde lenguaje natural.</p>
+        <p><a class="text-link" href="/projects/ia-agentica-redes/" data-i18n="pjMore">Ver la página del proyecto</a></p>
       </div>
       <figure class="pj-fig" style="margin:0">
         <div data-projects-figure data-live="/assets/figures/agentic-network/live.js?v=20261030h" data-poster="/assets/figures/agentic-network/poster.svg?v=20261030h" role="group" aria-label="Modelo 3D de la IA agéntica en redes 4G y 5G" data-i18n-attr="aria-label:pk6">
@@ -127,6 +129,8 @@
       <a href="/projects/" data-i18n="navProjects">Proyectos</a>
       <a href="/books/" data-i18n="navBooks">Libros</a>
       <a href="/colombia-openinfra-user-group/" data-i18n="footCommunity">Comunidad</a>
+      <a href="/about/" data-i18n="footAbout">Sobre Luis</a>
+      <a href="/faq/" data-i18n="footFaq">Preguntas frecuentes</a>
     </nav>
     <nav class="footer__col" aria-label="Contacto" data-i18n-attr="aria-label:footContact">
       <h2 data-i18n="footContact">Contacto</h2>
@@ -148,6 +152,7 @@
 <script>
   window.SITE_I18N = { en: {
     pj1: "PROJECT 1",
+    pjMore: "See the project page",
     pk1: "PROJECT 2",
     pk2: "Agentic AI on 4G and 5G networks: network services requested in natural language",
     pk3: "An AI agent offers services on 4G and 5G networks that are configured and deployed with natural language, using the CAMARA network APIs: alerts when an older person or a child leaves an authorized area, payments authorized only when the phone is verified inside an allowed zone, quality on demand for a video call, and population density data for emergencies or events.",
@@ -162,11 +167,11 @@
     pj7: "3D model of the community cellular network",
     pj8: "Isometric model of the 900 MHz community cellular network: base station, open-source core with an SDR and service blocks, phones, homes, SENA classroom, MinTIC control centre (the author's proposal) and ANE station.",
     metaDesc: "Project: extend what a 900 MHz community cellular network can do with many services on it, such as radio and TV over IPTV, local calls and video conferences and SENA training, without internet. Interactive 3D model.",
-    _title: "Projects | Beanters",
+    _title: "Cellular Network and AI Projects | Beanters",
     skip: "Skip to content", brandHome: "Beanters, home", navMain: "Main", langGroup: "Page language",
     navHome: "Home", navCourses: "Courses", navTalks: "Presentations", navProjects: "Projects", navBooks: "Books",
     footNote: "Training in cloud-native, AI-native and telco, from Bogotá, in Spanish and English.",
-    footSite: "Site", footCommunity: "Community", footContact: "Contact", footEmail: "Email", footAmazon: "Amazon page",
+    footAbout: "About Luis", footFaq: "FAQ", footSite: "Site", footCommunity: "Community", footContact: "Contact", footEmail: "Email", footAmazon: "Amazon page",
     footPrivacy: "Privacy", footTerms: "Terms", footContactAria: "Contact",
     footCopy: "© 2026 Luis Felipe Ariza Vesga. All rights reserved."
   } };

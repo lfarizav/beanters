@@ -5,7 +5,7 @@
 
   var BOOKS = window.BOOKS || [];
   var GHOSTS = window.GHOSTS || [];
-  var COVERS = window.COVER_PATH || "assets/covers/";
+  var COVERS = window.COVER_PATH || "/books/assets/covers/";
   var root = document.documentElement;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   /* 3D reader: a book gets it once its pages exist in reader/pages/<dir>/<es|en>/p-NN.webp.
@@ -47,6 +47,8 @@
       footNote: "Las muestras gratuitas contienen solo el capítulo 1. Los libros publicados se venden completos en Amazon; los demás aún no están a la venta.",
       footSite: "Sitio", footAuthor: "Autor", footAmazon: "Página en Amazon", footPrivacy: "Privacidad", footTerms: "Términos",
       footCopy: "© 2026 Luis Felipe Ariza Vesga. Todos los derechos reservados.",
+      footAbout: "Sobre Luis", footFaq: "Preguntas frecuentes", bookPage: "Página del libro",
+      pagesTitle: "Una página por libro", pagesSub: "Cada libro tiene su propia página, con el tema, las ediciones y los enlaces de compra.", pageOpen: "Ver el libro",
       edition: "Edición", editionGroup: "Idioma de la edición",
       kindle: "Kindle", paperback: "Tapa blanda", hardcover: "Tapa dura",
       sample: "Leer el capítulo 1 gratis (PDF)", labs: "Laboratorios del libro",
@@ -87,6 +89,8 @@
       footNote: "The free samples contain chapter 1 only. The published books are sold complete on Amazon; the others are not on sale yet.",
       footSite: "Site", footAuthor: "Author", footAmazon: "Amazon page", footPrivacy: "Privacy", footTerms: "Terms",
       footCopy: "© 2026 Luis Felipe Ariza Vesga. All rights reserved.",
+      footAbout: "About Luis", footFaq: "FAQ", bookPage: "Book page",
+      pagesTitle: "One page per book", pagesSub: "Each book has its own page, with its topic, its editions and the buy links.", pageOpen: "See the book",
       edition: "Edition", editionGroup: "Edition language",
       kindle: "Kindle", paperback: "Paperback", hardcover: "Hardcover",
       sample: "Read chapter 1 free (PDF)", labs: "Book labs",
@@ -102,7 +106,9 @@
     }
   };
 
+  var baseTitle = document.title;
   var state = { lang: root.getAttribute("lang") === "en" ? "en" : "es", edition: {} };
+  var baseLang = state.lang;
   BOOKS.forEach(function (b) { state.edition[b.id] = state.lang; });
 
   function t(k) { return (T[state.lang] && T[state.lang][k]) || T.es[k] || k; }
@@ -141,6 +147,7 @@
     if (b.labs) {
       extra += '<a class="extra-link" href="' + b.labs + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7.5 14h9"/></svg>' + t("labs") + "</a>";
     }
+    extra = '<a class="extra-link" href="' + (state.lang === "en" ? "/en/books/" : "/books/") + b.anchor + '/">' + t("bookPage") + "</a>" + extra;
     var gid = idPrefix + b.id;
     return '<div class="item__art" data-reader="' + b.id + ':' + lang + '" role="button" tabindex="0" aria-haspopup="dialog" style="cursor:pointer" aria-label="' + esc((b.reader ? t("sample").replace(" (PDF)", "") : t("openBook")) + ": " + b.title[lang]) + '">' + book3d(b, lang) + '</div>' +
       '<div class="item__info">' +
@@ -501,7 +508,7 @@
     });
     var hs = document.getElementById("hero-sample");
     if (hs) hs.setAttribute("href", BOOKS[0].sample[state.lang]);
-    document.title = state.lang === "en" ? "Kubernetes books | Beanters" : "Libros de Kubernetes | Beanters";
+    document.title = state.lang === baseLang ? baseTitle : (state.lang === "en" ? "Kubernetes books | Beanters" : "Libros de Kubernetes | Beanters");
     syncThemeLabel();
   }
 
@@ -575,7 +582,16 @@
     var rd = e.target.closest("[data-reader]");
     if (rd) { openReader(rd); return; }
     var l = e.target.closest("[data-set-lang]");
-    if (l) { setLang(l.getAttribute("data-set-lang")); return; }
+    if (l) {
+      var v = l.getAttribute("data-set-lang");
+      /* /books/ and /en/books/ are separate URLs: follow the hreflang alternate, as site.js does. */
+      var alt = document.querySelector('link[rel="alternate"][hreflang="' + v + '"]');
+      if (alt && v !== state.lang) {
+        var u = new URL(alt.href, location.href);
+        if (u.pathname !== location.pathname) { store("bk-lang", v); location.assign(u.pathname + u.search + location.hash); return; }
+      }
+      setLang(v); return;
+    }
 
     var ed = e.target.closest("[data-edition]");
     if (ed) {
