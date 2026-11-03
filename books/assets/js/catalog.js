@@ -109,6 +109,7 @@
   var baseTitle = document.title;
   var state = { lang: root.getAttribute("lang") === "en" ? "en" : "es", edition: {} };
   var baseLang = state.lang;
+  store("bk-lang", state.lang); /* the URL decides the language; keep the stored value in step with it */
   BOOKS.forEach(function (b) { state.edition[b.id] = state.lang; });
 
   function t(k) { return (T[state.lang] && T[state.lang][k]) || T.es[k] || k; }

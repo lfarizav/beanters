@@ -34,16 +34,14 @@
 <link rel="stylesheet" href="/assets/site/detail.css?v=20261103b">
 
 <script>
-  /* Theme and language before first paint, so nothing flashes. */
+  /* Theme before first paint. The language is fixed by the URL: this page is Spanish whatever is stored. */
   (function () {
-    var d = document.documentElement, t = null, l = null;
-    try { t = localStorage.getItem("bk-theme"); l = localStorage.getItem("bk-lang"); } catch (e) {}
-    var q = new URLSearchParams(location.search).get("lang");
-    /* Old links: /books/?lang=en now goes to the real English page. */
-    if (q === "en") { location.replace("/en/books/" + location.hash); return; }
-    if (q === "es") l = q;
+    var d = document.documentElement, t = null;
+    try { t = localStorage.getItem("bk-theme"); } catch (e) {}
+    /* Old links: /books/?lang=en goes to the real English page. */
+    if (new URLSearchParams(location.search).get("lang") === "en") { location.replace("/en/books/" + location.hash); return; }
     if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
-    if (l === "en") d.setAttribute("lang", "en");
+    d.setAttribute("lang", "es");
   })();
 </script>
 
@@ -534,7 +532,7 @@
 </footer>
 
 <script src="/books/assets/js/books-data.js?v=20261103a"></script>
-<script src="/books/assets/js/catalog.js?v=20261103a"></script>
+<script src="/books/assets/js/catalog.js?v=20261103b"></script>
 <script src="/assets/site/counter.js?v=20261031a" defer></script>
 <script src="/books/assets/hero/geometry.js"></script>
 <script src="/books/assets/hero/story.js?v=20261030d"></script>

@@ -17,6 +17,8 @@
 
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function lang() { return root.getAttribute("lang") === "en" ? "en" : "es"; }
+  /* The URL decides the language; keep the stored value in step with the page (embedded figures read it). */
+  store("bk-lang", lang());
 
   /* Remember the Spanish source once, so switching back needs no second dictionary. */
   var nodes = Array.prototype.slice.call(document.querySelectorAll("[data-i18n]"));

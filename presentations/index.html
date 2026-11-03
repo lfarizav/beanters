@@ -20,14 +20,12 @@
 <link rel="stylesheet" href="/assets/site/site.css?v=20261031a">
 <link rel="stylesheet" href="/assets/site/pages.css?v=20261030a">
 <script>
-  /* Theme and language before first paint, so nothing flashes. Same keys as /books/. */
+  /* Theme before first paint. The language is fixed by the URL: this page is Spanish whatever is stored. */
   (function () {
-    var d = document.documentElement, t = null, l = null;
-    try { t = localStorage.getItem("bk-theme"); l = localStorage.getItem("bk-lang"); } catch (e) {}
-    var q = new URLSearchParams(location.search).get("lang");
-    if (q === "en" || q === "es") l = q;
+    var d = document.documentElement, t = null;
+    try { t = localStorage.getItem("bk-theme"); } catch (e) {}
     if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
-    if (l === "en") d.setAttribute("lang", "en");
+    d.setAttribute("lang", "es");
   })();
 </script>
 </head>
@@ -220,7 +218,7 @@
     footCopy: "© 2026 Luis Felipe Ariza Vesga. All rights reserved."
   } };
 </script>
-<script src="/assets/site/site.js?v=20261101a"></script>
+<script src="/assets/site/site.js?v=20261103b"></script>
 <script src="/assets/site/counter.js?v=20261031a" defer></script>
 </body>
 </html>

@@ -35,14 +35,15 @@
 <link rel="stylesheet" href="/assets/figures/areas/areas.css?v=20261030b">
 
 <script>
-  /* English page: theme before first paint. The language is fixed by the URL (/en/). */
+  /* Theme before first paint. The language is fixed by the URL: this page is Spanish whatever is stored. */
   (function () {
     var d = document.documentElement, t = null;
     try { t = localStorage.getItem("bk-theme"); } catch (e) {}
     if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
-    d.setAttribute("lang", "en");
+    d.setAttribute("lang", "es");
   })();
-</script><script type="importmap">
+</script>
+<script type="importmap">
 {
   "imports": {
     "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.min.js",
@@ -530,7 +531,7 @@
   </div>
 </footer>
 
-<script src="/assets/site/site.js?v=20261101a"></script>
+<script src="/assets/site/site.js?v=20261103b"></script>
 <script src="/assets/site/counter.js?v=20261031a" defer></script>
 <script type="module" src="/assets/figures/areas/areas.js?v=20261030b"></script>
 <script type="module" src="/assets/welcome/welcome.js?v=20261030e"></script>

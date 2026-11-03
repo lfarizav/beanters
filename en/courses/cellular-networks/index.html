@@ -21,14 +21,15 @@
 <link rel="stylesheet" href="/assets/site/site.css?v=20261031a">
 <link rel="stylesheet" href="/assets/site/courses.css?v=20261030a">
 <script>
-  /* English page: theme before first paint. The language is fixed by the URL (/en/). */
+  /* Theme before first paint. The language is fixed by the URL: this page is Spanish whatever is stored. */
   (function () {
     var d = document.documentElement, t = null;
     try { t = localStorage.getItem("bk-theme"); } catch (e) {}
     if (t === "dark" || t === "light") d.setAttribute("data-theme", t);
-    d.setAttribute("lang", "en");
+    d.setAttribute("lang", "es");
   })();
-</script><script type="application/ld+json">
+</script>
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Course",
@@ -319,7 +320,7 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close
 document.getElementById('key-modal').addEventListener('click', function(e) { if (e.target === this) closeKeyModal(); });
 </script>
 
-<script src="/assets/site/site.js?v=20261101a"></script>
+<script src="/assets/site/site.js?v=20261103b"></script>
 <script src="/assets/site/counter.js?v=20261031a" defer></script>
 </body>
 </html>
